@@ -1,0 +1,326 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     10492,        317]
+NotebookOptionsPosition[      9712,        285]
+NotebookOutlinePosition[     10106,        302]
+CellTagsIndexPosition[     10063,        299]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+\[Copyright] Sheehan Olver, 2010, subject to BSD license.\
+\>", "Text",
+ CellChangeTimes->{{3.484041900204331*^9, 3.484041953655856*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Package setup", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BeginPackage", "[", "$CommonPackage", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"InfinityQ", "::", "usage"}], "=", 
+   "\"\<Test for whether a value is infinite.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FiniteQ", "::", "usage"}], "=", 
+   "\"\<Tests whether a value is finite.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SignQ", "::", "usage"}], "=", 
+   "\"\<Test for whether a value is \[PlusMinus]1.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OneVector", "::", "usage"}], "=", 
+   "\"\<OneVector[n] constructs a vector of length n of all ones.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ZeroVector", "::", "usage"}], "=", 
+   "\"\<ZeroVector[n] constructs a vector of length n of all zeros.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BasisVector", "::", "usage"}], "=", 
+   "\"\<BasisVector[n][j] constructs a vector of length n with the jth entry \
+equal to one.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NEqual", "::", "usage"}], "=", 
+   "\"\<NEqual[i,j] determines whether two values are within \
+$MachineTolerence of each other.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$MachineTolerance", "::", "usage"}], "=", 
+   "\"\<A specified tolerance for when two numerical values should be treated \
+as equal.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"AlternatingVector", "::", "usage"}], "=", "\[IndentingNewLine]", 
+   "\"\<Alternating vector.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ScalarQ", "::", "usage"}], "=", "\[IndentingNewLine]", 
+   "\"\<Tests whether something has a scalar value.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"CDot", ";", "SDot", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ZeroQ", ";", "NZeroQ", ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4842066990990553`*^9, 3.4842067064172373`*^9}, {
+   3.4842068918461*^9, 3.484206896898924*^9}, {3.484206938940242*^9, 
+   3.484206948456107*^9}, {3.484207013735791*^9, 3.484207016525519*^9}, {
+   3.484207083174301*^9, 3.484207128384593*^9}, {3.484207260357958*^9, 
+   3.4842072638205643`*^9}, {3.4842153058073683`*^9, 3.484215306172584*^9}, 
+   3.4842235722836514`*^9, {3.484632683111145*^9, 3.484632705024225*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Vectors", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OneVector", "[", "n_", "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"1", ",", 
+     RowBox[{"{", "n", "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ZeroVector", "[", "n_", "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"0", ",", 
+     RowBox[{"{", "n", "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"AlternatingVector", "[", "n_", "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"-", "1"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "1"}], ")"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "n"}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BasisVector", "[", "n_", "]"}], "[", "j_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"IdentityMatrix", "[", "n", "]"}], "[", 
+   RowBox[{"[", "j", "]"}], "]"}]}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.484206961154813*^9, 3.484207018116205*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ScalarQ", "[", "f_", "]"}], ":=", 
+   RowBox[{"NumberQ", "[", 
+    RowBox[{"N", "[", "f", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CDot", "[", 
+    RowBox[{
+     RowBox[{"f_", "?", "ScalarQ"}], ",", 
+     RowBox[{"g_", "?", "ScalarQ"}]}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Conjugate", "[", "f", "]"}], " ", "g"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CDot", "[", 
+    RowBox[{"f_List", ",", "g_List"}], "]"}], ":=", 
+   RowBox[{"Plus", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"CDot", "@@", "#"}], ")"}], "&"}], "/@", 
+      RowBox[{"Thread", "[", 
+       RowBox[{"f", "~", "List", "~", "g"}], "]"}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SDot", "[", 
+    RowBox[{"f_List", ",", "g_List"}], "]"}], ":=", 
+   RowBox[{"f", ".", "g"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SDot", "[", 
+     RowBox[{"f_", ",", "g_"}], "]"}], ":=", 
+    RowBox[{"f", " ", "g"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$MachineTolerance", "=", 
+    RowBox[{"10.", "^", 
+     RowBox[{"(", 
+      RowBox[{"-", "13"}], ")"}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ZeroQ", "[", "f_", "]"}], ":=", 
+   RowBox[{"f", "\[Equal]", "0"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NEqual", "[", 
+    RowBox[{"f_List", ",", "g_List"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Norm", "[", 
+     RowBox[{"f", "-", "g"}], "]"}], "<", "$MachineTolerance"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NEqual", "[", 
+    RowBox[{
+     RowBox[{"_", "?", "InfinityQ"}], ",", 
+     RowBox[{"_", "?", "InfinityQ"}]}], "]"}], ":=", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"NEqual", "[", 
+     RowBox[{"f_", ",", "g_"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{"f", "-", "g"}], "]"}], "<", "$MachineTolerance"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NZeroQ", "[", "f_", "]"}], ":=", 
+   RowBox[{"f", "~", "NEqual", "~", "0"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"InfinityQ", "[", "\[Infinity]", "]"}], ":=", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"InfinityQ", "[", 
+    RowBox[{"-", "\[Infinity]"}], "]"}], ":=", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"InfinityQ", "[", "_DirectedInfinity", "]"}], ":=", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"InfinityQ", "[", "_", "]"}], ":=", "False"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"FiniteQ", "[", "x_", "]"}], ":=", 
+    RowBox[{"!", 
+     RowBox[{"InfinityQ", "[", "x", "]"}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SignQ", "[", 
+    RowBox[{"+", "1"}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SignQ", "[", 
+    RowBox[{"-", "1"}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SignQ", "[", "_", "]"}], ":=", "False"}], 
+  ";"}], "\[IndentingNewLine]"}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4515881476550083`*^9, 3.4515881626307096`*^9}, 
+   3.451588203901856*^9, {3.4515884203821697`*^9, 3.451588423650218*^9}, {
+   3.451588466021699*^9, 3.451588495460656*^9}, {3.451588539185326*^9, 
+   3.451588556749887*^9}, {3.451588609151354*^9, 3.451588689490798*^9}, {
+   3.451588828948495*^9, 3.4515889559692574`*^9}, {3.456592383739086*^9, 
+   3.456592425408*^9}, {3.4565924584601307`*^9, 3.4565924593991547`*^9}, {
+   3.456592659312305*^9, 3.456592667374116*^9}, {3.4576275122262793`*^9, 
+   3.457627520171055*^9}, {3.458054590183446*^9, 3.4580545922367477`*^9}, {
+   3.472069012945389*^9, 3.472069022433113*^9}, {3.472069388224922*^9, 
+   3.472069420643303*^9}, {3.478945576491828*^9, 3.478945581558816*^9}, {
+   3.4791224971733932`*^9, 3.47912249751755*^9}, {3.483344823298658*^9, 
+   3.4833448573588877`*^9}, {3.483350180654356*^9, 3.4833501911862373`*^9}, {
+   3.4833502973382063`*^9, 3.4833502976706448`*^9}, {3.4835312148362827`*^9, 
+   3.483531243917582*^9}, {3.483961134595317*^9, 3.483961142449135*^9}, {
+   3.484207018790845*^9, 3.484207026205304*^9}, {3.484215610578171*^9, 
+   3.484215610689109*^9}, {3.4846327112722483`*^9, 3.4846327211512613`*^9}, {
+   3.486624033437031*^9, 3.486624035537981*^9}, {3.4866241580656137`*^9, 
+   3.48662417544636*^9}, {3.4866714660653553`*^9, 3.486671479519327*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Finish", "Section",
+ CellChangeTimes->{{3.4842068983367157`*^9, 3.484206898904407*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.484206906081437*^9, 3.484206913225231*^9}, {
+  3.484207060820569*^9, 3.484207062002028*^9}}]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{640, 750},
+WindowMargins->{{282, Automatic}, {Automatic, 0}},
+ShowSelection->True,
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 147, 3, 26, "Text"],
+Cell[CellGroupData[{
+Cell[717, 27, 32, 0, 67, "Section"],
+Cell[752, 29, 2498, 61, 388, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3287, 95, 26, 0, 67, "Section"],
+Cell[3316, 97, 1143, 35, 88, "Input",
+ InitializationCell->True],
+Cell[4462, 134, 4811, 133, 373, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9310, 272, 93, 1, 67, "Section"],
+Cell[9406, 275, 290, 7, 43, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

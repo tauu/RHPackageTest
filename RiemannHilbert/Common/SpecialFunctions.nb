@@ -1,0 +1,415 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     13400,        406]
+NotebookOptionsPosition[     12047,        356]
+NotebookOutlinePosition[     12443,        373]
+CellTagsIndexPosition[     12400,        370]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+\[Copyright] Sheehan Olver, 2010, subject to BSD license.\
+\>", "Text",
+ CellChangeTimes->{{3.484041900204331*^9, 3.484041953655856*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Package setup", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", "$CommonPackage", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4842066990990553`*^9, 3.4842067064172373`*^9}, {
+  3.4842068918461*^9, 3.484206896898924*^9}, {3.484206938940242*^9, 
+  3.484206948456107*^9}, {3.484207013735791*^9, 3.484207016525519*^9}, {
+  3.484207083174301*^9, 3.484207128384593*^9}, {3.484207260357958*^9, 
+  3.4842072638205643`*^9}, {3.484207440220334*^9, 3.48420750006673*^9}, {
+  3.484207538616802*^9, 3.484207567247468*^9}, {3.484207601318513*^9, 
+  3.484207627086529*^9}, {3.484209203311123*^9, 3.484209260028742*^9}, {
+  3.4842093828821173`*^9, 3.484209393550514*^9}, {3.4842099725532513`*^9, 
+  3.484209973806363*^9}, {3.484215389908093*^9, 3.484215392538155*^9}, {
+  3.4842237580514193`*^9, 3.4842237591954403`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Documentation", "Section",
+ CellChangeTimes->{{3.483861021528007*^9, 3.483861023591382*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SqrtBranch", "::", "usage"}], "=", 
+   "\"\<SqrtBranch[x,t] is a square root function with a branch cut along (0,\
+\[Infinity] Exp[I t]).\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PowerBranch", "::", "usage"}], "=", 
+   "\"\<PowerBranch[x,y,t] is a function x^y with a branch cut along (0,\
+\[Infinity] Exp[I t]).\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ArgBranch", "::", "usage"}], "=", 
+   "\"\<ArgBranch[x,t] is an argument function with a branch cut along (0,\
+\[Infinity] Exp[I t]).\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"LogBranch", "::", "usage"}], "=", 
+   "\"\<LogBranch[x,t] is a log function with a branch cut along (0,\
+\[Infinity] Exp[I t]).\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PowerP", "::", "usage"}], "=", 
+   "\"\<PowerP[x,y,t] evaluates x^y with a branch cut along (\[Infinity] \
+Exp[I t],0) for x on the branch cut from the left.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"PowerM", "::", "usage"}], "=", 
+    "\"\<PowerM[x,y,t] evaluates x^y with a branch cut along (\[Infinity] \
+Exp[I t],0) for x on the branch cut from the right.\>\""}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4838610275828667`*^9, 3.4838614859203253`*^9}, {
+  3.483861529429932*^9, 3.4838615437575197`*^9}, {3.483861603346241*^9, 
+  3.4838617804477262`*^9}, {3.483861811764718*^9, 3.483862004648205*^9}, {
+  3.483862053526464*^9, 3.4838620905316133`*^9}, {3.4842099788811893`*^9, 
+  3.484209982255239*^9}, {3.4842126772870407`*^9, 3.484212681586972*^9}}]
+}, Open  ]],
+
+Cell["Functions", "Section",
+ CellChangeTimes->{{3.48386180534476*^9, 3.483861806430449*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+These have the property that ExpStep[\[Infinity]] = 1 and ExpStep[t] \
+==IntegrateExpStep[t] \
+\>", "Text",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{{3.4619329500541973`*^9, 3.461932982579811*^9}, {
+   3.461933095818705*^9, 3.461933121606679*^9}, {3.462010339314972*^9, 
+   3.4620103834347773`*^9}, 3.4644620842291203`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ExpStep", "[", "t_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"2", "/", "\[Pi]"}], " ", 
+     RowBox[{"ArcTan", "[", 
+      RowBox[{"Tanh", "[", 
+       RowBox[{"t", "/", "2"}], "]"}], "]"}]}], "+", 
+    RowBox[{"1", "/", "2"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ExpStepIntegral", "[", "t_", "]"}], ":=", 
+   RowBox[{
+    FractionBox["t", "2"], "+", 
+    FractionBox[
+     RowBox[{"2", " ", "t", " ", 
+      RowBox[{"ArcTan", "[", 
+       RowBox[{"Tanh", "[", 
+        FractionBox["t", "2"], "]"}], "]"}]}], "\[Pi]"], "+", 
+    FractionBox[
+     RowBox[{"\[ImaginaryI]", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"t", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Log", "[", 
+            RowBox[{"1", "-", 
+             RowBox[{"\[ImaginaryI]", " ", 
+              SuperscriptBox["\[ExponentialE]", 
+               RowBox[{"-", "t"}]]}]}], "]"}], "-", 
+           RowBox[{"Log", "[", 
+            RowBox[{"1", "+", 
+             RowBox[{"\[ImaginaryI]", " ", 
+              SuperscriptBox["\[ExponentialE]", 
+               RowBox[{"-", "t"}]]}]}], "]"}]}], ")"}]}], "+", 
+        RowBox[{"PolyLog", "[", 
+         RowBox[{"2", ",", 
+          RowBox[{
+           RowBox[{"-", "\[ImaginaryI]"}], " ", 
+           SuperscriptBox["\[ExponentialE]", 
+            RowBox[{"-", "t"}]]}]}], "]"}], "-", 
+        RowBox[{"PolyLog", "[", 
+         RowBox[{"2", ",", 
+          RowBox[{"\[ImaginaryI]", " ", 
+           SuperscriptBox["\[ExponentialE]", 
+            RowBox[{"-", "t"}]]}]}], "]"}]}], ")"}]}], "\[Pi]"]}]}], 
+  ";"}]}], "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ InitializationCell->True,
+ CellChangeTimes->{{3.461933031284357*^9, 3.461933033131562*^9}, {
+   3.461933080531994*^9, 3.461933089557345*^9}, {3.461933154551341*^9, 
+   3.461933156219874*^9}, 3.4644620842292423`*^9, {3.484209983153386*^9, 
+   3.484209983554781*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+These have the property that FourierExpStep[\[Infinity]] = 1 and \
+Integrate[FourierExpStep[t] Exp[I t]]==FourierIntegrateFourierExpStep[t] \
+Exp[I t], i.e., only a single mode\
+\>", "Text",
+ CellChangeTimes->{{3.4619329500541973`*^9, 3.461932982579811*^9}, {
+  3.461933095818705*^9, 3.461933121606679*^9}, {3.462010339314972*^9, 
+  3.462010351243997*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"FourierExpStep", "[", "t_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       FractionBox["1", "2"], " ", 
+       RowBox[{"(", 
+        RowBox[{"\[Pi]", "+", 
+         RowBox[{"4", " ", 
+          RowBox[{"ArcTan", "[", 
+           RowBox[{"Tanh", "[", 
+            FractionBox["t", "2"], "]"}], "]"}]}]}], ")"}]}], "-", 
+      RowBox[{"I", " ", 
+       RowBox[{"Sech", "[", "t", "]"}]}]}], ")"}], "/", "\[Pi]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FourierExpStepFourierIntegral", "[", "t_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"-", 
+     FractionBox["1", "2"]}], " ", "\[ImaginaryI]", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"\[Pi]", "+", 
+       RowBox[{"4", " ", 
+        RowBox[{"ArcTan", "[", 
+         RowBox[{"Tanh", "[", 
+          FractionBox["t", "2"], "]"}], "]"}]}]}], ")"}], "/", "\[Pi]"}]}]}], 
+  ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.461600678146537*^9, 3.461600705893291*^9}, {
+  3.461600838239284*^9, 3.46160091087022*^9}, {3.461600947609735*^9, 
+  3.4616009628970413`*^9}, {3.461932714414089*^9, 3.461932721069511*^9}, {
+  3.4619327582274437`*^9, 3.46193276808685*^9}, {3.461932857152465*^9, 
+  3.461932857750737*^9}, {3.4619328956358223`*^9, 3.461932943842534*^9}, {
+  3.461933162294766*^9, 3.4619331672502327`*^9}, {3.484209984306505*^9, 
+  3.48420998494057*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Complex functions with branch cuts\
+\>", "Text",
+ CellChangeTimes->{{3.4619329500541973`*^9, 3.461932982579811*^9}, {
+  3.461933095818705*^9, 3.461933121606679*^9}, {3.462010339314972*^9, 
+  3.462010351243997*^9}, {3.464462099270743*^9, 3.464462108610444*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SqrtBranch", "[", 
+    RowBox[{"x_", ",", "t_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"-", "I"}], " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"I", " ", 
+      RowBox[{"t", "/", "2"}]}], "]"}], 
+    RowBox[{"Sqrt", "[", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"Exp", "[", 
+        RowBox[{
+         RowBox[{"-", "I"}], " ", "t"}], "]"}]}], "x"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"LogBranch", "[", 
+    RowBox[{"x_", ",", "t_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"I", " ", 
+     RowBox[{"(", 
+      RowBox[{"t", "-", "\[Pi]"}], ")"}]}], " ", "+", 
+    RowBox[{"Log", "[", 
+     RowBox[{
+      RowBox[{"Exp", "[", 
+       RowBox[{"I", 
+        RowBox[{"(", 
+         RowBox[{"\[Pi]", "-", " ", "t"}], ")"}]}], "]"}], " ", "x"}], 
+     "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ArgBranch", "[", 
+    RowBox[{"x_", ",", "t_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Arg", "[", 
+     RowBox[{
+      RowBox[{"Exp", "[", 
+       RowBox[{"I", "  ", 
+        RowBox[{"(", 
+         RowBox[{"\[Pi]", "-", "t"}], ")"}]}], "]"}], "x"}], "]"}], "+", 
+    "\[Pi]", "+", "t"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"PowerBranch", "[", 
+   RowBox[{"x_", ",", "y_", ",", "t_"}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Exp", "[", 
+       RowBox[{"I", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "\[Pi]"}], "-", "t"}], ")"}]}], "]"}], " ", "x"}], 
+     ")"}], "^", "y"}], " ", 
+   RowBox[{"Exp", "[", 
+    RowBox[{
+     RowBox[{"-", " ", "y"}], " ", "I", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", "\[Pi]"}], "-", " ", "t"}], ")"}]}], 
+    "]"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PowerP", "[", 
+    RowBox[{"x_", ",", "y_", ",", "t_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Abs", "[", "x", "]"}], "^", "y"}], " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"y", " ", "I", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"2", "\[Pi]"}], "+", "t"}], ")"}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PowerM", "[", 
+    RowBox[{"x_", ",", "y_", ",", "t_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Abs", "[", "x", "]"}], "^", "y"}], " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"y", " ", "I", " ", "t"}], "]"}]}]}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4644354734082127`*^9, 3.464435568960825*^9}, {
+  3.464436804157724*^9, 3.464436845204832*^9}, {3.464436926168723*^9, 
+  3.464436929296351*^9}, {3.464436974956151*^9, 3.4644370003404922`*^9}, {
+  3.464462073872959*^9, 3.464462076016326*^9}, {3.4756569077532873`*^9, 
+  3.475656919436945*^9}, {3.479543307431822*^9, 3.479543318121488*^9}, {
+  3.48336313753211*^9, 3.483363139946836*^9}, {3.484209985631612*^9, 
+  3.484209988804182*^9}}]
+}, Open  ]],
+
+Cell["Old", "Subsection",
+ CellChangeTimes->{{3.479543056364172*^9, 3.479543056602108*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PowerBranch", "[", 
+    RowBox[{"x_", ",", "y_", ",", "t_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Abs", "[", "x", "]"}], "^", "y"}], " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"I", " ", "y", " ", 
+      RowBox[{"ArgBranch", "[", 
+       RowBox[{"x", ",", "t"}], "]"}]}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{3.484209990523509*^9}],
+
+Cell[CellGroupData[{
+
+Cell["Finish", "Section",
+ CellChangeTimes->{{3.4842068983367157`*^9, 3.484206898904407*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.484206906081437*^9, 3.484206913225231*^9}, {
+  3.484207060820569*^9, 3.484207062002028*^9}}]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+CellGrouping->Manual,
+WindowSize->{640, 656},
+WindowMargins->{{298, Automatic}, {38, Automatic}},
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 147, 3, 26, "Text"],
+Cell[CellGroupData[{
+Cell[717, 27, 32, 0, 67, "Section"],
+Cell[752, 29, 825, 13, 27, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1614, 47, 98, 1, 67, "Section"],
+Cell[1715, 50, 1816, 41, 313, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[3546, 94, 93, 1, 67, "Section"],
+Cell[CellGroupData[{
+Cell[3664, 99, 364, 7, 23, "Text",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[4031, 108, 1986, 55, 132, "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6054, 168, 366, 7, 41, "Text"],
+Cell[6423, 177, 1438, 39, 82, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7898, 221, 270, 5, 26, "Text"],
+Cell[8171, 228, 2935, 93, 103, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[11121, 324, 91, 1, 34, "Subsection"],
+Cell[11215, 327, 405, 12, 21, "Input"],
+Cell[CellGroupData[{
+Cell[11645, 343, 93, 1, 67, "Section"],
+Cell[11741, 346, 290, 7, 43, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
