@@ -1,22 +1,3 @@
-(* Content-type: application/mathematica *)
-
-(*** Wolfram Notebook File ***)
-(* http://www.wolfram.com/nb *)
-
-(* CreatedBy='Mathematica 7.0' *)
-
-(*CacheID: 234*)
-(* Internal cache information:
-NotebookFileLineBreakTest
-NotebookFileLineBreakTest
-NotebookDataPosition[       145,          7]
-NotebookDataLength[    104849,       2902]
-NotebookOptionsPosition[    101123,       2783]
-NotebookOutlinePosition[    101523,       2800]
-CellTagsIndexPosition[    101480,       2797]
-WindowFrame->Normal*)
-
-(* Beginning of Notebook Content *)
 Notebook[{
 Cell["\<\
 \[Copyright] Sheehan Olver, 2010, subject to BSD license.
@@ -42,19 +23,12 @@ for x in (-\[Infinity],5) to about 8 digits accuracy\>\""}],
 \[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]}], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.494169962264698*^9, 3.494169970215561*^9}, {
-  3.494170083687829*^9, 3.494170100639832*^9}, {3.49417061864404*^9, 
-  3.494170622096415*^9}, {3.494219922994432*^9, 3.4942199274260674`*^9}, {
-  3.4942205693703136`*^9, 3.494220654855151*^9}, {3.494220718749074*^9, 
-  3.494220757357194*^9}, {3.494225009850307*^9, 3.49422504069768*^9}, {
-  3.49935973794376*^9, 3.4993598397785845`*^9}}],
+ InitializationCell->True],
 
 Cell[CellGroupData[{
 
 Cell["Small x", "Section",
- InitializationCell->True,
- CellChangeTimes->{{3.494170591704603*^9, 3.494170593089345*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -64,9 +38,7 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"{", "}"}], ",", 
      RowBox[{"Clear", "[", "M", "]"}]}], "]"}]}], ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.4941700243489122`*^9, 3.494170039889163*^9}, {
-  3.4941706460116673`*^9, 3.4941706462501783`*^9}}],
+ InitializationCell->True],
 
 Cell[TextData[{
  "We construct the ",
@@ -83,16 +55,7 @@ Cell[TextData[{
 part, hence we save the evaluations for use with other choices of x and \
 Stokes multipliers"
 }], "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.4837045475941553`*^9, 3.4837046222948847`*^9}, {
-  3.483705035021916*^9, 3.48370505871178*^9}, {3.48386865553936*^9, 
-  3.483868664306522*^9}, {3.483945868466632*^9, 3.4839458976675*^9}, {
-  3.483946948265936*^9, 3.483946966226915*^9}, {3.4839859710810966`*^9, 
-  3.4839859847064037`*^9}, {3.483986567458593*^9, 3.4839870685762787`*^9}, {
-  3.48403445986523*^9, 3.484034531652897*^9}, {3.4840346092751503`*^9, 
-  3.484034612087191*^9}, {3.4893834459173517`*^9, 3.489383563992466*^9}, {
-  3.4893836679540052`*^9, 3.489383676852186*^9}, {3.489383908388051*^9, 
-  3.489383935977149*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -133,10 +96,7 @@ Cell[BoxData[
                  RowBox[{"\[Pi]", "/", "3"}]}], "+", " ", 
                 RowBox[{"\[Pi]", "/", "6"}]}], ")"}]}], "]"}]}]}], "}"}], 
          "]"}], ",", "n"}], "]"}]}], "]"}]}]}], ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.487434129459428*^9, 3.487434249324706*^9}, {
-   3.487442466768532*^9, 3.4874425054868383`*^9}, {3.4941699540960827`*^9, 
-   3.494169954807641*^9}, 3.494170006311758*^9}],
+ InitializationCell->True],
 
 Cell[TextData[{
  "Mat is the 6 (",
@@ -147,15 +107,7 @@ Cell[TextData[{
   FontSlant->"Italic"],
  "1) matrix for the linear system "
 }], "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.4837045475941553`*^9, 3.4837046222948847`*^9}, {
-  3.483705035021916*^9, 3.48370505871178*^9}, {3.48386865553936*^9, 
-  3.483868664306522*^9}, {3.483945868466632*^9, 3.4839458976675*^9}, {
-  3.483946948265936*^9, 3.483946966226915*^9}, {3.4839859710810966`*^9, 
-  3.4839859847064037`*^9}, {3.483986567458593*^9, 3.4839870685762787`*^9}, {
-  3.48403445986523*^9, 3.484034531652897*^9}, {3.4840346092751503`*^9, 
-  3.484034612087191*^9}, {3.4893834459173517`*^9, 3.489383601086649*^9}, {
-  3.4893836579480247`*^9, 3.489383711004634*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -490,20 +442,10 @@ Cell[BoxData[
          RowBox[{"ZeroMatrix", "[", 
           RowBox[{"n", "-", "1"}], "]"}]}], "]"}]}]}]}], 
     "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.487434527770954*^9, 3.487434548131906*^9}, {
-  3.4874368898058653`*^9, 3.487436921943789*^9}, {3.4874409664078913`*^9, 
-  3.487441142208324*^9}, {3.487441180917163*^9, 3.487441403783864*^9}, {
-  3.4874417245406218`*^9, 3.487441755065526*^9}, {3.4874422784151087`*^9, 
-  3.487442301715642*^9}, {3.4874425210058537`*^9, 3.487442550664968*^9}, {
-  3.489383585406761*^9, 3.4893835868208437`*^9}, {3.4893836546829367`*^9, 
-  3.489383656816221*^9}, {3.489383728589101*^9, 3.489383745111307*^9}, {
-  3.494170020195278*^9, 3.494170021144803*^9}, {3.494170053123053*^9, 
-  3.494170055680768*^9}}],
+ InitializationCell->True],
 
 Cell["Vec is the right-hand side of the linear system", "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.489383799451725*^9, 3.489383808326232*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -594,18 +536,13 @@ Cell[BoxData[
                RowBox[{"\[Pi]", "/", "6"}]}], "]"}]}]}], "}"}], "]"}], ",", 
          "n"}], "]"}]}], "//", "FiniteValues"}]}], "\[IndentingNewLine]", 
     "]"}]}], ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.4874415840235577`*^9, 3.4874415894239283`*^9}, {
-  3.487441784096101*^9, 3.487441787474601*^9}, {3.487442553699135*^9, 
-  3.487442565983983*^9}, {3.489383770436083*^9, 3.489383794127829*^9}, {
-  3.494170056249283*^9, 3.494170057503014*^9}}],
+ InitializationCell->True],
 
 Cell["\<\
 We solve the linear system, and then reform the solution as Fun's along each \
 of the constituent curves\
 \>", "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.489383842212865*^9, 3.489383866444034*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -706,25 +643,13 @@ Cell[BoxData[
        RowBox[{"#", "\[LeftDoubleBracket]", 
         RowBox[{"4", ";;"}], "\[RightDoubleBracket]"}]}], "}"}], "&"}]}]}], 
   ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.4874413708920603`*^9, 3.48744137315385*^9}, {
-  3.487441428421764*^9, 3.48744166649815*^9}, {3.487441804682617*^9, 
-  3.487441826783945*^9}, {3.487441872327602*^9, 3.487441877832815*^9}, {
-  3.4874420252943077`*^9, 3.4874420401065683`*^9}, {3.487442097546114*^9, 
-  3.48744210680027*^9}, {3.487442328290682*^9, 3.4874423562355547`*^9}, {
-  3.4874425717367897`*^9, 3.487442590081996*^9}, {3.489383828598509*^9, 
-  3.489383838543992*^9}, {3.489384266980564*^9, 3.489384289899864*^9}, {
-  3.4894224175478888`*^9, 3.489422424179429*^9}, {3.489423910748149*^9, 
-  3.48942391329029*^9}, {3.494170058803113*^9, 3.4941700603226147`*^9}, {
-  3.494170190357995*^9, 3.494170192723526*^9}}],
+ InitializationCell->True],
 
 Cell["\<\
 To get the actual value of the solution to Painleve II, we need to integrate \
 over the domain.\
 \>", "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.489383873639185*^9, 3.489383893410879*^9}, {
-  3.494170662998796*^9, 3.4941706692877693`*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -743,22 +668,12 @@ Cell[BoxData[
        RowBox[{"\[Pi]", "\[NonBreakingSpace]", "I"}], ")"}]}], "//", 
      "DomainIntegrate"}], ",", "\[IndentingNewLine]", 
     RowBox[{"General", "::", "\"\<unfl\>\""}]}], "]"}]}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.487442374416141*^9, 3.487442404728746*^9}, {
-   3.48744259310618*^9, 3.487442596394795*^9}, 3.4893838721095753`*^9, {
-   3.489383964325934*^9, 3.489383965594174*^9}, {3.489384294366419*^9, 
-   3.489384296506878*^9}, 3.489831130174809*^9, {3.4941703152481413`*^9, 
-   3.494170323015279*^9}, {3.494170386553316*^9, 3.494170386685093*^9}, {
-   3.494170807918869*^9, 3.494170816725308*^9}, {3.494172528225803*^9, 
-   3.4941725517662888`*^9}, {3.4942213528225183`*^9, 3.494221388316774*^9}, {
-   3.494223731551958*^9, 3.494223744590023*^9}}],
+ InitializationCell->True],
 
 Cell["\<\
 The right-hand side changes if we want to compute the derivative.\
 \>", "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.489383873639185*^9, 3.489383893410879*^9}, {
-  3.494170662998796*^9, 3.494170702179875*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -1042,23 +957,12 @@ Cell[BoxData[
              RowBox[{"1", ",", "3"}], "\[RightDoubleBracket]"}]}]}], 
           ")"}]}]}], "\[IndentingNewLine]", "]"}]}]}], "]"}]}], 
   ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.4874415840235577`*^9, 3.4874415894239283`*^9}, {
-  3.487441784096101*^9, 3.487441787474601*^9}, {3.487442553699135*^9, 
-  3.487442565983983*^9}, {3.489383770436083*^9, 3.489383794127829*^9}, {
-  3.489422271915433*^9, 3.4894223133699427`*^9}, {3.489422347864559*^9, 
-  3.4894225427017527`*^9}, {3.489422647990923*^9, 3.489422898400117*^9}, {
-  3.489422947481271*^9, 3.489423017941504*^9}, {3.4894231191531677`*^9, 
-  3.4894231495977507`*^9}, {3.489423352759199*^9, 3.489423360461364*^9}, {
-  3.489423862404656*^9, 3.489423867827273*^9}, {3.494170061265891*^9, 
-  3.494170064519978*^9}}],
+ InitializationCell->True],
 
 Cell["\<\
 This constructs the solution to the derivative RH problem as a list of Funs\
 \>", "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.489383873639185*^9, 3.489383893410879*^9}, {
-  3.494170662998796*^9, 3.49417072529082*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -1160,17 +1064,12 @@ Cell[BoxData[
        RowBox[{"#", "\[LeftDoubleBracket]", 
         RowBox[{"4", ";;"}], "\[RightDoubleBracket]"}]}], "}"}], "&"}]}]}], 
   ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.48942302439037*^9, 3.489423039730596*^9}, {
-  3.494170065224461*^9, 3.4941700669706173`*^9}}],
+ InitializationCell->True],
 
 Cell["\<\
 This is the function that returns the derivative of Painleve II\
 \>", "Text",
- InitializationCell->True,
- CellChangeTimes->{{3.489383873639185*^9, 3.489383893410879*^9}, {
-  3.494170662998796*^9, 3.49417072529082*^9}, {3.494170758362409*^9, 
-  3.494170774800852*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -1190,18 +1089,13 @@ Cell[BoxData[
         RowBox[{"\[Pi]", "\[NonBreakingSpace]", "I"}], ")"}]}], "//", 
       "DomainIntegrate"}], ",", 
      RowBox[{"General", "::", "\"\<unfl\>\""}]}], "]"}]}], ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.489423940527802*^9, 3.4894239430472403`*^9}, 
-   3.489824276039535*^9, {3.494170399593849*^9, 3.494170428989099*^9}, {
-   3.4942205437637873`*^9, 3.49422054652159*^9}, {3.494223780340446*^9, 
-   3.494223783065133*^9}}]
+ InitializationCell->True]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Choose routine", "Section",
- InitializationCell->True,
- CellChangeTimes->{{3.494170823575199*^9, 3.494170826374681*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
@@ -1266,8 +1160,7 @@ Cell[BoxData[
             RowBox[{"t_", "\[RuleDelayed]", "_"}], ")"}], "\[RuleDelayed]", 
            "t"}]}], "//", "ReleaseHold"}], ")"}]}], ";"}]}], 
     "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.5003911953743362`*^9, 3.5003912546097383`*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[{
  RowBox[{
@@ -1366,87 +1259,16 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
- InitializationCell->True,
- CellChangeTimes->CompressedData["
-1:eJxTTMoPSmViYGAQA2IQrTVbSXoWxyvHSr0D6iD6yufVS0E0S9huMD3B1kp4
-E5Cu4igD0waWaxNA9I4SvSQQrcMSXwiiD3TqFoP5XN/mgehMvuDlILrI8NXz
-zUB6E0v+CxC9K3rmtXqhV4497OLXQfSyLd2/nEVeOd5h02F3AdKrJiwtcwPS
-cz4uqwTRD57WN4LoQz5bWkG0XPz8ThC9oGE7mBYRWcbvDqTtUmWlQXTNLgEt
-EJ0qtdQERM94uOu6B5C+8bz9Boj2sFt9D0QfkWy/D6KPPT/5xhNIB+5l+Aii
-+yascfMG0rx1el4g2nPP1iUg+rS8/1IQfWbuiZMget+U92DanfFKoA/IXIdn
-YNrnrdnWIiAtLusApgESoKAO
-  "]]
+ InitializationCell->True]
 }, Open  ]]
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{719, 1109},
-WindowMargins->{{Automatic, 6}, {Automatic, 0}},
+WindowMargins->{{318, Automatic}, {Automatic, 0}},
+PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
+TrackCellChangeTimes->False,
 FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
 StyleDefinitions->"Default.nb"
 ]
-(* End of Notebook Content *)
 
-(* Internal cache information *)
-(*CellTagsOutline
-CellTagsIndex->{}
-*)
-(*CellTagsIndex
-CellTagsIndex->{}
-*)
-(*NotebookFileOutline
-Notebook[{
-Cell[545, 20, 84, 3, 41, "Text"],
-Cell[632, 25, 1498, 29, 163, "Input",
- InitializationCell->True],
-Cell[CellGroupData[{
-Cell[2155, 58, 119, 2, 67, "Section",
- InitializationCell->True],
-Cell[2277, 62, 375, 10, 27, "Input",
- InitializationCell->True],
-Cell[2655, 74, 1057, 24, 43, "Text",
- InitializationCell->True],
-Cell[3715, 100, 1496, 42, 58, "Input",
- InitializationCell->True],
-Cell[5214, 144, 783, 17, 26, "Text",
- InitializationCell->True],
-Cell[6000, 163, 13285, 342, 583, "Input",
- InitializationCell->True],
-Cell[19288, 507, 156, 2, 26, "Text",
- InitializationCell->True],
-Cell[19447, 511, 3583, 93, 178, "Input",
- InitializationCell->True],
-Cell[23033, 606, 221, 5, 26, "Text",
- InitializationCell->True],
-Cell[23257, 613, 4302, 109, 163, "Input",
- InitializationCell->True],
-Cell[27562, 724, 263, 6, 26, "Text",
- InitializationCell->True],
-Cell[27828, 732, 1216, 25, 73, "Input",
- InitializationCell->True],
-Cell[29047, 759, 231, 5, 26, "Text",
- InitializationCell->True],
-Cell[29281, 766, 11969, 291, 343, "Input",
- InitializationCell->True],
-Cell[41253, 1059, 240, 5, 26, "Text",
- InitializationCell->True],
-Cell[41496, 1066, 3746, 102, 163, "Input",
- InitializationCell->True],
-Cell[45245, 1170, 277, 6, 26, "Text",
- InitializationCell->True],
-Cell[45525, 1178, 864, 22, 43, "Input",
- InitializationCell->True]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[46426, 1205, 126, 2, 67, "Section",
- InitializationCell->True],
-Cell[46555, 1209, 2364, 64, 133, "Input",
- InitializationCell->True],
-Cell[48922, 1275, 3786, 106, 240, "Input",
- InitializationCell->True]
-}, Open  ]]
-}
-]
-*)
-
-(* End of internal cache information *)

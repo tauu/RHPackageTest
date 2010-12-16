@@ -19,7 +19,7 @@
 
 
 
-PainleveII::usage="PainleveII[{s1,s2,s3},x]  computes Painleve II (hopefully) reliably for x in (-\[Infinity],5) to about 8 digits accuracy.  Will NOT work for s1 s3 = 1 and x < -5 (such as Hastings\[Dash]McLeod solution).";
+PainleveII::usage="PainleveII[{s1,s2,s3},x]  computes Painleve II (hopefully) reliably for x in (-\[Infinity],5) to about 8 digits accuracy";
 PainleveIID::usage="PainleveIID[{s1,s2,s3},x] computes the derivative of Painleve II (hopefully) reliably for x in (-5,5) to about 10 digits accuracy";
 ClearPainleveDatabase::usage="ClearPainleveDatabase[] clears precomputed information."
 Begin["`Private`"];
