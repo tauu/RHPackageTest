@@ -1,0 +1,233 @@
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"`Private`PainleveIIPositive", "[", "\"\<AS\>\"", "]"}], " ", "=", 
+   "`AblowitzSegurPositivePainleveII`AblowitzSegurPositivePainleveII"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`AblowitzSegurPositivePainleveII`\>\"", "]"}], 
+  ";"}]}], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell["Negative x", "Section",
+ InitializationCell->True],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Theta]", "[", "z_", "]"}], ":=", 
+   RowBox[{"I", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"4", "/", "3"}], " ", 
+       RowBox[{"z", "^", "3"}]}], " ", "+", " ", "z"}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"G", "//", "Clear"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"s", "//", "Clear"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"G", "[", "_", "]"}], "[", 
+    RowBox[{"_", ",", "_", ",", 
+     RowBox[{"_", "?", "InfinityQ"}]}], "]"}], ":=", 
+   RowBox[{"IdentityMatrix", "[", "2", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"G", "[", "1", "]"}], "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"s_", ",", "x_"}], "}"}], ",", "z_"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{"(", GridBox[{
+       {
+        RowBox[{"Exp", "[", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"x", "^", 
+            RowBox[{"(", 
+             RowBox[{"3", "/", "2"}], ")"}]}]}], "  ", 
+          RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}], "0"},
+       {"0", 
+        RowBox[{"Exp", "[", 
+         RowBox[{
+          RowBox[{"x", "^", 
+           RowBox[{"(", 
+            RowBox[{"3", "/", "2"}], ")"}]}], "  ", 
+          RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}]}
+      }], ")"}], ".", 
+    RowBox[{"(", GridBox[{
+       {"1", "0"},
+       {
+        RowBox[{"I", " ", "s"}], "1"}
+      }], ")"}], ".", 
+    RowBox[{"(", GridBox[{
+       {
+        RowBox[{"Exp", "[", 
+         RowBox[{
+          RowBox[{"x", "^", 
+           RowBox[{"(", 
+            RowBox[{"3", "/", "2"}], ")"}]}], "  ", 
+          RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}], "0"},
+       {"0", 
+        RowBox[{"Exp", "[", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"x", "^", 
+            RowBox[{"(", 
+             RowBox[{"3", "/", "2"}], ")"}]}]}], "  ", 
+          RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}]}
+      }], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"G", "[", "6", "]"}], "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"s_", ",", "x_"}], "}"}], ",", "z_"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", GridBox[{
+        {
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"-", 
+            RowBox[{"x", "^", 
+             RowBox[{"(", 
+              RowBox[{"3", "/", "2"}], ")"}]}]}], "  ", 
+           RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}], "0"},
+        {"0", 
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"x", "^", 
+            RowBox[{"(", 
+             RowBox[{"3", "/", "2"}], ")"}]}], "  ", 
+           RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}]}
+       }], ")"}], ".", 
+     RowBox[{"(", GridBox[{
+        {"1", 
+         RowBox[{"I", " ", "s"}]},
+        {"0", "1"}
+       }], ")"}], ".", 
+     RowBox[{"(", GridBox[{
+        {
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"x", "^", 
+            RowBox[{"(", 
+             RowBox[{"3", "/", "2"}], ")"}]}], "  ", 
+           RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}], "0"},
+        {"0", 
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"-", 
+            RowBox[{"x", "^", 
+             RowBox[{"(", 
+              RowBox[{"3", "/", "2"}], ")"}]}]}], "  ", 
+           RowBox[{"\[Theta]", "[", "z", "]"}]}], "]"}]}
+       }], ")"}]}], "//", "Inverse"}]}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4874977193863297`*^9, 3.487497751593233*^9}, {
+  3.487498108273378*^9, 3.487498136707246*^9}, {3.500979244068331*^9, 
+  3.500979253012216*^9}, {3.5009809497994328`*^9, 3.500980953189909*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Cdefs", "[", "n_", "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", GridBox[{
+        {
+         RowBox[{".5", " ", "I"}], 
+         RowBox[{
+          RowBox[{"-", ".5"}], " ", "I"}]},
+        {
+         RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+         
+         RowBox[{"-", 
+          RowBox[{
+          "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}]}
+       }], ")"}], "&"}], ",", 
+    RowBox[{"(", GridBox[{
+       {
+        RowBox[{"G", "[", "1", "]"}], 
+        RowBox[{"G", "[", "6", "]"}]}
+      }], ")"}], ",", 
+    RowBox[{"(", GridBox[{
+       {
+        RowBox[{"Line", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "4."}], ",", "4."}], "}"}], "]"}], "n"}
+      }], ")"}]}], "}"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.5009792615361557`*^9, 3.500979329341497*^9}, {
+  3.500979569619619*^9, 3.5009795739546137`*^9}, {3.5009796554663553`*^9, 
+  3.500979681735352*^9}, {3.500979736526558*^9, 3.500979746375798*^9}, {
+  3.500979884658346*^9, 3.500979886134939*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"slvr", "=", 
+   RowBox[{"ScaledRHSolver", "[", 
+    RowBox[{"Cdefs", "[", "40", "]"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"AblowitzSegurPositivePainleveII", "[", 
+    RowBox[{"s_", ",", "x_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Sqrt", "[", "x", "]"}], "2", "I", " ", 
+    RowBox[{"slvr", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "s"}], ",", "x"}], "}"}], "]"}]}]}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"AblowitzSegurPositivePainleveII", "[", 
+   RowBox[{"20.", ",", "10."}], "]"}], "+", 
+  RowBox[{"20.", " ", 
+   RowBox[{"AiryAi", "[", "10.", "]"}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"3.7056740184671204`*^-19", "-", 
+  RowBox[{"2.521654799562303`*^-27", " ", "\[ImaginaryI]"}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData["5.5237662764493456`*^-11"], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"End", "[", "]"}]], "Input",
+ InitializationCell->True]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{833, 835},
+WindowMargins->{{Automatic, 203}, {Automatic, 0}},
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
+2010)",
+StyleDefinitions->"Default.nb"
+]
+

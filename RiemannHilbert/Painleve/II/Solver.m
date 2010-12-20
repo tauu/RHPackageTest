@@ -28,13 +28,13 @@ Begin["`Private`"];
 ClearPainleveDatabase[]:=Module[{},Clear[M]];
 
 
-M[n_,k_]:=M[n,k]=CauchyMatrix[+1,ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I \[Pi]/6]}],n],ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I ((k-1) \[Pi]/3+ \[Pi]/6)]}],n]];
+M[n_,k_]:=M[n,k]=CauchyMatrix[+1,ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I \[Pi]/6]}],n],ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I((k-1) \[Pi]/3+ \[Pi]/6)]}],n]];
 
 
 Mat[n_,{s1_,s2_,s3_},x_]:=Join[
 RightJoin[IdentityMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]]-s1 (ZeroAtInfinityFun[Exp[8 I /3 #^3+2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[I \[Pi]/6]}],n]//FiniteValues)RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],M[n,6],M[n,4],M[n,2]],
 RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],IdentityMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]]-s2 (ZeroAtInfinityFun[Exp[-8 I /3 #^3-2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[I \[Pi]/2]}],n]//FiniteValues)RightJoin[M[n,2],M[n,6],M[n,4],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]],
-RightJoin[ZeroMatrix[n-1],IdentityMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]]-s3 (ZeroAtInfinityFun[Exp[8 I /3 #^3+2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[5 I \[Pi]/6]}],n]//FiniteValues)RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],M[n,2],M[n,6],M[n,4]],
+RightJoin[ZeroMatrix[n-1],IdentityMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]]-s3(ZeroAtInfinityFun[Exp[8 I /3 #^3+2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[5 I \[Pi]/6]}],n]//FiniteValues)RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],M[n,2],M[n,6],M[n,4]],
 RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],IdentityMatrix[n-1],ZeroMatrix[n-1]]+s1 (ZeroAtInfinityFun[Exp[-8 I /3 #^3-2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[-5I \[Pi]/6]}],n]//FiniteValues)RightJoin[M[n,4],M[n,2],M[n,6],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]],
 RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],IdentityMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]]+s2 (ZeroAtInfinityFun[Exp[8 I /3 #^3+2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[- I \[Pi]/2]}],n]//FiniteValues)RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],M[n,4],M[n,2],M[n,6]],
 RightJoin[ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1],IdentityMatrix[n-1]]+s3 (ZeroAtInfinityFun[Exp[-8 I /3 #^3-2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[-I \[Pi]/6]}],n]//FiniteValues)RightJoin[M[n,6],M[n,4],M[n,2],ZeroMatrix[n-1],ZeroMatrix[n-1],ZeroMatrix[n-1]]
@@ -87,7 +87,7 @@ LinearSolve[Chop[Mat[n,s,x],$MachineEpsilon],Chop[VecD[n,s,x],$MachineEpsilon]]
 PainleveIIDSmall[n_,s_,x_]:=Quiet[-solD[n,s,x][[2]]/( \[Pi]\[NonBreakingSpace]I)//DomainIntegrate,General::"unfl"];
 
 
-ClearPainleveDatabase[]:=Module[{},Clear[M]; M[n_,k_]:=M[n,k]=CauchyMatrix[+1,ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I \[Pi]/6]}],n],ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I ((k-1) \[Pi]/3+ \[Pi]/6)]}],n]];
+ClearPainleveDatabase[]:=Module[{},Clear[M]; M[n_,k_]:=M[n,k]=CauchyMatrix[+1,ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I \[Pi]/6]}],n],ZeroAtInfinityFun[0&,Line[{0,\[Infinity] Exp[I((k-1) \[Pi]/3+ \[Pi]/6)]}],n]];
 (* apply all registered clearing functions *)
 #[] & /@ (DownValues[ClearDatabase]/.(t_:>_):>t//ReleaseHold);
 ];
@@ -95,6 +95,10 @@ ClearPainleveDatabase[]:=Module[{},Clear[M]; M[n_,k_]:=M[n,k]=CauchyMatrix[+1,Ze
 
 PainleveII[s_,x_?(#<=-5&),opts:OptionsPattern[{InterpolationPrecision->10^-7,Contour->1}]]:=With[{c=OptionValue[Contour]},
 With[{fopts =Sequence@@ If[List[opts]!= List[],FilterRules[opts//List,PainleveIINegative[c]//Options],{}]},PainleveIINegative[c][s,x,fopts] ]];
+
+PainleveII[{s1_,_?NZeroQ,s3_},x_?(#>=5&)]:=PainleveIIPositive["AS"][s1,x];
+
+
 PainleveII[s_,x_]:=PainleveIISmall[120,s,x];
 PainleveII[s_,x_,opts:OptionsPattern[{InterpolationPrecision->10^-7}]]:=PainleveIISmall[Quiet[ZeroAtInfinityFun[Exp[-8 I /3 #^3-2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[I \[Pi]/2]}],opts]]//Length,s,x];
 PainleveIID[s_,x_]:=PainleveIIDSmall[120,s,x];
