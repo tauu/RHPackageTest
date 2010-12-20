@@ -23,30 +23,6 @@
 Begin["`ScaledNegativePainleveII`"];
 
 
-ScaledRHSolver[{scs_,gs_,gms_}]:=Module[{standardf,pts,R,Uls,z0,sc,Cus,uz0,usc,us,gl,lsGs},
-standardf=Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms;
-pts=standardf//Points;
-R=RHSolver[standardf];
-
-Function[x,
-Uls={};
-Function[ls,
-{{z0,sc},lsGs}=ls;
-Cus=(Dot@@#)&/@Thread[
-Function[uls,
-{uz0,usc,us}=uls;
-FromValueList[standardf,Cauchy[us,((z0+pts/sc[x])-uz0)usc]//ToMatrixOfLists//Flatten]//AddIdentityMatrix
-]/@Uls
-];
-gl=Fun[Function[z,#[[1]][x,z0+z/sc[x]]],Sequence@@#[[2]]]&/@Thread[{lsGs,gms}];
-If[Cus=={},
-Uls=Join[{{z0,sc[x],R[gl]}},Uls],
-Uls=Join[{{z0,sc[x],R[#[[1]].#[[2]].Inverse[#[[1]]]&/@Thread[{Cus,gl}]]}},Uls]];
-]/@Thread[{scs//Transpose,gs//Transpose}];
-(-(DomainIntegrate[#[[3]]][[1,2]]/(\[Pi] I #[[2]]))&/@Uls)//Total]
-]
-
-
 \[Theta][\[Lambda]_]:=2/3 I  \[Lambda] (-3+4 \[Lambda]^2) ;
 
 G[k_?EvenQ][s_,x_,z_]:=({
@@ -103,8 +79,8 @@ rngg25={.5,3.};
 n=20;
 {scs,gs,gms}={({
  {.5, -.5},
- {(-#[[1]])^(3/4)&, -(-#[[1]])^(3/4)&}
-}),({
+ {(-#[[1]])^(3/4), -(-#[[1]])^(3/4)}
+})&,({
  {GRF[1], GLF[4]},
  {GRF[2], GLF[5]},
  {GRF[5], GLF[2]},
@@ -131,10 +107,7 @@ slvr=ScaledRHSolver[{scs,gs,gms}];
 ScaledPainleveIINegative[sin_,x_]:=Module[{s},
 {s[1],s[2],s[3]}=sin;
 {s[4],s[5],s[6]}=-Array[s,3];
-Sqrt[-x]slvr[{x,s}]]
+2 Sqrt[-x]slvr[{x,s}]]
 
 
 End[]
-
-
-

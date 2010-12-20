@@ -26,15 +26,8 @@ Begin["`Private`"];
 
 
 
-RiemannHilbert`Cauchy::usage="Cauchy[f,z] evaluates the Cauchy transform \!\(\*FractionBox[\"1\", 
-RowBox[{\"2\", \" \", \"\[Pi]\", \"\[NonBreakingSpace]\", \"I\"}]]\)\!\(\*SubscriptBox[\"\[Integral]\", 
-RowBox[{\"Domain\", \"[\", \"f\", \"]\"}]]\)\!\(\*FractionBox[
-RowBox[{\"f\", \"[\", \"t\", \"]\"}], 
-RowBox[{\"t\", \"-\", \"z\"}]]\)\[DifferentialD]t of an IFun f at a complex point z. Cauchy[ifunlist,z] evaluates the sum of the Cauchy transform of each element of ifunlist. Cauchy[\[PlusMinus]1,f,x] evaluates the left/right limit of Cauchy[f,x] for x on the domain of f. Cauchy[\[PlusMinus]1,flist] for CauchyBoundedQ[flist] true evaluates the Cauchy transform of flist on the points of flist, returning another list of IFuns.";
-RiemannHilbert`Hilbert::usage="Hilbert[f,x] evaluates the Hilbert transform \!\(\*FractionBox[\"1\", \"\[Pi]\"]\)PV\!\(\*SubscriptBox[\"\[Integral]\", 
-RowBox[{\"Domain\", \"[\", \"f\", \"]\"}]]\)\!\(\*FractionBox[
-RowBox[{\"f\", \"[\", \"t\", \"]\"}], 
-RowBox[{\"t\", \"-\", \"x\"}]]\)\[DifferentialD]t of an IFun f at a point x on Domain[f].";
+RiemannHilbert`Cauchy::usage="Cauchy[f,z] evaluates the Cauchy transform \!\(\*FractionBox[\(1\), \(2\\\ \[Pi]\[NonBreakingSpace]I\)]\)\!\(\*SubscriptBox[\(\[Integral]\), \(Domain[f]\)]\)\!\(\*FractionBox[\(f[t]\), \(t - z\)]\)\[DifferentialD]t of an IFun f at a complex point z. Cauchy[ifunlist,z] evaluates the sum of the Cauchy transform of each element of ifunlist. Cauchy[\[PlusMinus]1,f,x] evaluates the left/right limit of Cauchy[f,x] for x on the domain of f. Cauchy[\[PlusMinus]1,flist] for CauchyBoundedQ[flist] true evaluates the Cauchy transform of flist on the points of flist, returning another list of IFuns.";
+RiemannHilbert`Hilbert::usage="Hilbert[f,x] evaluates the Hilbert transform \!\(\*FractionBox[\(1\), \(\[Pi]\)]\)PV\!\(\*SubscriptBox[\(\[Integral]\), \(Domain[f]\)]\)\!\(\*FractionBox[\(f[t]\), \(t - x\)]\)\[DifferentialD]t of an IFun f at a point x on Domain[f].";
 RiemannHilbert`RHSolve::usage="RHSolve[ifunlist] returns u such that IdentityMatrix[2] + CauchyTransform[u,z] has the jumps specified by ifunlist.";
 RiemannHilbert`RHSolver::usage="RHSolver[ifunlist] constructs an anonymous function R that precomputes the matrices used in RHSolve, so that if the domain and points of ifunlist are the same as ifunlist2, then R[ifunlist2] == RHSolve[ifunlist2].";
 RiemannHilbert`RHSolveTop::usage="RHSolveTop[ifunlist] returns the top row of RHSolve.";
@@ -1012,11 +1005,11 @@ RiemannHilbert`DiagonalMatrixQ[DD_]:=Norm[DD-DiagonalMatrix[Diagonal[DD]]]==0;
 
 RiemannHilbert`Parametrix[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_]:=({
  {((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[1,1]]]]+ I (Arg[DD[[1,1]]]))), 0},
- {0, ((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I ( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)))}
+ {0, ((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)))}
 });
 RiemannHilbert`ParametrixBranch[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_,t_]:=({
  {PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) Log[DD[[1,1]]],t], 0},
- {0, PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I ( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)),t]}
+ {0, PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)),t]}
 });
 
 RiemannHilbert`ParametrixBranch[({
@@ -1050,6 +1043,53 @@ First[#],
 -Last[#]]&/@
 SelectWithPoint[GG,Gg])//Chop;
 ZeroSumCondition[GG_]:=ZeroSumCondition[GG,#]&/@Endpoints[GG];
+
+
+
+IteratedRHSolver[{{{z0_,sc_},lsGs_},Grest___},{},R_,x_,gms_]:=Module[{Cus,uz0,usc,us,gl},
+gl=Fun[Function[z,#[[1]][x,z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{lsGs,gms}];
+IteratedRHSolver[{Grest},{{z0,sc,R[gl]}},R,x,gms]
+];
+IteratedRHSolver[{},Uls_,_,_,_]:=Uls;
+IteratedRHSolver[{{{z0_,sc_},lsGs_},Grest___},Uls_,R_,x_,gms_]:=Module[{Cus,uz0,usc,us,gl},
+gl=Fun[Function[z,#[[1]][x,z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{lsGs,gms}];
+Cus=(Dot@@#)&/@Thread[
+Function[uls,
+{uz0,usc,us}=uls;
+FromValueList[gl,Cauchy[us,((z0+Points[gl]/sc)-uz0)usc]//ToMatrixOfLists//Flatten]//AddIdentityMatrix
+]/@Uls
+];
+IteratedRHSolver[{Grest},Join[{{z0,sc,R[#[[1]].#[[2]].Inverse[#[[1]]]&/@Thread[{Cus,gl}]]}},Uls],R,x,gms]
+];
+
+
+OuterIteratedRHSolver[{},Uls_,_]:=Uls;
+OuterIteratedRHSolver[{{scale_,jumps_,domains_,R_},rest___},Uls_,x_]:=OuterIteratedRHSolver[{rest},Join[IteratedRHSolver[Thread[{scale[x]//Transpose,jumps//Transpose}],Uls,R,x,domains],Uls],x];
+
+
+RiemannHilbert`ScaledRHSolver[Glist:{{_,_,_}..}]:=Module[{standardf,pts,R,Uls,Cus,uz0,usc,us,gl,lsGs,Rs,scale,jumps,domains,RGlist},
+RGlist=Function[Gl,
+{scale,jumps,domains}=Gl;
+Join[Gl,{RHSolver[Function[domain,Fun[IdentityMatrix[2]&,Sequence@@domain]]/@domains]}]
+]/@Glist;
+
+Function[x,
+Uls=OuterIteratedRHSolver[RGlist,{},x];
+
+
+(-(DomainIntegrate[#[[3]]][[1,2]]/(2\[Pi] I #[[2]]))&/@Uls)//Total
+]
+];
+
+
+ScaledRHSolver[{scs_,gs_,gms_}]:=Module[{standardf,pts,R,Uls,z0,sc,Cus,uz0,usc,us,gl,lsGs},
+standardf=Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms;
+R=RHSolver[standardf];
+
+Function[x,
+Uls=IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,x,gms];
+(-(DomainIntegrate[#[[3]]][[1,2]]/(2\[Pi] I #[[2]]))&/@Uls)//Total]
+];
 
 
 End[];
