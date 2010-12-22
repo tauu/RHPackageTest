@@ -1645,7 +1645,7 @@ Cell[BoxData[{
        RowBox[{"Return", "[", 
         RowBox[{"{", 
          RowBox[{"p", ",", "n"}], "}"}], "]"}], ";"}]}], 
-     "\[IndentingNewLine]", "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"contour", "[", 
@@ -2017,6 +2017,7 @@ Cell[BoxData[{
       "\[IndentingNewLine]", 
       RowBox[{"rhsol", "=", 
        RowBox[{"RHSolverTop", "[", "cf", "]"}]}], ";", "\[IndentingNewLine]", 
+      
       RowBox[{"Return", "[", 
        RowBox[{"cacheRHSolver", "[", 
         RowBox[{
@@ -2064,7 +2065,7 @@ Cell[BoxData[{
      RowBox[{"Sqrt", "[", 
       RowBox[{
        RowBox[{"-", "x"}], "/", "4"}], "]"}]}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -2075,7 +2076,7 @@ Cell[BoxData[{
       RowBox[{"c", ",", "s", ",", "tol", ",", "xl", ",", "xu"}], "]"}], "=", 
      RowBox[{"cacheRHSolver", "[", 
       RowBox[{"c", ",", "s", ",", "tol", ",", "xl", ",", "xu"}], "]"}]}]}], 
-   ";"}], "\n"}], "\[IndentingNewLine]", 
+   ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -2160,9 +2161,9 @@ Cell[BoxData[{
        RowBox[{"#", ",", 
         RowBox[{"Hold", "[", 
          RowBox[{"cachedRHSolver", "[", 
-          RowBox[{"_", ",", "_List", ",", 
-           RowBox[{"__", "?", "NumberQ"}]}], "]"}], "]"}]}], "]"}], "&"}]}], 
-    "]"}]}], "\n"}], "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Except", "[", "_Pattern", "]"}], ".."}], "]"}], "]"}]}], 
+       "]"}], "&"}]}], "]"}]}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"clearCachedRHSolver", "[", "]"}], ":=", 
@@ -2184,3 +2185,4 @@ TrackCellChangeTimes->False,
 FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
 StyleDefinitions->"Default.nb"
 ]
+

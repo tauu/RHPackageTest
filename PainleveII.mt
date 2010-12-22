@@ -6,4 +6,6 @@ TestSuite[{
 	"Tests/PainleveIINegativeContour1.mt"
 	,
 	"Tests/PainleveIINegativeContour2.mt"
+	,
+	"Tests/ScaledNegativePaineveII.mt"
 }]

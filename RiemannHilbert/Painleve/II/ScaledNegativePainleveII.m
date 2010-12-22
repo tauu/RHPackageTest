@@ -101,7 +101,7 @@ n=20;
 })};
 
 
-slvr=ScaledRHSolver[{scs,gs,gms}];
+slvr:=slvr=ScaledRHSolver[{scs,gs,gms}];
 
 
 ScaledPainleveIINegative[sin_,x_]:=Module[{s},

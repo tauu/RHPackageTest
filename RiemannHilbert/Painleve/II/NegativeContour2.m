@@ -326,7 +326,7 @@ cachedPiiSolver[contour,s,tol,xs,xi][x]
 ];
 
 
-listCachedRHSolver[]:=Select[DownValues[cachedRHSolver]/.(t_:>_):>t/.HoldPattern->Hold,MatchQ[#,Hold[cachedRHSolver[_,_List,__?NumberQ]]]&]
+listCachedRHSolver[]:=Select[DownValues[cachedRHSolver]/.(t_:>_):>t/.HoldPattern->Hold,MatchQ[#,Hold[cachedRHSolver[Except[_Pattern]..]]]&]
 
 clearCachedRHSolver[]:=Unset@@@listCachedRHSolver[];
 
