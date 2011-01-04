@@ -1068,28 +1068,17 @@ OuterIteratedRHSolver[{{scale_,jumps_,domains_,R_},rest___},Uls_,x_]:=OuterItera
 
 
 RiemannHilbert`ScaledRHSolver[Glist:{{_,_,_}..}]:=Module[{standardf,pts,R,Uls,Cus,uz0,usc,us,gl,lsGs,Rs,scale,jumps,domains,RGlist},
-RGlist=Function[Gl,
+ScaledRHSolver[Function[Gl,
 {scale,jumps,domains}=Gl;
 Join[Gl,{RHSolver[Function[domain,Fun[IdentityMatrix[2]&,Sequence@@domain]]/@domains]}]
-]/@Glist;
-
-Function[x,
-Uls=OuterIteratedRHSolver[RGlist,{},x];
-
-
-(-(DomainIntegrate[#[[3]]][[1,2]]/(2\[Pi] I #[[2]]))&/@Uls)//Total
-]
+]/@Glist]
 ];
 
+ScaledRHSolver[RGList:{{_,_,_,_}..}][x_]:=OuterIteratedRHSolver[RGList,{},x];
 
-ScaledRHSolver[{scs_,gs_,gms_}]:=Module[{standardf,pts,R,Uls,z0,sc,Cus,uz0,usc,us,gl,lsGs},
-standardf=Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms;
-R=RHSolver[standardf];
-
-Function[x,
-Uls=IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,x,gms];
-(-(DomainIntegrate[#[[3]]][[1,2]]/(2\[Pi] I #[[2]]))&/@Uls)//Total]
-];
+ScaledRHSolver[{scs_,gs_,gms_}]:=
+ScaledRHSolver[{scs,gs,gms},RHSolver[Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms]];
+ScaledRHSolver[{scs_,gs_,gms_},R_RHSolver][x_]:=Join@@(Function[sfl,IFun[Values[#],((#//Domain)/sfl[[2]]+sfl[[1]])]&/@Last[sfl]]/@IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,x,gms]);
 
 
 End[];

@@ -316,6 +316,12 @@ RealLine::usage="The real line Line[{-\[Infinity],\[Infinity]}]";
 MapToIntervalSeriesAtInfinity::usage="Gives the coefficient of the asymptotic series at \[Infinity].";
 
 
+Unprotect[Line];
+Line/:Line[{a_,b_}]+c_:=Line[{a,b}+c];
+Line/:c_ Line[{a_,b_}]:=Line[c {a,b}];
+Protect[Line];
+
+
 Begin["Private`"];
 CircleToInterval[z_]:=1/2 (z+1/z);
 SetAttributes[IntervalToTopCircle,Listable];

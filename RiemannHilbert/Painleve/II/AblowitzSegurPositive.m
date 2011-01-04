@@ -19,8 +19,8 @@
 
 
 
-`Private`PainleveIIPositive["AS"] =`AblowitzSegurPositivePainleveII`AblowitzSegurPositivePainleveII;
-Begin["`AblowitzSegurPositivePainleveII`"];
+`Private`PainleveIIPositive["AS"] =`AblowitzSegurPositive`AblowitzSegurPositivePainleveII;
+Begin["`AblowitzSegurPositive`"];
 
 
 \[Theta][z_]:=I(4/3 z^3 + z);
@@ -59,10 +59,10 @@ Cdefs[n_]:={({
 })}
 
 
-slvr=ScaledRHSolver[Cdefs[40]];
+slvr:=slvr=ScaledRHSolver[Cdefs[40]];
 
 
-AblowitzSegurPositivePainleveII[s_,x_]:=Sqrt[x]2I slvr[{-s,x}];
+AblowitzSegurPositivePainleveII[s_,x_]:=-(1/\[Pi])Sqrt[x]DomainIntegrate[slvr[{-s,x}]][[1,2]];
 
 
 End[]

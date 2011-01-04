@@ -19,8 +19,8 @@
 
 
 
-`Private`PainleveIINegative[3] =`ScaledNegativePainleveII`ScaledPainleveIINegative;
-Begin["`ScaledNegativePainleveII`"];
+`Private`PainleveIINegative[3] =`ScaledNegative`ScaledPainleveIINegative;
+Begin["`ScaledNegative`"];
 
 
 \[Theta][\[Lambda]_]:=2/3 I  \[Lambda] (-3+4 \[Lambda]^2) ;
@@ -107,7 +107,7 @@ slvr:=slvr=ScaledRHSolver[{scs,gs,gms}];
 ScaledPainleveIINegative[sin_,x_]:=Module[{s},
 {s[1],s[2],s[3]}=sin;
 {s[4],s[5],s[6]}=-Array[s,3];
-2 Sqrt[-x]slvr[{x,s}]]
+-(1/(\[Pi] I)) Sqrt[-x]DomainIntegrate[slvr[{x,s}]][[1,2]]]
 
 
 End[]

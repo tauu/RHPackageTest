@@ -3,6 +3,6 @@ BeginPackage["RiemannHilbert`Painleve`II`",{"RiemannHilbert`","RiemannHilbert`Co
 Get["`Solver`"]
 Get["`NegativeContour1`"]
 Get["`NegativeContour2`"]
-Get["`ScaledNegativePainleveII`"]
-Get["`AblowitzSegurPositivePainleveII`"]
+Get["`ScaledNegative`"]
+Get["`AblowitzSegurPositive`"]
 EndPackage[]
