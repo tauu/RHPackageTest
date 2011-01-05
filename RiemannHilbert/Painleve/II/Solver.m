@@ -98,6 +98,8 @@ With[{fopts =Sequence@@ If[List[opts]!= List[],FilterRules[opts//List,PainleveII
 
 PainleveII[{s1_,_?NZeroQ,s3_},x_?(#>=5&)]:=PainleveIIPositive["AS"][s1,x];
 
+PainleveII[{s1_,s2_,s3_},x_?(#>=9&)]:=PainleveIIPositive["Pos"][{s1,s2,s3},x];
+
 
 PainleveII[s_,x_]:=PainleveIISmall[120,s,x];
 PainleveII[s_,x_,opts:OptionsPattern[{InterpolationPrecision->10^-7}]]:=PainleveIISmall[Quiet[ZeroAtInfinityFun[Exp[-8 I /3 #^3-2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[I \[Pi]/2]}],opts]]//Length,s,x];

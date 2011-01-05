@@ -1064,21 +1064,26 @@ IteratedRHSolver[{Grest},Join[{{z0,sc,R[#[[1]].#[[2]].Inverse[#[[1]]]&/@Thread[{
 
 
 OuterIteratedRHSolver[{},Uls_,_]:=Uls;
-OuterIteratedRHSolver[{{scale_,jumps_,domains_,R_},rest___},Uls_,x_]:=OuterIteratedRHSolver[{rest},Join[IteratedRHSolver[Thread[{scale[x]//Transpose,jumps//Transpose}],Uls,R,x,domains],Uls],x];
+OuterIteratedRHSolver[{{scale_,jumps_,domains_,R_},rest___},Uls_,x_]:=OuterIteratedRHSolver[{rest},IteratedRHSolver[Thread[{scale[x]//Transpose,jumps//Transpose}],Uls,R,x,domains],x];
 
 
-RiemannHilbert`ScaledRHSolver[Glist:{{_,_,_}..}]:=Module[{standardf,pts,R,Uls,Cus,uz0,usc,us,gl,lsGs,Rs,scale,jumps,domains,RGlist},
+RiemannHilbert`ScaledRHSolver[Glist:{{_,_,_}..}]:=Module[{scale,jumps,domains},
 ScaledRHSolver[Function[Gl,
 {scale,jumps,domains}=Gl;
 Join[Gl,{RHSolver[Function[domain,Fun[IdentityMatrix[2]&,Sequence@@domain]]/@domains]}]
 ]/@Glist]
 ];
 
-ScaledRHSolver[RGList:{{_,_,_,_}..}][x_]:=OuterIteratedRHSolver[RGList,{},x];
+(** IteratedRHSolver and OuterIteratedRHSolver returns a {{z0,sc,{fun1,fun2,..}}..}, where the funs are centred around zero **)
+
+ConvertIteratedToStandardFunList[ifl_]:=(Function[sfl,IFun[Values[#],((#//Domain)/sfl[[2]]+sfl[[1]])]&/@Last[sfl]]/@ifl);
+
+
+ScaledRHSolver[RGList:{{_,_,_,_}..}][x_]:=OuterIteratedRHSolver[RGList,{},x]//ConvertIteratedToStandardFunList;
 
 ScaledRHSolver[{scs_,gs_,gms_}]:=
 ScaledRHSolver[{scs,gs,gms},RHSolver[Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms]];
-ScaledRHSolver[{scs_,gs_,gms_},R_RHSolver][x_]:=Join@@(Function[sfl,IFun[Values[#],((#//Domain)/sfl[[2]]+sfl[[1]])]&/@Last[sfl]]/@IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,x,gms]);
+ScaledRHSolver[{scs_,gs_,gms_},R_RHSolver][x_]:=IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,x,gms]//ConvertIteratedToStandardFunList;
 
 
 End[];

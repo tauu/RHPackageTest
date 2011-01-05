@@ -62,7 +62,7 @@ Cdefs[n_]:={({
 slvr:=slvr=ScaledRHSolver[Cdefs[40]];
 
 
-AblowitzSegurPositivePainleveII[s_,x_]:=-(1/\[Pi])Sqrt[x]DomainIntegrate[slvr[{-s,x}]][[1,2]];
+AblowitzSegurPositivePainleveII[s_,x_]:=-(1/\[Pi])Sqrt[x]Total[DomainIntegrate/@slvr[{-s,x}]][[1,2]];
 
 
 End[]

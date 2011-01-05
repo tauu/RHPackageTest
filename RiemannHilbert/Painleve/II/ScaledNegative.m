@@ -107,7 +107,7 @@ slvr:=slvr=ScaledRHSolver[{scs,gs,gms}];
 ScaledPainleveIINegative[sin_,x_]:=Module[{s},
 {s[1],s[2],s[3]}=sin;
 {s[4],s[5],s[6]}=-Array[s,3];
--(1/(\[Pi] I)) Sqrt[-x]DomainIntegrate[slvr[{x,s}]][[1,2]]]
+-(1/(\[Pi] I)) Sqrt[-x]Total[DomainIntegrate/@slvr[{x,s}]][[1,2]]]
 
 
 End[]

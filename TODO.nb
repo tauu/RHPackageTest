@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      6529,        242]
-NotebookOptionsPosition[      5178,        191]
-NotebookOutlinePosition[      5599,        208]
-CellTagsIndexPosition[      5556,        205]
+NotebookDataLength[      6779,        251]
+NotebookOptionsPosition[      5387,        199]
+NotebookOutlinePosition[      5808,        216]
+CellTagsIndexPosition[      5765,        213]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -124,6 +124,14 @@ Cell[TextData[{
 Cell[TextData[{
  Cell[BoxData[
   CheckboxBox[False]]],
+ " Scaled Contour 2"
+}], "Outline3",
+ CellChangeTimes->{{3.503041892095677*^9, 3.503041906291136*^9}, {
+  3.503219085432069*^9, 3.503219087685924*^9}}],
+
+Cell[TextData[{
+ Cell[BoxData[
+  CheckboxBox[False]]],
  " Choose contour"
 }], "Outline3",
  CellChangeTimes->{{3.503041892095677*^9, 3.503041906291136*^9}}]
@@ -230,18 +238,19 @@ Cell[CellGroupData[{
 Cell[2948, 108, 152, 2, 36, "Outline1"],
 Cell[CellGroupData[{
 Cell[3125, 114, 251, 7, 36, "Outline2"],
-Cell[3379, 123, 155, 5, 35, "Outline3"]
+Cell[3379, 123, 206, 6, 35, "Outline3"],
+Cell[3588, 131, 155, 5, 32, "Outline3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3571, 133, 204, 6, 36, "Outline2"],
-Cell[3778, 141, 272, 7, 35, "Outline3"],
-Cell[4053, 150, 177, 5, 32, "Outline3"]
+Cell[3780, 141, 204, 6, 36, "Outline2"],
+Cell[3987, 149, 272, 7, 35, "Outline3"],
+Cell[4262, 158, 177, 5, 32, "Outline3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4267, 160, 304, 7, 36, "Outline2"],
-Cell[4574, 169, 355, 8, 35, "Outline3"]
+Cell[4476, 168, 304, 7, 36, "Outline2"],
+Cell[4783, 177, 355, 8, 35, "Outline3"]
 }, Open  ]],
-Cell[4944, 180, 206, 7, 36, "Outline2"]
+Cell[5153, 188, 206, 7, 36, "Outline2"]
 }, Open  ]]
 }, Open  ]]
 }

@@ -1222,7 +1222,25 @@ Cell[BoxData[{
          RowBox[{"#", "\[GreaterEqual]", "5"}], "&"}], ")"}]}]}], "]"}], ":=", 
     RowBox[{
      RowBox[{"PainleveIIPositive", "[", "\"\<AS\>\"", "]"}], "[", 
-     RowBox[{"s1", ",", "x"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+     RowBox[{"s1", ",", "x"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"PainleveII", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"s1_", ",", "s2_", ",", "s3_"}], "}"}], ",", 
+      RowBox[{"x_", "?", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"#", "\[GreaterEqual]", "9"}], "&"}], ")"}]}]}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"PainleveIIPositive", "[", "\"\<Pos\>\"", "]"}], "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"s1", ",", "s2", ",", "s3"}], "}"}], ",", "x"}], "]"}]}], 
+   ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{

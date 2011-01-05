@@ -9853,12 +9853,7 @@ Cell[BoxData[
                    RowBox[{"Cus", ",", "gl"}], "}"}], "]"}]}], "]"}]}], "}"}],
               "}"}], ",", "Uls"}], "]"}], ",", "R", ",", "x", ",", "gms"}], 
          "]"}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}]}]}]], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.500957680189043*^9, 3.500957918710393*^9}, {
-  3.500957984582883*^9, 3.500958171295594*^9}, {3.500958239034953*^9, 
-  3.500958253382763*^9}, {3.500958439307378*^9, 3.500958448177876*^9}, {
-  3.500959261003972*^9, 3.500959411873396*^9}, {3.5009645000520077`*^9, 
-  3.500964501514751*^9}, {3.500964552051643*^9, 3.50096455589587*^9}}],
+ InitializationCell->True],
 
 Cell[BoxData[{
  RowBox[{
@@ -9879,24 +9874,17 @@ Cell[BoxData[{
    RowBox[{"OuterIteratedRHSolver", "[", 
     RowBox[{
      RowBox[{"{", "rest", "}"}], ",", 
-     RowBox[{"Join", "[", 
+     RowBox[{"IteratedRHSolver", "[", 
       RowBox[{
-       RowBox[{"IteratedRHSolver", "[", 
-        RowBox[{
-         RowBox[{"Thread", "[", 
-          RowBox[{"{", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"scale", "[", "x", "]"}], "//", "Transpose"}], ",", 
-            RowBox[{"jumps", "//", "Transpose"}]}], "}"}], "]"}], ",", "Uls", 
-         ",", "R", ",", "x", ",", "domains"}], "]"}], ",", "Uls"}], "]"}], 
-     ",", "x"}], "]"}]}], ";"}]}], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.500959168944268*^9, 3.5009592213819723`*^9}, {
-  3.50095945289611*^9, 3.5009595932216454`*^9}, {3.500965148184338*^9, 
-  3.5009651485827513`*^9}, {3.50096524178335*^9, 3.50096525370689*^9}, {
-  3.500965373615664*^9, 3.500965373797861*^9}, {3.500965905200617*^9, 
-  3.5009659054962597`*^9}}],
+       RowBox[{"Thread", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"scale", "[", "x", "]"}], "//", "Transpose"}], ",", 
+          RowBox[{"jumps", "//", "Transpose"}]}], "}"}], "]"}], ",", "Uls", 
+       ",", "R", ",", "x", ",", "domains"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}]}], "Input",
+ InitializationCell->True],
 
 Cell[BoxData[{
  RowBox[{
@@ -9911,10 +9899,7 @@ Cell[BoxData[{
     RowBox[{"Module", "[", 
      RowBox[{
       RowBox[{"{", 
-       RowBox[{
-       "standardf", ",", "pts", ",", "R", ",", "Uls", ",", "Cus", ",", "uz0", 
-        ",", "usc", ",", "us", ",", "gl", ",", "lsGs", ",", "Rs", ",", 
-        "scale", ",", "jumps", ",", "domains", ",", "RGlist"}], "}"}], ",", 
+       RowBox[{"scale", ",", "jumps", ",", "domains"}], "}"}], ",", 
       "\[IndentingNewLine]", 
       RowBox[{"ScaledRHSolver", "[", 
        RowBox[{
@@ -9939,7 +9924,50 @@ Cell[BoxData[{
                     RowBox[{"Sequence", "@@", "domain"}]}], "]"}]}], "]"}], "/@",
                  "domains"}], "]"}], "}"}]}], "]"}]}]}], 
          "\[IndentingNewLine]", "]"}], "/@", "Glist"}], "]"}]}], 
-     "\[IndentingNewLine]", "]"}]}], ";"}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "*", " ", "IteratedRHSolver", " ", "and", " ", "OuterIteratedRHSolver", 
+     " ", "returns", " ", "a", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"z0", ",", "sc", ",", 
+         RowBox[{"{", 
+          RowBox[{"fun1", ",", "fun2", ",", ".."}], "}"}]}], "}"}], ".."}], 
+      "}"}]}], ",", " ", 
+    RowBox[{
+    "where", " ", "the", " ", "funs", " ", "are", " ", "centred", " ", 
+     "around", " ", "zero"}]}], " ", "**)"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ConvertIteratedToStandardFunList", "[", "ifl_", "]"}], ":=", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Function", "[", 
+       RowBox[{"sfl", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"IFun", "[", 
+           RowBox[{
+            RowBox[{"Values", "[", "#", "]"}], ",", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"#", "//", "Domain"}], ")"}], "/", 
+               RowBox[{
+               "sfl", "\[LeftDoubleBracket]", "2", 
+                "\[RightDoubleBracket]"}]}], "+", 
+              RowBox[{
+              "sfl", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}],
+              ")"}]}], "]"}], "&"}], "/@", 
+         RowBox[{"Last", "[", "sfl", "]"}]}]}], "]"}], "/@", "ifl"}], ")"}]}],
+    ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -9952,9 +9980,11 @@ Cell[BoxData[{
          RowBox[{"{", 
           RowBox[{"_", ",", "_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}],
        "]"}], "[", "x_", "]"}], ":=", 
-    RowBox[{"OuterIteratedRHSolver", "[", 
-     RowBox[{"RGList", ",", 
-      RowBox[{"{", "}"}], ",", "x"}], "]"}]}], ";"}], 
+    RowBox[{
+     RowBox[{"OuterIteratedRHSolver", "[", 
+      RowBox[{"RGList", ",", 
+       RowBox[{"{", "}"}], ",", "x"}], "]"}], "//", 
+     "ConvertIteratedToStandardFunList"}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -9983,38 +10013,17 @@ Cell[BoxData[{
       RowBox[{"{", 
        RowBox[{"scs_", ",", "gs_", ",", "gms_"}], "}"}], ",", "R_RHSolver"}], 
      "]"}], "[", "x_", "]"}], ":=", 
-   RowBox[{"Join", "@@", 
-    RowBox[{"(", 
+   RowBox[{
+    RowBox[{"IteratedRHSolver", "[", 
      RowBox[{
-      RowBox[{"Function", "[", 
-       RowBox[{"sfl", ",", 
+      RowBox[{"Thread", "[", 
+       RowBox[{"{", 
         RowBox[{
          RowBox[{
-          RowBox[{"IFun", "[", 
-           RowBox[{
-            RowBox[{"Values", "[", "#", "]"}], ",", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"#", "//", "Domain"}], ")"}], "/", 
-               RowBox[{
-               "sfl", "\[LeftDoubleBracket]", "2", 
-                "\[RightDoubleBracket]"}]}], "+", 
-              RowBox[{
-              "sfl", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}],
-              ")"}]}], "]"}], "&"}], "/@", 
-         RowBox[{"Last", "[", "sfl", "]"}]}]}], "]"}], "/@", 
-      RowBox[{"IteratedRHSolver", "[", 
-       RowBox[{
-        RowBox[{"Thread", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"scs", "[", "x", "]"}], "//", "Transpose"}], ",", 
-           RowBox[{"gs", "//", "Transpose"}]}], "}"}], "]"}], ",", 
-        RowBox[{"{", "}"}], ",", "R", ",", "x", ",", "gms"}], "]"}]}], 
-     ")"}]}]}], ";"}]}], "Input",
+          RowBox[{"scs", "[", "x", "]"}], "//", "Transpose"}], ",", 
+         RowBox[{"gs", "//", "Transpose"}]}], "}"}], "]"}], ",", 
+      RowBox[{"{", "}"}], ",", "R", ",", "x", ",", "gms"}], "]"}], "//", 
+    "ConvertIteratedToStandardFunList"}]}], ";"}]}], "Input",
  InitializationCell->True],
 
 Cell[BoxData[{
@@ -10102,7 +10111,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{1197, 836},
-WindowMargins->{{63, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 19}, {-257, Automatic}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
