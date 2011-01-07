@@ -26,8 +26,8 @@ Begin["`AblowitzSegurPositive`"];
 \[Theta][z_]:=I(4/3 z^3 + z);
 G//Clear;
 s//Clear;
-G[_][_,_,_?InfinityQ]:=IdentityMatrix[2];
-G[1][{s_,x_},z_]=({
+G[_,_][_?InfinityQ]:=IdentityMatrix[2];
+G[{x_,s_},1][z_]=({
  {Exp[-x^(3/2)  \[Theta][z]], 0},
  {0, Exp[x^(3/2)  \[Theta][z]]}
 }).({
@@ -37,7 +37,7 @@ G[1][{s_,x_},z_]=({
  {Exp[x^(3/2)  \[Theta][z]], 0},
  {0, Exp[-x^(3/2)  \[Theta][z]]}
 });
-G[6][{s_,x_},z_]=({
+G[{x_,s_},6][z_]=({
  {Exp[-x^(3/2)  \[Theta][z]], 0},
  {0, Exp[x^(3/2)  \[Theta][z]]}
 }).({
@@ -49,20 +49,21 @@ G[6][{s_,x_},z_]=({
 })//Inverse;
 
 
-Cdefs[n_]:={({
+Cdefs[n_]:={Function[x,({
  {.5 I, -.5 I},
- {#[[2]], -#[[2]]}
-})&,({
- {G[1], G[6]}
-}),({
+ {x, -x}
+})],({
  {Line[{-4.,4.}], n}
-})}
+})};
+Gl[{x_,s_}]:=({
+ {G[{x,s},1], G[{x,s},6]}
+})
 
 
-slvr:=slvr=ScaledRHSolver[Cdefs[40]];
+slvr//Clear;slvr:=slvr=ScaledRHSolver[Cdefs[40]];
 
 
-AblowitzSegurPositivePainleveII[s_,x_]:=-(1/\[Pi])Sqrt[x]Total[DomainIntegrate/@slvr[{-s,x}]][[1,2]];
+AblowitzSegurPositivePainleveII[s_,x_]:=-(1/\[Pi])Sqrt[x]Total[DomainIntegrate/@slvr[x,Gl[{x,-s}]]][[1,2]];
 
 
 End[]

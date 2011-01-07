@@ -706,11 +706,11 @@ CauchyMatrix[s_?SignQ,l:{__?MatrixFunQ},l2_List]:=CauchyMatrix[s,#[[1,1]]&/@l,l2
 
 CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},g_IFun]:=CauchyMatrix[s,#[[1]]&/@l,g]//BlockDiagonalMatrix[{#,#}]&;
 CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},l2_List]:=CauchyMatrix[s,#[[1]]&/@l,l2]//BlockDiagonalMatrix[{#,#}]&;
-CauchyMatrix[s_?SignQ,l_List,g_IFun]:=RightJoin@@(CauchyMatrix[s,#,g]&/@l);
-CauchyMatrix[s_?SignQ,l_List,l2_List]:=Join@@(CauchyMatrix[s,l,#]&/@l2);
+CauchyMatrix[s_?SignQ,l:{__IFun},g_IFun]:=RightJoin@@(CauchyMatrix[s,#,g]&/@l);
+CauchyMatrix[s_?SignQ,l:{__IFun},l2:{__IFun}]:=Join@@(CauchyMatrix[s,l,#]&/@l2);
 
 CauchyMatrix[s_?SignQ,f_IFun]:=CauchyMatrix[s,f,f];
-CauchyMatrix[s_?SignQ,f_List]:=CauchyMatrix[s,f,f];
+CauchyMatrix[s_?SignQ,f:{__IFun}]:=CauchyMatrix[s,f,f];
 
 
 
@@ -1046,44 +1046,91 @@ ZeroSumCondition[GG_]:=ZeroSumCondition[GG,#]&/@Endpoints[GG];
 
 
 
-IteratedRHSolver[{{{z0_,sc_},lsGs_},Grest___},{},R_,x_,gms_]:=Module[{Cus,uz0,usc,us,gl},
-gl=Fun[Function[z,#[[1]][x,z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{lsGs,gms}];
-IteratedRHSolver[{Grest},{{z0,sc,R[gl]}},R,x,gms]
+IteratedRHSolver[{{{z0_,sc_},lsGs_},Grest___},{},R_,gms_]:=Module[{Cus,uz0,usc,us,gl},
+gl=Fun[Function[z,#[[1]][z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{lsGs,gms}];
+IteratedRHSolver[{Grest},{{z0,sc,R[gl]}},R,gms]
 ];
-IteratedRHSolver[{},Uls_,_,_,_]:=Uls;
-IteratedRHSolver[{{{z0_,sc_},lsGs_},Grest___},Uls_,R_,x_,gms_]:=Module[{Cus,uz0,usc,us,gl},
-gl=Fun[Function[z,#[[1]][x,z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{lsGs,gms}];
+IteratedRHSolver[{},Uls_,_,_]:=Uls;
+IteratedRHSolver[{{{z0_,sc_},lsGs_},Grest___},Uls_,R_,gms_]:=Module[{Cus,uz0,usc,us,gl},
+gl=Fun[Function[z,#[[1]][z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{lsGs,gms}];
 Cus=(Dot@@#)&/@Thread[
 Function[uls,
 {uz0,usc,us}=uls;
 FromValueList[gl,Cauchy[us,((z0+Points[gl]/sc)-uz0)usc]//ToMatrixOfLists//Flatten]//AddIdentityMatrix
 ]/@Uls
 ];
-IteratedRHSolver[{Grest},Join[{{z0,sc,R[#[[1]].#[[2]].Inverse[#[[1]]]&/@Thread[{Cus,gl}]]}},Uls],R,x,gms]
+IteratedRHSolver[{Grest},Join[{{z0,sc,R[#[[1]].#[[2]].Inverse[#[[1]]]&/@Thread[{Cus,gl}]]}},Uls],R,gms]
 ];
 
 
 OuterIteratedRHSolver[{},Uls_,_]:=Uls;
-OuterIteratedRHSolver[{{scale_,jumps_,domains_,R_},rest___},Uls_,x_]:=OuterIteratedRHSolver[{rest},IteratedRHSolver[Thread[{scale[x]//Transpose,jumps//Transpose}],Uls,R,x,domains],x];
+OuterIteratedRHSolver[{{{scale_,domains_},jumps_,R_},rest___},Uls_,x_]:=OuterIteratedRHSolver[{rest},IteratedRHSolver[Thread[{scale[x]//Transpose,jumps//Transpose}],Uls,R,domains],x];
 
-
-RiemannHilbert`ScaledRHSolver[Glist:{{_,_,_}..}]:=Module[{scale,jumps,domains},
-ScaledRHSolver[Function[Gl,
-{scale,jumps,domains}=Gl;
-Join[Gl,{RHSolver[Function[domain,Fun[IdentityMatrix[2]&,Sequence@@domain]]/@domains]}]
-]/@Glist]
-];
-
-(** IteratedRHSolver and OuterIteratedRHSolver returns a {{z0,sc,{fun1,fun2,..}}..}, where the funs are centred around zero **)
 
 ConvertIteratedToStandardFunList[ifl_]:=(Function[sfl,IFun[Values[#],((#//Domain)/sfl[[2]]+sfl[[1]])]&/@Last[sfl]]/@ifl);
 
 
-ScaledRHSolver[RGList:{{_,_,_,_}..}][x_]:=OuterIteratedRHSolver[RGList,{},x]//ConvertIteratedToStandardFunList;
+RiemannHilbert`ScaledRHSolver[l:{{_,_}..}]:=Module[{scale,domains},
+ScaledRHSolver[l,
+Function[Gl,
+{scale,domains}=Gl;
+RHSolver[Function[domain,Fun[IdentityMatrix[2]&,Sequence@@domain]]/@domains]
+]/@l
+]
+];
+ScaledRHSolver[l:{{_,_}..},Rs_][x_,Gf_]:=OuterIteratedRHSolver[Thread[{l,Gf,Rs}],{},x]//ConvertIteratedToStandardFunList;
 
-ScaledRHSolver[{scs_,gs_,gms_}]:=
-ScaledRHSolver[{scs,gs,gms},RHSolver[Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms]];
-ScaledRHSolver[{scs_,gs_,gms_},R_RHSolver][x_]:=IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,x,gms]//ConvertIteratedToStandardFunList;
+
+
+
+
+ScaledRHSolver[{scs_,gms_}]:=
+ScaledRHSolver[{scs,gms},RHSolver[Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms]];
+ScaledRHSolver[{scs_,gms_},R_RHSolver][x_,gs_]:=IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,gms]//ConvertIteratedToStandardFunList;
+
+
+CauchyMatrix[s_,l1:{{_?DomainQ,_Integer}..},l2:{{_?DomainQ,_Integer}..}]:=CauchyMatrix[s,IFun[Array[({
+ {0, 0},
+ {0, 0}
+})&,#[[2]]],#[[1]]]&/@l1,IFun[Array[({
+ {0, 0},
+ {0, 0}
+})&,#[[2]]],#[[1]]]&/@l2];
+IteratedScaledCauchy[{{z0_,sc_},rest___},{},gms_,i_]:=IteratedScaledCauchy[{rest},{{z0,sc,i,{}}},gms,i];
+IteratedScaledCauchy[{{z0_,sc_},rest___},Uls_,gms_,i_]:=Module[{Cmats,uz0,usc,us,ugms,uCmats,uR,uz0scs,ui},
+Cmats=Function[ulscs,
+{uz0,usc,ui,uCmats}=ulscs;
+CauchyMatrix[+1,gms[[ui]],{usc (z0+#[[1]]/sc-uz0),#[[2]]}&/@gms[[i]]]
+]/@Uls;
+IteratedScaledCauchy[{rest},Join[Uls,{{z0,sc,i,Cmats}}],gms,i]];
+IteratedScaledCauchy[{},Uls_,_,_]:=Uls;
+OuterIteratedScaledCauchy[{},Uls_,_,_,_]:=Uls;
+OuterIteratedScaledCauchy[{scales_,rest___},Uls_,gms_,i_,x_]:=
+OuterIteratedScaledCauchy[{rest},IteratedScaledCauchy[scales[x]//Transpose,Uls,gms,i],gms,i+1,x];
+
+
+
+IteratedRHSolver[{},Uls_,_,_]:=Uls;IteratedRHSolver[{{{z0_,sc_,i_,Cmats_},Gf_},Grest___},{},Rs_,gms_]:=Module[{gl},
+gl=Fun[Function[z,#[[1]][z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{Gf,gms[[i]]}];
+IteratedRHSolver[{Grest},{{z0,sc,Rs[[i]][gl]}},Rs,gms]
+];
+IteratedRHSolver[{{{z0_,sc_,i_,Cmats_},Gf_},Grest___},Uls_,Rs_,gms_]:=Module[{Cus,uz0,usc,us,gl,Cs},
+gl=Fun[Function[z,#[[1]][z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{Gf,gms[[i]]}];
+Cus=(Dot@@#)&/@Thread[
+Function[uls,
+{{uz0,usc,us},Cs}=uls;
+FromValueList[gl,Cs.ToValueList[us]]//AddIdentityMatrix
+]/@Reverse[Thread[{Uls,Cmats}]]
+];
+
+IteratedRHSolver[{Grest},Join[Uls,{{z0,sc,Rs[[i]][#[[1]].#[[2]].Inverse[#[[1]]]&/@Thread[{Cus,gl}]]}}],Rs,gms]
+];
+
+
+ScaledRHSolver[l:{{_,_}..},Rs_][x_]:=
+ScaledRHSolver[OuterIteratedScaledCauchy[First/@l,{},Last/@l,1,x],Rs,Last/@l];
+ScaledRHSolver[l:{{_,_,_,_}..},Rs_,gms_][Gl_]:=
+IteratedRHSolver[Thread[{l,Flatten[Transpose/@Gl,1]}],{},Rs,gms]//ConvertIteratedToStandardFunList;
 
 
 End[];

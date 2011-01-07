@@ -3273,7 +3273,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3945,7 +3945,7 @@ Cell[BoxData[{
   ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4405,7 +4405,7 @@ Cell[BoxData[{
    RowBox[{"f", "-", 
     RowBox[{"First", "[", "f", "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4418,30 +4418,68 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
     RowBox[{
-     RowBox[{"FinitePoints", "[", "if_IFun", "]"}], ":=", 
-     RowBox[{"Select", "[", 
+     RowBox[{"FinitePoints", "[", 
+      RowBox[{"if_IFun", "?", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}], "&&", 
+          RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}], "&"}], ")"}]}],
+       "]"}], ":=", 
+     RowBox[{
       RowBox[{
-       RowBox[{"if", "//", "Points"}], ",", 
-       RowBox[{
-        RowBox[{"!", 
-         RowBox[{"InfinityQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ";"}], 
+       RowBox[{"if", "//", "Points"}], "//", "Most"}], "//", "Rest"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FiniteValues", "[", 
+      RowBox[{"if_IFun", "?", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}], "&&", 
+          RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}], "&"}], ")"}]}],
+       "]"}], ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"if", "//", "Values"}], "//", "Most"}], "//", "Rest"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FinitePoints", "[", 
+      RowBox[{"if_IFun", "?", "LeftEndpointInfinityQ"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"if", "//", "Points"}], "//", "Rest"}]}], ";"}], 
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
+     RowBox[{"FiniteValues", "[", 
+      RowBox[{"if_IFun", "?", "LeftEndpointInfinityQ"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"if", "//", "Values"}], "//", "Rest"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FinitePoints", "[", 
+      RowBox[{"if_IFun", "?", "RightEndpointInfinityQ"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"if", "//", "Points"}], "//", "Most"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FiniteValues", "[", 
+      RowBox[{"if_IFun", "?", "RightEndpointInfinityQ"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"if", "//", "Values"}], "//", "Most"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
      RowBox[{"FiniteValues", "[", "if_IFun", "]"}], ":=", 
-     RowBox[{"Last", "/@", 
-      RowBox[{"Select", "[", 
-       RowBox[{
-        RowBox[{"Thread", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"Points", "[", "if", "]"}], ",", 
-           RowBox[{"Values", "[", "if", "]"}]}], "}"}], "]"}], ",", 
-        RowBox[{
-         RowBox[{"!", 
-          RowBox[{"InfinityQ", "[", 
-           RowBox[{"First", "[", "#", "]"}], "]"}]}], "&"}]}], "]"}]}]}], 
-    ";"}], "\[IndentingNewLine]", 
+     RowBox[{"Values", "[", "if", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FinitePoints", "[", "if_IFun", "]"}], ":=", 
+     RowBox[{"Points", "[", "if", "]"}]}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"FiniteLength", "[", "f_", "]"}], ":=", 
@@ -4591,7 +4629,7 @@ defined.\\\\\\\"\\\", \\\"MT\\\"]\\) \
 ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/End/noctx\\\", \
 ButtonNote -> \\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4724,7 +4762,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
    RowBox[{"Derivative", "[", "if_IFun", "]"}], ":=", 
    RowBox[{"if", "'"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4904,8 +4942,8 @@ Cell[BoxData[{
      RowBox[{"DomainIntegrate", "/@", 
       RowBox[{"{", "if", "}"}]}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]]
-}, Closed]],
+}, Open  ]]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6322,6 +6360,7 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{"TransformMatrix", ";"}], "\[IndentingNewLine]", 
  RowBox[{"DerivativeMatrix", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"IntegrateMatrix", ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"FiniteTransformMatrix", ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
@@ -6662,7 +6701,7 @@ Cell[BoxData[{
               "]"}]}], ",", "1"}], "]"}]}], ")"}]}], ")"}]}], "]"}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6771,6 +6810,73 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"ReduceDimensionMatrix", "[", 
+    RowBox[{"d_", ",", "n_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Inverse", "[", 
+     RowBox[{"TransformMatrix", "[", 
+      RowBox[{"d", ",", 
+       RowBox[{"n", "-", "1"}]}], "]"}], "]"}], ".", 
+    RowBox[{
+     RowBox[{"IdentityMatrix", "[", "n", "]"}], "\[LeftDoubleBracket]", 
+     RowBox[{
+      RowBox[{";;", 
+       RowBox[{"-", "2"}]}], ",", "All"}], "\[RightDoubleBracket]"}], ".", 
+    RowBox[{"TransformMatrix", "[", "n", "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ReduceDimensionMatrix", "[", "f_", "]"}], ":=", 
+    RowBox[{"ReduceDimensionMatrix", "[", 
+     RowBox[{
+      RowBox[{"f", "//", "Domain"}], ",", 
+      RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"IntegrateMatrix", "[", 
+    RowBox[{"d_", ",", "n_Integer"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"ColumnMap", "[", 
+     RowBox[{"ChebyshevLobattoIntegrate", ",", 
+      RowBox[{"IdentityMatrix", "[", "n", "]"}]}], "]"}], ".", 
+    RowBox[{"DiagonalMatrix", "[", 
+     RowBox[{"MapFromIntervalD", "[", 
+      RowBox[{"d", ",", 
+       RowBox[{"Points", "[", 
+        RowBox[{"UnitInterval", ",", "n"}], "]"}]}], "]"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"IntegrateMatrix", "[", "f_", "]"}], ":=", 
+    RowBox[{"IntegrateMatrix", "[", 
+     RowBox[{
+      RowBox[{"f", "//", "Domain"}], ",", 
+      RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ReduceDimensionIntegrateMatrix", "[", 
+    RowBox[{"d_", ",", "n_Integer"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"ReduceDimensionMatrix", "[", 
+     RowBox[{"d", ",", 
+      RowBox[{"n", "+", "1"}]}], "]"}], ".", 
+    RowBox[{"IntegrateMatrix", "[", 
+     RowBox[{"d", ",", "n"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ReduceDimensionIntegrateMatrix", "[", "f_", "]"}], ":=", 
+    RowBox[{"ReduceDimensionIntegrateMatrix", "[", 
+     RowBox[{
+      RowBox[{"f", "//", "Domain"}], ",", 
+      RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"DiagonalMatrix", "[", "f_IFun", "]"}], "^:=", 
    RowBox[{
     RowBox[{"f", "//", "Values"}], "//", "DiagonalMatrix"}]}], 
@@ -6784,7 +6890,7 @@ Cell[BoxData[{
  InitializationCell->True],
 
 Cell[BoxData[""], "Input"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -8613,7 +8719,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{814, 809},
-WindowMargins->{{118, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, -1428}, {Automatic, -8}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

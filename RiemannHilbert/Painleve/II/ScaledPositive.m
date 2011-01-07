@@ -77,46 +77,46 @@ Y[z_]:=1/2 ({
 \[CapitalPhi]in[s_,t_,z_]:=Inverse[\[CapitalPhi][s,t,z]];
 \[CapitalPhi]in[s_,t_,z_?(ZeroQ[Re[#]]&)]:=\[CapitalPhi]in[s,t,z+$MachineEpsilon];
 Clear[GG,GGL,GGU];
-GG[_][_,_,_?InfinityQ]:=IdentityMatrix[2];
-GG[2][{t_,s_},z_]:=\[CapitalPhi][s,t,z].S[s,2].Inverse[\[CapitalPhi][s,t,z]];
+GG[_,_][_?InfinityQ]:=IdentityMatrix[2];
+GG[{t_,s_},2][z_]:=\[CapitalPhi][s,t,z].S[s,2].Inverse[\[CapitalPhi][s,t,z]];
 
-GGL[_,_?InfinityQ]:=IdentityMatrix[2];
-GGL[{t_,s_},z_]:=\[CapitalPhi][s,t,z].Inverse[SL[s]].Inverse[\[CapitalPhi][s,t,z]];
+GGL[_][_?InfinityQ]:=IdentityMatrix[2];
+GGL[{t_,s_}][z_]:=\[CapitalPhi][s,t,z].Inverse[SL[s]].Inverse[\[CapitalPhi][s,t,z]];
 
 
-GG[1][{t_,s_},z_]:=\[CapitalPhi][s,t,z].S[s,1].SL[s].Inverse[\[CapitalPhi][s,t,z]];
-GG[6][{t_,s_},z_]:=\[CapitalPhi][s,t,z].SU[s].S[s,6].Inverse[\[CapitalPhi][s,t,z]];
-GG[4][{t_,s_},z_]:=\[CapitalPhi][s,t,z].S[s,4].SU[s].Inverse[\[CapitalPhi][s,t,z]];
-GG[3][{t_,s_},z_]:=\[CapitalPhi][s,t,z].SL[s].S[s,3].Inverse[\[CapitalPhi][s,t,z]];
-GG[5][{t_,s_},z_]:=\[CapitalPhi][s,t,z].S[s,5].Inverse[\[CapitalPhi][s,t,z]];
-GGU[_,_,_?InfinityQ]:=IdentityMatrix[2];
-GGU[{t_,s_},z_]:=\[CapitalPhi][s,t,z].Inverse[SU[s]].Inverse[\[CapitalPhi][s,t,z]];
+GG[{t_,s_},1][z_]:=\[CapitalPhi][s,t,z].S[s,1].SL[s].Inverse[\[CapitalPhi][s,t,z]];
+GG[{t_,s_},6][z_]:=\[CapitalPhi][s,t,z].SU[s].S[s,6].Inverse[\[CapitalPhi][s,t,z]];
+GG[{t_,s_},4][z_]:=\[CapitalPhi][s,t,z].S[s,4].SU[s].Inverse[\[CapitalPhi][s,t,z]];
+GG[{t_,s_},3][z_]:=\[CapitalPhi][s,t,z].SL[s].S[s,3].Inverse[\[CapitalPhi][s,t,z]];
+GG[{t_,s_},5][z_]:=\[CapitalPhi][s,t,z].S[s,5].Inverse[\[CapitalPhi][s,t,z]];
+GGU[_][_?InfinityQ]:=IdentityMatrix[2];
+GGU[{t_,s_}][z_]:=\[CapitalPhi][s,t,z].Inverse[SU[s]].Inverse[\[CapitalPhi][s,t,z]];
 \[CapitalPhi]\[Theta]b//Clear;
 \[CapitalPhi]\[Theta]b[s_,t_,z_]:=\[CapitalPhi][s,t,z].MatrixExp[t \[Theta][z] \[Sigma]3];
 \[CapitalPhi]\[Theta][s_,t_,z_]:=\[CapitalPhi]\[Theta]b[s,t,z];
 \[CapitalPhi]\[Theta][_,_,_?InfinityQ]:=IdentityMatrix[2];
 
 
-GGTC[1][{t_,s_},z_]:=(\[Piecewise]{
+GGTC[{t_,s_},1][z_]:=(\[Piecewise]{
  {S[s,2].Inverse[SL[s]], Re[z]<0},
  {SL[s], True}
 }).\[CapitalPhi]in[s,t,z];
-GGTC[2][{t_,s_},z_]:=S[s,2].\[CapitalPhi]in[s,t,z];
-GGTC[3][{t_,s_},z_]:=\[CapitalPhi]in[s,t,z];
-GGBC[1][{t_,s_},z_]:=(\[Piecewise]{
+GGTC[{t_,s_},2][z_]:=S[s,2].\[CapitalPhi]in[s,t,z];
+GGTC[{t_,s_},3][z_]:=\[CapitalPhi]in[s,t,z];
+GGBC[{t_,s_},1][z_]:=(\[Piecewise]{
  {SU[s], Re[z]<0},
  {S[s,5].Inverse[SU[s]], True}
 }).\[CapitalPhi]in[s,t,z];
-GGBC[2][{t_,s_},z_]:=S[s,5].\[CapitalPhi]in[s,t,z];
-GGBC[3][{t_,s_},z_]:=\[CapitalPhi]in[s,t,z];
+GGBC[{t_,s_},2][z_]:=S[s,5].\[CapitalPhi]in[s,t,z];
+GGBC[{t_,s_},3][z_]:=\[CapitalPhi]in[s,t,z];
 
-GGMC[1][{t_,s_},z_]:=\[CapitalPhi]in[s,t,z];
-GGMC[2][{t_,s_},z_]:=S[s,1].S[s,2].S[s,3].S[s,4].(\[Piecewise]{
+GGMC[{t_,s_},1][z_]:=\[CapitalPhi]in[s,t,z];
+GGMC[{t_,s_},2][z_]:=S[s,1].S[s,2].S[s,3].S[s,4].(\[Piecewise]{
  {SU[s], Re[z]<=0},
  {S[s,5].Inverse[SU[s]], True}
 }).\[CapitalPhi]in[s,t,z-3$MachineEpsilon];
-GGMC[3][{t_,s_},z_]:=S[s,1].S[s,2].S[s,3].\[CapitalPhi]in[s,t,z];
-GGMC[4][{t_,s_},z_]:=S[s,1].(\[Piecewise]{
+GGMC[{t_,s_},3][z_]:=S[s,1].S[s,2].S[s,3].\[CapitalPhi]in[s,t,z];
+GGMC[{t_,s_},4][z_]:=S[s,1].(\[Piecewise]{
  {S[s,2].Inverse[SL[s]], Re[z]<0},
  {SL[s], True}
 }).\[CapitalPhi]in[s,t,z];
@@ -127,17 +127,10 @@ rngg2={0.5,3.8};
 
 
 Cdefs[n_]:={
-{({
+{Function[t,({
  {I/Sqrt[2], -(I/Sqrt[2])},
- {#[[1]]^(2/3), -#[[1]]^(2/3)}
-})&,({
- {GG[2], GG[5]},
- {GGL, GGU},
- {GGL, GGU},
- {GGTC[1], GGBC[1]},
- {GGTC[2], GGBC[2]},
- {GGTC[3], GGBC[3]}
-}),({
+ {t^(2/3), -t^(2/3)}
+})],({
  {Line[I rngg], n},
  {Line[Exp[-\[Pi]/6 I] rngg], n},
  {Line[Exp[-5  \[Pi]/6 I] rngg], n},
@@ -145,19 +138,10 @@ Cdefs[n_]:={
  {Line[{Exp[-5\[Pi]/6I],I}rngg[[1]]] , n+18},
  {Line[{I,Exp[-\[Pi]/6I]}rngg[[1]]] , n+18}
 })},
-{({
+{Function[t,({
  {0},
- {#[[1]]^(1/2)}
-})&,({
- {GG[6]},
- {GG[1]},
- {GG[3]},
- {GG[4]},
- {GGMC[1]},
- {GGMC[2]},
- {GGMC[3]},
- {GGMC[4]}
-}),({
+ {t^(1/2)}
+})],({
  {Line[Exp[-I \[Pi]/4] rngg], n+4},
  {Line[Exp[I \[Pi]/4] rngg], n},
  {Line[Exp[3I \[Pi]/4] rngg], n+4},
@@ -166,7 +150,24 @@ Cdefs[n_]:={
  {Line[{Exp[-I \[Pi]/4],Exp[-3 I \[Pi]/4]} rngg[[1]]], n+6},
  {Line[{Exp[-3 I \[Pi]/4],Exp[3 I \[Pi]/4]} rngg[[1]]], n+6},
  {Line[{Exp[3 I \[Pi]/4],Exp[ I \[Pi]/4]} rngg[[1]]], n+6}
-})}}
+})}};
+Gf[x_]:={({
+ {GG[x,2], GG[x,5]},
+ {GGL[x], GGU[x]},
+ {GGL[x], GGU[x]},
+ {GGTC[x,1], GGBC[x,1]},
+ {GGTC[x,2], GGBC[x,2]},
+ {GGTC[x,3], GGBC[x,3]}
+}),({
+ {GG[x,6]},
+ {GG[x,1]},
+ {GG[x,3]},
+ {GG[x,4]},
+ {GGMC[x,1]},
+ {GGMC[x,2]},
+ {GGMC[x,3]},
+ {GGMC[x,4]}
+})}
 
 
 slvr//Clear;slvr:=slvr=ScaledRHSolver[Cdefs[36]];
@@ -175,7 +176,7 @@ slvr//Clear;slvr:=slvr=ScaledRHSolver[Cdefs[36]];
 ScaledPainleveIIPositive[sin_,x_]:=Module[{s},
 {s[1],s[2],s[3]}=sin;
 {s[4],s[5],s[6]}=-Array[s,3];
-Quiet[-(1/(\[Pi] I)) Total[DomainIntegrate/@slvr[{x^(3/2),s}]][[1,2]]Sqrt[x]+2 (1/4-I/4) (-1)^(3/4) Sqrt[x],{Inverse::luc}]
+Quiet[-(1/(\[Pi] I)) Total[DomainIntegrate/@slvr[x^(3/2),Gf[{x^(3/2),s}]]][[1,2]]Sqrt[x]+2 (1/4-I/4) (-1)^(3/4) Sqrt[x],{Inverse::luc}]
 ]
 
 

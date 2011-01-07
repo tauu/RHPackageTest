@@ -50,46 +50,37 @@ DD[s_]:=({
 \[CapitalPhi]m[s_,z_]:=ParametrixBranch[DD[s],Line[{-1/2,1/2}],z,0];
 
 
-GRF[_][_,_?InfinityQ]:=IdentityMatrix[2];
-GRF[6][{x_,s_},z_]:=\[CapitalPhi][s,z].G[6][s,x,z].Inverse[\[CapitalPhi][s,z]];
-GRF[1][{x_,s_},z_]:=\[CapitalPhi][s,z].G[1][s,x,z].Inverse[\[CapitalPhi][s,z]];
-GRF[2][{x_,s_},z_]:=\[CapitalPhi][s,z].G[2][s,x,z].Inverse[GU[s,x,z]].Inverse[\[CapitalPhi][s,z]];
-GRF[5][{x_,s_},z_]:=\[CapitalPhi][s,z].Inverse[GL[s,x,z]].Inverse[\[CapitalPhi][s,z]];
+GRF[_][_?InfinityQ]:=IdentityMatrix[2];
+GRF[{x_,s_},6][z_]:=\[CapitalPhi][s,z].G[6][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GRF[{x_,s_},1][z_]:=\[CapitalPhi][s,z].G[1][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GRF[{x_,s_},2][z_]:=\[CapitalPhi][s,z].G[2][s,x,z].Inverse[GU[s,x,z]].Inverse[\[CapitalPhi][s,z]];
+GRF[{x_,s_},5][z_]:=\[CapitalPhi][s,z].Inverse[GL[s,x,z]].Inverse[\[CapitalPhi][s,z]];
 
-GRFC[1][{x_,s_},z_]:=Inverse[GL[s,x,z]].G[6][s,x,z].G[1][s,x,z].Inverse[\[CapitalPhi][s,z]];
-GRFC[2][{x_,s_},z_]:=Inverse[GL[s,x,z]].G[6][s,x,z].Inverse[\[CapitalPhi][s,z]];
-GRFC[3][{x_,s_},z_]:=Inverse[GL[s,x,z]].Inverse[\[CapitalPhi][s,z]];
-GRFC[4][{x_,s_},z_]:=Inverse[\[CapitalPhi]m[s,z]];
+GRFC[{x_,s_},1][z_]:=Inverse[GL[s,x,z]].G[6][s,x,z].G[1][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GRFC[{x_,s_},2][z_]:=Inverse[GL[s,x,z]].G[6][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GRFC[{x_,s_},3][z_]:=Inverse[GL[s,x,z]].Inverse[\[CapitalPhi][s,z]];
+GRFC[{x_,s_},4][z_]:=Inverse[\[CapitalPhi]m[s,z]];
 
 
-GLF[_,_][_,_?InfinityQ]:=IdentityMatrix[2];
-GLF[2][{x_,s_},z_]:=\[CapitalPhi][s,z].GU[s,x,z].Inverse[\[CapitalPhi][s,z]];
-GLF[3][{x_,s_},z_]:=\[CapitalPhi][s,z].G[3][s,x,z].Inverse[\[CapitalPhi][s,z]];
-GLF[4][{x_,s_},z_]:=\[CapitalPhi][s,z].G[4][s,x,z].Inverse[\[CapitalPhi][s,z]];
-GLF[5][{x_,s_},z_]:=\[CapitalPhi][s,z].G[5][s,x,z].GL[s,x,z].Inverse[\[CapitalPhi][s,z]];
+GLF[_,_][_?InfinityQ]:=IdentityMatrix[2];
+GLF[{x_,s_},2][z_]:=\[CapitalPhi][s,z].GU[s,x,z].Inverse[\[CapitalPhi][s,z]];
+GLF[{x_,s_},3][z_]:=\[CapitalPhi][s,z].G[3][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GLF[{x_,s_},4][z_]:=\[CapitalPhi][s,z].G[4][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GLF[{x_,s_},5][z_]:=\[CapitalPhi][s,z].G[5][s,x,z].GL[s,x,z].Inverse[\[CapitalPhi][s,z]];
 
-GLFC[1][{x_,s_},z_]:=Inverse[\[CapitalPhi]m[s,z]];
-GLFC[2][{x_,s_},z_]:=DD[s].GU[s,x,z].Inverse[\[CapitalPhi][s,z]];
-GLFC[3][{x_,s_},z_]:=DD[s].GU[s,x,z].G[3][s,x,z].Inverse[\[CapitalPhi][s,z]];
-GLFC[4][{x_,s_},z_]:=DD[s].GU[s,x,z].G[3][s,x,z].G[4][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GLFC[{x_,s_},1][z_]:=Inverse[\[CapitalPhi]m[s,z]];
+GLFC[{x_,s_},2][z_]:=DD[s].GU[s,x,z].Inverse[\[CapitalPhi][s,z]];
+GLFC[{x_,s_},3][z_]:=DD[s].GU[s,x,z].G[3][s,x,z].Inverse[\[CapitalPhi][s,z]];
+GLFC[{x_,s_},4][z_]:=DD[s].GU[s,x,z].G[3][s,x,z].G[4][s,x,z].Inverse[\[CapitalPhi][s,z]];
 
 
 rngg={.5,2.3};
 rngg25={.5,3.};
 n=20;
-{scs,gs,gms}={({
+{scs,gms}={Function[x,({
  {.5, -.5},
- {(-#[[1]])^(3/4), -(-#[[1]])^(3/4)}
-})&,({
- {GRF[1], GLF[4]},
- {GRF[2], GLF[5]},
- {GRF[5], GLF[2]},
- {GRF[6], GLF[3]},
- {GRFC[1], GLFC[4]},
- {GRFC[2], GLFC[3]},
- {GRFC[3], GLFC[2]},
- {GRFC[4], GLFC[1]}
-}),({
+ {(-x)^(3/4), -(-x)^(3/4)}
+})],({
  {Line[Exp[I \[Pi]/4]rngg], n},
  {Line[Exp[3 I \[Pi]/4]rngg25], n},
  {Line[Exp[-3I \[Pi]/4]rngg25], n},
@@ -99,15 +90,25 @@ n=20;
  {Line[{Exp[- I \[Pi]/4] ,Exp[ -3I \[Pi]/4] }rngg[[1]]], n},
  {Line[{Exp[-3 I \[Pi]/4] ,Exp[ 3I \[Pi]/4] }rngg[[1]]], n}
 })};
+gs[xv_]:=({
+ {GRF[xv,1], GLF[xv,4]},
+ {GRF[xv,2], GLF[xv,5]},
+ {GRF[xv,5], GLF[xv,2]},
+ {GRF[xv,6], GLF[xv,3]},
+ {GRFC[xv,1], GLFC[xv,4]},
+ {GRFC[xv,2], GLFC[xv,3]},
+ {GRFC[xv,3], GLFC[xv,2]},
+ {GRFC[xv,4], GLFC[xv,1]}
+});
 
 
-slvr:=slvr=ScaledRHSolver[{scs,gs,gms}];
+slvr//Clear;slvr:=slvr=ScaledRHSolver[{scs,gms}];
 
 
 ScaledPainleveIINegative[sin_,x_]:=Module[{s},
 {s[1],s[2],s[3]}=sin;
 {s[4],s[5],s[6]}=-Array[s,3];
--(1/(\[Pi] I)) Sqrt[-x]Total[DomainIntegrate/@slvr[{x,s}]][[1,2]]]
+-(1/(\[Pi] I)) Sqrt[-x]Total[DomainIntegrate/@slvr[x,gs[{x,s}]]][[1,2]]]
 
 
 End[]

@@ -774,8 +774,15 @@ ZeroAtLeft[f_]:=f-First[f];
 
 
 
-FinitePoints[if_IFun]:=Select[if//Points,!InfinityQ[#]&];
-FiniteValues[if_IFun]:=Last/@Select[Thread[{Points[if],Values[if]}],!InfinityQ[First[#]]&];
+FinitePoints[if_IFun?(LeftEndpointInfinityQ[#]&&RightEndpointInfinityQ[#]&)]:=if//Points//Most//Rest;
+FiniteValues[if_IFun?(LeftEndpointInfinityQ[#]&&RightEndpointInfinityQ[#]&)]:=if//Values//Most//Rest;
+FinitePoints[if_IFun?LeftEndpointInfinityQ]:=if//Points//Rest;
+FiniteValues[if_IFun?LeftEndpointInfinityQ]:=if//Values//Rest;
+FinitePoints[if_IFun?RightEndpointInfinityQ]:=if//Points//Most;
+FiniteValues[if_IFun?RightEndpointInfinityQ]:=if//Values//Most;
+
+FiniteValues[if_IFun]:=Values[if];
+FinitePoints[if_IFun]:=Points[if];
 FiniteLength[f_]:=f//FinitePoints//Length;
 FiniteRealPoints[if_IFun]:=if//FinitePoints//Re;
 
@@ -1021,6 +1028,7 @@ MatrixMultMatrixFun;
 
 TransformMatrix;
 DerivativeMatrix;
+IntegrateMatrix;
 FiniteTransformMatrix;
 
 
@@ -1078,6 +1086,15 @@ DerivativeMatrix[1][f_]:=DerivativeMatrix[1][f//Domain,f//Length];
 DerivativeMatrix[k_Integer][pars__]:=MatrixPower[DerivativeMatrix[1][pars],k];
 DerivativeMatrix[d_,n_Integer]:=DerivativeMatrix[1][d,n];
 DerivativeMatrix[f_?FunQ]:=DerivativeMatrix[1][f];
+
+ReduceDimensionMatrix[d_,n_]:=Inverse[TransformMatrix[d,n-1]].IdentityMatrix[n][[;;-2,All]].TransformMatrix[n];
+ReduceDimensionMatrix[f_]:=ReduceDimensionMatrix[f//Domain,f//Length];
+
+IntegrateMatrix[d_,n_Integer]:=ColumnMap[ChebyshevLobattoIntegrate,IdentityMatrix[n]].DiagonalMatrix[MapFromIntervalD[d,Points[UnitInterval,n]]];
+IntegrateMatrix[f_]:=IntegrateMatrix[f//Domain,f//Length];
+
+ReduceDimensionIntegrateMatrix[d_,n_Integer]:=ReduceDimensionMatrix[d,n+1].IntegrateMatrix[d,n];
+ReduceDimensionIntegrateMatrix[f_]:=ReduceDimensionIntegrateMatrix[f//Domain,f//Length];
 
 DiagonalMatrix[f_IFun]^:=f//Values//DiagonalMatrix;
 IdentityMatrix[f_IFun]^:=f//Length//IdentityMatrix;
