@@ -4,21 +4,21 @@ maxMemory = 256*1024*1024;
 
 Test[
 	MemoryConstrained[
-		(PainleveII[{I,0,-I}, 10]+1.104753255289869*10^(-10))/1.104753255289869*10^(-10),
+		PainleveII[{I,0,-I}, 10],
 		maxMemory
 	]
 	,
-	0
+	-1.104753255289869*10^(-10)
 	(* actual result from Prahofer and Spohn Data *) 
 	,
 	TestID->"PainleveII-20110103-HastingsMcLeod-Positive-10"
 	,
-	EquivalenceFunction -> NEqual
+	EquivalenceFunction -> NEqualRelative
 ]
 
 Test[
 	MemoryConstrained[
-		(PainleveII[{I,0,-I}, 6]+8.510993571662368*10^(-10))/8.510993571662368*10^(-10),
+		(PainleveII[{I,0,-I}, 6]+9.947694360291132`*^-6)/(10*9.947694360291132`*^-6 ),
 		maxMemory
 	]
 	,
@@ -29,3 +29,18 @@ Test[
 	,
 	EquivalenceFunction -> NEqual
 ]
+
+Test[
+	MemoryConstrained[
+		PainleveIID[{I, 0, -I},6.],
+		maxMemory
+	]
+	,
+	0.00002476520039732634`
+	(* actual result from Prahofer and Spohn Data *) 
+	,
+	TestID->"PainleveII-20110103-HastingsMcLeod-PositiveD-6"
+	,
+	EquivalenceFunction -> NEqual
+]
+

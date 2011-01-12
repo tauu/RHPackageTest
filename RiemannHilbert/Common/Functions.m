@@ -28,6 +28,7 @@ OneVector::usage="OneVector[n] constructs a vector of length n of all ones.";
 ZeroVector::usage="ZeroVector[n] constructs a vector of length n of all zeros.";
 BasisVector::usage="BasisVector[n][j] constructs a vector of length n with the jth entry equal to one.";
 NEqual::usage="NEqual[i,j] determines whether two values are within $MachineTolerence of each other.";
+NEqualRelative::usage="NEqualRelative[i,j] determines whether two values are within $MachineTolerence of each other, relative error.";
 $MachineTolerance::usage="A specified tolerance for when two numerical values should be treated as equal.";
 AlternatingVector::usage=
 "Alternating vector.";
@@ -58,6 +59,9 @@ NEqual[_?InfinityQ,_?InfinityQ]:=True;
 NEqual[f_,g_]:=Abs[f-g]<$MachineTolerance;
 
 NZeroQ[f_]:=f~NEqual~0;
+
+NEqualRelative[f_,g_]:=NZeroQ[Abs[f-g]/Abs[f]];
+
 InfinityQ[\[Infinity]]:=True;
 InfinityQ[-\[Infinity]]:=True;
 InfinityQ[_DirectedInfinity]:=True;

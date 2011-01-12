@@ -1288,6 +1288,21 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"PainleveIID", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"s1_", ",", 
+       RowBox[{"_", "?", "NZeroQ"}], ",", "s3_"}], "}"}], ",", 
+     RowBox[{"x_", "?", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"#", "\[GreaterEqual]", "5"}], "&"}], ")"}]}]}], "]"}], ":=", 
+   
+   RowBox[{
+    RowBox[{"PainleveIIPositiveD", "[", "\"\<AS\>\"", "]"}], "[", 
+    RowBox[{"s1", ",", "x"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PainleveIID", "[", 
     RowBox[{"s_", ",", "x_"}], "]"}], ":=", 
    RowBox[{"PainleveIIDSmall", "[", 
     RowBox[{"120", ",", "s", ",", "x"}], "]"}]}], 

@@ -99,7 +99,7 @@ Cauchy[s,glist]\>\""}], ";"}], "\[IndentingNewLine]",
   ";"}], "\[IndentingNewLine]", 
  RowBox[{"RiemannHilbert`CauchyMatrix", ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6403,7 +6403,7 @@ Cell[BoxData[{
        "]"}], "/@", "f"}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -10455,7 +10455,18 @@ Cell[BoxData[{
         RowBox[{
          RowBox[{"{", 
           RowBox[{"_", ",", "_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}],
-       ",", "Rs_", ",", "gms_"}], "]"}], "[", "Gl_", "]"}], ":=", 
+       ",", 
+      RowBox[{"Rs", ":", 
+       RowBox[{"{", "__RHSolver", "}"}]}], ",", 
+      RowBox[{"gms", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"_", "?", "DomainQ"}], ",", "_"}], "}"}], ".."}], "}"}], 
+         ".."}], "}"}]}]}], "]"}], "[", "Gl_", "]"}], ":=", 
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"IteratedRHSolver", "[", 
@@ -10468,10 +10479,154 @@ Cell[BoxData[{
            RowBox[{"Transpose", "/@", "Gl"}], ",", "1"}], "]"}]}], "}"}], 
        "]"}], ",", 
       RowBox[{"{", "}"}], ",", "Rs", ",", "gms"}], "]"}], "//", 
-    "ConvertIteratedToStandardFunList"}]}], ";"}]}], "Input",
+    "ConvertIteratedToStandardFunList"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ScaledRHSolver", "[", 
+     RowBox[{
+      RowBox[{"l", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"_", ",", "_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}],
+       ",", "R_RHSolver", ",", 
+      RowBox[{"gms", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"_", "?", "DomainQ"}], ",", "_"}], "}"}], ".."}], 
+        "}"}]}]}], "]"}], "[", "Gl_", "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ScaledRHSolver", "[", 
+     RowBox[{"l", ",", 
+      RowBox[{"{", "R", "}"}], ",", 
+      RowBox[{"{", "gms", "}"}]}], "]"}], "[", 
+    RowBox[{"{", "Gl", "}"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ScaledRHSolver", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"scs_", ",", "gms_"}], "}"}], ",", "R_"}], "]"}], "[", "x_", 
+    "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"ScaledRHSolver", "[", 
+    RowBox[{
+     RowBox[{"OuterIteratedScaledCauchy", "[", 
+      RowBox[{
+       RowBox[{"{", "scs", "}"}], ",", 
+       RowBox[{"{", "}"}], ",", 
+       RowBox[{"{", "gms", "}"}], ",", "1", ",", "x"}], "]"}], ",", "R", ",", 
+     "gms"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True],
 
 Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"RiemannHilbert`ScaledCauchyOperator", "[", 
+     RowBox[{"CmR_", ",", "Cmat_"}], "]"}], "[", "Ucx_", "]"}], ":=", 
+   RowBox[{"Join", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"AddIdentityMatrix", "[", 
+       RowBox[{"FromValueList", "[", 
+        RowBox[{
+         RowBox[{
+         "Ucx", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Cmat", ".", 
+          RowBox[{"ToValueList", "[", 
+           RowBox[{
+           "Ucx", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+           "]"}]}]}], "]"}], "]"}], "~", "FunListDot", "~", 
+      RowBox[{"AddIdentityMatrix", "[", 
+       RowBox[{"CmR", "[", 
+        RowBox[{"Ucx", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}],
+         "]"}], "]"}]}], ",", 
+     RowBox[{
+      RowBox[{"AddIdentityMatrix", "[", 
+       RowBox[{"CmR", "[", 
+        RowBox[{"Ucx", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
+         "]"}], "]"}], "~", "FunListDot", "~", 
+      RowBox[{"AddIdentityMatrix", "[", 
+       RowBox[{"FromValueList", "[", 
+        RowBox[{
+         RowBox[{
+         "Ucx", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Cmat", ".", 
+          RowBox[{"ToValueList", "[", 
+           RowBox[{
+           "Ucx", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+           "]"}]}]}], "]"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ScaledCauchyOperator", "[", 
+     RowBox[{"s_", ",", "slvrx_ScaledRHSolver"}], "]"}], ":=", 
+    RowBox[{"ScaledCauchyOperator", "[", 
+     RowBox[{
+      RowBox[{"CauchyOperator", "[", 
+       RowBox[{"s", ",", 
+        RowBox[{
+        "slvrx", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], 
+       "]"}], ",", 
+      RowBox[{"slvrx", "\[LeftDoubleBracket]", 
+       RowBox[{"1", ",", "2", ",", 
+        RowBox[{"-", "1"}], ",", "1"}], "\[RightDoubleBracket]"}]}], "]"}]}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"RiemannHilbert`ConstructCurve", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"scs_", ",", "domain_"}], "}"}], ",", "gfs_", ",", "x_"}], 
+    "]"}], ":=", 
+   RowBox[{"Join", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"ConstructCurve", "[", 
+        RowBox[{"#", ",", "domain"}], "]"}], "&"}], "/@", 
+      RowBox[{"Thread", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"scs", "[", "x", "]"}], "//", "Transpose"}], ",", 
+         RowBox[{"gfs", "//", "Transpose"}]}], "}"}], "]"}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ConstructCurve", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"z0_", ",", "sc_"}], "}"}], ",", "gs_"}], "}"}], ",", 
+      "domain_"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Fun", "[", 
+       RowBox[{
+        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+        ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "\[LeftDoubleBracket]", 
+           RowBox[{"2", ",", "1"}], "\[RightDoubleBracket]"}], "/", "sc"}], 
+         " ", "+", "z0"}], ",", 
+        RowBox[{"#", "\[LeftDoubleBracket]", 
+         RowBox[{"2", ",", "2"}], "\[RightDoubleBracket]"}]}], "]"}], "&"}], "/@", 
+     RowBox[{"Thread", "[", 
+      RowBox[{"{", 
+       RowBox[{"gs", ",", "domain"}], "}"}], "]"}]}]}], ";"}], 
+  " "}]}], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
  RowBox[{
   RowBox[{
    RowBox[{"ConstructCurve", "[", 
@@ -10488,59 +10643,289 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{"ConstructCurve", "[", 
         RowBox[{"#", ",", "x"}], "]"}], "&"}], "/@", "crvs"}], ")"}]}]}], 
-  ";"}], "\[IndentingNewLine]", 
+  ";"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["With gl given", "Subsection"],
+
+Cell[BoxData[{
  RowBox[{
   RowBox[{
-   RowBox[{"ConstructCurve", "[", 
+   RowBox[{"IteratedRHSolver", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "Uls_", ",", "_"}], "]"}], ":=", "Uls"}], ";", 
+  RowBox[{
+   RowBox[{"IteratedRHSolver", "[", 
     RowBox[{
      RowBox[{"{", 
-      RowBox[{"scs_", ",", "gfs_", ",", "domain_"}], "}"}], ",", "x_"}], 
-    "]"}], ":=", 
-   RowBox[{"Join", "@@", 
-    RowBox[{"(", 
-     RowBox[{
       RowBox[{
-       RowBox[{"ConstructCurve", "[", 
-        RowBox[{"#", ",", "x", ",", "domain"}], "]"}], "&"}], "/@", 
-      RowBox[{"Thread", "[", 
        RowBox[{"{", 
         RowBox[{
-         RowBox[{
-          RowBox[{"scs", "[", "x", "]"}], "//", "Transpose"}], ",", 
-         RowBox[{"gfs", "//", "Transpose"}]}], "}"}], "]"}]}], ")"}]}]}], 
+         RowBox[{"{", 
+          RowBox[{"z0_", ",", "sc_", ",", "i_", ",", "Cmats_"}], "}"}], ",", 
+         "gl_IFun"}], "}"}], ",", "Grest___"}], "}"}], ",", 
+     RowBox[{"{", "}"}], ",", "Rs_"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"IteratedRHSolver", "[", 
+    RowBox[{
+     RowBox[{"{", "Grest", "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"z0", ",", "sc", ",", 
+        RowBox[{
+         RowBox[{"Rs", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}],
+          "[", "gl", "]"}]}], "}"}], "}"}], ",", "Rs"}], "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"ConstructCurve", "[", 
+   RowBox[{"IteratedRHSolver", "[", 
     RowBox[{
      RowBox[{"{", 
       RowBox[{
        RowBox[{"{", 
-        RowBox[{"z0_", ",", "sc_"}], "}"}], ",", "gs_"}], "}"}], ",", "x_", 
-     ",", "domain_"}], "]"}], ":=", "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"Function", "[", 
-     RowBox[{"in", ",", 
-      RowBox[{"Fun", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"z0_", ",", "sc_", ",", "i_", ",", "Cmats_"}], "}"}], ",", 
+         "gl_IFun"}], "}"}], ",", "Grest___"}], "}"}], ",", "Uls_", ",", 
+     "Rs_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Cus", ",", "uz0", ",", "usc", ",", "us", ",", "Cs"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Cus", "=", 
        RowBox[{
         RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Dot", "@@", "#"}], ")"}], "&"}], "/@", 
+        RowBox[{"Thread", "[", "\[IndentingNewLine]", 
          RowBox[{
-          RowBox[{
-          "in", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], "[", 
-          RowBox[{"x", ",", "#"}], "]"}], "&"}], ",", 
-        RowBox[{"Line", "[", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"in", "\[LeftDoubleBracket]", 
-            RowBox[{"2", ",", "1", ",", "1"}], "\[RightDoubleBracket]"}], "/",
-            "sc"}], " ", "+", "z0"}], "]"}], ",", 
-        RowBox[{"in", "\[LeftDoubleBracket]", 
-         RowBox[{"2", ",", "2"}], "\[RightDoubleBracket]"}]}], "]"}]}], "]"}],
-     "/@", 
-    RowBox[{"Thread", "[", 
+          RowBox[{"Function", "[", 
+           RowBox[{"uls", ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"uz0", ",", "usc", ",", "us"}], "}"}], ",", "Cs"}], 
+               "}"}], "=", "uls"}], ";", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"FromValueList", "[", 
+               RowBox[{"gl", ",", 
+                RowBox[{"Cs", ".", 
+                 RowBox[{"ToValueList", "[", "us", "]"}]}]}], "]"}], "//", 
+              "AddIdentityMatrix"}]}]}], "\[IndentingNewLine]", "]"}], "/@", 
+          RowBox[{"Reverse", "[", 
+           RowBox[{"Thread", "[", 
+            RowBox[{"{", 
+             RowBox[{"Uls", ",", "Cmats"}], "}"}], "]"}], "]"}]}], 
+         "\[IndentingNewLine]", "]"}]}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"IteratedRHSolver", "[", 
+       RowBox[{
+        RowBox[{"{", "Grest", "}"}], ",", 
+        RowBox[{"Join", "[", 
+         RowBox[{"Uls", ",", 
+          RowBox[{"{", 
+           RowBox[{"{", 
+            RowBox[{"z0", ",", "sc", ",", 
+             RowBox[{
+              RowBox[{
+              "Rs", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}], 
+              "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{
+                 "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+                 ".", 
+                 RowBox[{
+                 "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+                 ".", 
+                 RowBox[{"Inverse", "[", 
+                  RowBox[{
+                  "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}],
+                   "]"}]}], "&"}], "/@", 
+               RowBox[{"Thread", "[", 
+                RowBox[{"{", 
+                 RowBox[{"Cus", ",", "gl"}], "}"}], "]"}]}], "]"}]}], "}"}], 
+           "}"}]}], "]"}], ",", "Rs"}], "]"}]}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"IteratedRHSolver", "[", 
+    RowBox[{
      RowBox[{"{", 
-      RowBox[{"gs", ",", "domain"}], "}"}], "]"}]}]}], ";"}]}], "Input"]
-}, Open  ]]
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"z0_", ",", "sc_", ",", "i_", ",", "Cmats_"}], "}"}], ",", 
+         "gl_IFun", ",", "rl_IFun"}], "}"}], ",", "Grest___"}], "}"}], ",", 
+     RowBox[{"{", "}"}], ",", "Rs_"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"IteratedRHSolver", "[", 
+    RowBox[{
+     RowBox[{"{", "Grest", "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"z0", ",", "sc", ",", 
+        RowBox[{
+         RowBox[{"Rs", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}],
+          "[", 
+         RowBox[{"gl", ",", "rl"}], "]"}]}], "}"}], "}"}], ",", "Rs"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"IteratedRHSolver", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"z0_", ",", "sc_", ",", "i_", ",", "Cmats_"}], "}"}], ",", 
+         "gl_IFun", ",", "rl_IFun"}], "}"}], ",", "Grest___"}], "}"}], ",", 
+     "Uls_", ",", "Rs_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Cus", ",", "uz0", ",", "usc", ",", "us", ",", "Cs"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Cus", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Dot", "@@", "#"}], ")"}], "&"}], "/@", 
+        RowBox[{"Thread", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Function", "[", 
+           RowBox[{"uls", ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"uz0", ",", "usc", ",", "us"}], "}"}], ",", "Cs"}], 
+               "}"}], "=", "uls"}], ";", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"FromValueList", "[", 
+               RowBox[{"gl", ",", 
+                RowBox[{"Cs", ".", 
+                 RowBox[{"ToValueList", "[", "us", "]"}]}]}], "]"}], "//", 
+              "AddIdentityMatrix"}]}]}], "\[IndentingNewLine]", "]"}], "/@", 
+          RowBox[{"Reverse", "[", 
+           RowBox[{"Thread", "[", 
+            RowBox[{"{", 
+             RowBox[{"Uls", ",", "Cmats"}], "}"}], "]"}], "]"}]}], 
+         "\[IndentingNewLine]", "]"}]}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"IteratedRHSolver", "[", 
+       RowBox[{
+        RowBox[{"{", "Grest", "}"}], ",", 
+        RowBox[{"Join", "[", 
+         RowBox[{"Uls", ",", 
+          RowBox[{"{", 
+           RowBox[{"{", 
+            RowBox[{"z0", ",", "sc", ",", 
+             RowBox[{
+              RowBox[{
+              "Rs", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}], 
+              "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{
+                 "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+                 ".", 
+                 RowBox[{
+                 "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+                 ".", 
+                 RowBox[{"Inverse", "[", 
+                  RowBox[{
+                  "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}],
+                   "]"}]}], "&"}], "/@", 
+               RowBox[{"Thread", "[", 
+                RowBox[{"{", 
+                 RowBox[{"Cus", ",", "gl"}], "}"}], "]"}]}], "]"}]}], "}"}], 
+           "}"}]}], "]"}], ",", "Rs"}], "]"}]}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ScaledRHSolver", "[", 
+     RowBox[{
+      RowBox[{"l", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"_", ",", "_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}],
+       ",", 
+      RowBox[{"Rs", ":", 
+       RowBox[{"{", "__RHSolver", "}"}]}], ",", 
+      RowBox[{"gms", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"_", "?", "DomainQ"}], ",", "_"}], "}"}], ".."}], "}"}], 
+         ".."}], "}"}]}]}], "]"}], "[", 
+    RowBox[{
+     RowBox[{"Gl", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", "__IFun", "}"}], ".."}], "}"}]}], ",", 
+     RowBox[{"Rl", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", "__IFun", "}"}], ".."}], "}"}]}]}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"IteratedRHSolver", "[", 
+     RowBox[{
+      RowBox[{"Thread", "[", 
+       RowBox[{"{", 
+        RowBox[{"l", ",", 
+         RowBox[{"Flatten", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "/@", "Gl"}], ",", "1"}], "]"}], ",", 
+         RowBox[{"Flatten", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "/@", "Rl"}], ",", "1"}], "]"}]}], "}"}], 
+       "]"}], ",", 
+      RowBox[{"{", "}"}], ",", "Rs"}], "]"}], "//", 
+    "ConvertIteratedToStandardFunList"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ScaledRHSolver", "[", 
+     RowBox[{
+      RowBox[{"l", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"_", ",", "_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}],
+       ",", "R_RHSolver", ",", 
+      RowBox[{"gms", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"_", "?", "DomainQ"}], ",", "_"}], "}"}], ".."}], 
+        "}"}]}]}], "]"}], "[", 
+    RowBox[{"Gl", ":", 
+     RowBox[{"{", "__IFun", "}"}]}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ScaledRHSolver", "[", 
+     RowBox[{"l", ",", 
+      RowBox[{"{", "R", "}"}], ",", 
+      RowBox[{"{", "gms", "}"}]}], "]"}], "[", 
+    RowBox[{"{", "Gl", "}"}], "]"}]}], ";"}]}], "Input"]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -10557,7 +10942,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{839, 815},
-WindowMargins->{{45, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 225}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

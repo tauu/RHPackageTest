@@ -1129,8 +1129,20 @@ IteratedRHSolver[{Grest},Join[Uls,{{z0,sc,Rs[[i]][#[[1]].#[[2]].Inverse[#[[1]]]&
 
 ScaledRHSolver[l:{{_,_}..},Rs_][x_]:=
 ScaledRHSolver[OuterIteratedScaledCauchy[First/@l,{},Last/@l,1,x],Rs,Last/@l];
-ScaledRHSolver[l:{{_,_,_,_}..},Rs_,gms_][Gl_]:=
+ScaledRHSolver[l:{{_,_,_,_}..},Rs:{__RHSolver},gms:{{{_?DomainQ,_}..}..}][Gl_]:=
 IteratedRHSolver[Thread[{l,Flatten[Transpose/@Gl,1]}],{},Rs,gms]//ConvertIteratedToStandardFunList;
+ScaledRHSolver[l:{{_,_,_,_}..},R_RHSolver,gms:{{_?DomainQ,_}..}][Gl_]:=
+ScaledRHSolver[l,{R},{gms}][{Gl}];
+ScaledRHSolver[{scs_,gms_},R_][x_]:=
+ScaledRHSolver[OuterIteratedScaledCauchy[{scs},{},{gms},1,x],R,gms];
+
+
+RiemannHilbert`ScaledCauchyOperator[CmR_,Cmat_][Ucx_]:=Join[AddIdentityMatrix[FromValueList[Ucx[[1]],Cmat.ToValueList[Ucx[[2]]]]]~FunListDot~AddIdentityMatrix[CmR[Ucx[[1]]]],AddIdentityMatrix[CmR[Ucx[[2]]]]~FunListDot~AddIdentityMatrix[FromValueList[Ucx[[2]],Cmat.ToValueList[Ucx[[1]]]]]
+];
+ScaledCauchyOperator[s_,slvrx_ScaledRHSolver]:=ScaledCauchyOperator[CauchyOperator[s,slvrx[[2]]],slvrx[[1,2,-1,1]]];
+
+RiemannHilbert`ConstructCurve[{scs_,domain_},gfs_,x_]:=Join@@(ConstructCurve[#,domain]&/@Thread[{scs[x]//Transpose,gfs//Transpose}]);
+ConstructCurve[{{z0_,sc_},gs_},domain_]:=Fun[#[[1]],#[[2,1]]/sc +z0,#[[2,2]]]&/@Thread[{gs,domain}]; 
 
 
 End[];

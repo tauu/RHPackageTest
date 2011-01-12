@@ -11,7 +11,7 @@ Cell[BoxData[{
 
 Cell[CellGroupData[{
 
-Cell["Negative x", "Section",
+Cell["Positive x", "Section",
  InitializationCell->True],
 
 Cell[BoxData[{

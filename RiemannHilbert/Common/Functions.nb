@@ -48,6 +48,12 @@ equal to one.\>\""}], ";"}], "\[IndentingNewLine]",
 $MachineTolerence of each other.\>\""}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"NEqualRelative", "::", "usage"}], "=", 
+   "\"\<NEqualRelative[i,j] determines whether two values are within \
+$MachineTolerence of each other, relative error.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"$MachineTolerance", "::", "usage"}], "=", 
    "\"\<A specified tolerance for when two numerical values should be treated \
 as equal.\>\""}], ";"}], "\[IndentingNewLine]", 
@@ -182,8 +188,21 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"NZeroQ", "[", "f_", "]"}], ":=", 
-   RowBox[{"f", "~", "NEqual", "~", "0"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"NZeroQ", "[", "f_", "]"}], ":=", 
+    RowBox[{"f", "~", "NEqual", "~", "0"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"NEqualRelative", "[", 
+     RowBox[{"f_", ",", "g_"}], "]"}], ":=", 
+    RowBox[{"NZeroQ", "[", 
+     FractionBox[
+      RowBox[{"Abs", "[", 
+       RowBox[{"f", "-", "g"}], "]"}], 
+      RowBox[{"Abs", "[", "f", "]"}]], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"InfinityQ", "[", "\[Infinity]", "]"}], ":=", "True"}], 
@@ -241,6 +260,8 @@ WindowMargins->{{282, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
+2010)",
 StyleDefinitions->"Default.nb"
 ]
+
