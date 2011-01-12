@@ -25,11 +25,13 @@ BeginPackage[$CommonPackage];
 ZeroMatrix;OuterProduct;
 Second:=#[[2]]&;
 SparseZeroMatrix;
+SparseIdentityMatrix;
 Begin["Private`"];
 ZeroMatrix[]=0;
 ZeroMatrix[n_]:=0 IdentityMatrix[n];
 ZeroMatrix[n_,m_]:=0 IdentityMatrix[Max[n,m]][[1;;n,1;;m]];
-SparseZeroMatrix[n_]:=SparseArray[{},{n,n}];
+SparseZeroMatrix[n_,m_]:=SparseArray[{},{n,m}];
+SparseIdentityMatrix[n_]:=SparseArray[{i_,i_}->1,{n,n}];
 OuterProduct[f_List,g_List]:=Transpose[Map[# f&,g]];
 OuterProduct[f_List,g_]:=f g;
 End[];
@@ -280,7 +282,11 @@ PartitionList[l_,d_?MatrixQ]:=PartitionList[PartitionList[l,Flatten[d]],Length/@
 
 RightJoin[v__]:=Join@@(VectorTranspose/@{v})//VectorTranspose;
 
-BlockDiagonalMatrix[l_]:=Module[{k},Join@@Table[RightJoin@@ReplacePart[0 l ,k->l[[k]]],{k,Length[l]}]];
+BlockDiagonalMatrix[Al_List]:=Module[{Asp,k,j},
+Asp=SparseZeroMatrix@@(Dimensions/@Al//Total);
+{k,j}={0,0};Function[A,Asp[[k+1;;(k=k+Dimensions[A][[1]]),j+1;;(j=j+Dimensions[A][[2]])]]=A;]/@Al;
+Asp
+];
 
 LeastSquaresQR[A_,b_]:=Module[{Q,R},
 {Q,R}=A//QRDecomposition;

@@ -6403,7 +6403,7 @@ Cell[BoxData[{
        "]"}], "/@", "f"}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6412,21 +6412,37 @@ Cell["CauchyMatrix", "Section"],
 Cell[BoxData[{
  RowBox[{
   RowBox[{
-   RowBox[{"RiemannHilbert`CauchyMatrix", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"f_IFun", "?", "ScalarFunQ"}], ",", "g_IFun"}], "]"}], ":=", 
    RowBox[{
-    RowBox[{"Transpose", "[", 
-     RowBox[{"(", 
-      RowBox[{"FiniteValues", "/@", 
-       RowBox[{"FPCauchyBasis", "[", 
-        RowBox[{"s", ",", "f", ",", 
-         RowBox[{";;", 
-          RowBox[{"Length", "[", "f", "]"}]}], ",", "g"}], "]"}]}], ")"}], 
-     "]"}], ".", 
-    RowBox[{"FiniteTransformMatrix", "[", "f", "]"}]}]}], 
+    RowBox[{"RiemannHilbert`CauchyMatrix", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"f_IFun", "?", "ScalarFunQ"}], ",", "g_IFun"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"(", 
+       RowBox[{"FiniteValues", "/@", 
+        RowBox[{"FPCauchyBasis", "[", 
+         RowBox[{"s", ",", "f", ",", 
+          RowBox[{";;", 
+           RowBox[{"Length", "[", "f", "]"}]}], ",", "g"}], "]"}]}], ")"}], 
+      "]"}], ".", 
+     RowBox[{"FiniteTransformMatrix", "[", "f", "]"}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ScalarToVectorMatrix", ":=", 
+   RowBox[{
+    RowBox[{"BlockDiagonalMatrix", "[", 
+     RowBox[{"{", 
+      RowBox[{"#", ",", "#"}], "}"}], "]"}], "&"}]}], 
   ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ScalarToMatrixMatrix", ":=", 
+    RowBox[{
+     RowBox[{"BlockDiagonalMatrix", "[", 
+      RowBox[{"{", 
+       RowBox[{"#", ",", "#", ",", "#", ",", "#"}], "}"}], "]"}], "&"}]}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"CauchyMatrix", "[", 
@@ -6437,11 +6453,7 @@ Cell[BoxData[{
     RowBox[{"CauchyMatrix", "[", 
      RowBox[{"s", ",", 
       RowBox[{"f", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
-      ",", "g"}], "]"}], "//", 
-    RowBox[{
-     RowBox[{"BlockDiagonalMatrix", "[", 
-      RowBox[{"{", 
-       RowBox[{"#", ",", "#"}], "}"}], "]"}], "&"}]}]}], 
+      ",", "g"}], "]"}], "//", "ScalarToVectorMatrix"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -6455,12 +6467,8 @@ Cell[BoxData[{
       RowBox[{"s", ",", 
        RowBox[{"f", "\[LeftDoubleBracket]", 
         RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], ",", "g"}], "]"}],
-      "//", 
-     RowBox[{
-      RowBox[{"BlockDiagonalMatrix", "[", 
-       RowBox[{"{", 
-        RowBox[{"#", ",", "#", ",", "#", ",", "#"}], "}"}], "]"}], "&"}]}]}], 
-   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+      "//", "ScalarToMatrixMatrix"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"CauchyMatrix", "[", 
@@ -6476,11 +6484,7 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"#", "\[LeftDoubleBracket]", 
          RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], "&"}], "/@", 
-       "l"}], ",", "g"}], "]"}], "//", 
-    RowBox[{
-     RowBox[{"BlockDiagonalMatrix", "[", 
-      RowBox[{"{", 
-       RowBox[{"#", ",", "#", ",", "#", ",", "#"}], "}"}], "]"}], "&"}]}]}], 
+       "l"}], ",", "g"}], "]"}], "//", "ScalarToMatrixMatrix"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -6498,12 +6502,8 @@ Cell[BoxData[{
         RowBox[{
          RowBox[{"#", "\[LeftDoubleBracket]", 
           RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], "&"}], "/@", 
-        "l"}], ",", "l2"}], "]"}], "//", 
-     RowBox[{
-      RowBox[{"BlockDiagonalMatrix", "[", 
-       RowBox[{"{", 
-        RowBox[{"#", ",", "#", ",", "#", ",", "#"}], "}"}], "]"}], "&"}]}]}], 
-   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+        "l"}], ",", "l2"}], "]"}], "//", "ScalarToMatrixMatrix"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"CauchyMatrix", "[", 
@@ -6519,11 +6519,7 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
         "&"}], "/@", "l"}], ",", "g"}], "]"}], "//", 
-    RowBox[{
-     RowBox[{"BlockDiagonalMatrix", "[", 
-      RowBox[{"{", 
-       RowBox[{"#", ",", "#"}], "}"}], "]"}], "&"}]}]}], 
-  ";"}], "\[IndentingNewLine]", 
+    "ScalarToVectorMatrix"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"CauchyMatrix", "[", 
@@ -6539,11 +6535,7 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
         "&"}], "/@", "l"}], ",", "l2"}], "]"}], "//", 
-    RowBox[{
-     RowBox[{"BlockDiagonalMatrix", "[", 
-      RowBox[{"{", 
-       RowBox[{"#", ",", "#"}], "}"}], "]"}], "&"}]}]}], 
-  ";"}], "\[IndentingNewLine]", 
+    "ScalarToVectorMatrix"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"CauchyMatrix", "[", 
@@ -6600,7 +6592,7 @@ Cell[CellGroupData[{
 Cell["RHSolve", "Section"],
 
 Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", 
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
   RowBox[{
    RowBox[{
     RowBox[{
@@ -6612,39 +6604,29 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"RHSolverTop", "[", 
-      RowBox[{"GGIn_List", ",", 
+      RowBox[{
+       RowBox[{"GGIn", ":", 
+        RowBox[{"{", "__IFun", "}"}]}], ",", 
        RowBox[{"opts", ":", 
         RowBox[{"OptionsPattern", "[", "]"}]}]}], " ", "]"}], ":=", 
-     RowBox[{"Module", "[", 
+     "\[IndentingNewLine]", 
+     RowBox[{"RHSolverTop", "[", 
       RowBox[{
-       RowBox[{"{", 
-        RowBox[{"matp", ",", "matm"}], "}"}], ",", "\[IndentingNewLine]", 
        RowBox[{
-        RowBox[{"matp", "=", 
+        RowBox[{"CauchyMatrix", "[", 
          RowBox[{
-          RowBox[{"CauchyMatrix", "[", 
+          RowBox[{"-", "1"}], ",", 
+          RowBox[{
            RowBox[{
-            RowBox[{"+", "1"}], ",", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"#", "\[LeftDoubleBracket]", 
-               RowBox[{"1", ",", "All"}], "\[RightDoubleBracket]"}], "&"}], "/@",
-              "GGIn"}]}], "]"}], "//", "MakeMachineNumber"}]}], ";", 
-        "\[IndentingNewLine]", 
-        RowBox[{"matm", "=", 
-         RowBox[{"matp", "-", 
-          RowBox[{"IdentityMatrix", "[", 
-           RowBox[{"Length", "[", "matp", "]"}], "]"}]}]}], ";", 
-        "\[IndentingNewLine]", 
-        RowBox[{"RHSolverTop", "[", 
-         RowBox[{"matp", ",", "matm", ",", "opts"}], "]"}]}]}], 
-      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
-   "\[IndentingNewLine]", 
+            RowBox[{"#", "\[LeftDoubleBracket]", 
+             RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], "&"}], "/@", 
+           "GGIn"}]}], "]"}], "//", "MakeMachineNumber"}], ",", "opts"}], 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{
       RowBox[{"RHSolverTop", "[", 
-       RowBox[{"matp_", ",", "matm_", ",", 
+       RowBox[{"matmS_", ",", 
         RowBox[{"opts", ":", 
          RowBox[{"OptionsPattern", "[", 
           RowBox[{"{", 
@@ -6656,16 +6638,25 @@ Cell[BoxData[
      RowBox[{"Module", "[", 
       RowBox[{
        RowBox[{"{", 
-        RowBox[{"matt", ",", "solv", ",", "sol", ",", "cond"}], "}"}], ",", 
-       "\[IndentingNewLine]", 
+        RowBox[{"matt", ",", "solv", ",", "sol", ",", "cond", ",", "matm"}], 
+        "}"}], ",", "\[IndentingNewLine]", 
        RowBox[{
+        RowBox[{"matm", "=", 
+         RowBox[{"matmS", "//", "ScalarToVectorMatrix"}]}], ";", 
+        "\[IndentingNewLine]", 
         RowBox[{"matt", " ", "=", 
          RowBox[{
-          RowBox[{"matp", "-", 
+          RowBox[{
+           RowBox[{"SparseIdentityMatrix", "[", 
+            RowBox[{"Length", "[", "matm", "]"}], "]"}], "+", 
            RowBox[{
-            RowBox[{"MakeMachineNumber", "[", 
-             RowBox[{"RightMatrixMultVectorFun", "[", "GG", "]"}], "]"}], ".",
-             "matm"}]}], "//", "MakeMachineNumber"}]}], ";", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"SparseIdentityMatrix", "[", 
+               RowBox[{"Length", "[", "matm", "]"}], "]"}], "-", 
+              RowBox[{"MakeMachineNumber", "[", 
+               RowBox[{"RightMatrixMultVectorFun", "[", "GG", "]"}], "]"}]}], 
+             ")"}], ".", "matm"}]}], "//", "MakeMachineNumber"}]}], ";", 
         "\[IndentingNewLine]", 
         RowBox[{"If", "[", 
          RowBox[{
@@ -6696,13 +6687,13 @@ Cell[BoxData[
     RowBox[{
      RowBox[{
       RowBox[{"RHSolverTop", "[", 
-       RowBox[{"matp_", ",", "matm_", ",", 
+       RowBox[{"matm_", ",", 
         RowBox[{"opts", ":", 
          RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], "[", "GG_", "]"}], 
      " ", ":=", " ", 
      RowBox[{
       RowBox[{"RHSolverTop", "[", 
-       RowBox[{"matp", ",", "matm", ",", "opts"}], "]"}], "[", 
+       RowBox[{"matm", ",", "opts"}], "]"}], "[", 
       RowBox[{"GG", ",", 
        RowBox[{
         RowBox[{
@@ -6721,14 +6712,14 @@ Cell[BoxData[
     RowBox[{
      RowBox[{
       RowBox[{"RHSolverTop", "[", 
-       RowBox[{"matp_", ",", "matm_", ",", 
+       RowBox[{"matm_", ",", 
         RowBox[{"opts", ":", 
          RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], "[", 
       RowBox[{"GG_", ",", "GR_"}], "]"}], ":=", "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{
        RowBox[{"RHSolverTop", "[", 
-        RowBox[{"matp", ",", "matm", ",", "opts"}], "]"}], "[", 
+        RowBox[{"matm", ",", "opts"}], "]"}], "[", 
        RowBox[{"GG", ",", 
         RowBox[{"{", "GR", "}"}]}], "]"}], "//", "First"}]}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
@@ -6870,10 +6861,39 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{
-      RowBox[{"FunValueListOperator", "[", "mat_", "]"}], "[", "f_", "]"}], ":=", 
+      RowBox[{"FunValueListOperator", "[", "mat_", "]"}], "[", 
+      RowBox[{"f", ":", 
+       RowBox[{"{", 
+        RowBox[{"__", "?", "ScalarFunQ"}], "}"}]}], "]"}], ":=", 
      RowBox[{"FromValueList", "[", 
       RowBox[{"f", ",", 
        RowBox[{"mat", ".", 
+        RowBox[{"ToValueList", "[", "f", "]"}]}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"FunValueListOperator", "[", "mat_", "]"}], "[", 
+      RowBox[{"f", ":", 
+       RowBox[{"{", 
+        RowBox[{"__", "?", "VectorFunQ"}], "}"}]}], "]"}], ":=", 
+     RowBox[{"FromValueList", "[", 
+      RowBox[{"f", ",", 
+       RowBox[{
+        RowBox[{"ScalarToVectorMatrix", "[", "mat", "]"}], ".", 
+        RowBox[{"ToValueList", "[", "f", "]"}]}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"FunValueListOperator", "[", "mat_", "]"}], "[", 
+      RowBox[{"f", ":", 
+       RowBox[{"{", 
+        RowBox[{"__", "?", "MatrixFunQ"}], "}"}]}], "]"}], ":=", 
+     RowBox[{"FromValueList", "[", 
+      RowBox[{"f", ",", 
+       RowBox[{
+        RowBox[{"ScalarToMatrixMatrix", "[", "mat", "]"}], ".", 
         RowBox[{"ToValueList", "[", "f", "]"}]}]}], "]"}]}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
@@ -6881,8 +6901,13 @@ Cell[BoxData[
      RowBox[{"CauchyOperator", "[", 
       RowBox[{"1", ",", "R_RHSolverTop"}], "]"}], ":=", "\[IndentingNewLine]", 
      RowBox[{"FunValueListOperator", "[", 
-      RowBox[{"R", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
-      "]"}]}], ";"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"R", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+       "+", 
+       RowBox[{"SparseIdentityMatrix", "[", 
+        RowBox[{"Length", "[", 
+         RowBox[{"R", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+         "]"}], "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"CauchyOperator", "[", 
@@ -6890,38 +6915,18 @@ Cell[BoxData[
        RowBox[{"-", "1"}], ",", "R_RHSolverTop"}], "]"}], ":=", 
      "\[IndentingNewLine]", 
      RowBox[{"FunValueListOperator", "[", 
-      RowBox[{"R", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+      RowBox[{"R", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
       "]"}]}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"CauchyOperator", "[", 
-      RowBox[{"1", ",", "R_RHSolver"}], "]"}], ":=", "\[IndentingNewLine]", 
-     RowBox[{"FunValueListOperator", "[", 
-      RowBox[{"BlockDiagonalMatrix", "[", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"R", "\[LeftDoubleBracket]", 
-          RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
-         RowBox[{"R", "\[LeftDoubleBracket]", 
-          RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}]}], "}"}], "]"}], 
-      "]"}]}], ";"}], "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{
+      RowBox[{"s_", ",", "R_RHSolver"}], "]"}], ":=", "\[IndentingNewLine]", 
      RowBox[{"CauchyOperator", "[", 
-      RowBox[{
-       RowBox[{"-", "1"}], ",", "R_RHSolver"}], "]"}], ":=", 
-     "\[IndentingNewLine]", 
-     RowBox[{"FunValueListOperator", "[", 
-      RowBox[{"BlockDiagonalMatrix", "[", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"R", "\[LeftDoubleBracket]", 
-          RowBox[{"1", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
-         RowBox[{"R", "\[LeftDoubleBracket]", 
-          RowBox[{"1", ",", "2"}], "\[RightDoubleBracket]"}]}], "}"}], "]"}], 
-      "]"}]}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
+      RowBox[{"s", ",", 
+       RowBox[{"R", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], 
+      "]"}]}], ";"}]}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -10942,7 +10947,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{839, 815},
-WindowMargins->{{Automatic, 225}, {Automatic, 0}},
+WindowMargins->{{Automatic, 135}, {Automatic, 1}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

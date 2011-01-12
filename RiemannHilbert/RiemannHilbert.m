@@ -698,14 +698,18 @@ If[DomainMemberQ[U,#//First],CauchyD[s,U,#],CauchyD[U,#]]&/@SplitBy[x,DomainMemb
 
 
 RiemannHilbert`CauchyMatrix[s_?SignQ,f_IFun?ScalarFunQ,g_IFun]:=Transpose[(FiniteValues/@FPCauchyBasis[s,f,;;Length[f],g])].FiniteTransformMatrix[f];
-CauchyMatrix[s_?SignQ,f_IFun?VectorFunQ,g_IFun]:=CauchyMatrix[s,f[[1]],g]//BlockDiagonalMatrix[{#,#}]&;
-CauchyMatrix[s_?SignQ,f_IFun?MatrixFunQ,g_IFun]:=CauchyMatrix[s,f[[1,1]],g]//BlockDiagonalMatrix[{#,#,#,#}]&;
 
-CauchyMatrix[s_?SignQ,l:{__?MatrixFunQ},g_IFun]:=CauchyMatrix[s,#[[1,1]]&/@l,g]//BlockDiagonalMatrix[{#,#,#,#}]&;
-CauchyMatrix[s_?SignQ,l:{__?MatrixFunQ},l2_List]:=CauchyMatrix[s,#[[1,1]]&/@l,l2]//BlockDiagonalMatrix[{#,#,#,#}]&;
+ScalarToVectorMatrix:=BlockDiagonalMatrix[{#,#}]&;
+ScalarToMatrixMatrix:=BlockDiagonalMatrix[{#,#,#,#}]&;
 
-CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},g_IFun]:=CauchyMatrix[s,#[[1]]&/@l,g]//BlockDiagonalMatrix[{#,#}]&;
-CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},l2_List]:=CauchyMatrix[s,#[[1]]&/@l,l2]//BlockDiagonalMatrix[{#,#}]&;
+CauchyMatrix[s_?SignQ,f_IFun?VectorFunQ,g_IFun]:=CauchyMatrix[s,f[[1]],g]//ScalarToVectorMatrix;
+CauchyMatrix[s_?SignQ,f_IFun?MatrixFunQ,g_IFun]:=CauchyMatrix[s,f[[1,1]],g]//ScalarToMatrixMatrix;
+
+CauchyMatrix[s_?SignQ,l:{__?MatrixFunQ},g_IFun]:=CauchyMatrix[s,#[[1,1]]&/@l,g]//ScalarToMatrixMatrix;
+CauchyMatrix[s_?SignQ,l:{__?MatrixFunQ},l2_List]:=CauchyMatrix[s,#[[1,1]]&/@l,l2]//ScalarToMatrixMatrix;
+
+CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},g_IFun]:=CauchyMatrix[s,#[[1]]&/@l,g]//ScalarToVectorMatrix;
+CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},l2_List]:=CauchyMatrix[s,#[[1]]&/@l,l2]//ScalarToVectorMatrix;
 CauchyMatrix[s_?SignQ,l:{__IFun},g_IFun]:=RightJoin@@(CauchyMatrix[s,#,g]&/@l);
 CauchyMatrix[s_?SignQ,l:{__IFun},l2:{__IFun}]:=Join@@(CauchyMatrix[s,l,#]&/@l2);
 
@@ -714,15 +718,13 @@ CauchyMatrix[s_?SignQ,f:{__IFun}]:=CauchyMatrix[s,f,f];
 
 
 
-MakeMachineNumber[x_]:=Chop[x,$MinMachineNumber]//N;
-RHSolverTop[GGIn_List,opts:OptionsPattern[] ]:=Module[{matp,matm},
-matp=CauchyMatrix[+1,#[[1,All]]&/@GGIn]//MakeMachineNumber;
-matm=matp-IdentityMatrix[Length[matp]];
-RHSolverTop[matp,matm,opts]
-];
 
-RHSolverTop[matp_,matm_,opts:OptionsPattern[{SowCondition->False}]][GG_,GR:{__List}]:=Module[{matt,solv,sol,cond},
-matt =matp-MakeMachineNumber[RightMatrixMultVectorFun[GG]].matm//MakeMachineNumber;
+MakeMachineNumber[x_]:=Chop[x,$MinMachineNumber]//N;
+RHSolverTop[GGIn:{__IFun},opts:OptionsPattern[] ]:=
+RHSolverTop[CauchyMatrix[-1,#[[1,1]]&/@GGIn]//MakeMachineNumber,opts];
+RHSolverTop[matmS_,opts:OptionsPattern[{SowCondition->False}]][GG_,GR:{__List}]:=Module[{matt,solv,sol,cond,matm},
+matm=matmS//ScalarToVectorMatrix;
+matt =SparseIdentityMatrix[Length[matm]]+(SparseIdentityMatrix[Length[matm]]-MakeMachineNumber[RightMatrixMultVectorFun[GG]]).matm//MakeMachineNumber;
 If[OptionValue[SowCondition],
 cond=LinearAlgebra`MatrixConditionNumber[matt];
 Sow[cond];
@@ -731,10 +733,10 @@ solv=LinearSolve[matt];
 sol=FromValueList[#,solv[#//ToValueList//MakeMachineNumber]]&/@GR
 ];
 
-RHSolverTop[matp_,matm_,opts:OptionsPattern[]][GG_] := RHSolverTop[matp,matm,opts][GG,#[[1,All]]&/@(#-IdentityMatrix[2]&/@#&/@GG)];
+RHSolverTop[matm_,opts:OptionsPattern[]][GG_] := RHSolverTop[matm,opts][GG,#[[1,All]]&/@(#-IdentityMatrix[2]&/@#&/@GG)];
 
-RHSolverTop[matp_,matm_,opts:OptionsPattern[]][GG_,GR_]:=
-RHSolverTop[matp,matm,opts][GG,{GR}]//First;
+RHSolverTop[matm_,opts:OptionsPattern[]][GG_,GR_]:=
+RHSolverTop[matm,opts][GG,{GR}]//First;
 
 
 RHSolveTop[GG_List,GI_List,opts:OptionsPattern[]]:=Module[{matp,matm,GITop},
@@ -758,17 +760,16 @@ RHSolve[GG_List,opts:OptionsPattern[]]:=
 RHSolve[GG,#-IdentityMatrix[2]&/@#&/@GG,opts];
 
 
-FunValueListOperator[mat_][f_]:=FromValueList[f,mat.ToValueList[f]];
+FunValueListOperator[mat_][f:{__?ScalarFunQ}]:=FromValueList[f,mat.ToValueList[f]];
+FunValueListOperator[mat_][f:{__?VectorFunQ}]:=FromValueList[f,ScalarToVectorMatrix[mat].ToValueList[f]];
+FunValueListOperator[mat_][f:{__?MatrixFunQ}]:=FromValueList[f,ScalarToMatrixMatrix[mat].ToValueList[f]];
 
 CauchyOperator[1,R_RHSolverTop]:=
-FunValueListOperator[R[[1]]];
+FunValueListOperator[R[[1]]+SparseIdentityMatrix[Length[R[[1]]]]];
 CauchyOperator[-1,R_RHSolverTop]:=
-FunValueListOperator[R[[2]]];
-CauchyOperator[1,R_RHSolver]:=
-FunValueListOperator[BlockDiagonalMatrix[{R[[1,1]],R[[1,1]]}]];
-CauchyOperator[-1,R_RHSolver]:=
-FunValueListOperator[BlockDiagonalMatrix[{R[[1,2]],R[[1,2]]}]];
-
+FunValueListOperator[R[[1]]];
+CauchyOperator[s_,R_RHSolver]:=
+CauchyOperator[s,R[[1]]];
 
 
 RiemannHilbert`CauchyInverse::usage="CauchyInverse[f,z] computes the function \[Phi][z] such that the Cauchy transform of \[Phi]^+";
