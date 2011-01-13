@@ -878,7 +878,7 @@ Arrow[{MapFromCircle[ell,Exp[I 0.2]]//{Re[#],Im[#]}&,MapFromCircle[ell,Exp[I 0.2
 DomainPlot[if_IFun,opts___]:=DomainPlot[if//Domain,opts];
 DomainPlot[if_LFun,opts___]:=DomainPlot[if//Domain,opts];
 
-DomainPlot[l_List,opts___]:=Show[DomainPlot[#,opts]&/@l];
+DomainPlot[l_List,opts___]:=Show[DomainPlot[#,opts]&/@l,PlotRange->All];
 
 
 
