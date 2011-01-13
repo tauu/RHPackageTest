@@ -837,7 +837,7 @@ Cell[BoxData[{
    RowBox[{"\[Psi]m\[Phi]", "[", 
     RowBox[{"n", ",", "z"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1658,7 +1658,7 @@ Cell[BoxData[{
        RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2218,7 +2218,7 @@ Cell[BoxData[
          "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], "}"}],
         "&"}]}]}], ";"}]}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2955,7 +2955,7 @@ Cell[BoxData[
       RowBox[{"Domain", "[", "g", "]"}]}], "]"}]}], ";"}]}]], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3752,7 +3752,7 @@ Cell[BoxData[{
             RowBox[{"(", 
              RowBox[{
               RowBox[{"Abs", "[", 
-               RowBox[{"#", "+", "1"}], "]"}], "<", 
+               RowBox[{"#", "-", "1"}], "]"}], "<", 
               RowBox[{"100", " ", "$MachineTolerance"}]}], ")"}]}], "&"}]}], 
          "]"}]}], ";", "\[IndentingNewLine]", 
        RowBox[{"lpD", "=", 
@@ -3927,7 +3927,7 @@ Cell[BoxData[{
             RowBox[{"(", 
              RowBox[{
               RowBox[{"Abs", "[", 
-               RowBox[{"#", "+", "1"}], "]"}], "<", 
+               RowBox[{"#", "-", "1"}], "]"}], "<", 
               RowBox[{"100", " ", "$MachineTolerance"}]}], ")"}]}], "&"}]}], 
          "]"}]}], ";", "\[IndentingNewLine]", 
        RowBox[{"lpD", "=", 
@@ -4124,7 +4124,7 @@ Cell[BoxData[{
       RowBox[{";;", "k"}]}], "]"}]}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4771,7 +4771,7 @@ Cell[BoxData[{
          "&"}], ",", "k"}], "]"}]}], ")"}]}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5773,7 +5773,7 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6402,7 +6402,7 @@ Cell[BoxData[{
           "\[IndentingNewLine]", ",", "1"}], "]"}]}], "\[IndentingNewLine]", 
        "]"}], "/@", "f"}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6593,7 +6593,7 @@ Cell[BoxData[{
    RowBox[{"CauchyMatrix", "[", 
     RowBox[{"s", ",", "f", ",", "f"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -10946,8 +10946,7 @@ WindowMargins->{{Automatic, 225}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
-2010)",
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
 StyleDefinitions->"Default.nb"
 ]
 

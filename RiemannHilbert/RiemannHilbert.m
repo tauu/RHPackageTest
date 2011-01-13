@@ -26,8 +26,15 @@ Begin["`Private`"];
 
 
 
-RiemannHilbert`Cauchy::usage="Cauchy[f,z] evaluates the Cauchy transform \!\(\*FractionBox[\(1\), \(2\\\ \[Pi]\[NonBreakingSpace]I\)]\)\!\(\*SubscriptBox[\(\[Integral]\), \(Domain[f]\)]\)\!\(\*FractionBox[\(f[t]\), \(t - z\)]\)\[DifferentialD]t of an IFun f at a complex point z. Cauchy[ifunlist,z] evaluates the sum of the Cauchy transform of each element of ifunlist. Cauchy[\[PlusMinus]1,f,x] evaluates the left/right limit of Cauchy[f,x] for x on the domain of f. Cauchy[\[PlusMinus]1,flist] for CauchyBoundedQ[flist] true evaluates the Cauchy transform of flist on the points of flist, returning another list of IFuns.";
-RiemannHilbert`Hilbert::usage="Hilbert[f,x] evaluates the Hilbert transform \!\(\*FractionBox[\(1\), \(\[Pi]\)]\)PV\!\(\*SubscriptBox[\(\[Integral]\), \(Domain[f]\)]\)\!\(\*FractionBox[\(f[t]\), \(t - x\)]\)\[DifferentialD]t of an IFun f at a point x on Domain[f].";
+RiemannHilbert`Cauchy::usage="Cauchy[f,z] evaluates the Cauchy transform \!\(\*FractionBox[\"1\", 
+RowBox[{\"2\", \" \", \"\[Pi]\", \"\[NonBreakingSpace]\", \"I\"}]]\)\!\(\*SubscriptBox[\"\[Integral]\", 
+RowBox[{\"Domain\", \"[\", \"f\", \"]\"}]]\)\!\(\*FractionBox[
+RowBox[{\"f\", \"[\", \"t\", \"]\"}], 
+RowBox[{\"t\", \"-\", \"z\"}]]\)\[DifferentialD]t of an IFun f at a complex point z. Cauchy[ifunlist,z] evaluates the sum of the Cauchy transform of each element of ifunlist. Cauchy[\[PlusMinus]1,f,x] evaluates the left/right limit of Cauchy[f,x] for x on the domain of f. Cauchy[\[PlusMinus]1,flist] for CauchyBoundedQ[flist] true evaluates the Cauchy transform of flist on the points of flist, returning another list of IFuns.";
+RiemannHilbert`Hilbert::usage="Hilbert[f,x] evaluates the Hilbert transform \!\(\*FractionBox[\"1\", \"\[Pi]\"]\)PV\!\(\*SubscriptBox[\"\[Integral]\", 
+RowBox[{\"Domain\", \"[\", \"f\", \"]\"}]]\)\!\(\*FractionBox[
+RowBox[{\"f\", \"[\", \"t\", \"]\"}], 
+RowBox[{\"t\", \"-\", \"x\"}]]\)\[DifferentialD]t of an IFun f at a point x on Domain[f].";
 RiemannHilbert`RHSolve::usage="RHSolve[ifunlist] returns u such that IdentityMatrix[2] + CauchyTransform[u,z] has the jumps specified by ifunlist.";
 RiemannHilbert`RHSolver::usage="RHSolver[ifunlist] constructs an anonymous function R that precomputes the matrices used in RHSolve, so that if the domain and points of ifunlist are the same as ifunlist2, then R[ifunlist2] == RHSolve[ifunlist2].";
 RiemannHilbert`RHSolveTop::usage="RHSolveTop[ifunlist] returns the top row of RHSolve.";
@@ -389,7 +396,7 @@ cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 
 RightSingularityDataBasis[f:Curve[_],1;;n_Integer]:=
 Module[{pts,cb,lpD},
-pts=Select[ComplexMapToInterval[f,f//RightEndpoint],!(Abs[#+1]<100 $MachineTolerance)&];
+pts=Select[ComplexMapToInterval[f,f//RightEndpoint],!(Abs[#-1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//RightEndpoint];
 cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 
@@ -407,7 +414,7 @@ cbinf=((cf//Length)-1)CauchyBasis[UnitInterval,;;n,MapToInterval[Line[{-1,1},Str
 
 RightSingularityDataBasis[f:Curve[cf_,Stretch->L_],1;;n_Integer]:=
 Module[{pts,cb,lpD,cbinf},
-pts=Select[ComplexMapToInterval[f,f//LeftEndpoint],!(Abs[#+1]<100 $MachineTolerance)&];
+pts=Select[ComplexMapToInterval[f,f//LeftEndpoint],!(Abs[#-1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//RightEndpoint];
 cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 cbinf=((cf//Length)-1)CauchyBasis[UnitInterval,;;n,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
@@ -1005,11 +1012,11 @@ RiemannHilbert`DiagonalMatrixQ[DD_]:=Norm[DD-DiagonalMatrix[Diagonal[DD]]]==0;
 
 RiemannHilbert`Parametrix[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_]:=({
  {((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[1,1]]]]+ I (Arg[DD[[1,1]]]))), 0},
- {0, ((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)))}
+ {0, ((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I ( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)))}
 });
 RiemannHilbert`ParametrixBranch[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_,t_]:=({
  {PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) Log[DD[[1,1]]],t], 0},
- {0, PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)),t]}
+ {0, PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I ( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)),t]}
 });
 
 RiemannHilbert`ParametrixBranch[({
