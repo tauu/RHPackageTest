@@ -389,7 +389,7 @@ cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 
 RightSingularityDataBasis[f:Curve[_],1;;n_Integer]:=
 Module[{pts,cb,lpD},
-pts=Select[ComplexMapToInterval[f,f//RightEndpoint],!(Abs[#+1]<100 $MachineTolerance)&];
+pts=Select[ComplexMapToInterval[f,f//RightEndpoint],!(Abs[#-1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//RightEndpoint];
 cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 
@@ -407,7 +407,7 @@ cbinf=((cf//Length)-1)CauchyBasis[UnitInterval,;;n,MapToInterval[Line[{-1,1},Str
 
 RightSingularityDataBasis[f:Curve[cf_,Stretch->L_],1;;n_Integer]:=
 Module[{pts,cb,lpD,cbinf},
-pts=Select[ComplexMapToInterval[f,f//LeftEndpoint],!(Abs[#+1]<100 $MachineTolerance)&];
+pts=Select[ComplexMapToInterval[f,f//LeftEndpoint],!(Abs[#-1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//RightEndpoint];
 cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 cbinf=((cf//Length)-1)CauchyBasis[UnitInterval,;;n,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
