@@ -123,7 +123,7 @@ slvrx=slvr[x];
 Cm=ScaledCauchyOperator[-1,slvrx];
 Cp=ScaledCauchyOperator[1,slvrx];
 Ul=slvrx[Gl[{x,-s}]];
-I(-(1/(\[Pi] 2)) x^(-1/2) Total[DomainIntegrate/@Ul][[1,2]]-1/\[Pi] Sqrt[x]((Cm[Ul]~FunListDot~ConstructCurve[Cdefs[n],Glx[{x,-s}],x]~FunListDot~(Inverse/@Cp[Ul])//DomainIntegrate))[[1,2]])
+I(-(1/(\[Pi] 2)) x^(-1/2) Total[DomainIntegrate/@Ul][[1,2]] -1/\[Pi] Sqrt[x]((Cm[Ul]~FunListDot~ConstructCurve[Cdefs[n],Glx[{x,-s}],x]~FunListDot~(Inverse/@Cp[Ul])//DomainIntegrate))[[1,2]])
 ]
 
 

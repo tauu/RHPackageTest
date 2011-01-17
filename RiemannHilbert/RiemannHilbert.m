@@ -760,9 +760,11 @@ RHSolve[GG_List,opts:OptionsPattern[]]:=
 RHSolve[GG,#-IdentityMatrix[2]&/@#&/@GG,opts];
 
 
-FunValueListOperator[mat_][f:{__?ScalarFunQ}]:=FromValueList[f,mat.ToValueList[f]];
-FunValueListOperator[mat_][f:{__?VectorFunQ}]:=FromValueList[f,ScalarToVectorMatrix[mat].ToValueList[f]];
-FunValueListOperator[mat_][f:{__?MatrixFunQ}]:=FromValueList[f,ScalarToMatrixMatrix[mat].ToValueList[f]];
+FunValueListOperator[mat_,g_][f:{__?ScalarFunQ}]:=FromValueList[g,mat.ToValueList[f]];
+FunValueListOperator[mat_,g_][f:{__?VectorFunQ}]:=FromValueList[g,ScalarToVectorMatrix[mat].ToValueList[f]];
+FunValueListOperator[mat_,g_][f:{__?MatrixFunQ}]:=FromValueList[g,ScalarToMatrixMatrix[mat].ToValueList[f]];
+
+FunValueListOperator[mat_][f_]:=FunValueListOperator[mat,f][f];
 
 CauchyOperator[1,R_RHSolverTop]:=
 FunValueListOperator[R[[1]]+SparseIdentityMatrix[Length[R[[1]]]]];
@@ -1090,18 +1092,19 @@ ScaledRHSolver[{scs,gms},RHSolver[Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms]];
 ScaledRHSolver[{scs_,gms_},R_RHSolver][x_,gs_]:=IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,gms]//ConvertIteratedToStandardFunList;
 
 
-CauchyMatrix[s_,l1:{{_?DomainQ,_Integer}..},l2:{{_?DomainQ,_Integer}..}]:=CauchyMatrix[s,IFun[Array[({
- {0, 0},
- {0, 0}
-})&,#[[2]]],#[[1]]]&/@l1,IFun[Array[({
- {0, 0},
- {0, 0}
-})&,#[[2]]],#[[1]]]&/@l2];
+CauchyMatrix[s_,l1:{{_?DomainQ,_Integer}..},l2:{{_?DomainQ,_Integer}..}]:=CauchyMatrix[s,IFun[Array[0&,#[[2]]],#[[1]]]&/@l1,IFun[Array[0&,#[[2]]],#[[1]]]&/@l2];
+CauchyOperator[s_,l1:{{_?DomainQ,_Integer}..},l2:{{_?DomainQ,_Integer}..}]:=FunValueListOperator[CauchyMatrix[s,l1,l2],IFun[Array[0&,#[[2]]],#[[1]]]&/@l2];
+
+(** We want to be able to change the domain after the fact below **)
+
+CauchyOperator[s_,l1:{{_?DomainQ,_Integer}..},l2:{{_?DomainQ,_Integer}..},l3:{{_?DomainQ,_Integer}..}]:=FunValueListOperator[CauchyMatrix[s,l1,l2],IFun[Array[0&,#[[2]]],#[[1]]]&/@l3];
+
+
 IteratedScaledCauchy[{{z0_,sc_},rest___},{},gms_,i_]:=IteratedScaledCauchy[{rest},{{z0,sc,i,{}}},gms,i];
 IteratedScaledCauchy[{{z0_,sc_},rest___},Uls_,gms_,i_]:=Module[{Cmats,uz0,usc,us,ugms,uCmats,uR,uz0scs,ui},
 Cmats=Function[ulscs,
 {uz0,usc,ui,uCmats}=ulscs;
-CauchyMatrix[+1,gms[[ui]],{usc (z0+#[[1]]/sc-uz0),#[[2]]}&/@gms[[i]]]
+CauchyOperator[+1,gms[[ui]],{usc (z0+#[[1]]/sc-uz0),#[[2]]}&/@gms[[i]],gms[[ui]]]
 ]/@Uls;
 IteratedScaledCauchy[{rest},Join[Uls,{{z0,sc,i,Cmats}}],gms,i]];
 IteratedScaledCauchy[{},Uls_,_,_]:=Uls;
@@ -1120,7 +1123,7 @@ gl=Fun[Function[z,#[[1]][z0+z/sc]],Sequence@@#[[2]]]&/@Thread[{Gf,gms[[i]]}];
 Cus=(Dot@@#)&/@Thread[
 Function[uls,
 {{uz0,usc,us},Cs}=uls;
-FromValueList[gl,Cs.ToValueList[us]]//AddIdentityMatrix
+Cs[us]//AddIdentityMatrix
 ]/@Reverse[Thread[{Uls,Cmats}]]
 ];
 
@@ -1138,7 +1141,7 @@ ScaledRHSolver[{scs_,gms_},R_][x_]:=
 ScaledRHSolver[OuterIteratedScaledCauchy[{scs},{},{gms},1,x],R,gms];
 
 
-RiemannHilbert`ScaledCauchyOperator[CmR_,Cmat_][Ucx_]:=Join[AddIdentityMatrix[FromValueList[Ucx[[1]],Cmat.ToValueList[Ucx[[2]]]]]~FunListDot~AddIdentityMatrix[CmR[Ucx[[1]]]],AddIdentityMatrix[CmR[Ucx[[2]]]]~FunListDot~AddIdentityMatrix[FromValueList[Ucx[[2]],Cmat.ToValueList[Ucx[[1]]]]]
+RiemannHilbert`ScaledCauchyOperator[CmR_,Cmat_][Ucx_]:=Join[AddIdentityMatrix[Cmat[Ucx[[2]]]]~FunListDot~AddIdentityMatrix[CmR[Ucx[[1]]]],AddIdentityMatrix[CmR[Ucx[[2]]]]~FunListDot~AddIdentityMatrix[Cmat[Ucx[[1]]]]
 ];
 ScaledCauchyOperator[s_,slvrx_ScaledRHSolver]:=ScaledCauchyOperator[CauchyOperator[s,slvrx[[2]]],slvrx[[1,2,-1,1]]];
 
