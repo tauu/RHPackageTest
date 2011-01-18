@@ -120,6 +120,8 @@ UnitInterval::usage=
 UnitCircle::usage=
 "The unit circle Circle[0.,1.].";
 
+SetDomain::usage="SetDomain[f,d] changes the domain of the Fun (or List of Funs) f to d";
+
 ToUnitInterval::usage=
 "ToUnitInterval[ifun] maps ifun to an IFun defined over the unit interval.";
 ToUnitCircle::usage=
@@ -983,8 +985,13 @@ NonPositiveEvaluate[f_LFun,z_]/;InfinityQ[MapToCircle[f,z]]:=(f//FFT)[[0]];
 LFun[f_IFun]:=LFun[Join[Values[f],Reverse[Values[f]][[2;;-2]]],UnitCircle];
 
 
-ToUnitCircle[lf_LFun]:=LFun[Values[lf],UnitCircle];
-ToUnitInterval[lf_IFun]:=IFun[Values[lf],UnitInterval];
+SetDomain[f_IFun,d_]:=IFun[Values[f],d];
+SetDomain[f_LFun,d_]:=LFun[Values[f],d];
+
+SetDomain[f_List,d_List]:=SetDomain@@#&/@Thread[{f,d}];
+
+ToUnitCircle[lf_LFun]:=SetDomain[lf,UnitCircle];
+ToUnitInterval[lf_IFun]:=SetDomain[lf,UnitInterval];
 
 
 

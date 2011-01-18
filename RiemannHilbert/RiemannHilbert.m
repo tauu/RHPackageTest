@@ -761,10 +761,15 @@ RHSolve[GG,#-IdentityMatrix[2]&/@#&/@GG,opts];
 
 
 FunValueListOperator[mat_,g_][f:{__?ScalarFunQ}]:=FromValueList[g,mat.ToValueList[f]];
-FunValueListOperator[mat_,g_][f:{__?VectorFunQ}]:=FromValueList[g,ScalarToVectorMatrix[mat].ToValueList[f]];
-FunValueListOperator[mat_,g_][f:{__?MatrixFunQ}]:=FromValueList[g,ScalarToMatrixMatrix[mat].ToValueList[f]];
+FunValueListOperator[mat_,g_][f:{__?VectorFunQ}]:=FromValueList[{0,0}&/@#&/@g,ScalarToVectorMatrix[mat].ToValueList[f]];
+FunValueListOperator[mat_,g_][f:{__?MatrixFunQ}]:=FromValueList[({
+ {0, 0},
+ {0, 0}
+})&/@#&/@g,ScalarToMatrixMatrix[mat].ToValueList[f]];
 
 FunValueListOperator[mat_][f_]:=FunValueListOperator[mat,f][f];
+
+SetDomain[op_FunValueListOperator,d_]:=FunValueListOperator[op[[1]],SetDomain[op[[2]],d]];
 
 CauchyOperator[1,R_RHSolverTop]:=
 FunValueListOperator[R[[1]]+SparseIdentityMatrix[Length[R[[1]]]]];
@@ -1141,9 +1146,18 @@ ScaledRHSolver[{scs_,gms_},R_][x_]:=
 ScaledRHSolver[OuterIteratedScaledCauchy[{scs},{},{gms},1,x],R,gms];
 
 
-RiemannHilbert`ScaledCauchyOperator[CmR_,Cmat_][Ucx_]:=Join[AddIdentityMatrix[Cmat[Ucx[[2]]]]~FunListDot~AddIdentityMatrix[CmR[Ucx[[1]]]],AddIdentityMatrix[CmR[Ucx[[2]]]]~FunListDot~AddIdentityMatrix[Cmat[Ucx[[1]]]]
+(**TODO: ScaledCauchyOperator currently only works with two symmetric scaled graphs **)
+(**TODO: ScaledCauchyOperator currently returns C[u][z] + IdentityMatrix[2] **)
+
+RiemannHilbert`ScaledCauchyOperator[CmR_,Cmat_List][Ucx_]:=Join[AddIdentityMatrix[Cmat[[1]][Ucx[[2]]]]~FunListDot~AddIdentityMatrix[CmR[Ucx[[1]]]],AddIdentityMatrix[CmR[Ucx[[2]]]]~FunListDot~AddIdentityMatrix[Cmat[[2]][Ucx[[1]]]]
 ];
-ScaledCauchyOperator[s_,slvrx_ScaledRHSolver]:=ScaledCauchyOperator[CauchyOperator[s,slvrx[[2]]],slvrx[[1,2,-1,1]]];
+ScaledCauchyOperator[s_,slvrx_ScaledRHSolver]:=ScaledCauchyOperator[CauchyOperator[s,slvrx[[2]]],SetDomain[slvrx[[1,2,-1,1]],#]&/@(Function[scs,Function[gm,Fun[0&,scs[[1]]+scs[[2]]gm[[1]],gm[[2]]]]/@Last[slvrx]]/@First[slvrx])];
+
+CauchyOperator[ScaledCauchyOperator[CmR_,Cmat_List]]:=FunValueListOperator[
+Join[
+RightJoin[CmR[[1]],Cmat[[1,1]]],
+RightJoin[Cmat[[2,1]],CmR[[1]]]
+],Join@@scCm[[2,All,-1]]];
 
 RiemannHilbert`ConstructCurve[{scs_,domain_},gfs_,x_]:=Join@@(ConstructCurve[#,domain]&/@Thread[{scs[x]//Transpose,gfs//Transpose}]);
 ConstructCurve[{{z0_,sc_},gs_},domain_]:=Fun[#[[1]],#[[2,1]]/sc +z0,#[[2,2]]]&/@Thread[{gs,domain}]; 
