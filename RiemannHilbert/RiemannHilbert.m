@@ -51,7 +51,7 @@ Cauchy[-1,lf_LFun?UnitCircleFunQ,z_]:=-NegativeEvaluate[lf,z];
 Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]<=1.&)]:=Cauchy[+1,lf,z];
 Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]>1.&)]:=Cauchy[-1,lf,z];
 
-Cauchy[lf_LFun?(Head[Domain[#]]===Curve&),z_]:=Cauchy[lf//ToUnitCircle,ComplexMapToCircle[lf,z]]//Total;
+Cauchy[f:LFun[_,_Curve],z_]:=Total[Cauchy[f//ToUnitCircle,ComplexMapToCircle[f//Domain,z]]]-Total[Cauchy[f//ToUnitCircle,ComplexMapToCircle[f//Domain,10^18]]];
 
 Cauchy[lf_LFun,z_]:=Cauchy[lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
 Cauchy[s_,lf_LFun,z_]:=Cauchy[s,lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
@@ -337,17 +337,17 @@ CauchyBasisS[-1,UnitInterval,i_;;k_,x_]:=
 -1/(I \[Pi])(\[Psi]pL[i-1;;k-1,IntervalToTopCircle[x]]+Reverse[\[Psi]pL[-k+1;;1-i,IntervalToTopCircle[x]]]);
 
 
-CauchyBasis[f:Curve[_],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[f,z]]];
-CauchyBasis[s_,f:Curve[_],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[f,z]]];
+CauchyBasis[f:Curve[_IFun],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[f,z]]];
+CauchyBasis[s_,f:Curve[_IFun],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[f,z]]];
 
-CauchyBasis[f:Curve[_],1;;k_,z_]:=Total/@CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[f,z]];
-CauchyBasis[s_,f:Curve[_],1;;k_,z_]:=Total/@CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[f,z]];
+CauchyBasis[f:Curve[_IFun],1;;k_,z_]:=Total/@CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[f,z]];
+CauchyBasis[s_,f:Curve[_IFun],1;;k_,z_]:=Total/@CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[f,z]];
 
-CauchyBasis[cr:Curve[cf_,Stretch->L_],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[cr,z]]]-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
-CauchyBasis[s_,cr:Curve[cf_,Stretch->L_],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[cr,z]]]-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
+CauchyBasis[cr:Curve[cf_IFun,Stretch->L_],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[cr,z]]]-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
+CauchyBasis[s_,cr:Curve[cf_IFun,Stretch->L_],1;;k_,z_List]:=MatrixMap[Total,CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[cr,z]]]-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
 
-CauchyBasis[cr:Curve[cf_,Stretch->L_],1;;k_,z_]:=(Total/@CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[cr,z]])-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
-CauchyBasis[s_,cr:Curve[cf_,Stretch->L_],1;;k_,z_]:=(Total/@CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[cr,z]])-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
+CauchyBasis[cr:Curve[cf_IFun,Stretch->L_],1;;k_,z_]:=(Total/@CauchyBasis[UnitInterval,1;;k,ComplexMapToInterval[cr,z]])-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
+CauchyBasis[s_,cr:Curve[cf_IFun,Stretch->L_],1;;k_,z_]:=(Total/@CauchyBasis[s,UnitInterval,1;;k,ComplexMapToInterval[cr,z]])-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]];
 
 
 CauchyBasis[f_?RightEndpointInfinityQ,1;;k_,z_]:=CauchyBasis[UnitInterval,1;;k,MapToInterval[f,z]]//Function[mat,mat-Array[mat[[1]]+1/(I \[Pi]) (\[Mu][#-1,1.]+\[Mu][#-2,1.])&,k]];
@@ -360,7 +360,7 @@ CauchyBasisS[s_,f_?RightEndpointInfinityQ,1;;k_,z_]:=CauchyBasisS[s,UnitInterval
 CauchyBasisS[s_,f_?LeftEndpointInfinityQ,1;;k_,z_]:=CauchyBasisS[s,UnitInterval,1;;k,MapToInterval[f,z]]//Function[mat,mat+Array[(-1)^(#)(mat[[1]]+1/(I \[Pi]) (\[Mu][#-1,-1.]+\[Mu][#-2,-1.]))&,k]];
 
 
-CauchyBasisS[s_,f_?DomainQ,1;;k_,z_]:=CauchyBasisS[s,UnitInterval,1;;k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,1;;k,MapToInterval[f,\[Infinity]]];
+CauchyBasisS[s_,f_?IntervalDomainQ,1;;k_,z_]:=CauchyBasisS[s,UnitInterval,1;;k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,1;;k,MapToInterval[f,\[Infinity]]];
 
 
 CauchyBasis[s_,d_?DomainQ,k_,x_?MatrixQ]:=CauchyBasis[s,d,k,#]&/@x//Transpose;
@@ -372,13 +372,13 @@ RightJoin@@
 
 
 CauchyBasis[s_,d_?DomainQ,k_,x_]/;(DomainMemberQ[d,x]):=CauchyBasisS[s,d,k,x];
-CauchyBasis[_,d_?DomainQ,k_,x_]:=CauchyBasis[UnitInterval,k,x];
+CauchyBasis[_,d_?IntervalDomainQ,k_,x_]:=CauchyBasis[UnitInterval,k,x];
 
-CauchyBasis[f_?DomainQ,1;;k_,z_]:=CauchyBasis[UnitInterval,;;k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,;;k,MapToInterval[f,\[Infinity]]];
-CauchyBasisS[s_,f_?DomainQ,1;;k_,z_]:=CauchyBasisS[s,UnitInterval,;;k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,;;k,MapToInterval[f,\[Infinity]]];
+CauchyBasis[f_?IntervalDomainQ,1;;k_,z_]:=CauchyBasis[UnitInterval,;;k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,;;k,MapToInterval[f,\[Infinity]]];
+CauchyBasisS[s_,f_?IntervalDomainQ,1;;k_,z_]:=CauchyBasisS[s,UnitInterval,;;k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,;;k,MapToInterval[f,\[Infinity]]];
 
 
-LeftSingularityDataBasis[f:Curve[_],1;;n_Integer]:=
+LeftSingularityDataBasis[f:Curve[_IFun],1;;n_Integer]:=
 Module[{pts,cb,lpD},
 pts=Select[ComplexMapToInterval[f,f//LeftEndpoint],!(Abs[#+1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//LeftEndpoint];
@@ -387,7 +387,7 @@ cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 ({#[[1]]+#[[2]] Log[Abs[lpD]],#[[2]],#[[3]]Exp[I Arg[lpD]]}&/@LeftSingularityDataBasis[UnitInterval,;;n])+({#,0,0}&/@cb)
 ];
 
-RightSingularityDataBasis[f:Curve[_],1;;n_Integer]:=
+RightSingularityDataBasis[f:Curve[_IFun],1;;n_Integer]:=
 Module[{pts,cb,lpD},
 pts=Select[ComplexMapToInterval[f,f//RightEndpoint],!(Abs[#-1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//RightEndpoint];
@@ -396,7 +396,7 @@ cb=Map[Total,CauchyBasis[UnitInterval,;;n,pts]];
 ({#[[1]]+#[[2]] Log[Abs[lpD]],#[[2]],#[[3]]Exp[I Arg[lpD]]}&/@RightSingularityDataBasis[UnitInterval,;;n])+({#,0,0}&/@cb)
 ];
 
-LeftSingularityDataBasis[f:Curve[cf_,Stretch->L_],1;;n_Integer]:=
+LeftSingularityDataBasis[f:Curve[cf_IFun,Stretch->L_],1;;n_Integer]:=
 Module[{pts,cb,lpD,cbinf},
 pts=Select[ComplexMapToInterval[f,f//LeftEndpoint],!(Abs[#+1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//LeftEndpoint];
@@ -405,7 +405,7 @@ cbinf=((cf//Length)-1)CauchyBasis[UnitInterval,;;n,MapToInterval[Line[{-1,1},Str
 ({#[[1]]+#[[2]] Log[Abs[lpD]],#[[2]],#[[3]]Exp[I Arg[lpD]]}&/@LeftSingularityDataBasis[UnitInterval,;;n])+({#,0,0}&/@(cb-cbinf))
 ];
 
-RightSingularityDataBasis[f:Curve[cf_,Stretch->L_],1;;n_Integer]:=
+RightSingularityDataBasis[f:Curve[cf_IFun,Stretch->L_],1;;n_Integer]:=
 Module[{pts,cb,lpD,cbinf},
 pts=Select[ComplexMapToInterval[f,f//LeftEndpoint],!(Abs[#-1]<100 $MachineTolerance)&];
 lpD=MapToIntervalD[f,f//RightEndpoint];
@@ -415,19 +415,19 @@ cbinf=((cf//Length)-1)CauchyBasis[UnitInterval,;;n,MapToInterval[Line[{-1,1},Str
 ];
 
 
-LeftSingularityDataBasis[d_?DomainQ,1;;k_]:=Array[LeftSingularityDataBasis[d,#]&,k];
-RightSingularityDataBasis[d_?DomainQ,1;;k_]:=Array[RightSingularityDataBasis[d,#]&,k];
+LeftSingularityDataBasis[d_?IntervalDomainQ,1;;k_Integer]:=Array[LeftSingularityDataBasis[d,#]&,k];
+RightSingularityDataBasis[d_?IntervalDomainQ,1;;k_Integer]:=Array[RightSingularityDataBasis[d,#]&,k];
 
 
-LeftSingularityDataBasis[f_?DomainQ,1;;k_,t_?ScalarQ]:={#[[1]]+#[[2]] I Arg[#[[3]] Exp[I t]],#[[2]]}&/@LeftSingularityDataBasis[f,;;k];
-LeftSingularityDataBasis[s_?SignQ,f_,1;;k_]:={#[[1]]-#[[2]] I s \[Pi],#[[2]]}&/@LeftSingularityDataBasis[f,;;k];
+LeftSingularityDataBasis[f_?IntervalDomainQ,1;;k_Integer,t_?ScalarQ]:={#[[1]]+#[[2]] I Arg[#[[3]] Exp[I t]],#[[2]]}&/@LeftSingularityDataBasis[f,;;k];
+LeftSingularityDataBasis[s_?SignQ,f_?IntervalDomainQ,1;;k_]:={#[[1]]-#[[2]] I s \[Pi],#[[2]]}&/@LeftSingularityDataBasis[f,;;k];
 
-RightSingularityDataBasis[f_?DomainQ,1;;k_,t_?ScalarQ]:={#[[1]]+#[[2]] I Arg[#[[3]] Exp[I t]],#[[2]]}&/@RightSingularityDataBasis[f,;;k];
+RightSingularityDataBasis[f_?IntervalDomainQ,1;;k_Integer,t_?ScalarQ]:={#[[1]]+#[[2]] I Arg[#[[3]] Exp[I t]],#[[2]]}&/@RightSingularityDataBasis[f,;;k];
 RightSingularityDataBasis[s_?SignQ,f_,1;;k_]:={#[[1]]+#[[2]] I s \[Pi],#[[2]]}&/@RightSingularityDataBasis[f,;;k];
 
 
 
-FPCauchyBasis[+1,UnitInterval,1;;n_,g_IFun?UnitIntervalFunQ]:=Module[{mat,dctmat,j,k},
+FPCauchyBasis[+1,UnitInterval,1;;n_Integer,g_IFun?UnitIntervalFunQ]:=Module[{mat,dctmat,j,k},
 mat=ToeplitzMatrix[ZeroVector[n],
 4 Riffle[Table[1/j,{j,1,n-1,2}],0]//(Join[{0},If[OddQ[n],Join[#,{0}],#]]&)];
 dctmat=ColumnMap[InverseDCT[PadRight[HalfFirst[#],g//Length]]&,mat];
@@ -436,7 +436,7 @@ IFun[#,UnitInterval]&/@(Join[{Table[LeftSingularityDataBasis[+1,UnitInterval,k]/
 {Table[RightSingularityDataBasis[+1,UnitInterval,k]//First,{k,n}]}
 ]//Transpose)];
 
-FPCauchyBasis[-1,UnitInterval,1;;n_,g_IFun?UnitIntervalFunQ]:=Module[{mat,dctmat,j,k},
+FPCauchyBasis[-1,UnitInterval,1;;n_Integer,g_IFun?UnitIntervalFunQ]:=Module[{mat,dctmat,j,k},
 mat=ToeplitzMatrix[ZeroVector[n],
 4 Riffle[Table[1/j,{j,1,n-1,2}],0]//(Join[{0},If[OddQ[n],Join[#,{0}],#]]&)];
 dctmat=ColumnMap[InverseDCT[PadRight[HalfFirst[#],g//Length]]&,mat];
@@ -446,7 +446,7 @@ IFun[#,UnitInterval]&/@(Join[{Table[LeftSingularityDataBasis[-1,UnitInterval,k]/
 ]//Transpose)];
 
 
-FPCauchyBasis[s_?SignQ,f:Curve[_],1;;k_,g_IFun]/;f~NEqual~Domain[g]:=Module[{lD,rD,pts,vals,\[Psi]B},
+FPCauchyBasis[s_?SignQ,f:Curve[_IFun],1;;k_Integer,g_IFun]/;f~NEqual~Domain[g]:=Module[{lD,rD,pts,vals,\[Psi]B},
 {lD,rD}=MapToIntervalD[f,{f//LeftEndpoint,f//RightEndpoint}];
 pts=Function[pt,Select[pt,(!DomainMemberQ[UnitInterval,#])&]]/@ComplexMapToInterval[f,Points[g]];
 
@@ -456,7 +456,7 @@ Array[RightSingularityDataBasis[UnitInterval,#][[2]]Log[Abs[rD]] BasisVector[Len
 ];
 
 
-FPCauchyBasis[s_?SignQ,f:Curve[cf_,Stretch->L_],1;;k_,g_IFun]/;f~NEqual~Domain[g]:=Module[{lD,rD,pts,vals,\[Psi]B},
+FPCauchyBasis[s_?SignQ,f:Curve[cf_IFun,Stretch->L_],1;;k_Integer,g_IFun]/;f~NEqual~Domain[g]:=Module[{lD,rD,pts,vals,\[Psi]B},
 {lD,rD}=MapToIntervalD[f,{f//LeftEndpoint,f//RightEndpoint}];
 pts=Function[pt,Select[pt,(!DomainMemberQ[UnitInterval,#])&]]/@ComplexMapToInterval[f,Points[g]];
 
@@ -466,23 +466,23 @@ Array[RightSingularityDataBasis[UnitInterval,#][[2]]Log[Abs[rD]] BasisVector[Len
 ];
 
 
-FPCauchyBasis[s_?SignQ,f_?RightEndpointInfinityQ,1;;k_,g_IFun]/;f~NEqual~Domain[g]:=IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,1;;k,g//ToUnitInterval])//Function[mat,mat-Array[mat[[1]]+1/(I \[Pi]) (\[Mu][#-1,1.]+\[Mu][#-2,1.])-LeftSingularityDataBasis[UnitInterval,#][[2]] Log[Abs[MapToIntervalD[f,f//LeftEndpoint]]] BasisVector[Length[g]][1]&,k]]);
+FPCauchyBasis[s_?SignQ,f_?RightEndpointInfinityQ,1;;k_Integer,g_IFun]/;f~NEqual~Domain[g]:=IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,1;;k,g//ToUnitInterval])//Function[mat,mat-Array[mat[[1]]+1/(I \[Pi]) (\[Mu][#-1,1.]+\[Mu][#-2,1.])-LeftSingularityDataBasis[UnitInterval,#][[2]] Log[Abs[MapToIntervalD[f,f//LeftEndpoint]]] BasisVector[Length[g]][1]&,k]]);
 
-FPCauchyBasis[s_?SignQ,f_?LeftEndpointInfinityQ,1;;k_,g_IFun]/;f~NEqual~Domain[g]:=IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,1;;k,g//ToUnitInterval])//Function[mat,mat+Array[(-1)^(#)(mat[[1]]+1/(I \[Pi]) (\[Mu][#-1,-1.]+\[Mu][#-2,-1.]))+RightSingularityDataBasis[UnitInterval,#][[2]] Log[Abs[MapToIntervalD[f,f//RightEndpoint]]] BasisVector[Length[g]][-1]&,k]]);
+FPCauchyBasis[s_?SignQ,f_?LeftEndpointInfinityQ,1;;k_Integer,g_IFun]/;f~NEqual~Domain[g]:=IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,1;;k,g//ToUnitInterval])//Function[mat,mat+Array[(-1)^(#)(mat[[1]]+1/(I \[Pi]) (\[Mu][#-1,-1.]+\[Mu][#-2,-1.]))+RightSingularityDataBasis[UnitInterval,#][[2]] Log[Abs[MapToIntervalD[f,f//RightEndpoint]]] BasisVector[Length[g]][-1]&,k]]);
 
 
-FPCauchyBasis[s_?SignQ,f_?DomainQ,1;;k_,g_IFun]/;f~NEqual~Domain[g]:=IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,;;k,g//ToUnitInterval])-CauchyBasis[UnitInterval,;;k,MapToInterval[f,\[Infinity]]]+
+FPCauchyBasis[s_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun]/;f~NEqual~Domain[g]:=IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,;;k,g//ToUnitInterval])-CauchyBasis[UnitInterval,;;k,MapToInterval[f,\[Infinity]]]+
 Array[RightSingularityDataBasis[UnitInterval,#][[2]]Log[Abs[MapToIntervalD[f,f//RightEndpoint]]] BasisVector[Length[g]][-1]+LeftSingularityDataBasis[UnitInterval,#][[2]]Log[Abs[MapToIntervalD[f,f//LeftEndpoint]]] BasisVector[Length[g]][1]&,k]);
 
 
 
-FPCauchyBasis[_?SignQ,f_?(!RightEndpointInfinityQ[#]&&!LeftEndpointInfinityQ[#]&),1;;k_,g_IFun]/;LeftEndpoint[f]~NEqual~LeftEndpoint[g]&&RightEndpoint[f]~NEqual~RightEndpoint[g]:=IFun[#,g//Domain]&/@Transpose[Join[
+FPCauchyBasis[_?SignQ,f_?(IntervalDomainQ[#]&&!RightEndpointInfinityQ[#]&&!LeftEndpointInfinityQ[#]&),1;;k_Integer,g_IFun]/;LeftEndpoint[f]~NEqual~LeftEndpoint[g]&&RightEndpoint[f]~NEqual~RightEndpoint[g]:=IFun[#,g//Domain]&/@Transpose[Join[
 {First/@LeftSingularityDataBasis[f,;;k,LeftContourArg[g]]},
 Transpose[CauchyBasis[f,;;k,g//Points//Most//Rest]],
 {First/@RightSingularityDataBasis[f,;;k,RightContourArg[g]]}
 ]];
 
-FPCauchyBasis[_?SignQ,f_?(!RightEndpointInfinityQ[#]&&!LeftEndpointInfinityQ[#]&),1;;k_,g_IFun]/;LeftEndpoint[f]~NEqual~RightEndpoint[g]&&RightEndpoint[f]~NEqual~LeftEndpoint[g]:=IFun[#,g//Domain]&/@Transpose[Join[
+FPCauchyBasis[_?SignQ,f_?(IntervalDomainQ[#]&&!RightEndpointInfinityQ[#]&&!LeftEndpointInfinityQ[#]&),1;;k_Integer,g_IFun]/;LeftEndpoint[f]~NEqual~RightEndpoint[g]&&RightEndpoint[f]~NEqual~LeftEndpoint[g]:=IFun[#,g//Domain]&/@Transpose[Join[
 {First/@RightSingularityDataBasis[f,;;k,LeftContourArg[g]]},
 Transpose[CauchyBasis[f,;;k,g//Points//Most//Rest]],
 {First/@LeftSingularityDataBasis[f,;;k,RightContourArg[g]]}
@@ -490,25 +490,25 @@ Transpose[CauchyBasis[f,;;k,g//Points//Most//Rest]],
 
 
 
-FPCauchyBasis[_?SignQ,f_?DomainQ,1;;k_,g_IFun?RightEndpointInfinityQ]/;RightEndpoint[f]~NEqual~LeftEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?RightEndpointInfinityQ]/;RightEndpoint[f]~NEqual~LeftEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[{First/@RightSingularityDataBasis[f,;;k,LeftContourArg[g]]},
 Transpose[CauchyBasis[f,;;k,g//Points//Rest//Most]],
 {ZeroVector[k]}]];
 
-FPCauchyBasis[_?SignQ,f_?DomainQ,1;;k_,g_IFun?LeftEndpointInfinityQ]/;LeftEndpoint[f]~NEqual~RightEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?LeftEndpointInfinityQ]/;LeftEndpoint[f]~NEqual~RightEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[
 {ZeroVector[k]},
 Transpose[CauchyBasis[f,;;k,g//Points//Rest//Most]],
 {First/@LeftSingularityDataBasis[f,;;k,RightContourArg[g]]}
 ]];
 
-FPCauchyBasis[_?SignQ,f_?DomainQ,1;;k_,g_IFun?LeftEndpointInfinityQ]/;RightEndpoint[f]~NEqual~RightEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?LeftEndpointInfinityQ]/;RightEndpoint[f]~NEqual~RightEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[
 {ZeroVector[k]},
 Transpose[CauchyBasis[f,;;k,g//Points//Rest//Most]],
 {First/@RightSingularityDataBasis[f,;;k,RightContourArg[g]]}
 ]];
-FPCauchyBasis[_?SignQ,f_?DomainQ,1;;k_,g_IFun?RightEndpointInfinityQ]/;LeftEndpoint[f]~NEqual~LeftEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?RightEndpointInfinityQ]/;LeftEndpoint[f]~NEqual~LeftEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[{First/@LeftSingularityDataBasis[f,;;k,LeftContourArg[g]]},
 Transpose[CauchyBasis[f,;;k,g//Points//Rest//Most]],
 {ZeroVector[k]}]];
@@ -516,23 +516,23 @@ Transpose[CauchyBasis[f,;;k,g//Points//Rest//Most]],
 
 
 
-FPCauchyBasis[_?SignQ,f_?(!RightEndpointInfinityQ[#]&),1;;k_,g_IFun]/;RightEndpoint[f]~NEqual~RightEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?(IntervalDomainQ[#]&&!RightEndpointInfinityQ[#]&),1;;k_Integer,g_IFun]/;RightEndpoint[f]~NEqual~RightEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[
 Transpose[CauchyBasis[f,;;k,g//Points//Most]],
 {First/@RightSingularityDataBasis[f,;;k,RightContourArg[g]]}
 ]];
 
-FPCauchyBasis[_?SignQ,f_?(!RightEndpointInfinityQ[#]&),1;;k_,g_IFun]/;RightEndpoint[f]~NEqual~LeftEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?(IntervalDomainQ[#]&&!RightEndpointInfinityQ[#]&),1;;k_Integer,g_IFun]/;RightEndpoint[f]~NEqual~LeftEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[
 {First/@RightSingularityDataBasis[f,;;k,LeftContourArg[g]]},
 Transpose[CauchyBasis[f,;;k,g//Points//Rest]]
 ]];
-FPCauchyBasis[_?SignQ,f_?(!LeftEndpointInfinityQ[#]&),1;;k_,g_IFun]/;LeftEndpoint[f]~NEqual~RightEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?(IntervalDomainQ[#]&&!LeftEndpointInfinityQ[#]&),1;;k_Integer,g_IFun]/;LeftEndpoint[f]~NEqual~RightEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[
 Transpose[CauchyBasis[f,;;k,g//Points//Most]],
 {First/@LeftSingularityDataBasis[f,;;k,RightContourArg[g]]}
 ]];
-FPCauchyBasis[_?SignQ,f_?(!LeftEndpointInfinityQ[#]&),1;;k_,g_IFun]/;LeftEndpoint[f]~NEqual~LeftEndpoint[g]:=
+FPCauchyBasis[_?SignQ,f_?(IntervalDomainQ[#]&&!LeftEndpointInfinityQ[#]&),1;;k_Integer,g_IFun]/;LeftEndpoint[f]~NEqual~LeftEndpoint[g]:=
 IFun[#,g//Domain]&/@Transpose[Join[
 {First/@LeftSingularityDataBasis[f,;;k,LeftContourArg[g]]},
 Transpose[CauchyBasis[f,;;k,g//Points//Rest]]
@@ -540,9 +540,9 @@ Transpose[CauchyBasis[f,;;k,g//Points//Rest]]
 
 
 
-FPCauchyBasis[_?SignQ,f_?DomainQ,1;;k_,g_IFun?LeftEndpointInfinityQ]:=ZeroAtInfinityIFun[#,Domain[g]]&/@CauchyBasis[f,1;;k,g//Points//Rest];
-FPCauchyBasis[_?SignQ,f_?DomainQ,1;;k_,g_IFun?RightEndpointInfinityQ]:=ZeroAtInfinityIFun[#,Domain[g]]&/@CauchyBasis[f,1;;k,g//Points//Most];
-FPCauchyBasis[_?SignQ,f_?DomainQ,1;;k_,g_IFun]:=IFun[#,Domain[g]]&/@CauchyBasis[f,;;k,g//Points];
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?LeftEndpointInfinityQ]:=ZeroAtInfinityIFun[#,Domain[g]]&/@CauchyBasis[f,1;;k,g//Points//Rest];
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?RightEndpointInfinityQ]:=ZeroAtInfinityIFun[#,Domain[g]]&/@CauchyBasis[f,1;;k,g//Points//Most];
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun]:=IFun[#,Domain[g]]&/@CauchyBasis[f,;;k,g//Points];
 
 
 \[Psi]pLD[0;;m_?Positive,x_]:=Module[{cur,ph},
@@ -576,9 +576,9 @@ CauchyBasisD[f_?RightEndpointInfinityQ,1;;k_,z_]:=MapToIntervalD[f,z]CauchyBasis
 CauchyBasisD[f_?LeftEndpointInfinityQ,1;;k_,z_]:=MapToIntervalD[f,z]CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
 
 
-CauchyBasisD[f_?DomainQ,1;;k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
+CauchyBasisD[f_?IntervalDomainQ,1;;k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
 
-CauchyBasisD[s_,f_?DomainQ,1;;k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
+CauchyBasisD[s_,f_?IntervalDomainQ,1;;k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
 
 
 CauchyBasisD[s_,f_?RightEndpointInfinityQ,1;;k_,z_]:=MapToIntervalD[f,z]CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
@@ -590,8 +590,8 @@ CauchyBasisD[f_?LeftEndpointInfinityQ,1;;k_,z_List]:=
 MapToIntervalD[f,z]#&/@CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
 
 
-CauchyBasisD[f_?DomainQ,1;;k_,z_List]:=MapToIntervalD[f,z] #&/@CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
-CauchyBasisD[s_,f_?DomainQ,1;;k_,z_List]:=MapToIntervalD[f,z] #&/@CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
+CauchyBasisD[f_?IntervalDomainQ,1;;k_,z_List]:=MapToIntervalD[f,z] #&/@CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
+CauchyBasisD[s_,f_?IntervalDomainQ,1;;k_,z_List]:=MapToIntervalD[f,z] #&/@CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
 
 
 CauchyBasisD[s_,f_?RightEndpointInfinityQ,1;;k_,z_List]:=MapToIntervalD[f,z]#&/@CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
@@ -1097,8 +1097,8 @@ ScaledRHSolver[{scs,gms},RHSolver[Fun[IdentityMatrix[2]&,Sequence@@##]&/@gms]];
 ScaledRHSolver[{scs_,gms_},R_RHSolver][x_,gs_]:=IteratedRHSolver[Thread[{scs[x]//Transpose,gs//Transpose}],{},R,gms]//ConvertIteratedToStandardFunList;
 
 
-CauchyMatrix[s_,l1:{{_?DomainQ,_Integer}..},l2:{{_?DomainQ,_Integer}..}]:=CauchyMatrix[s,IFun[Array[0&,#[[2]]],#[[1]]]&/@l1,IFun[Array[0&,#[[2]]],#[[1]]]&/@l2];
-CauchyOperator[s_,l1:{{_?DomainQ,_Integer}..},l2:{{_?DomainQ,_Integer}..}]:=FunValueListOperator[CauchyMatrix[s,l1,l2],IFun[Array[0&,#[[2]]],#[[1]]]&/@l2];
+CauchyMatrix[s_,l1:{{_?IntervalDomainQ,_Integer}..},l2:{{_?IntervalDomainQ,_Integer}..}]:=CauchyMatrix[s,IFun[Array[0&,#[[2]]],#[[1]]]&/@l1,IFun[Array[0&,#[[2]]],#[[1]]]&/@l2];
+CauchyOperator[s_,l1:{{_?IntervalDomainQ,_Integer}..},l2:{{_?IntervalDomainQ,_Integer}..}]:=FunValueListOperator[CauchyMatrix[s,l1,l2],IFun[Array[0&,#[[2]]],#[[1]]]&/@l2];
 
 (** We want to be able to change the domain after the fact below **)
 

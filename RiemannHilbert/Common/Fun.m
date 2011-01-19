@@ -128,7 +128,13 @@ ToUnitCircle::usage=
 "ToUnitCircle[lfun] maps lfun to an LFun defined over the unit circle.";
 
 DomainQ::usage=
-"Test whether something is a domain (Line, Arc or Circle).";
+"Test whether something is a domain (Line, Arc, Circle, Curve, etc).";
+
+IntervalDomainQ::usage=
+"Test whether something is a domain mapped from the unit interval.";
+
+CircleDomainQ::usage=
+"Test whether something is a domain mapped from the unit circle.";
 
 BoundedDomainQ::usage="Test whether a domain is bounded.";
 
@@ -421,9 +427,11 @@ LeftContourArg[Line[{a_,b_},___]]:=(b-a)//Arg;
 RightContourArg[Line[{a_,b_},___]]:=(a-b)//Arg;
 
 
+DomainQ[d_]:=IntervalDomainQ[d]~Or~CircleDomainQ[d];
 
-DomainQ[_]:=False;
-DomainQ[_Line]:=True;
+CircleDomainQ[_]:=False;
+IntervalDomainQ[_]:=False;
+IntervalDomainQ[_Line]:=True;
 
 BoundedDomainQ[_]:=False;
 BoundedDomainQ[_?(!LeftEndpointInfinityQ[#]&&!RightEndpointInfinityQ[#]&)]:=True;
@@ -453,7 +461,7 @@ UnitIntervalFunQ[_]:=False;
 IntervalFunQ[f_IFun]:=MatchQ[Domain[f],Line[{_?FiniteQ,_?FiniteQ}]];
 IntervalFunQ[_]:=False;
 
-DomainQ[_Circle]:=True;
+CircleDomainQ[_Circle]:=True;
 
 
 MapToInterval[Line[{a_,b_},Stretch->_?(1.~NEqual~#&)],_?InfinityQ]:=\[Infinity];
@@ -485,7 +493,7 @@ ReverseOrientation[Arc[z0_,r_,{t0_,t1_}]]:=Arc[z0,r,{t1,t0}];
 LeftContourArg[Arc[z0_,r_,{t0_,t1_}]]:=t0+Sign[t1-t0] \[Pi]/2//N;
 RightContourArg[Arc[z0_,r_,{t0_,t1_}]]:=t1-Sign[t1-t0] \[Pi]/2//N;
 
-DomainQ[_Arc]:=True;
+IntervalDomainQ[_Arc]:=True;
 
 
 Arc[{a_,b_,c_}]:=(Det[({
@@ -922,6 +930,8 @@ Mean[f_LFun]^:=FFT[f][[0]];
 
 MeanZero[f_LFun]^:=f-Mean[f];
 
+ComplexMapToCircle[f_?FunQ,z_]:=ComplexMapToCircle[f//Domain,z];
+
 MapToCircle[f_LFun,z_]:=MapToCircle[f//Domain,z];
 MapToCircleD[f_LFun,z_]:=MapToCircleD[f//Domain,z];
 MapFromCircle[f_LFun,z_]:=MapFromCircle[f//Domain,z];
@@ -1123,10 +1133,12 @@ Roots[cf_IFun]^:=
 MapFromInterval[cf,Select[cf//ToUnitInterval//ComplexRoots,(Abs[Im[#]]<100$MachineTolerance)&&(-1.<=Re[#]<=1.)&]//Re//Sort];
 
 
-ComplexRoots[lf_LFun]:=Module[{dct},
-dct=Chop[lf//FFT,$MachineTolerance]//RemoveZeros//ToList;
+ComplexRoots[lf_LFun]:=Chop[lf//FFT,$MachineTolerance]//RemoveZeros//ComplexRoots;
+
+ComplexRoots[fft_ShiftList]:=Module[{dct},
+dct=fft//ToList;
 MapFromCircle[lf,
-Join[Transpose[SparseArray[{i_,j_}/;j==i-1->1,{Length[dct]-1, Length[dct]-2}]],-{Most[dct]}/Last[dct]]//Transpose//Eigenvalues]];
+Join[Transpose[SparseArray[{i_,j_}/;j==i-1->1,{Length[dct]-1, Length[dct]-2}]],-{Most[dct]}/Last[dct]]//Transpose//Normal//N//Eigenvalues]];
 
 Roots[lf_LFun]^:=Module[{dct},
 dct=Chop[lf//FFT,$MachineTolerance]//RemoveZeros//ToList;
@@ -1173,7 +1185,8 @@ DCTPlot[f_IFun,opts:OptionsPattern[]]:=ListLineLogPlot[Norm/@(f//DCT),opts];
 FFTPlot[f_LFun,opts:OptionsPattern[]]:=ListLineLogPlot[Norm/@(f//FFT),opts];
 
 
-DomainQ[_Curve]:=True;
+IntervalDomainQ[Curve[_IFun]]:=True;
+CircleDomainQ[Curve[_LFun]]:=True;
 
 
 
@@ -1199,7 +1212,7 @@ MapFromCircle[Curve[cr_],z_?InfinityQ]:=z;
 MapFromCircle[Curve[cr_],z_?ZeroQ]:=0;
 MapToCircle[Curve[cr_],z_]:=cr-z//Roots//First;
 MapToCircleD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,MapToInterval[cr,z]];
-ComplexMapToCircle[Curve[cr_],z_]:=cr-z//ComplexRoots;
+ComplexMapToCircle[Curve[cr_],z_]:=cr//FFT//RemoveNZeros//#-z  BasisShiftList[#,0]&//ComplexRoots;
 ComplexMapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,ComplexMapToInterval[cr,z]];
 DomainMemberQ[cr:Curve[_LFun],z_]:=Or@@(Abs[1-#]<=$MachineTolerance&/@MapToCircle[cr,z]);
 

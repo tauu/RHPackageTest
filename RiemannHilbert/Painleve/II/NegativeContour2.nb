@@ -78,7 +78,8 @@ Cell[BoxData[
      " ", "on", " ", "Pure", " ", "and", " ", "Applied", " ", "Mathematics", 
     "\n", "Volume", " ", "48"}], ",", " ", 
    RowBox[{"Issue", " ", "3"}], ",", " ", 
-   RowBox[{"pages", " ", "277", "\[Dash]337"}], ",", " ", 
+   RowBox[{"pages", " ", "277", 
+    RowBox[{"\[Dash]", "337"}]}], ",", " ", 
    RowBox[{
     RowBox[{"1995", "\[IndentingNewLine]", 
      RowBox[{"(", 
@@ -1645,7 +1646,7 @@ Cell[BoxData[{
        RowBox[{"Return", "[", 
         RowBox[{"{", 
          RowBox[{"p", ",", "n"}], "}"}], "]"}], ";"}]}], 
-     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"contour", "[", 
@@ -2065,7 +2066,7 @@ Cell[BoxData[{
      RowBox[{"Sqrt", "[", 
       RowBox[{
        RowBox[{"-", "x"}], "/", "4"}], "]"}]}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -2076,7 +2077,7 @@ Cell[BoxData[{
       RowBox[{"c", ",", "s", ",", "tol", ",", "xl", ",", "xu"}], "]"}], "=", 
      RowBox[{"cacheRHSolver", "[", 
       RowBox[{"c", ",", "s", ",", "tol", ",", "xl", ",", "xu"}], "]"}]}]}], 
-   ";"}], "\[IndentingNewLine]"}], "\n", 
+   ";"}], "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -2106,16 +2107,17 @@ Cell[BoxData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"Options", "[", "PainleveIINegativeContour2", "]"}], "=", 
-  RowBox[{"{", 
-   RowBox[{
-    RowBox[{"InterpolationPrecision", "\[Rule]", 
-     RowBox[{"10", "^", 
-      RowBox[{"-", "7"}]}]}], ",", 
-    RowBox[{"CacheIntervalLength", "\[Rule]", 
-     RowBox[{"-", "10"}]}], ",", 
-    RowBox[{"CacheIntervalShift", "\[Rule]", 
-     RowBox[{"-", "5"}]}]}], "}"}]}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Options", "[", "PainleveIINegativeContour2", "]"}], "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"InterpolationPrecision", "\[Rule]", 
+      RowBox[{"10", "^", 
+       RowBox[{"-", "7"}]}]}], ",", 
+     RowBox[{"CacheIntervalLength", "\[Rule]", 
+      RowBox[{"-", "10"}]}], ",", 
+     RowBox[{"CacheIntervalShift", "\[Rule]", 
+      RowBox[{"-", "5"}]}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"PainleveIINegativeContour2", "[", 
@@ -2163,7 +2165,7 @@ Cell[BoxData[{
          RowBox[{"cachedRHSolver", "[", 
           RowBox[{
            RowBox[{"Except", "[", "_Pattern", "]"}], ".."}], "]"}], "]"}]}], 
-       "]"}], "&"}]}], "]"}]}], "\[IndentingNewLine]"}], "\n", 
+       "]"}], "&"}]}], "]"}]}], "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"clearCachedRHSolver", "[", "]"}], ":=", 
@@ -2182,7 +2184,8 @@ WindowSize->{760, 1127},
 WindowMargins->{{476, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TrackCellChangeTimes->False,
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
+2010)",
 StyleDefinitions->"Default.nb"
 ]
 

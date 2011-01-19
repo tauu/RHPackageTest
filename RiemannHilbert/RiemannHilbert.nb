@@ -175,19 +175,26 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"Cauchy", "[", 
      RowBox[{
-      RowBox[{"lf_LFun", "?", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"Head", "[", 
-           RowBox[{"Domain", "[", "#", "]"}], "]"}], "===", "Curve"}], "&"}], 
-        ")"}]}], ",", "z_"}], "]"}], ":=", 
+      RowBox[{"f", ":", 
+       RowBox[{"LFun", "[", 
+        RowBox[{"_", ",", "_Curve"}], "]"}]}], ",", "z_"}], "]"}], ":=", 
     RowBox[{
-     RowBox[{"Cauchy", "[", 
-      RowBox[{
-       RowBox[{"lf", "//", "ToUnitCircle"}], ",", 
-       RowBox[{"ComplexMapToCircle", "[", 
-        RowBox[{"lf", ",", "z"}], "]"}]}], "]"}], "//", "Total"}]}], ";"}], 
+     RowBox[{"Total", "[", 
+      RowBox[{"Cauchy", "[", 
+       RowBox[{
+        RowBox[{"f", "//", "ToUnitCircle"}], ",", 
+        RowBox[{"ComplexMapToCircle", "[", 
+         RowBox[{
+          RowBox[{"f", "//", "Domain"}], ",", "z"}], "]"}]}], "]"}], "]"}], 
+     "-", 
+     RowBox[{"Total", "[", 
+      RowBox[{"Cauchy", "[", 
+       RowBox[{
+        RowBox[{"f", "//", "ToUnitCircle"}], ",", 
+        RowBox[{"ComplexMapToCircle", "[", 
+         RowBox[{
+          RowBox[{"f", "//", "Domain"}], ",", 
+          SuperscriptBox["10", "18"]}], "]"}]}], "]"}], "]"}]}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -238,7 +245,7 @@ Cell[BoxData[{
  InitializationCell->True],
 
 Cell[BoxData[""], "Input"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -307,7 +314,7 @@ Cell[BoxData[{
         RowBox[{"-", "1"}], ",", "lf", ",", "z"}], "]"}]}], ")"}]}]}], 
   ";"}]}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -399,7 +406,7 @@ Cell[BoxData[{
         RowBox[{"-", "1"}], ",", "lf"}], "]"}]}], ")"}]}]}], ";"}]}], "Input",
  
  InitializationCell->True]
-}, Open  ]]
+}, Closed]]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -3179,7 +3186,7 @@ Cell[BoxData[
      RowBox[{"CauchyBasis", "[", 
       RowBox[{
        RowBox[{"f", ":", 
-        RowBox[{"Curve", "[", "_", "]"}]}], ",", 
+        RowBox[{"Curve", "[", "_IFun", "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_List"}], "]"}], ":=", 
      RowBox[{"MatrixMap", "[", 
       RowBox[{"Total", ",", 
@@ -3194,7 +3201,7 @@ Cell[BoxData[
      RowBox[{"CauchyBasis", "[", 
       RowBox[{"s_", ",", 
        RowBox[{"f", ":", 
-        RowBox[{"Curve", "[", "_", "]"}]}], ",", 
+        RowBox[{"Curve", "[", "_IFun", "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_List"}], "]"}], ":=", 
      RowBox[{"MatrixMap", "[", 
       RowBox[{"Total", ",", 
@@ -3209,7 +3216,7 @@ Cell[BoxData[
      RowBox[{"CauchyBasis", "[", 
       RowBox[{
        RowBox[{"f", ":", 
-        RowBox[{"Curve", "[", "_", "]"}]}], ",", 
+        RowBox[{"Curve", "[", "_IFun", "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
      RowBox[{"Total", "/@", 
       RowBox[{"CauchyBasis", "[", 
@@ -3223,7 +3230,7 @@ Cell[BoxData[
      RowBox[{"CauchyBasis", "[", 
       RowBox[{"s_", ",", 
        RowBox[{"f", ":", 
-        RowBox[{"Curve", "[", "_", "]"}]}], ",", 
+        RowBox[{"Curve", "[", "_IFun", "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
      RowBox[{"Total", "/@", 
       RowBox[{"CauchyBasis", "[", 
@@ -3238,7 +3245,7 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"cr", ":", 
         RowBox[{"Curve", "[", 
-         RowBox[{"cf_", ",", 
+         RowBox[{"cf_IFun", ",", 
           RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_List"}], "]"}], ":=", 
      RowBox[{
@@ -3273,7 +3280,7 @@ Cell[BoxData[
       RowBox[{"s_", ",", 
        RowBox[{"cr", ":", 
         RowBox[{"Curve", "[", 
-         RowBox[{"cf_", ",", 
+         RowBox[{"cf_IFun", ",", 
           RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_List"}], "]"}], ":=", 
      RowBox[{
@@ -3308,7 +3315,7 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"cr", ":", 
         RowBox[{"Curve", "[", 
-         RowBox[{"cf_", ",", 
+         RowBox[{"cf_IFun", ",", 
           RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
      RowBox[{
@@ -3343,7 +3350,7 @@ Cell[BoxData[
       RowBox[{"s_", ",", 
        RowBox[{"cr", ":", 
         RowBox[{"Curve", "[", 
-         RowBox[{"cf_", ",", 
+         RowBox[{"cf_IFun", ",", 
           RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}]}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
      RowBox[{
@@ -3533,7 +3540,7 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"CauchyBasisS", "[", 
       RowBox[{"s_", ",", 
-       RowBox[{"f_", "?", "DomainQ"}], ",", 
+       RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
      RowBox[{
       RowBox[{"CauchyBasisS", "[", 
@@ -3602,7 +3609,8 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"CauchyBasis", "[", 
       RowBox[{"_", ",", 
-       RowBox[{"d_", "?", "DomainQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "x_"}], "]"}], 
+     ":=", 
      RowBox[{"CauchyBasis", "[", 
       RowBox[{"UnitInterval", ",", "k", ",", "x"}], "]"}]}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
@@ -3610,7 +3618,7 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"CauchyBasis", "[", 
       RowBox[{
-       RowBox[{"f_", "?", "DomainQ"}], ",", 
+       RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
      RowBox[{
       RowBox[{"CauchyBasis", "[", 
@@ -3628,7 +3636,7 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"CauchyBasisS", "[", 
       RowBox[{"s_", ",", 
-       RowBox[{"f_", "?", "DomainQ"}], ",", 
+       RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
        RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
      RowBox[{
       RowBox[{"CauchyBasisS", "[", 
@@ -3657,7 +3665,7 @@ Cell[BoxData[{
     RowBox[{"LeftSingularityDataBasis", "[", 
      RowBox[{
       RowBox[{"f", ":", 
-       RowBox[{"Curve", "[", "_", "]"}]}], ",", 
+       RowBox[{"Curve", "[", "_IFun", "]"}]}], ",", 
       RowBox[{"1", ";;", "n_Integer"}]}], "]"}], ":=", "\[IndentingNewLine]", 
     
     RowBox[{"Module", "[", 
@@ -3732,7 +3740,7 @@ Cell[BoxData[{
     RowBox[{"RightSingularityDataBasis", "[", 
      RowBox[{
       RowBox[{"f", ":", 
-       RowBox[{"Curve", "[", "_", "]"}]}], ",", 
+       RowBox[{"Curve", "[", "_IFun", "]"}]}], ",", 
       RowBox[{"1", ";;", "n_Integer"}]}], "]"}], ":=", "\[IndentingNewLine]", 
     
     RowBox[{"Module", "[", 
@@ -3808,7 +3816,7 @@ Cell[BoxData[{
      RowBox[{
       RowBox[{"f", ":", 
        RowBox[{"Curve", "[", 
-        RowBox[{"cf_", ",", 
+        RowBox[{"cf_IFun", ",", 
          RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}]}], ",", 
       RowBox[{"1", ";;", "n_Integer"}]}], "]"}], ":=", "\[IndentingNewLine]", 
     
@@ -3906,7 +3914,7 @@ Cell[BoxData[{
      RowBox[{
       RowBox[{"f", ":", 
        RowBox[{"Curve", "[", 
-        RowBox[{"cf_", ",", 
+        RowBox[{"cf_IFun", ",", 
          RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}]}], ",", 
       RowBox[{"1", ";;", "n_Integer"}]}], "]"}], ":=", "\[IndentingNewLine]", 
     
@@ -4001,8 +4009,8 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"LeftSingularityDataBasis", "[", 
     RowBox[{
-     RowBox[{"d_", "?", "DomainQ"}], ",", 
-     RowBox[{"1", ";;", "k_"}]}], "]"}], ":=", 
+     RowBox[{"d_", "?", "IntervalDomainQ"}], ",", 
+     RowBox[{"1", ";;", "k_Integer"}]}], "]"}], ":=", 
    RowBox[{"Array", "[", 
     RowBox[{
      RowBox[{
@@ -4014,8 +4022,8 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"RightSingularityDataBasis", "[", 
      RowBox[{
-      RowBox[{"d_", "?", "DomainQ"}], ",", 
-      RowBox[{"1", ";;", "k_"}]}], "]"}], ":=", 
+      RowBox[{"d_", "?", "IntervalDomainQ"}], ",", 
+      RowBox[{"1", ";;", "k_Integer"}]}], "]"}], ":=", 
     RowBox[{"Array", "[", 
      RowBox[{
       RowBox[{
@@ -4026,8 +4034,8 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"LeftSingularityDataBasis", "[", 
     RowBox[{
-     RowBox[{"f_", "?", "DomainQ"}], ",", 
-     RowBox[{"1", ";;", "k_"}], ",", 
+     RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+     RowBox[{"1", ";;", "k_Integer"}], ",", 
      RowBox[{"t_", "?", "ScalarQ"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{
@@ -4055,7 +4063,8 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"LeftSingularityDataBasis", "[", 
      RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", "f_", ",", 
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
       RowBox[{"1", ";;", "k_"}]}], "]"}], ":=", 
     RowBox[{
      RowBox[{
@@ -4077,8 +4086,8 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"RightSingularityDataBasis", "[", 
     RowBox[{
-     RowBox[{"f_", "?", "DomainQ"}], ",", 
-     RowBox[{"1", ";;", "k_"}], ",", 
+     RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+     RowBox[{"1", ";;", "k_Integer"}], ",", 
      RowBox[{"t_", "?", "ScalarQ"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{
@@ -4143,7 +4152,7 @@ Cell[BoxData[{
     RowBox[{"FPCauchyBasis", "[", 
      RowBox[{
       RowBox[{"+", "1"}], ",", "UnitInterval", ",", 
-      RowBox[{"1", ";;", "n_"}], ",", 
+      RowBox[{"1", ";;", "n_Integer"}], ",", 
       RowBox[{"g_IFun", "?", "UnitIntervalFunQ"}]}], "]"}], ":=", 
     RowBox[{"Module", "[", 
      RowBox[{
@@ -4260,7 +4269,7 @@ Cell[BoxData[{
     RowBox[{"FPCauchyBasis", "[", 
      RowBox[{
       RowBox[{"-", "1"}], ",", "UnitInterval", ",", 
-      RowBox[{"1", ";;", "n_"}], ",", 
+      RowBox[{"1", ";;", "n_Integer"}], ",", 
       RowBox[{"g_IFun", "?", "UnitIntervalFunQ"}]}], "]"}], ":=", 
     RowBox[{"Module", "[", 
      RowBox[{
@@ -4380,8 +4389,8 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{"s_", "?", "SignQ"}], ",", 
        RowBox[{"f", ":", 
-        RowBox[{"Curve", "[", "_", "]"}]}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+        RowBox[{"Curve", "[", "_IFun", "]"}]}], ",", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{"f", "~", "NEqual", "~", 
       RowBox[{"Domain", "[", "g", "]"}]}]}], ":=", 
     RowBox[{"Module", "[", 
@@ -4472,9 +4481,9 @@ Cell[BoxData[{
        RowBox[{"s_", "?", "SignQ"}], ",", 
        RowBox[{"f", ":", 
         RowBox[{"Curve", "[", 
-         RowBox[{"cf_", ",", 
+         RowBox[{"cf_IFun", ",", 
           RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}]}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{"f", "~", "NEqual", "~", 
       RowBox[{"Domain", "[", "g", "]"}]}]}], ":=", 
     RowBox[{"Module", "[", 
@@ -4581,7 +4590,7 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{"s_", "?", "SignQ"}], ",", 
        RowBox[{"f_", "?", "RightEndpointInfinityQ"}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{"f", "~", "NEqual", "~", 
       RowBox[{"Domain", "[", "g", "]"}]}]}], ":=", 
     RowBox[{
@@ -4643,7 +4652,7 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{"s_", "?", "SignQ"}], ",", 
        RowBox[{"f_", "?", "LeftEndpointInfinityQ"}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{"f", "~", "NEqual", "~", 
       RowBox[{"Domain", "[", "g", "]"}]}]}], ":=", 
     RowBox[{
@@ -4712,8 +4721,8 @@ Cell[BoxData[{
     RowBox[{"FPCauchyBasis", "[", 
      RowBox[{
       RowBox[{"s_", "?", "SignQ"}], ",", 
-      RowBox[{"f_", "?", "DomainQ"}], ",", 
-      RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+      RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+      RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
     RowBox[{"f", "~", "NEqual", "~", 
      RowBox[{"Domain", "[", "g", "]"}]}]}], ":=", 
    RowBox[{
@@ -4771,7 +4780,7 @@ Cell[BoxData[{
          "&"}], ",", "k"}], "]"}]}], ")"}]}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4790,12 +4799,13 @@ Cell[BoxData[{
         RowBox[{"(", 
          RowBox[{
           RowBox[{
+           RowBox[{"IntervalDomainQ", "[", "#", "]"}], "&&", 
            RowBox[{"!", 
             RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}], "&&", 
            RowBox[{"!", 
             RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
          ")"}]}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{
       RowBox[{
        RowBox[{"LeftEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
@@ -4845,12 +4855,13 @@ Cell[BoxData[{
         RowBox[{"(", 
          RowBox[{
           RowBox[{
+           RowBox[{"IntervalDomainQ", "[", "#", "]"}], "&&", 
            RowBox[{"!", 
             RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}], "&&", 
            RowBox[{"!", 
             RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
          ")"}]}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{
       RowBox[{
        RowBox[{"LeftEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
@@ -4896,8 +4907,8 @@ Cell[BoxData[{
      RowBox[{"FPCauchyBasis", "[", 
       RowBox[{
        RowBox[{"_", "?", "SignQ"}], ",", 
-       RowBox[{"f_", "?", "DomainQ"}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", 
+       RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", 
        RowBox[{"g_IFun", "?", "RightEndpointInfinityQ"}]}], "]"}], "/;", 
      RowBox[{
       RowBox[{"RightEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
@@ -4936,8 +4947,8 @@ Cell[BoxData[{
      RowBox[{"FPCauchyBasis", "[", 
       RowBox[{
        RowBox[{"_", "?", "SignQ"}], ",", 
-       RowBox[{"f_", "?", "DomainQ"}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", 
+       RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", 
        RowBox[{"g_IFun", "?", "LeftEndpointInfinityQ"}]}], "]"}], "/;", 
      RowBox[{
       RowBox[{"LeftEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
@@ -4976,8 +4987,8 @@ Cell[BoxData[{
     RowBox[{"FPCauchyBasis", "[", 
      RowBox[{
       RowBox[{"_", "?", "SignQ"}], ",", 
-      RowBox[{"f_", "?", "DomainQ"}], ",", 
-      RowBox[{"1", ";;", "k_"}], ",", 
+      RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+      RowBox[{"1", ";;", "k_Integer"}], ",", 
       RowBox[{"g_IFun", "?", "LeftEndpointInfinityQ"}]}], "]"}], "/;", 
     RowBox[{
      RowBox[{"RightEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
@@ -5016,8 +5027,8 @@ Cell[BoxData[{
      RowBox[{"FPCauchyBasis", "[", 
       RowBox[{
        RowBox[{"_", "?", "SignQ"}], ",", 
-       RowBox[{"f_", "?", "DomainQ"}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", 
+       RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", 
        RowBox[{"g_IFun", "?", "RightEndpointInfinityQ"}]}], "]"}], "/;", 
      RowBox[{
       RowBox[{"LeftEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
@@ -5060,10 +5071,12 @@ Cell[BoxData[{
        RowBox[{"f_", "?", 
         RowBox[{"(", 
          RowBox[{
-          RowBox[{"!", 
-           RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}], "&"}], 
+          RowBox[{
+           RowBox[{"IntervalDomainQ", "[", "#", "]"}], "&&", 
+           RowBox[{"!", 
+            RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
          ")"}]}], ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{
       RowBox[{"RightEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
       RowBox[{"RightEndpoint", "[", "g", "]"}]}]}], ":=", 
@@ -5100,10 +5113,12 @@ Cell[BoxData[{
       RowBox[{"f_", "?", 
        RowBox[{"(", 
         RowBox[{
-         RowBox[{"!", 
-          RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}], "&"}], ")"}]}],
-       ",", 
-      RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+         RowBox[{
+          RowBox[{"IntervalDomainQ", "[", "#", "]"}], "&&", 
+          RowBox[{"!", 
+           RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
+        ")"}]}], ",", 
+      RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
     RowBox[{
      RowBox[{"RightEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
      RowBox[{"LeftEndpoint", "[", "g", "]"}]}]}], ":=", "\[IndentingNewLine]", 
@@ -5138,10 +5153,12 @@ Cell[BoxData[{
       RowBox[{"f_", "?", 
        RowBox[{"(", 
         RowBox[{
-         RowBox[{"!", 
-          RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}], "&"}], ")"}]}], 
-      ",", 
-      RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+         RowBox[{
+          RowBox[{"IntervalDomainQ", "[", "#", "]"}], "&&", 
+          RowBox[{"!", 
+           RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
+        ")"}]}], ",", 
+      RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
     RowBox[{
      RowBox[{"LeftEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
      RowBox[{"RightEndpoint", "[", "g", "]"}]}]}], ":=", 
@@ -5178,10 +5195,12 @@ Cell[BoxData[{
        RowBox[{"f_", "?", 
         RowBox[{"(", 
          RowBox[{
-          RowBox[{"!", 
-           RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}], "&"}], ")"}]}],
-        ",", 
-       RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], "/;", 
+          RowBox[{
+           RowBox[{"IntervalDomainQ", "[", "#", "]"}], "&&", 
+           RowBox[{"!", 
+            RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
+         ")"}]}], ",", 
+       RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], "/;", 
      RowBox[{
       RowBox[{"LeftEndpoint", "[", "f", "]"}], "~", "NEqual", "~", 
       RowBox[{"LeftEndpoint", "[", "g", "]"}]}]}], ":=", 
@@ -5214,8 +5233,8 @@ Cell[BoxData[{
    RowBox[{"FPCauchyBasis", "[", 
     RowBox[{
      RowBox[{"_", "?", "SignQ"}], ",", 
-     RowBox[{"f_", "?", "DomainQ"}], ",", 
-     RowBox[{"1", ";;", "k_"}], ",", 
+     RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+     RowBox[{"1", ";;", "k_Integer"}], ",", 
      RowBox[{"g_IFun", "?", "LeftEndpointInfinityQ"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{
@@ -5233,8 +5252,8 @@ Cell[BoxData[{
    RowBox[{"FPCauchyBasis", "[", 
     RowBox[{
      RowBox[{"_", "?", "SignQ"}], ",", 
-     RowBox[{"f_", "?", "DomainQ"}], ",", 
-     RowBox[{"1", ";;", "k_"}], ",", 
+     RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+     RowBox[{"1", ";;", "k_Integer"}], ",", 
      RowBox[{"g_IFun", "?", "RightEndpointInfinityQ"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{
@@ -5252,8 +5271,8 @@ Cell[BoxData[{
    RowBox[{"FPCauchyBasis", "[", 
     RowBox[{
      RowBox[{"_", "?", "SignQ"}], ",", 
-     RowBox[{"f_", "?", "DomainQ"}], ",", 
-     RowBox[{"1", ";;", "k_"}], ",", "g_IFun"}], "]"}], ":=", 
+     RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
+     RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], ":=", 
    RowBox[{
     RowBox[{
      RowBox[{"IFun", "[", 
@@ -5607,7 +5626,7 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"CauchyBasisD", "[", 
      RowBox[{
-      RowBox[{"f_", "?", "DomainQ"}], ",", 
+      RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
       RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{"MapToIntervalD", "[", 
@@ -5623,7 +5642,7 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"CauchyBasisD", "[", 
      RowBox[{"s_", ",", 
-      RowBox[{"f_", "?", "DomainQ"}], ",", 
+      RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
       RowBox[{"1", ";;", "k_"}], ",", "z_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{"MapToIntervalD", "[", 
@@ -5705,7 +5724,7 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"CauchyBasisD", "[", 
     RowBox[{
-     RowBox[{"f_", "?", "DomainQ"}], ",", 
+     RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
      RowBox[{"1", ";;", "k_"}], ",", "z_List"}], "]"}], ":=", 
    RowBox[{
     RowBox[{
@@ -5723,7 +5742,7 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"CauchyBasisD", "[", 
      RowBox[{"s_", ",", 
-      RowBox[{"f_", "?", "DomainQ"}], ",", 
+      RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
       RowBox[{"1", ";;", "k_"}], ",", "z_List"}], "]"}], ":=", 
     RowBox[{
      RowBox[{
@@ -5772,7 +5791,7 @@ Cell[BoxData[{
         RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -10155,15 +10174,15 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"{", 
          RowBox[{
-          RowBox[{"_", "?", "DomainQ"}], ",", "_Integer"}], "}"}], ".."}], 
-       "}"}]}], ",", 
+          RowBox[{"_", "?", "IntervalDomainQ"}], ",", "_Integer"}], "}"}], 
+        ".."}], "}"}]}], ",", 
      RowBox[{"l2", ":", 
       RowBox[{"{", 
        RowBox[{
         RowBox[{"{", 
          RowBox[{
-          RowBox[{"_", "?", "DomainQ"}], ",", "_Integer"}], "}"}], ".."}], 
-       "}"}]}]}], "]"}], ":=", 
+          RowBox[{"_", "?", "IntervalDomainQ"}], ",", "_Integer"}], "}"}], 
+        ".."}], "}"}]}]}], "]"}], ":=", 
    RowBox[{"CauchyMatrix", "[", 
     RowBox[{"s", ",", 
      RowBox[{
@@ -10202,15 +10221,15 @@ Cell[BoxData[{
         RowBox[{
          RowBox[{"{", 
           RowBox[{
-           RowBox[{"_", "?", "DomainQ"}], ",", "_Integer"}], "}"}], ".."}], 
-        "}"}]}], ",", 
+           RowBox[{"_", "?", "IntervalDomainQ"}], ",", "_Integer"}], "}"}], 
+         ".."}], "}"}]}], ",", 
       RowBox[{"l2", ":", 
        RowBox[{"{", 
         RowBox[{
          RowBox[{"{", 
           RowBox[{
-           RowBox[{"_", "?", "DomainQ"}], ",", "_Integer"}], "}"}], ".."}], 
-        "}"}]}]}], "]"}], ":=", 
+           RowBox[{"_", "?", "IntervalDomainQ"}], ",", "_Integer"}], "}"}], 
+         ".."}], "}"}]}]}], "]"}], ":=", 
     RowBox[{"FunValueListOperator", "[", 
      RowBox[{
       RowBox[{"CauchyMatrix", "[", 
@@ -10737,8 +10756,8 @@ Cell[BoxData[
                    "scs", "\[LeftDoubleBracket]", "2", 
                     "\[RightDoubleBracket]"}], 
                    RowBox[{
-                   "gm", "\[LeftDoubleBracket]", "1", 
-                    "\[RightDoubleBracket]"}]}]}], ",", 
+                   "gm", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}
+                    ]}]}], ",", 
                  RowBox[{
                  "gm", "\[LeftDoubleBracket]", "2", 
                   "\[RightDoubleBracket]"}]}], "]"}]}], "]"}], "/@", 
@@ -11138,7 +11157,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{839, 815},
-WindowMargins->{{Automatic, -1852}, {-82, Automatic}},
+WindowMargins->{{Automatic, -1268}, {Automatic, -6}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

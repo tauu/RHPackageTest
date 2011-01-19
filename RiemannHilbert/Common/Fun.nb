@@ -272,8 +272,18 @@ circle.\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
    RowBox[{
     RowBox[{
      RowBox[{"DomainQ", "::", "usage"}], "=", "\[IndentingNewLine]", 
-     "\"\<Test whether something is a domain (Line, Arc or Circle).\>\""}], 
-    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     "\"\<Test whether something is a domain (Line, Arc, Circle, Curve, etc).\
+\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalDomainQ", "::", "usage"}], "=", "\[IndentingNewLine]", 
+     "\"\<Test whether something is a domain mapped from the unit interval.\>\
+\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"CircleDomainQ", "::", "usage"}], "=", "\[IndentingNewLine]", 
+     "\"\<Test whether something is a domain mapped from the unit \
+circle.\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"BoundedDomainQ", "::", "usage"}], "=", 
@@ -1883,16 +1893,27 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"(", 
       RowBox[{"a", "-", "b"}], ")"}], "//", "Arg"}]}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"DomainQ", "[", "d_", "]"}], ":=", 
+    RowBox[{
+     RowBox[{"IntervalDomainQ", "[", "d", "]"}], "~", "Or", "~", 
+     RowBox[{"CircleDomainQ", "[", "d", "]"}]}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"DomainQ", "[", "_", "]"}], ":=", "False"}], 
+   RowBox[{"CircleDomainQ", "[", "_", "]"}], ":=", "False"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"IntervalDomainQ", "[", "_", "]"}], ":=", "False"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
-    RowBox[{"DomainQ", "[", "_Line", "]"}], ":=", "True"}], ";"}], 
+    RowBox[{"IntervalDomainQ", "[", "_Line", "]"}], ":=", "True"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -2062,10 +2083,10 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"DomainQ", "[", "_Circle", "]"}], ":=", "True"}], ";"}]}], "Input",
- 
+   RowBox[{"CircleDomainQ", "[", "_Circle", "]"}], ":=", "True"}], 
+  ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2631,7 +2652,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{
-    RowBox[{"DomainQ", "[", "_Arc", "]"}], ":=", "True"}], ";"}], 
+    RowBox[{"IntervalDomainQ", "[", "_Arc", "]"}], ":=", "True"}], ";"}], 
   "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -2701,7 +2722,7 @@ Cell[BoxData[{
            RowBox[{"c", "-", "x0"}], "]"}]}], "}"}]}], "]"}]}], "]"}]}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3278,7 +3299,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4410,13 +4431,11 @@ Cell[BoxData[{
    RowBox[{"f", "-", 
     RowBox[{"First", "[", "f", "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Finite points and graphs", "Subsection"],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
@@ -4623,17 +4642,7 @@ Cell[BoxData[
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
- InitializationCell->True],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"End", "::", "\<\"noctx\"\>"}], ":", 
-  " ", "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"No previous context \
-defined.\\\\\\\"\\\", \\\"MT\\\"]\\) \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/End/noctx\\\", \
-ButtonNote -> \\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
-}, Open  ]]
+ InitializationCell->True]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4718,7 +4727,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -5562,6 +5571,16 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{
+    RowBox[{"ComplexMapToCircle", "[", 
+     RowBox[{
+      RowBox[{"f_", "?", "FunQ"}], ",", "z_"}], "]"}], ":=", 
+    RowBox[{"ComplexMapToCircle", "[", 
+     RowBox[{
+      RowBox[{"f", "//", "Domain"}], ",", "z"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"MapToCircle", "[", 
     RowBox[{"f_LFun", ",", "z_"}], "]"}], ":=", 
    RowBox[{"MapToCircle", "[", 
@@ -5968,7 +5987,7 @@ Cell[BoxData[{
     "\[RightDoubleBracket]"}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -7053,46 +7072,54 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"ComplexRoots", "[", "lf_LFun", "]"}], ":=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Chop", "[", 
+       RowBox[{
+        RowBox[{"lf", "//", "FFT"}], ",", "$MachineTolerance"}], "]"}], "//", 
+      "RemoveZeros"}], "//", "ComplexRoots"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ComplexRoots", "[", "fft_ShiftList", "]"}], ":=", 
     RowBox[{"Module", "[", 
      RowBox[{
       RowBox[{"{", "dct", "}"}], ",", "\[IndentingNewLine]", 
       RowBox[{
        RowBox[{"dct", "=", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"Chop", "[", 
-           RowBox[{
-            RowBox[{"lf", "//", "FFT"}], ",", "$MachineTolerance"}], "]"}], "//",
-           "RemoveZeros"}], "//", "ToList"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"fft", "//", "ToList"}]}], ";", "\[IndentingNewLine]", 
        RowBox[{"MapFromCircle", "[", 
         RowBox[{"lf", ",", "\[IndentingNewLine]", 
          RowBox[{
           RowBox[{
-           RowBox[{"Join", "[", 
+           RowBox[{
             RowBox[{
-             RowBox[{"Transpose", "[", 
-              RowBox[{"SparseArray", "[", 
-               RowBox[{
-                RowBox[{
+             RowBox[{"Join", "[", 
+              RowBox[{
+               RowBox[{"Transpose", "[", 
+                RowBox[{"SparseArray", "[", 
                  RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"i_", ",", "j_"}], "}"}], "/;", 
+                    RowBox[{"j", "\[Equal]", 
+                    RowBox[{"i", "-", "1"}]}]}], "\[Rule]", "1"}], ",", 
                   RowBox[{"{", 
-                   RowBox[{"i_", ",", "j_"}], "}"}], "/;", 
-                  RowBox[{"j", "\[Equal]", 
-                   RowBox[{"i", "-", "1"}]}]}], "\[Rule]", "1"}], ",", 
-                RowBox[{"{", 
-                 RowBox[{
-                  RowBox[{
-                   RowBox[{"Length", "[", "dct", "]"}], "-", "1"}], ",", " ", 
-                  
-                  RowBox[{
-                   RowBox[{"Length", "[", "dct", "]"}], "-", "2"}]}], "}"}]}],
-                "]"}], "]"}], ",", 
-             RowBox[{
-              RowBox[{"-", 
-               RowBox[{"{", 
-                RowBox[{"Most", "[", "dct", "]"}], "}"}]}], "/", 
-              RowBox[{"Last", "[", "dct", "]"}]}]}], "]"}], "//", 
-           "Transpose"}], "//", "Eigenvalues"}]}], "]"}]}]}], "]"}]}], ";"}], 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"Length", "[", "dct", "]"}], "-", "1"}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"Length", "[", "dct", "]"}], "-", "2"}]}], 
+                   "}"}]}], "]"}], "]"}], ",", 
+               RowBox[{
+                RowBox[{"-", 
+                 RowBox[{"{", 
+                  RowBox[{"Most", "[", "dct", "]"}], "}"}]}], "/", 
+                RowBox[{"Last", "[", "dct", "]"}]}]}], "]"}], "//", 
+             "Transpose"}], "//", "Normal"}], "//", "N"}], "//", 
+          "Eigenvalues"}]}], "]"}]}]}], "]"}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -7550,8 +7577,14 @@ Cell["Line Curve", "Subsection"],
 Cell[BoxData[{
  RowBox[{
   RowBox[{
+   RowBox[{"IntervalDomainQ", "[", 
+    RowBox[{"Curve", "[", "_IFun", "]"}], "]"}], ":=", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
-    RowBox[{"DomainQ", "[", "_Curve", "]"}], ":=", "True"}], ";"}], 
+    RowBox[{"CircleDomainQ", "[", 
+     RowBox[{"Curve", "[", "_LFun", "]"}], "]"}], ":=", "True"}], ";"}], 
   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
   "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
@@ -7741,8 +7774,15 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"Curve", "[", "cr_", "]"}], ",", "z_"}], "]"}], ":=", 
    RowBox[{
-    RowBox[{"cr", "-", "z"}], "//", "ComplexRoots"}]}], 
-  ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"cr", "//", "FFT"}], "//", "RemoveNZeros"}], "//", 
+     RowBox[{
+      RowBox[{"#", "-", 
+       RowBox[{"z", "  ", 
+        RowBox[{"BasisShiftList", "[", 
+         RowBox[{"#", ",", "0"}], "]"}]}]}], "&"}]}], "//", 
+    "ComplexRoots"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"ComplexMapToIntervalD", "[", 
@@ -8751,7 +8791,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{814, 809},
-WindowMargins->{{Automatic, -953}, {-83, Automatic}},
+WindowMargins->{{152, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

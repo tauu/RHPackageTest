@@ -162,7 +162,7 @@ Root[9 ct^2+36 xc^3 #1^4-24 xc^3 #1^5+4 xc^3 #1^6&,2]
 is the result of
 
 Reduce[
-Re[-\Theta[1 + z (-1+I)]] == ct 
+Re[-\Theta[1 + z(-1+I)]] == ct 
 && Element[z,Reals] 
 && z>0
 && Element[xc,Reals] 
@@ -211,7 +211,7 @@ for ct > -8/3 Sqrt[-xc^3]
 is the result of 
 
 Reduce[
-Re[\Theta[1 + z (1+I)]] == ct 
+Re[\Theta[1 + z(1+I)]] == ct 
 && Element[z,Reals] 
 && z>0 
 && Element[x,Reals] 
@@ -224,7 +224,7 @@ z
 and
 
 Reduce[
-Re[-\Theta[1 + z (1-I)]] == ct &&
+Re[-\Theta[1 + z(1-I)]] == ct &&
 Element[z,Reals] 
 && z>0 
 && Element[x,Reals] 
@@ -315,7 +315,7 @@ cachedRHSolver[c_,s_,tol_,xl_,xu__]:=cachedRHSolver[c,s,tol,xl,xu]=cacheRHSolver
 cachedPiiSolver[c_,s_,tol_,xs_,xi_][x_]:=With[{k=Floor[(x-xs)/xi]},cachePiiSolver[cachedRHSolver[c,s,tol,xs+k xi,xs+(k+1) xi]][x]];
 
 
-Options[PainleveIINegativeContour2]={InterpolationPrecision->10^-7,CacheIntervalLength->-10,CacheIntervalShift->-5}
+Options[PainleveIINegativeContour2]={InterpolationPrecision->10^-7,CacheIntervalLength->-10,CacheIntervalShift->-5};
 PainleveIINegativeContour2[s_,x_,opts:OptionsPattern[]]:=
 With[{
 tol=OptionValue[InterpolationPrecision],
