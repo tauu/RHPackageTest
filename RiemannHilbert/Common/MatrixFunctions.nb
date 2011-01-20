@@ -115,6 +115,7 @@ Cell[BoxData[{
  RowBox[{"RiffleList", ";"}], "\[IndentingNewLine]", 
  RowBox[{"Indices", ";"}], "\[IndentingNewLine]", 
  RowBox[{"LastIndex", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"BasisShiftList", ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
   ";"}], "\[IndentingNewLine]", 
@@ -926,6 +927,7 @@ Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
   RowBox[{
    RowBox[{"RemoveZeros", ";"}], "\[IndentingNewLine]", 
+   RowBox[{"RemoveNZeros", ";"}], "\[IndentingNewLine]", 
    RowBox[{"ChopDrop", ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
@@ -988,6 +990,51 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"RemoveZeros", "[", "v_ShiftList", "]"}], ":=", "v"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RemoveNZeros", "[", 
+      RowBox[{"{", 
+       RowBox[{"v___", ",", 
+        RowBox[{"_", "?", "NZeroQ"}]}], "}"}], "]"}], ":=", 
+     RowBox[{"RemoveNZeros", "[", 
+      RowBox[{"{", "v", "}"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RemoveNZeros", "[", "v_List", "]"}], ":=", "v"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RemoveNZeros", "[", 
+      RowBox[{"ShiftList", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"v___", ",", 
+          RowBox[{"_", "?", "NZeroQ"}]}], "}"}], ",", "ind_"}], "]"}], "]"}], 
+     ":=", 
+     RowBox[{"RemoveNZeros", "[", 
+      RowBox[{"ShiftList", "[", 
+       RowBox[{
+        RowBox[{"{", "v", "}"}], ",", "ind"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RemoveNZeros", "[", 
+      RowBox[{"ShiftList", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"_", "?", "NZeroQ"}], ",", "v___"}], "}"}], ",", "ind_"}], 
+       "]"}], "]"}], ":=", 
+     RowBox[{"RemoveNZeros", "[", 
+      RowBox[{"ShiftList", "[", 
+       RowBox[{
+        RowBox[{"{", "v", "}"}], ",", 
+        RowBox[{"ind", "-", "1"}]}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RemoveNZeros", "[", "v_ShiftList", "]"}], ":=", "v"}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{

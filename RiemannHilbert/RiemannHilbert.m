@@ -45,13 +45,18 @@ RiemannHilbert`CauchyMatrix;
 RiemannHilbert`Cauchy;
 RiemannHilbert`CauchyS;
 Cauchy[lf_LFun,z_List]:=Cauchy[lf,#]&/@z;
+Cauchy[s_,lf_LFun,z_List]:=Cauchy[s,lf,#]&/@z;
 
-Cauchy[+1,lf_LFun?UnitCircleFunQ,z_]:=NonNegativeEvaluate[lf,z];
-Cauchy[-1,lf_LFun?UnitCircleFunQ,z_]:=-NegativeEvaluate[lf,z];
-Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]<=1.&)]:=Cauchy[+1,lf,z];
-Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]>1.&)]:=Cauchy[-1,lf,z];
+CauchyS[+1,lf_LFun?UnitCircleFunQ,z_]:=NonNegativeEvaluate[lf,z];
+CauchyS[-1,lf_LFun?UnitCircleFunQ,z_]:=-NegativeEvaluate[lf,z];
+Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]<=1.&)]:=CauchyS[+1,lf,z];
+Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]>1.&)]:=CauchyS[-1,lf,z];
+Cauchy[s_,lf_LFun?UnitCircleFunQ,z_?(DomainMemberQ[UnitCircle,#]&)]:=CauchyS[s,lf,z];
+Cauchy[s_,lf_LFun?UnitCircleFunQ,z_]:=Cauchy[lf,z];
 
 Cauchy[f:LFun[_,_Curve],z_]:=Total[Cauchy[f//ToUnitCircle,ComplexMapToCircle[f//Domain,z]]]-Total[Cauchy[f//ToUnitCircle,ComplexMapToCircle[f//Domain,10^18]]];
+
+Cauchy[s_,f:LFun[_,_Curve],z_]/;DomainMemberQ[f,z]:=Total[Cauchy[s,f//ToUnitCircle,ComplexMapToCircle[f//Domain,z]]]-Total[Cauchy[f//ToUnitCircle,ComplexMapToCircle[f//Domain,10^18]]];
 
 Cauchy[lf_LFun,z_]:=Cauchy[lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
 Cauchy[s_,lf_LFun,z_]:=Cauchy[s,lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
@@ -70,6 +75,8 @@ RiemannHilbert`HilbertInverse[lf_LFun,z_]:=-I (CauchyInverse[+1,lf,z]-CauchyInve
 Cauchy[+1,lf_LFun?UnitCircleFunQ]:=NonNegativePart[lf];
 Cauchy[-1,lf_LFun?UnitCircleFunQ]:=-NegativePart[lf];
 
+Cauchy[s_,f:LFun[_,_Curve]]:=LFun[Cauchy[s,f,f//Points],f//Domain];
+
 Cauchy[s_,lf_LFun]:=LFun[Cauchy[s,lf//ToUnitCircle]//Values,lf//Domain]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
 Hilbert[lf_LFun]:=I (Cauchy[+1,lf]+Cauchy[-1,lf]);
 
@@ -77,6 +84,64 @@ CauchyInverse[+1,lf_LFun]:=Cauchy[+1,lf];
 CauchyInverse[-1,lf_LFun]:=-Cauchy[-1,lf];
 
 HilbertInverse[lf_LFun]:=-I (CauchyInverse[+1,lf]-CauchyInverse[-1,lf]);
+
+
+RiemannHilbert`FPCauchyBasis;
+
+
+RiemannHilbert`CauchyBasis[_,_Integer,_?InfinityQ]:=0;
+RiemannHilbert`CauchyBasisS[_,_,_Integer,_?InfinityQ]:=0;
+
+
+
+CauchyBasis[f_?FunQ,k_,x_]:=CauchyBasis[f//Domain,k,x];
+CauchyBasis[s_,f_?FunQ,k_,x_]:=CauchyBasis[s,f//Domain,k,x];
+
+CauchyBasisS[f_?FunQ,k_,x_]:=CauchyBasisS[f//Domain,k,x];
+CauchyBasisS[s_,f_?FunQ,k_,x_]:=CauchyBasisS[s,f//Domain,k,x];
+
+CauchyBasisS[+1,UnitCircle,k_?Negative,z_]:=0 z;
+CauchyBasisS[-1,UnitCircle,k_?Negative,z_]:=-z^k;
+CauchyBasisS[+1,UnitCircle,0,z_List]:=OneVector[Length[z]];
+CauchyBasisS[+1,UnitCircle,0,z_]:=1;
+CauchyBasisS[+1,UnitCircle,k_?NonNegative,z_]:=z^k;
+CauchyBasisS[-1,UnitCircle,k_?NonNegative,z_]:=0 z;
+
+
+CauchyBasis[d_?CircleDomainQ,k_Integer,z_List]:=CauchyBasis[d,k,#]&/@z;
+CauchyBasis[s_?SignQ,d_?CircleDomainQ,k_Integer,z_List]:=CauchyBasis[s,d,k,#]&/@z;
+
+
+CauchyBasis[UnitCircle,k_Integer,z_?(Abs[#]<=1.&)]:=CauchyBasisS[+1,UnitCircle,k,z];
+CauchyBasis[UnitCircle,k_Integer,z_?(Abs[#]>1.&)]:=CauchyBasisS[-1,UnitCircle,k,z];
+
+CauchyBasis[s_,UnitCircle,k_Integer,z_?(DomainMemberQ[UnitCircle,#]&)]:=CauchyBasisS[s,UnitCircle,k,z];
+CauchyBasis[s_,UnitCircle,k_Integer,z_]:=CauchyBasis[UnitCircle,k,z];
+
+
+CauchyBasis[d:Curve[_LFun],0,z_]:=Total[CauchyBasis[UnitCircle,0,ComplexMapToCircle[d,z]]]-Total[CauchyBasis[UnitCircle,0,ComplexMapToCircle[d,10^18]]];
+CauchyBasis[d:Curve[_LFun],k_Integer,z_]:=Total[CauchyBasis[UnitCircle,k,ComplexMapToCircle[d,z]]];
+
+CauchyBasis[s_?SignQ,d:Curve[_LFun],0,z_]:=Total[CauchyBasis[s,UnitCircle,0,ComplexMapToCircle[d,z]]]-Total[CauchyBasis[UnitCircle,0,ComplexMapToCircle[d,10^18]]];
+CauchyBasis[s_?SignQ,d:Curve[_LFun],k_Integer,z_]:=Total[CauchyBasis[s,UnitCircle,k,ComplexMapToCircle[d,z]]];
+
+
+CauchyBasis[f_?CircleDomainQ,k_Integer,z_]:=CauchyBasis[UnitCircle,k,MapToCircle[f,z]]-CauchyBasis[UnitCircle,k,MapToCircle[f,\[Infinity]]];
+CauchyBasis[s_,f_?CircleDomainQ,k_Integer,z_]:=CauchyBasis[s,UnitCircle,k,MapToCircle[f,z]]-CauchyBasis[UnitCircle,k,MapToCircle[f,\[Infinity]]];
+CauchyBasisS[s_,f_?CircleDomainQ,k_Integer,z_]:=CauchyBasisS[s,UnitCircle,k,MapToCircle[f,z]]-CauchyBasis[UnitCircle,k,MapToCircle[f,\[Infinity]]];
+
+
+CauchyBasisS[s_?SignQ,d_?CircleDomainQ,i_;;j_,z_]:=Module[{k},Table[CauchyBasisS[s,d,k,z],{k,i,j}]];
+CauchyBasis[d_?CircleDomainQ,i_;;j_,z_]:=Module[{k},Table[CauchyBasis[d,k,z],{k,i,j}]];
+CauchyBasis[s_?SignQ,d_?CircleDomainQ,i_;;j_,z_]:=Module[{k},Table[CauchyBasis[s,d,k,z],{k,i,j}]];
+
+
+
+FPCauchyBasis[s_,f_?FunQ,k_,g_?FunQ]:=FPCauchyBasis[s,f//Domain,k,g];
+
+FPCauchyBasis[s_?SignQ,d_?CircleDomainQ,i_;;j_,lf_]/;Domain[lf]~NEqual~d:=LFun[#,lf//Domain]&/@CauchyBasis[s,d,i;;j,lf//Points];
+
+RiemannHilbert`CauchyMatrix[s_?SignQ,lf_LFun?ScalarFunQ,lf2_LFun]:=Transpose[(FiniteValues/@FPCauchyBasis[s,lf,Span@@(lf//FFT//IndexRange),lf2])].FiniteTransformMatrix[lf];
 
 
 Clear[\[Psi]p,\[Psi]m,\[Phi]];
@@ -125,18 +190,6 @@ RiemannHilbert`\[Psi]m[0,z_]:=ArcTanh[1/z];
 \[Psi]m[n_,z_]:=\[Psi]m\[Phi][n,z];
 
 
-RiemannHilbert`CauchyBasis[_,_Integer,_?InfinityQ]:=0;
-RiemannHilbert`CauchyBasisS[_,_Integer,_?InfinityQ]:=0;
-
-
-
-CauchyBasis[f_IFun,k_,x_]:=CauchyBasis[f//Domain,k,x];
-CauchyBasis[s_,f_IFun,k_,x_]:=CauchyBasis[s,f//Domain,k,x];
-
-CauchyBasisS[f_IFun,k_,x_]:=CauchyBasisS[f//Domain,k,x];
-CauchyBasisS[s_,f_IFun,k_,x_]:=CauchyBasisS[s,f//Domain,k,x];
-
-
 CauchyBasis[UnitInterval,k_Integer,x_]:=
 -1/(I \[Pi])(\[Psi]p[k-1,IntervalToInnerCircle[x]]+\[Psi]p[-k+1,IntervalToInnerCircle[x]]);
 CauchyBasis[+1,UnitInterval,k_Integer,x_]:=
@@ -152,8 +205,8 @@ CauchyBasis[f_?LeftEndpointInfinityQ,k_Integer,z_]:=CauchyBasis[UnitInterval,k,M
 
 CauchyBasis[s_,f_?LeftEndpointInfinityQ,k_Integer,z_]:=CauchyBasis[s,UnitInterval,k,MapToInterval[f,z]]+(-1)^(k)CauchyBasis[s,UnitInterval,1,MapToInterval[f,z]]+(-1)^(k)/(I \[Pi]) (\[Mu][k-1,-1.]+\[Mu][k-2,-1.]);
 
-CauchyBasis[f_?DomainQ,k_Integer,z_]:=CauchyBasis[UnitInterval,k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,k,MapToInterval[f,\[Infinity]]];
-CauchyBasis[s_,f_?DomainQ,k_Integer,z_]:=CauchyBasis[s,UnitInterval,k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,k,MapToInterval[f,\[Infinity]]];
+CauchyBasis[f_?IntervalDomainQ,k_Integer,z_]:=CauchyBasis[UnitInterval,k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,k,MapToInterval[f,\[Infinity]]];
+CauchyBasis[s_,f_?IntervalDomainQ,k_Integer,z_]:=CauchyBasis[s,UnitInterval,k,MapToInterval[f,z]]-CauchyBasis[UnitInterval,k,MapToInterval[f,\[Infinity]]];
 
 
 \[Mu]msD[m_,z_]:=1+\!\(
@@ -234,8 +287,6 @@ RightSingularityData[f_IFun,t_?ScalarQ]:=RightSingularityData[f]//{#[[1]]+#[[2]]
 RightSingularityData[s_?(#==1||#==-1&),f_IFun]:=RightSingularityData[f]//{#[[1]]+#[[2]] I s \[Pi],#[[2]]}&;
 
 
-RiemannHilbert`FPCauchyBasis;
-FPCauchyBasis[s_,f_IFun,k_,g_IFun]:=FPCauchyBasis[s,f//Domain,k,g];
 
 FPCauchyBasis[+1,UnitInterval,k_Integer,g_IFun?UnitIntervalFunQ]:=IFun[Module[{j},
 Join[{LeftSingularityDataBasis[+1,UnitInterval,k]//First},-2(ArcTanh[IntervalToBottomCircle[Points[g]//Rest//Most]])/(I \[Pi]) ChebyshevT[k-1, Points[g]//Rest//Most]+(((PadRight[4 Riffle[Reverse[Table[1/j,{j,1.,k-1,2}]],0]//(If[OddQ[k],Join[{0},#],#]&),Length[g]])//HalfFirst//InverseDCT)/(2 I \[Pi])//Rest//Most),
@@ -465,6 +516,8 @@ IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,;;k,g//ToUnitInterval
 Array[RightSingularityDataBasis[UnitInterval,#][[2]]Log[Abs[rD]] BasisVector[Length[g]][-1]+LeftSingularityDataBasis[UnitInterval,#][[2]]Log[Abs[lD]] BasisVector[Length[g]][1]&,k]-((cf//Length)-1)CauchyBasis[UnitInterval,;;k,MapToInterval[Line[{-1,1},Stretch->L],\[Infinity]]])
 ];
 
+
+(** TODO: Works because RightENdpointInfinityQ returns false for real line.  This should be made consistent **)
 
 FPCauchyBasis[s_?SignQ,f_?RightEndpointInfinityQ,1;;k_Integer,g_IFun]/;f~NEqual~Domain[g]:=IFun[#,g//Domain]&/@((Values/@FPCauchyBasis[s,UnitInterval,1;;k,g//ToUnitInterval])//Function[mat,mat-Array[mat[[1]]+1/(I \[Pi]) (\[Mu][#-1,1.]+\[Mu][#-2,1.])-LeftSingularityDataBasis[UnitInterval,#][[2]] Log[Abs[MapToIntervalD[f,f//LeftEndpoint]]] BasisVector[Length[g]][1]&,k]]);
 
@@ -697,7 +750,7 @@ If[DomainMemberQ[U,#//First],CauchyD[s,U,#],CauchyD[U,#]]&/@SplitBy[x,DomainMemb
 ]/@f);
 
 
-RiemannHilbert`CauchyMatrix[s_?SignQ,f_IFun?ScalarFunQ,g_IFun]:=Transpose[(FiniteValues/@FPCauchyBasis[s,f,;;Length[f],g])].FiniteTransformMatrix[f];
+CauchyMatrix[s_?SignQ,f_IFun?ScalarFunQ,g_IFun]:=Transpose[(FiniteValues/@FPCauchyBasis[s,f,;;Length[f],g])].FiniteTransformMatrix[f];
 
 ScalarToVectorMatrix:=BlockDiagonalMatrix[{#,#}]&;
 ScalarToMatrixMatrix:=BlockDiagonalMatrix[{#,#,#,#}]&;

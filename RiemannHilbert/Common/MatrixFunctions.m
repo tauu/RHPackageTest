@@ -55,6 +55,7 @@ ShiftTable;
 RiffleList;
 Indices;
 LastIndex;
+BasisShiftList;
 Begin["Private`"];
 ShiftList/:ShiftList[ln_List,ind_Integer][[j_Span]]:=ln[[j[[1]]+ind;;j[[2]]+ind]];
 ShiftList/:ShiftList[ln_List,ind_Integer][[j_]]:=ln[[Mod[j+ind-1,Length[ln]]+1]];
@@ -157,6 +158,7 @@ End[];
 
 
 RemoveZeros;
+RemoveNZeros;
 ChopDrop;
 
 Begin["Private`"];
@@ -166,6 +168,13 @@ RemoveZeros[v_List]:=v;
 RemoveZeros[ShiftList[{v___,_?(Norm[#]==0&)},ind_]]:=RemoveZeros[ShiftList[{v},ind]];
 RemoveZeros[ShiftList[{_?(Norm[#]==0&),v___},ind_]]:=RemoveZeros[ShiftList[{v},ind-1]];
 RemoveZeros[v_ShiftList]:=v;
+
+RemoveNZeros[{v___,_?NZeroQ}]:=RemoveNZeros[{v}];
+RemoveNZeros[v_List]:=v;
+
+RemoveNZeros[ShiftList[{v___,_?NZeroQ},ind_]]:=RemoveNZeros[ShiftList[{v},ind]];
+RemoveNZeros[ShiftList[{_?NZeroQ,v___},ind_]]:=RemoveNZeros[ShiftList[{v},ind-1]];
+RemoveNZeros[v_ShiftList]:=v;
 
 
 ChopDrop[v_]:=v//Chop//RemoveZeros;

@@ -16,4 +16,6 @@ TestSuite[{
 	"Tests/RHTest.mt"
 	,
 	"Tests/SpectralMatrixTest.mt"
+	,
+	"Tests/LFunCauchyMatrixTest.mt"
 }]
