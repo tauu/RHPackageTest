@@ -172,6 +172,8 @@ VectorFunQ::usage="Tests if an object is in IFun whose values are a vector.";
 MatrixFunQ::usage="Tests if an object is in IFun whose values are a matrix.";
 ArrayFunQ::usage="Tests if an object is in IFun whose values are an array.";
 
+BoundedIntegrate::usage="BoundedIntegrate[lf] integrates an LFun with its -1 coefficient removed";
+
 
 
 NotListOrPatternQ;
@@ -448,7 +450,7 @@ BoundedDomainQ[_?(!LeftEndpointInfinityQ[#]&&!RightEndpointInfinityQ[#]&)]:=True
 DomainMemberQ[f_?FunQ,x_]:=DomainMemberQ[f//Domain,x];
 
 
-DomainMemberQ[d_?IntervalDomainQ,x_]:=MapToInterval[d,x]//(Im[#]~NEqual~0&&Abs[#]<=1.+$MachineTolerance&);
+DomainMemberQ[d_?IntervalDomainQ,x_]:=MapToInterval[d,x]//(NumberQ[#]&&Abs[Im[#]]<10 $MachineTolerance&&Abs[#]<=1.+10 $MachineTolerance&);
 
 DomainMemberQ[d_?CircleDomainQ,x_]:=Abs[Abs[MapToCircle[d,x]]-1]<=10 $MachineTolerance;
 
@@ -526,6 +528,7 @@ Arc[{a_,b_,c_}]:=(Det[({
 
 
 
+SetAttributes[ComplexMapToCircle,Listable];
 SetAttributes[MapToCircle,Listable];
 SetAttributes[MapFromCircle,Listable];
 
@@ -945,7 +948,8 @@ Mean[f_LFun]^:=FFT[f][[0]];
 NEqual[f_LFun,g_LFun]:=Norm[f-g]<$MachineTolerance;
 NEqual[f_IFun,g_IFun]:=Norm[f-g]<$MachineTolerance;
 
-MeanZero[f_LFun]^:=f-Mean[f];
+MeanZero[f_LFun]:=f-Mean[f];
+MeanZero[sl_ShiftList]:=sl-sl[[0]] BasisShiftList[sl,0];
 
 ComplexMapToCircle[f_?FunQ,z_]:=ComplexMapToCircle[f//Domain,z];
 
@@ -977,6 +981,12 @@ LFun/:Derivative[if_LFun]:=if';
 
 DomainIntegrate[if_LFun?(Domain[#]==RealLine&)]:=((Values[if] Values[LFun[If[#==-1.,0,MapFromCircleD[if,#]]&,UnitCircle,if//Length]])//FFT)[[-1]] (2 \[Pi]\[NonBreakingSpace]I);
 DomainIntegrate[if_LFun]:=((Values[if] Values[LFun[MapFromCircleD[if,#]&,UnitCircle,if//Length]])//FFT)[[-1]] (2 \[Pi]\[NonBreakingSpace]I);
+
+
+MakeFFTIndexRange[sl_ShiftList]:=SetIndexRange[sl,{-1,1}(IndexRange[sl]//Abs//Max)];
+
+BoundedIntegrate[lf_LFun?UnitCircleFunQ]:=LFun[MapOuter[If[ZeroQ[#],0,1/#]&,lf//FFT//ShiftRight]//MakeFFTIndexRange//InverseFFT,lf//Domain];
+
 End[];
 
 
@@ -1222,7 +1232,7 @@ MapToInterval[Curve[cr_],z_?InfinityQ]:=z;
 MapFromInterval[Curve[cr_],z_?InfinityQ]:=z;
 MapToInterval[Curve[cr_],z_]/;z~NEqual~First[cr]:=-1.;
 MapToInterval[Curve[cr_],z_]/;z~NEqual~Last[cr]:=1.;
-MapToInterval[Curve[cr_],z_]:=cr-z//Roots//First;
+MapToInterval[Curve[cr_],z_]:=cr-z//Roots//If[#=={},{},First[#]]&;
 MapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,MapToInterval[cr,z]];
 ComplexMapToInterval[Curve[cr_],z_]:=cr-z//ComplexRoots;
 ComplexMapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,ComplexMapToInterval[cr,z]];

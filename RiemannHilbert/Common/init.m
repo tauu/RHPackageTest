@@ -22,7 +22,7 @@
 BeginPackage["RiemannHilbert`Common`"];
 Off[General::shdw];
 Needs["NumericalDifferentialEquationAnalysis`"];
-Common`GaussianQuadratureWeights:=NumericalDifferentialEquationAnalysis`GaussianQuadratureWeights;
+RiemannHilbert`Common`GaussianQuadratureWeights:=NumericalDifferentialEquationAnalysis`GaussianQuadratureWeights;
 $ContextPath=Select[$ContextPath,#!="NumericalDifferentialEquationAnalysis`" &];
 On[General::shdw];
 EndPackage[];

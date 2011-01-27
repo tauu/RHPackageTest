@@ -44,3 +44,32 @@ Test[
 	EquivalenceFunction -> NEqual
 ]
 
+Test[
+	MemoryConstrained[
+		(PainleveII[{I, 0, -I},-8.]-(-1.999507197811465` ))/1000//Chop,
+		maxMemory
+	]
+	,
+	0.
+	(* actual result from Prahofer and Spohn Data *) 
+	,
+	TestID->"PainleveII-20110103-HastingsMcLeod-Negative-8"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	MemoryConstrained[
+		(PainleveII[{I, 0, -I},-2.]-(-0.9833913497278054` ))/1000//Chop,
+		maxMemory
+	]
+	,
+	0.
+	(* actual result from Prahofer and Spohn Data *) 
+	,
+	TestID->"PainleveII-20110103-HastingsMcLeod-Negative-2"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+

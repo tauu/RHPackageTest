@@ -480,7 +480,7 @@ Cell[BoxData[{
  
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -734,6 +734,45 @@ Cell[BoxData[{
       RowBox[{"s", ",", "UnitCircle", ",", "k", ",", 
        RowBox[{"ComplexMapToCircle", "[", 
         RowBox[{"d", ",", "z"}], "]"}]}], "]"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyBasis", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"d", ":", 
+       RowBox[{"Curve", "[", "_LFun", "]"}]}], ",", 
+      RowBox[{"i_Integer", ";;", "j_Integer"}], ",", "z_List"}], "]"}], ":=", 
+    
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Total", "/@", 
+           RowBox[{"CauchyBasis", "[", 
+            RowBox[{"s", ",", "UnitCircle", ",", 
+             RowBox[{"i", ";;", "j"}], ",", "#"}], "]"}]}], ")"}], "&"}], "/@", 
+        RowBox[{"ComplexMapToCircle", "[", 
+         RowBox[{"d", ",", "z"}], "]"}]}], "//", "Transpose"}], ")"}], "-", 
+     RowBox[{
+      RowBox[{"Count", "[", 
+       RowBox[{
+        RowBox[{"ComplexMapToCircle", "[", 
+         RowBox[{"d", ",", 
+          SuperscriptBox["10", "18"]}], "]"}], ",", 
+        RowBox[{"_", "?", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Abs", "[", "#", "]"}], "<", "1"}], "&"}], ")"}]}]}], 
+       "]"}], "  ", 
+      RowBox[{"ToList", "[", 
+       RowBox[{"BasisShiftList", "[", 
+        RowBox[{
+         RowBox[{"i", ";;", "j"}], ",", "0"}], "]"}], "]"}]}]}]}], ";"}], 
   "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -10602,7 +10641,7 @@ Cell[BoxData[{
     RowBox[{"Thread", "[", 
      RowBox[{"{", 
       RowBox[{"gs", ",", "domain"}], "}"}], "]"}]}]}], ";"}]}], "Input"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -11239,6 +11278,25 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"RiemannHilbert`ConstructCurve", "[", 
+      RowBox[{
+       RowBox[{"crvs", ":", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"_", ",", "_"}], "}"}], ".."}], "}"}]}], ",", "gls_List", 
+       ",", "x_"}], "]"}], ":=", 
+     RowBox[{"Join", "@@", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"ConstructCurve", "[", 
+          RowBox[{
+           RowBox[{"Sequence", "@@", "#"}], ",", "x"}], "]"}], "&"}], "/@", 
+        RowBox[{"Thread", "[", 
+         RowBox[{"{", 
+          RowBox[{"crvs", ",", "gls"}], "}"}], "]"}]}], ")"}]}]}], ";", 
+    RowBox[{
+     RowBox[{"ConstructCurve", "[", 
       RowBox[{
        RowBox[{"{", 
         RowBox[{"scs_", ",", "domain_"}], "}"}], ",", "gfs_", ",", "x_"}], 

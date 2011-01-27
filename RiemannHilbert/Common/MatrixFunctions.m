@@ -138,6 +138,8 @@ SetAttributes[ShiftTable,HoldFirst];
 ShiftTable[h_,{v_,m_,p_}]:=ShiftList[Table[h,{v,m,-1}],Table[h,{v,0,p}]];
 BasisShiftList[ln_ShiftList,k_]:=ShiftList[BasisVector[Length[ln]][k+Index[ln]],Index[ln]];
 
+BasisShiftList[i_;;j_,k_]:=ShiftList[BasisVector[j-i+1][k-i+1],1-i];
+
 
 ReplacePart[sl_ShiftList,pat_]^:=ShiftList[MapIndexed[If[Apply[Or,Map[Function[pm,MatchQ[First[#2]-Index[sl],pm]],Map[First,pat]]],First[#2]-Index[sl]/.pat,#1]&,ToList[sl]],Index[sl]];
 Abs[f_ShiftList]^:=Map[Abs,f];

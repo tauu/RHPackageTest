@@ -12,7 +12,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-  "Common`GaussianQuadratureWeights", ":=", 
+  "RiemannHilbert`Common`GaussianQuadratureWeights", ":=", 
    "NumericalDifferentialEquationAnalysis`GaussianQuadratureWeights"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
@@ -61,6 +61,8 @@ WindowSize->{640, 750},
 WindowMargins->{{312, Automatic}, {Automatic, 30}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TrackCellChangeTimes->False,
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
+2010)",
 StyleDefinitions->"Default.nb"
 ]
+

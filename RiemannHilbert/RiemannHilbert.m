@@ -125,6 +125,8 @@ CauchyBasis[d:Curve[_LFun],k_Integer,z_]:=Total[CauchyBasis[UnitCircle,k,Complex
 CauchyBasis[s_?SignQ,d:Curve[_LFun],0,z_]:=Total[CauchyBasis[s,UnitCircle,0,ComplexMapToCircle[d,z]]]-Total[CauchyBasis[UnitCircle,0,ComplexMapToCircle[d,10^18]]];
 CauchyBasis[s_?SignQ,d:Curve[_LFun],k_Integer,z_]:=Total[CauchyBasis[s,UnitCircle,k,ComplexMapToCircle[d,z]]];
 
+CauchyBasis[s_?SignQ,d:Curve[_LFun],i_Integer;;j_Integer,z_List]:=((Total/@CauchyBasis[s,UnitCircle,i;;j,#])&/@ComplexMapToCircle[d,z]//Transpose)-Count[ComplexMapToCircle[d,10^18],_?(Abs[#]<1&)]  ToList[BasisShiftList[i;;j,0]];
+
 
 CauchyBasis[f_?CircleDomainQ,k_Integer,z_]:=CauchyBasis[UnitCircle,k,MapToCircle[f,z]]-CauchyBasis[UnitCircle,k,MapToCircle[f,\[Infinity]]];
 CauchyBasis[s_,f_?CircleDomainQ,k_Integer,z_]:=CauchyBasis[s,UnitCircle,k,MapToCircle[f,z]]-CauchyBasis[UnitCircle,k,MapToCircle[f,\[Infinity]]];
@@ -1212,7 +1214,7 @@ RightJoin[CmR[[1]],Cmat[[1,1]]],
 RightJoin[Cmat[[2,1]],CmR[[1]]]
 ],Join@@scCm[[2,All,-1]]];
 
-RiemannHilbert`ConstructCurve[{scs_,domain_},gfs_,x_]:=Join@@(ConstructCurve[#,domain]&/@Thread[{scs[x]//Transpose,gfs//Transpose}]);
+RiemannHilbert`ConstructCurve[crvs:{{_,_}..},gls_List,x_]:=Join@@(ConstructCurve[Sequence@@#,x]&/@Thread[{crvs,gls}]);ConstructCurve[{scs_,domain_},gfs_,x_]:=Join@@(ConstructCurve[#,domain]&/@Thread[{scs[x]//Transpose,gfs//Transpose}]);
 ConstructCurve[{{z0_,sc_},gs_},domain_]:=Fun[#[[1]],#[[2,1]]/sc +z0,#[[2,2]]]&/@Thread[{gs,domain}]; 
 
 

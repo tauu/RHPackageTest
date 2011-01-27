@@ -389,9 +389,14 @@ infinity\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
     RowBox[{
      RowBox[{"ArrayFunQ", "::", "usage"}], "=", 
      "\"\<Tests if an object is in IFun whose values are an array.\>\""}], 
-    ";"}], "\[IndentingNewLine]"}]}]], "Input",
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BoundedIntegrate", "::", "usage"}], "=", 
+     "\"\<BoundedIntegrate[lf] integrates an LFun with its -1 coefficient \
+removed\>\""}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1982,11 +1987,15 @@ Cell[BoxData[{
      RowBox[{"(", 
       RowBox[{
        RowBox[{
+        RowBox[{"NumberQ", "[", "#", "]"}], "&&", 
         RowBox[{
-         RowBox[{"Im", "[", "#", "]"}], "~", "NEqual", "~", "0"}], "&&", 
+         RowBox[{"Abs", "[", 
+          RowBox[{"Im", "[", "#", "]"}], "]"}], "<", 
+         RowBox[{"10", " ", "$MachineTolerance"}]}], "&&", 
         RowBox[{
          RowBox[{"Abs", "[", "#", "]"}], "<=", 
-         RowBox[{"1.", "+", "$MachineTolerance"}]}]}], "&"}], ")"}]}]}], 
+         RowBox[{"1.", "+", 
+          RowBox[{"10", " ", "$MachineTolerance"}]}]}]}], "&"}], ")"}]}]}], 
    ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -2075,7 +2084,7 @@ Cell[BoxData[{
    RowBox[{"MapFromInterval", "[", "z_", "]"}], ":=", "z"}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2783,6 +2792,10 @@ Cell["Circle", "Subsection"],
 Cell[BoxData[{
  RowBox[{
   RowBox[{"SetAttributes", "[", 
+   RowBox[{"ComplexMapToCircle", ",", "Listable"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
    RowBox[{"MapToCircle", ",", "Listable"}], "]"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
@@ -3360,8 +3373,8 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]]
-}, Open  ]],
+}, Open  ]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5637,10 +5650,19 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"MeanZero", "[", "f_LFun", "]"}], ":=", 
+   RowBox[{"f", "-", 
+    RowBox[{"Mean", "[", "f", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
-    RowBox[{"MeanZero", "[", "f_LFun", "]"}], "^:=", 
-    RowBox[{"f", "-", 
-     RowBox[{"Mean", "[", "f", "]"}]}]}], ";"}], 
+    RowBox[{"MeanZero", "[", "sl_ShiftList", "]"}], ":=", 
+    RowBox[{"sl", "-", 
+     RowBox[{
+      RowBox[{"sl", "\[LeftDoubleBracket]", "0", "\[RightDoubleBracket]"}], 
+      " ", 
+      RowBox[{"BasisShiftList", "[", 
+       RowBox[{"sl", ",", "0"}], "]"}]}]}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -5876,19 +5898,56 @@ Cell[BoxData[
        RowBox[{"-", "1"}], "\[RightDoubleBracket]"}], " ", 
       RowBox[{"(", 
        RowBox[{"2", " ", "\[Pi]", "\[NonBreakingSpace]", "I"}], ")"}]}]}], 
-    ";"}], "\[IndentingNewLine]", 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MakeFFTIndexRange", "[", "sl_ShiftList", "]"}], ":=", 
+     RowBox[{"SetIndexRange", "[", 
+      RowBox[{"sl", ",", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "}"}], 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"IndexRange", "[", "sl", "]"}], "//", "Abs"}], "//", 
+          "Max"}], ")"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BoundedIntegrate", "[", 
+      RowBox[{"lf_LFun", "?", "UnitCircleFunQ"}], "]"}], ":=", 
+     RowBox[{"LFun", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"MapOuter", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"ZeroQ", "[", "#", "]"}], ",", "0", ",", 
+              RowBox[{"1", "/", "#"}]}], "]"}], "&"}], ",", 
+           RowBox[{
+            RowBox[{"lf", "//", "FFT"}], "//", "ShiftRight"}]}], "]"}], "//", 
+         "MakeFFTIndexRange"}], "//", "InverseFFT"}], ",", 
+       RowBox[{"lf", "//", "Domain"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}]}]}]], "Input",
  InitializationCell->True],
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"End", "::", "\<\"noctx\"\>"}], ":", 
-  " ", "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"No previous context \
-defined.\\\\\\\"\\\", \\\"MT\\\"]\\) \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/End/noctx\\\", \
-ButtonNote -> \\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
+  StyleBox[
+   RowBox[{"End", "::", "noctx"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"No previous context defined. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/End/noctx\\\", ButtonNote -> \
+\\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
 }, Open  ]]
 }, Open  ]],
 
@@ -7317,7 +7376,7 @@ Cell[BoxData[{
          "]"}], "&"}]}], "//", "Sort"}], "//", "First"}], "//", "Second"}]}], 
   ";"}]}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -7638,7 +7697,7 @@ Cell[BoxData[{
     RowBox[{"f", ",", "d"}], "]"}]}], ";"}], "\[IndentingNewLine]"}], "Input",
  
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -7779,7 +7838,14 @@ Cell[BoxData[{
      RowBox[{"Curve", "[", "cr_", "]"}], ",", "z_"}], "]"}], ":=", 
    RowBox[{
     RowBox[{
-     RowBox[{"cr", "-", "z"}], "//", "Roots"}], "//", "First"}]}], 
+     RowBox[{"cr", "-", "z"}], "//", "Roots"}], "//", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"#", "\[Equal]", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"{", "}"}], ",", 
+       RowBox[{"First", "[", "#", "]"}]}], "]"}], "&"}]}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -8868,7 +8934,7 @@ Cell[BoxData[{
       RowBox[{"-", "2"}]}], ",", "All"}], "\[RightDoubleBracket]"}]}], 
   ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
