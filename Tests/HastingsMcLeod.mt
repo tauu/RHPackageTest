@@ -46,6 +46,20 @@ Test[
 
 Test[
 	MemoryConstrained[
+		PainleveII[{I, 0, -I}, -15.],
+		maxMemory
+	]
+	,
+	-2.73851121955357
+	(* actual result from Prahofer and Spohn Data *) 
+	,
+	TestID->"PainleveII-20110103-HastingsMcLeod-Negative-15"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	MemoryConstrained[
 		(PainleveII[{I, 0, -I},-8.]-(-1.999507197811465` ))/1000//Chop,
 		maxMemory
 	]
@@ -68,6 +82,48 @@ Test[
 	(* actual result from Prahofer and Spohn Data *) 
 	,
 	TestID->"PainleveII-20110103-HastingsMcLeod-Negative-2"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	MemoryConstrained[
+		PainleveII[{I, 0, -I}, -15.]+PainleveII[{-I, 0, I}, -15.],
+		maxMemory
+	]
+	,
+	0
+	(* actual result from Prahofer and Spohn Data *) 
+	,
+	TestID->"PainleveII-20110103-HastingsMcLeod-Negative-Stokes-15"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	MemoryConstrained[
+		PainleveII[{I, 0, -I}, -5.]+PainleveII[{-I, 0, I}, -5.],
+		maxMemory
+	]
+	,
+	0
+	(* actual result from Prahofer and Spohn Data *) 
+	,
+	TestID->"PainleveII-20110103-HastingsMcLeod-MedNegative-Stokes-5"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	MemoryConstrained[
+		PainleveII[{I, 0, -I}, 0]+PainleveII[{-I, 0, I}, 0],
+		maxMemory
+	]
+	,
+	0
+	(* actual result from Prahofer and Spohn Data *) 
+	,
+	TestID->"PainleveII-20110103-HastingsMcLeod-Stokes-0"
 	,
 	EquivalenceFunction -> NEqual
 ]

@@ -19,8 +19,8 @@
 
 
 
-`Private`PainleveIINegative["HMMed"] =`HastingsMcLeodMediumNegative`PainleveIIHMMedNeg;
-Begin["`HastingsMcLeodMediumNegative`"];
+`Private`PainleveIINegative["HMNeg"] =`HastingsMcLeodNegative`PainleveIIHMNeg;
+Begin["`HastingsMcLeodNegative`"];
 
 
 \[Beta][y_,\[Lambda]_]:=((\[Lambda]-y)/(\[Lambda]+y))^(1/4);
@@ -69,7 +69,7 @@ S[s_,k_?OddQ]:=({
 });
 GG\[CapitalSigma][_][_,_?InfinityQ]:=IdentityMatrix[2];
 GG\[CapitalSigma][{s_,y_}][z_]=\[CapitalPhi]m[{s[1]I,y},z].Inverse[S[s,1]].Inverse[\[CapitalPhi]m[{s[1]I,y},z]]//Simplify;
-GG\[CapitalSigma]in[{s_,y_}][z_]=GG\[CapitalSigma][y][z]//Inverse;
+GG\[CapitalSigma]in[{s_,y_}][z_]=GG\[CapitalSigma][{s,y}][z]//Inverse;
 GG[_,_][_?InfinityQ]:=IdentityMatrix[2];
 GG[{s_,y_},6][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,6].Inverse[\[CapitalPhi][{s[1]I,y},z]]//Simplify;
 GG[{s_,y_},1][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,1].Inverse[\[CapitalPhi][{s[1]I,y},z]]//Simplify;
@@ -97,40 +97,38 @@ Cdefs[n_]:={{Function[y,({
  {-y, y},
  {y, -y}
 })],({
+ {Line[{.5,4}], n},
  {Line[Exp[2 I \[Pi]/3]rngg], n},
  {Line[Exp[-2I \[Pi]/3]rngg], n},
- {Line[{1 ,Exp[-2I \[Pi]/3] }rngg[[1]]], n},
- {Line[{Exp[-2I \[Pi]/3] ,Exp[2I \[Pi]/3] }rngg[[1]]], n},
- {Line[{Exp[2I \[Pi]/3] ,1 }rngg[[1]]], n}
+ {Line[{1 ,Exp[-2I \[Pi]/3] }rngg[[1]]], n+5},
+ {Line[{Exp[-2I \[Pi]/3] ,Exp[2I \[Pi]/3] }rngg[[1]]], n+5},
+ {Line[{Exp[2I \[Pi]/3] ,1 }rngg[[1]]], n+5}
 })},
 {Function[y,({
  {0},
  {Sqrt[y]}
 })],({
- {Line[2 {-I,0}], n},
- {Line[2 {0,I}], n}
+ {Line[2 {-I,I}], 6}
 })}};
 Gl[y_]:={({
+ {GG\[CapitalSigma][y], GG\[CapitalSigma]in[y]},
  {GG[y,3], GG[y,6]},
  {GG[y,4], GG[y,1]},
  {GLC[y,1], GRC[y,1]},
  {GLC[y,2], GRC[y,2]},
  {GLC[y,3], GRC[y,3]}
-}),({
- {GMid[y]},
- {GMid[y]}
-})};
+}),{{GMid[y]}}};
 
 
 \[CapitalPhi]\[Theta]Series[s1_,x_]:=I s1 Sqrt[-x/2]/2 ;
+slv//Clear;slv[n_]:=slv[n]=ScaledRHSolver[Cdefs[n]];
 
-PainleveIIHMMedNeg[sin_,x_]:=Module[{s,y,n},
+PainleveIIHMNeg[sin_,x_]:=Module[{s,y,n},
 y=Sqrt[-x/2];
-n=25;
+n=30;
 {s[1],s[2],s[3]}=sin;
 {s[4],s[5],s[6]}=-Array[s,3];
-2 \[CapitalPhi]\[Theta]Series[s[1],x]-1/(\[Pi] I) (Join[ConstructCurve[Cdefs[n],Gl[{s,y}],y],
-Fun[GG\[CapitalSigma][{s,y}],Line[{-y+rngg[[1]]/y,0,y-rngg[[1]]/y}],15]]//RHSolveTop//DomainIntegrate)[[2]]
+2 \[CapitalPhi]\[Theta]Series[s[1],x]-1/(\[Pi] I) Total[DomainIntegrate/@slv[n][Sqrt[-x/2],Gl[{s,Sqrt[-x/2]}]]][[1,2]]
 ]
 
 

@@ -14,3 +14,16 @@ Test[
 	,
 	EquivalenceFunction -> NEqual
 ]
+
+Test[
+	MemoryConstrained[
+		PainleveII[{1, 2, 1/3}, -10,Contour->3]+PainleveII[-{1, 2, 1/3}, -10,Contour->3],
+		maxMemory
+	]
+	,
+	0
+	,
+	TestID->"PainleveII-20101222-ScaledNegative-Complex-Stokes"
+	,
+	EquivalenceFunction -> NEqual
+]

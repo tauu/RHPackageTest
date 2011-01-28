@@ -1165,6 +1165,29 @@ Cell[BoxData[
 Cell[BoxData[{
  RowBox[{
   RowBox[{
+   RowBox[{"PainleveII", "[", 
+    RowBox[{
+     RowBox[{"sin_", "?", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+           "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], " ", 
+           RowBox[{
+           "#", "\[LeftDoubleBracket]", "3", "\[RightDoubleBracket]"}]}], 
+          ")"}], "~", "NEqual", "~", "1"}], "&"}], ")"}]}], ",", 
+     RowBox[{"x_", "?", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"#", "<=", 
+         RowBox[{"-", "8.5"}]}], "&"}], ")"}]}]}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"PainleveIINegative", "[", "\"\<HMNeg\>\"", "]"}], "[", 
+    RowBox[{"sin", ",", "x"}], "]"}]}], " ", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
     RowBox[{"PainleveII", "[", 
      RowBox[{

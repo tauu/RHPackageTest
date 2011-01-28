@@ -15,3 +15,15 @@ Test[
 	,
 	EquivalenceFunction -> NEqual
 ]
+
+Test[
+	MemoryConstrained[
+	PainleveII[{1, 2, 1/3}, 10.] + PainleveII[-{1, 2, 1/3}, 10.] ,
+  maxMemory]
+	,
+	0
+	,
+	TestID->"PainleveII-Positive-Stokes"
+	,
+	EquivalenceFunction -> NEqual
+]

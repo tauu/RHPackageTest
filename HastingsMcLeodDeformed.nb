@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[    792333,      18776]
-NotebookOptionsPosition[    765594,      18009]
-NotebookOutlinePosition[    766871,      18050]
-CellTagsIndexPosition[    766695,      18043]
+NotebookDataLength[    792381,      18776]
+NotebookOptionsPosition[    765642,      18009]
+NotebookOutlinePosition[    766919,      18050]
+CellTagsIndexPosition[    766743,      18043]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1112,7 +1112,7 @@ muNfFgj3Jw==
  CellChangeTimes->{{3.5009420460236197`*^9, 3.500942058479718*^9}, 
    3.500942090894644*^9, {3.5009421271931133`*^9, 3.500942293295405*^9}}]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -17754,7 +17754,7 @@ Cell[BoxData[{
      "\[RightDoubleBracket]"}]}]}], "\[IndentingNewLine]", "]"}]}], "Input",
  CellChangeTimes->{{3.5051388417694807`*^9, 3.505138938583437*^9}, {
   3.505138973454674*^9, 3.5051390733185873`*^9}, {3.505139120233715*^9, 
-  3.505139120378642*^9}}],
+  3.505139120378642*^9}, {3.5051396398880463`*^9, 3.505139640550089*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -18034,17 +18034,17 @@ CellTagsIndex->{
   Cell[61302, 1877, 2990, 80, 170, "Print",
    CellTags->"Info3505127454-7669748"]},
  "Info3505138655-7669748"->{
-  Cell[762315, 17912, 139, 2, 39, "Print",
+  Cell[762363, 17912, 139, 2, 39, "Print",
    CellTags->"Info3505138655-7669748"],
-  Cell[762457, 17916, 2996, 85, 126, "Print",
+  Cell[762505, 17916, 2996, 85, 126, "Print",
    CellTags->"Info3505138655-7669748"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Info3503150312-1180900", 765939, 18021},
- {"Info3505127454-7669748", 766307, 18030},
- {"Info3505138655-7669748", 766502, 18035}
+ {"Info3503150312-1180900", 765987, 18021},
+ {"Info3505127454-7669748", 766355, 18030},
+ {"Info3505138655-7669748", 766550, 18035}
  }
 *)
 (*NotebookFileOutline
@@ -18101,9 +18101,9 @@ Cell[CellGroupData[{
 Cell[34221, 1050, 869, 22, 43, "Input"],
 Cell[35093, 1074, 1981, 38, 221, "Output"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[37123, 1118, 144, 2, 37, "Section"],
+Cell[37123, 1118, 144, 2, 67, "Section"],
 Cell[37270, 1122, 11235, 364, 644, "Input"],
 Cell[48508, 1488, 3451, 102, 163, "Input"],
 Cell[51962, 1592, 1082, 32, 58, "Input"],
@@ -18748,35 +18748,35 @@ Cell[749764, 17564, 121, 3, 27, "Output"]
 }, Open  ]],
 Cell[749900, 17570, 4218, 130, 221, "Input"],
 Cell[754121, 17702, 154, 4, 27, "Input"],
-Cell[754278, 17708, 1816, 48, 161, "Input"],
-Cell[756097, 17758, 300, 8, 27, InheritFromParent],
+Cell[754278, 17708, 1864, 48, 161, "Input"],
+Cell[756145, 17758, 300, 8, 27, InheritFromParent],
 Cell[CellGroupData[{
-Cell[756422, 17770, 71, 1, 27, "Input"],
-Cell[756496, 17773, 381, 9, 33, "Output"]
+Cell[756470, 17770, 71, 1, 27, "Input"],
+Cell[756544, 17773, 381, 9, 33, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[756914, 17787, 120, 2, 27, "Input"],
-Cell[757037, 17791, 81, 1, 27, "Output"]
+Cell[756962, 17787, 120, 2, 27, "Input"],
+Cell[757085, 17791, 81, 1, 27, "Output"]
 }, Open  ]],
-Cell[757133, 17795, 356, 8, 43, "Input"],
-Cell[757492, 17805, 216, 5, 27, InheritFromParent],
-Cell[757711, 17812, 215, 4, 27, InheritFromParent],
-Cell[757929, 17818, 69, 1, 27, "Input"],
-Cell[758001, 17821, 94, 1, 27, "Input"],
+Cell[757181, 17795, 356, 8, 43, "Input"],
+Cell[757540, 17805, 216, 5, 27, InheritFromParent],
+Cell[757759, 17812, 215, 4, 27, InheritFromParent],
+Cell[757977, 17818, 69, 1, 27, "Input"],
+Cell[758049, 17821, 94, 1, 27, "Input"],
 Cell[CellGroupData[{
-Cell[758120, 17826, 484, 13, 27, "Input"],
-Cell[758607, 17841, 3521, 60, 227, "Output"]
+Cell[758168, 17826, 484, 13, 27, "Input"],
+Cell[758655, 17841, 3521, 60, 227, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[762165, 17906, 125, 2, 27, "Input"],
+Cell[762213, 17906, 125, 2, 27, "Input"],
 Cell[CellGroupData[{
-Cell[762315, 17912, 139, 2, 39, "Print",
+Cell[762363, 17912, 139, 2, 39, "Print",
  CellTags->"Info3505138655-7669748"],
-Cell[762457, 17916, 2996, 85, 126, "Print",
+Cell[762505, 17916, 2996, 85, 126, "Print",
  CellTags->"Info3505138655-7669748"]
 }, Open  ]]
 }, Open  ]],
-Cell[765480, 18005, 98, 1, 27, "Input"]
+Cell[765528, 18005, 98, 1, 27, "Input"]
 }, Open  ]]
 }
 ]
