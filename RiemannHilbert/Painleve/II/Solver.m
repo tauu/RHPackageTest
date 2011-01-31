@@ -96,7 +96,7 @@ ClearPainleveDatabase[]:=Module[{},Clear[M]; M[n_,k_]:=M[n,k]=CauchyMatrix[+1,Ze
 PainleveII[sin_?((#[[1]] #[[3]])~NEqual~1&),x_?(#<=-8.5&)]:=PainleveIINegative["HMNeg"][sin,x] ;
 PainleveII[sin_?((#[[1]] #[[3]])~NEqual~1&),x_?(#<=-2&)]:=PainleveIINegative["HMMed"][sin,x] ;
 
-PainleveII[s_,x_?(#<=-5&),opts:OptionsPattern[{InterpolationPrecision->10^-7,Contour->1}]]:=With[{c=OptionValue[Contour]},
+PainleveII[s_,x_?(#<=-5&),opts:OptionsPattern[{InterpolationPrecision->10^-7,Contour->3}]]:=With[{c=OptionValue[Contour]},
 With[{fopts =Sequence@@ If[List[opts]!= List[],FilterRules[opts//List,PainleveIINegative[c]//Options],{}]},PainleveIINegative[c][s,x,fopts] ]];
 
 PainleveII[{s1_,_?NZeroQ,s3_},x_?(#>=5&)]:=PainleveIIPositive["AS"][s1,x];

@@ -1229,7 +1229,7 @@ Cell[BoxData[{
           RowBox[{"InterpolationPrecision", "\[Rule]", 
            RowBox[{"10", "^", 
             RowBox[{"-", "7"}]}]}], ",", 
-          RowBox[{"Contour", "\[Rule]", "1"}]}], "}"}], "]"}]}]}], "]"}], ":=", 
+          RowBox[{"Contour", "\[Rule]", "3"}]}], "}"}], "]"}]}]}], "]"}], ":=", 
     RowBox[{"With", "[", 
      RowBox[{
       RowBox[{"{", 

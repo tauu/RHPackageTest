@@ -1245,7 +1245,7 @@ MapFromCircle[Curve[cr_],z_?InfinityQ]:=z;
 MapFromCircle[Curve[cr_],z_?ZeroQ]:=0;
 MapToCircle[Curve[cr_],z_]:=cr-z//Roots//First;
 MapToCircleD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,MapToInterval[cr,z]];
-ComplexMapToCircle[Curve[cr_],z_]:=ComplexRoots[UnitCircle,cr//FFT//RemoveNZeros//#-z  BasisShiftList[#,0]&];
+ComplexMapToCircle[Curve[cr_],z_]:=ComplexRoots[UnitCircle,IncreaseIndexRange[RemoveNZeros[FFT[cr]],{0,0}]//#-z  BasisShiftList[#,0]&];
 ComplexMapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,ComplexMapToInterval[cr,z]];
 
 
