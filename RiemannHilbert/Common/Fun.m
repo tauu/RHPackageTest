@@ -1015,6 +1015,13 @@ PositiveEvaluate[f_LFun,z_]:=MapDot[MapToCircle[f,z]^#&,f//FFT//PositiveShiftLis
 PositiveEvaluate[f_LFun,z_]/;NZeroQ[MapToCircle[f,z]]:=0 First[Values[f]];
 NonPositiveEvaluate[f_LFun,z_]:=MapDot[MapToCircle[f,z]^#&,f//FFT//NonPositiveShiftList];
 NonPositiveEvaluate[f_LFun,z_]/;InfinityQ[MapToCircle[f,z]]:=(f//FFT)[[0]];
+End[];
+
+
+SetLength;
+Begin["Private`"];SetLength[if_LFun,n_?OddQ]:=LFun[SetIndexRange[if//FFT,{(1-n)/2,(n-1)/2}]//InverseFFT,if//Domain];
+SetLength[if_LFun,n_?EvenQ]:=LFun[SetIndexRange[if//FFT,{-(n/2),n/2-1}]//InverseFFT,if//Domain];
+End[];
 
 
 
@@ -1186,7 +1193,7 @@ Fun[f_?NotListOrPatternQ,l:Line[{_,_},___],opts___]:=IFun[f,l,opts];
 Fun[f_?NotListOrPatternQ,Line[l:{_,_,___},Lopts___],n_List]:=IFun[f,Line[#[[1]],Sequence@@If[Or@@(InfinityQ/@#[[1]]),{Lopts},{}]],#[[2]]]&/@Thread[{Partition[l,2,1],n}]//If[Length[#]==1,#[[1]],#]&;
 Fun[f_?NotListOrPatternQ,Line[l:{_,_,___},Lopts___],n_Integer]:=Fun[f,Line[l,Lopts],n OneVector[Length[l]-1]];
 Fun[f_?NotListOrPatternQ,Line[l:{_,_,___},Lopts___],opts:OptionsPattern[]]:=IFun[f,Line[#,Sequence@@If[Or@@(InfinityQ/@#),{Lopts},{}]],opts]&/@Partition[l,2,1]//If[Length[#]==1,#[[1]],#]&;
-Fun[f_,d_?IntervalDomainQ,opts___]:=LFun[f,d,opts];
+Fun[f_,d_?IntervalDomainQ,opts___]:=IFun[f,d,opts];
 Fun[f_,d_?CircleDomainQ,opts___]:=LFun[f,d,opts];
 
 Fun[f_,l_List,n_List]:=Flatten[Fun[f,#[[1]],#[[2]]]&/@Thread[{l,n}]];
@@ -1244,7 +1251,7 @@ MapToCircle[Curve[cr_],z_?InfinityQ]:=z;
 MapFromCircle[Curve[cr_],z_?InfinityQ]:=z;
 MapFromCircle[Curve[cr_],z_?ZeroQ]:=0;
 MapToCircle[Curve[cr_],z_]:=cr-z//Roots//First;
-MapToCircleD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,MapToInterval[cr,z]];
+MapToCircleD[cr:Curve[_],z_]:=1/MapFromCircleD[cr,MapToCircle[cr,z]];
 ComplexMapToCircle[Curve[cr_],z_]:=ComplexRoots[UnitCircle,IncreaseIndexRange[RemoveNZeros[FFT[cr]],{0,0}]//#-z  BasisShiftList[#,0]&];
 ComplexMapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,ComplexMapToInterval[cr,z]];
 
