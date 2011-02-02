@@ -1023,7 +1023,6 @@ End[];
 SetLength;
 Begin["Private`"];SetLength[if_LFun,n_?OddQ]:=LFun[SetIndexRange[if//FFT,{(1-n)/2,(n-1)/2}]//InverseFFT,if//Domain];
 SetLength[if_LFun,n_?EvenQ]:=LFun[SetIndexRange[if//FFT,{-(n/2),n/2-1}]//InverseFFT,if//Domain];
-End[];
 
 
 

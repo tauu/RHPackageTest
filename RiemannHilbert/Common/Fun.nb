@@ -3643,7 +3643,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4790,7 +4790,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -5958,9 +5958,8 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"End", "::", "noctx"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"No previous context defined. \\!\\(\\*ButtonBox[\\\"\
+   RowBox[{"End", "::", "noctx"}], "MessageName"], ":", 
+  " ", "\<\"No previous context defined. \\!\\(\\*ButtonBox[\\\"\
 \[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:ref/message/End/noctx\\\", ButtonNote -> \
 \\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
@@ -6183,10 +6182,7 @@ Cell[BoxData[{
           RowBox[{
            FractionBox["n", "2"], "-", "1"}]}], "}"}]}], "]"}], "//", 
       "InverseFFT"}], ",", 
-     RowBox[{"if", "//", "Domain"}]}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"End", "[", "]"}], ";"}]}], "Input",
+     RowBox[{"if", "//", "Domain"}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
@@ -6253,7 +6249,7 @@ Cell[BoxData[
       RowBox[{"lf", ",", "UnitInterval"}], "]"}]}], ";"}], 
    "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6954,7 +6950,7 @@ Cell[BoxData[{
               "]"}]}], ",", "1"}], "]"}]}], ")"}]}], ")"}]}], "]"}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
