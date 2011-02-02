@@ -987,6 +987,8 @@ MakeFFTIndexRange[sl_ShiftList]:=SetIndexRange[sl,{-1,1}(IndexRange[sl]//Abs//Ma
 
 BoundedIntegrate[lf_LFun?UnitCircleFunQ]:=LFun[MapOuter[If[ZeroQ[#],0,1/#]&,lf//FFT//ShiftRight]//MakeFFTIndexRange//InverseFFT,lf//Domain];
 
+BoundedIntegrate[lf_LFun]:=SetDomain[BoundedIntegrate[ToUnitCircle[lf] LFun[MapFromCircleD[lf,#]&,UnitCircle,lf//Length]],lf//Domain];
+
 End[];
 
 
