@@ -3374,7 +3374,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3643,7 +3643,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6184,7 +6184,7 @@ Cell[BoxData[{
       "InverseFFT"}], ",", 
      RowBox[{"if", "//", "Domain"}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6249,7 +6249,7 @@ Cell[BoxData[
       RowBox[{"lf", ",", "UnitInterval"}], "]"}]}], ";"}], 
    "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6610,8 +6610,9 @@ Cell[BoxData[{
  RowBox[{"TransformMatrix", ";"}], "\[IndentingNewLine]", 
  RowBox[{"DerivativeMatrix", ";"}], "\[IndentingNewLine]", 
  RowBox[{"IntegrateMatrix", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FiniteTransformMatrix", ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"FiniteTransformMatrix", ";"}], "\[IndentingNewLine]", 
+  RowBox[{"BoundedIntegrateMatrix", ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -6695,7 +6696,7 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"FromValueList", "[", 
     RowBox[{
-     RowBox[{"f_", "?", "ScalarFunQ"}], ",", "ls_"}], "]"}], ":=", 
+     RowBox[{"f_IFun", "?", "ScalarFunQ"}], ",", "ls_"}], "]"}], ":=", 
    RowBox[{"ZeroAtInfinityIFun", "[", 
     RowBox[{"ls", ",", 
      RowBox[{"Domain", "[", "f", "]"}]}], "]"}]}], 
@@ -6704,7 +6705,16 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"FromValueList", "[", 
     RowBox[{
-     RowBox[{"f_", "?", "VectorFunQ"}], ",", "ls_"}], "]"}], ":=", 
+     RowBox[{"f_LFun", "?", "ScalarFunQ"}], ",", "ls_"}], "]"}], ":=", 
+   RowBox[{"ZeroAtInfinityLFun", "[", 
+    RowBox[{"ls", ",", 
+     RowBox[{"Domain", "[", "f", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FromValueList", "[", 
+    RowBox[{
+     RowBox[{"f_IFun", "?", "VectorFunQ"}], ",", "ls_"}], "]"}], ":=", 
    RowBox[{
     RowBox[{
      RowBox[{
@@ -6717,15 +6727,49 @@ Cell[BoxData[{
     "ToArrayFun"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"FromValueList", "[", 
+    RowBox[{
+     RowBox[{"f_LFun", "?", "VectorFunQ"}], ",", "ls_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"ZeroAtInfinityLFun", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"Domain", "[", "f", "]"}]}], "]"}], "&"}], "/@", 
+     RowBox[{"Partition", "[", 
+      RowBox[{"ls", ",", 
+       RowBox[{"FiniteLength", "[", "f", "]"}]}], "]"}]}], "//", 
+    "ToArrayFun"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FromValueList", "[", 
+    RowBox[{
+     RowBox[{"f_IFun", "?", "MatrixFunQ"}], ",", "ls_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"MatrixMap", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"ZeroAtInfinityIFun", "[", 
+        RowBox[{"#", ",", 
+         RowBox[{"Domain", "[", "f", "]"}]}], "]"}], "&"}], ",", 
+      RowBox[{"PartitionList", "[", 
+       RowBox[{
+        RowBox[{"Partition", "[", 
+         RowBox[{"ls", ",", 
+          RowBox[{"FiniteLength", "[", "f", "]"}]}], "]"}], ",", 
+        RowBox[{"f", "//", "Dimensions"}]}], "]"}]}], "]"}], "//", 
+    "ToArrayFun"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
     RowBox[{"FromValueList", "[", 
      RowBox[{
-      RowBox[{"f_", "?", "MatrixFunQ"}], ",", "ls_"}], "]"}], ":=", 
+      RowBox[{"f_LFun", "?", "MatrixFunQ"}], ",", "ls_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{"MatrixMap", "[", 
       RowBox[{
        RowBox[{
-        RowBox[{"ZeroAtInfinityIFun", "[", 
+        RowBox[{"ZeroAtInfinityLFun", "[", 
          RowBox[{"#", ",", 
           RowBox[{"Domain", "[", "f", "]"}]}], "]"}], "&"}], ",", 
        RowBox[{"PartitionList", "[", 
@@ -7179,11 +7223,77 @@ Cell[BoxData[{
    RowBox[{"IdentityMatrix", "[", "f_IFun", "]"}], "^:=", 
    RowBox[{
     RowBox[{"f", "//", "Length"}], "//", "IdentityMatrix"}]}], 
-  ";"}]}], "Input",
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DiagonalMatrix", "[", "f_LFun", "]"}], "^:=", 
+   RowBox[{
+    RowBox[{"f", "//", "Values"}], "//", "DiagonalMatrix"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"IdentityMatrix", "[", "f_LFun", "]"}], "^:=", 
+    RowBox[{
+     RowBox[{"f", "//", "Length"}], "//", "IdentityMatrix"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BoundedIntegrateMatrix", "[", 
+    RowBox[{"lf_LFun", "?", "UnitCircleFunQ"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"T", ",", "IM", ",", "i", ",", "n"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"n", "=", 
+       RowBox[{"lf", "//", "Length"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"T", "=", 
+       RowBox[{"TransformMatrix", "[", "lf", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"IM", "=", 
+       RowBox[{"SparseArray", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"i_", ",", "j_"}], "}"}], "/;", 
+           RowBox[{"j", "\[Equal]", 
+            RowBox[{"i", "-", "1"}]}]}], "\[Rule]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"FirstIndex", "[", 
+              RowBox[{"FFT", "[", "lf", "]"}], "]"}], "\[Equal]", 
+             RowBox[{"1", "-", "i"}]}], ",", "0", ",", 
+            FractionBox["1", 
+             RowBox[{"i", "-", "1", "+", 
+              RowBox[{"FirstIndex", "[", 
+               RowBox[{"FFT", "[", "lf", "]"}], "]"}]}]]}], "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"n", ",", "n"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Inverse", "[", "T", "]"}], ".", "IM", ".", "T"}]}]}], "]"}]}],
+   ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BoundedIntegrateMatrix", "[", "lf_LFun", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"BoundedIntegrateMatrix", "[", 
+     RowBox[{"lf", "//", "ToUnitCircle"}], "]"}], ".", 
+    RowBox[{"DiagonalMatrix", "[", 
+     RowBox[{"LFun", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"MapFromCircleD", "[", 
+         RowBox[{"lf", ",", "#"}], "]"}], "&"}], ",", "UnitCircle", ",", 
+       RowBox[{"lf", "//", "Length"}]}], "]"}], "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True],
 
 Cell[BoxData[""], "Input"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -8500,7 +8610,7 @@ Cell[BoxData[{
            "]"}]}], "}"}], "//", "Graphics"}]}], "]"}]}], "]"}]}], 
   ";"}]}], "Input"]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -9020,7 +9130,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{814, 809},
-WindowMargins->{{Automatic, 264}, {Automatic, 0}},
+WindowMargins->{{285, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

@@ -1082,6 +1082,7 @@ TransformMatrix;
 DerivativeMatrix;
 IntegrateMatrix;
 FiniteTransformMatrix;
+BoundedIntegrateMatrix;
 
 
 Begin["Private`"];
@@ -1098,9 +1099,12 @@ ToValueList[GI_List]:=Flatten[ArrayMap[FiniteValues,#]&/@(ToArrayOfFuns/@GI//ToA
 ToValueList[f_?FunQ]:=ArrayMap[FiniteValues,ToArrayOfFuns[f]]//Flatten;
 
 
-FromValueList[f_?ScalarFunQ,ls_]:=ZeroAtInfinityIFun[ls,Domain[f]];
-FromValueList[f_?VectorFunQ,ls_]:=ZeroAtInfinityIFun[#,Domain[f]]&/@Partition[ls,FiniteLength[f]]//ToArrayFun;
-FromValueList[f_?MatrixFunQ,ls_]:=MatrixMap[ZeroAtInfinityIFun[#,Domain[f]]&,PartitionList[Partition[ls,FiniteLength[f]],f//Dimensions]]//ToArrayFun;
+FromValueList[f_IFun?ScalarFunQ,ls_]:=ZeroAtInfinityIFun[ls,Domain[f]];
+FromValueList[f_LFun?ScalarFunQ,ls_]:=ZeroAtInfinityLFun[ls,Domain[f]];
+FromValueList[f_IFun?VectorFunQ,ls_]:=ZeroAtInfinityIFun[#,Domain[f]]&/@Partition[ls,FiniteLength[f]]//ToArrayFun;
+FromValueList[f_LFun?VectorFunQ,ls_]:=ZeroAtInfinityLFun[#,Domain[f]]&/@Partition[ls,FiniteLength[f]]//ToArrayFun;
+FromValueList[f_IFun?MatrixFunQ,ls_]:=MatrixMap[ZeroAtInfinityIFun[#,Domain[f]]&,PartitionList[Partition[ls,FiniteLength[f]],f//Dimensions]]//ToArrayFun;
+FromValueList[f_LFun?MatrixFunQ,ls_]:=MatrixMap[ZeroAtInfinityLFun[#,Domain[f]]&,PartitionList[Partition[ls,FiniteLength[f]],f//Dimensions]]//ToArrayFun;
 
 FromValueList[GI_List?(VectorFunQ[First[#]]&),ls_]:=ZeroAtInfinityIFun[#[[2]],Domain[#[[1]]]]&/@
 Thread[
@@ -1154,6 +1158,16 @@ ReduceDimensionIntegrateMatrix[f_]:=ReduceDimensionIntegrateMatrix[f//Domain,f//
 
 DiagonalMatrix[f_IFun]^:=f//Values//DiagonalMatrix;
 IdentityMatrix[f_IFun]^:=f//Length//IdentityMatrix;
+DiagonalMatrix[f_LFun]^:=f//Values//DiagonalMatrix;
+IdentityMatrix[f_LFun]^:=f//Length//IdentityMatrix;
+
+
+BoundedIntegrateMatrix[lf_LFun?UnitCircleFunQ]:=Module[{T,IM,i,n},
+n=lf//Length;
+T=TransformMatrix[lf];
+IM=SparseArray[{i_,j_}/;j==i-1->If[FirstIndex[FFT[lf]]==1-i,0,1/(i-1+FirstIndex[FFT[lf]])],{n,n}];
+Inverse[T].IM.T];
+BoundedIntegrateMatrix[lf_LFun]:=BoundedIntegrateMatrix[lf//ToUnitCircle].DiagonalMatrix[LFun[MapFromCircleD[lf,#]&,UnitCircle,lf//Length]];
 
 
 ComplexRoots[cf_IFun?UnitIntervalFunQ]:=Module[{dct},

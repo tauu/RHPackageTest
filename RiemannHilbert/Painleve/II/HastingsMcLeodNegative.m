@@ -68,13 +68,13 @@ S[s_,k_?OddQ]:=({
  {s[k], 1}
 });
 GG\[CapitalSigma][_][_,_?InfinityQ]:=IdentityMatrix[2];
-GG\[CapitalSigma][{s_,y_}][z_]=\[CapitalPhi]m[{s[1]I,y},z].Inverse[S[s,1]].Inverse[\[CapitalPhi]m[{s[1]I,y},z]]//Simplify;
+GG\[CapitalSigma][{s_,y_}][z_]=\[CapitalPhi]m[{s[1]I,y},z].Inverse[S[s,1]].Inverse[\[CapitalPhi]m[{s[1]I,y},z]];
 GG\[CapitalSigma]in[{s_,y_}][z_]=GG\[CapitalSigma][{s,y}][z]//Inverse;
 GG[_,_][_?InfinityQ]:=IdentityMatrix[2];
-GG[{s_,y_},6][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,6].Inverse[\[CapitalPhi][{s[1]I,y},z]]//Simplify;
-GG[{s_,y_},1][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,1].Inverse[\[CapitalPhi][{s[1]I,y},z]]//Simplify;
-GG[{s_,y_},3][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,3].Inverse[\[CapitalPhi][{s[1]I,y},z]]//Simplify;
-GG[{s_,y_},4][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,4].Inverse[\[CapitalPhi][{s[1]I,y},z]]//Simplify;
+GG[{s_,y_},6][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,6].Inverse[\[CapitalPhi][{s[1]I,y},z]];
+GG[{s_,y_},1][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,1].Inverse[\[CapitalPhi][{s[1]I,y},z]];
+GG[{s_,y_},3][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,3].Inverse[\[CapitalPhi][{s[1]I,y},z]];
+GG[{s_,y_},4][z_]=\[CapitalPhi][{s[1]I,y},z].S[s,4].Inverse[\[CapitalPhi][{s[1]I,y},z]];
 
 
 GLC[{s_,y_},1][z_]=Inverse[\[CapitalPhi]m[{s[1]I,y},z]];

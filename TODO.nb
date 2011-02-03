@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      6779,        251]
-NotebookOptionsPosition[      5387,        199]
-NotebookOutlinePosition[      5808,        216]
-CellTagsIndexPosition[      5765,        213]
+NotebookDataLength[      6974,        253]
+NotebookOptionsPosition[      5582,        201]
+NotebookOutlinePosition[      6003,        218]
+CellTagsIndexPosition[      5960,        215]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -69,19 +69,20 @@ Cell[CellGroupData[{
 
 Cell[TextData[{
  Cell[BoxData[
-  CheckboxBox[False]]],
+  CheckboxBox[True]]],
  " IFuns with Curve domains only give correct result with one orientation"
 }], "Outline2",
  CellChangeTimes->{{3.49829415443186*^9, 3.498294178072597*^9}, {
-  3.4999167877551517`*^9, 3.499916787897129*^9}, {3.503041729692999*^9, 
-  3.5030417467879133`*^9}}],
+   3.4999167877551517`*^9, 3.499916787897129*^9}, {3.503041729692999*^9, 
+   3.5030417467879133`*^9}, 3.5056606270472517`*^9}],
 
 Cell[TextData[{
  Cell[BoxData[
-  CheckboxBox[False]]],
+  CheckboxBox[True]]],
  " Create unit test to demonstrate this"
 }], "Outline3",
- CellChangeTimes->{{3.503041752717135*^9, 3.503041759137512*^9}}]
+ CellChangeTimes->{{3.503041752717135*^9, 3.503041759137512*^9}, 
+   3.505660628298128*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -119,15 +120,15 @@ Cell[TextData[{
 }], "Outline2",
  CellChangeTimes->{{3.497667517847496*^9, 3.497667519801787*^9}, {
   3.500796223686447*^9, 3.500796225541841*^9}, {3.5030418718729343`*^9, 
-  3.503041888978006*^9}}],
+  3.503041888978006*^9}, {3.5056606349499207`*^9, 3.5056606395639963`*^9}}],
 
 Cell[TextData[{
  Cell[BoxData[
-  CheckboxBox[False]]],
+  CheckboxBox[True]]],
  " Scaled Contour 2"
 }], "Outline3",
  CellChangeTimes->{{3.503041892095677*^9, 3.503041906291136*^9}, {
-  3.503219085432069*^9, 3.503219087685924*^9}}],
+   3.503219085432069*^9, 3.503219087685924*^9}, 3.505660636783773*^9}],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -149,12 +150,12 @@ Cell[TextData[{
 
 Cell[TextData[{
  Cell[BoxData[
-  CheckboxBox[False]]],
+  CheckboxBox[True]]],
  " Implement in Painleve Routine"
 }], "Outline3",
  CellChangeTimes->{{3.497667530006566*^9, 3.497667536902059*^9}, {
-  3.5007008416928453`*^9, 3.500700843745803*^9}, {3.5030418340647097`*^9, 
-  3.503041853087764*^9}}],
+   3.5007008416928453`*^9, 3.500700843745803*^9}, {3.5030418340647097`*^9, 
+   3.503041853087764*^9}, 3.505660641167416*^9}],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -168,22 +169,23 @@ Cell[CellGroupData[{
 
 Cell[TextData[{
  Cell[BoxData[
-  CheckboxBox[False]]],
+  CheckboxBox[True]]],
  " Hastings McLeod"
 }], "Outline2",
  CellChangeTimes->{{3.4976675219836206`*^9, 3.497667537897934*^9}, {
-  3.500796228635456*^9, 3.5007962288173733`*^9}, {3.500879816523053*^9, 
-  3.500879816530361*^9}, {3.503041879934436*^9, 3.503041883980221*^9}}],
+   3.500796228635456*^9, 3.5007962288173733`*^9}, {3.500879816523053*^9, 
+   3.500879816530361*^9}, {3.503041879934436*^9, 3.503041883980221*^9}, 
+   3.5056606495630617`*^9}],
 
 Cell[TextData[{
  Cell[BoxData[
-  CheckboxBox[False]]],
+  CheckboxBox[True]]],
  " Implement negative x in Painleve Routine"
 }], "Outline3",
  CellChangeTimes->{{3.497667543214293*^9, 3.497667550604587*^9}, 
    3.4977885577317257`*^9, {3.500796248447751*^9, 3.500796253990795*^9}, {
    3.500879785710723*^9, 3.500879795836133*^9}, {3.503041815153741*^9, 
-   3.503041850757668*^9}}]
+   3.503041850757668*^9}, 3.505660648185334*^9}]
 }, Open  ]],
 
 Cell[TextData[{
@@ -226,31 +228,31 @@ Cell[1420, 53, 192, 6, 33, "Outline2"]
 Cell[CellGroupData[{
 Cell[1649, 64, 90, 1, 33, "Outline1"],
 Cell[CellGroupData[{
-Cell[1764, 69, 312, 7, 55, "Outline2"],
-Cell[2079, 78, 177, 5, 35, "Outline3"]
+Cell[1764, 69, 337, 7, 55, "Outline2"],
+Cell[2104, 78, 202, 6, 35, "Outline3"]
 }, Open  ]]
 }, Open  ]],
-Cell[2283, 87, 314, 8, 59, "Outline1"]
+Cell[2333, 88, 314, 8, 59, "Outline1"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2634, 100, 289, 4, 76, "Title"],
+Cell[2684, 101, 289, 4, 76, "Title"],
 Cell[CellGroupData[{
-Cell[2948, 108, 152, 2, 36, "Outline1"],
+Cell[2998, 109, 152, 2, 36, "Outline1"],
 Cell[CellGroupData[{
-Cell[3125, 114, 251, 7, 36, "Outline2"],
-Cell[3379, 123, 206, 6, 35, "Outline3"],
-Cell[3588, 131, 155, 5, 32, "Outline3"]
+Cell[3175, 115, 301, 7, 36, "Outline2"],
+Cell[3479, 124, 228, 6, 35, "Outline3"],
+Cell[3710, 132, 155, 5, 32, "Outline3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3780, 141, 204, 6, 36, "Outline2"],
-Cell[3987, 149, 272, 7, 35, "Outline3"],
-Cell[4262, 158, 177, 5, 32, "Outline3"]
+Cell[3902, 142, 204, 6, 36, "Outline2"],
+Cell[4109, 150, 295, 7, 35, "Outline3"],
+Cell[4407, 159, 177, 5, 32, "Outline3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4476, 168, 304, 7, 36, "Outline2"],
-Cell[4783, 177, 355, 8, 35, "Outline3"]
+Cell[4621, 169, 333, 8, 36, "Outline2"],
+Cell[4957, 179, 376, 8, 35, "Outline3"]
 }, Open  ]],
-Cell[5153, 188, 206, 7, 36, "Outline2"]
+Cell[5348, 190, 206, 7, 36, "Outline2"]
 }, Open  ]]
 }, Open  ]]
 }
