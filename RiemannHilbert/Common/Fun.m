@@ -188,6 +188,8 @@ ToChebyshevTSeries;
 
 
 Begin["Private`"];
+
+
 NotListOrPatternQ[f_]:=(!ListQ[f])&&!(Head[f]===Pattern)&&!(Head[f]===Blank);
 NotListOrPatternOrFunQ[f_]:=NotListOrPatternQ[f]&&!(Head[f]===IFun);
 ConstantQ[f_]:=f//N//NumberQ;
@@ -223,6 +225,8 @@ InverseFFT::usage=
 "Returns values that a ShiftList of Laurent coefficients would take on the unit circle.";
 
 Begin["Private`"];
+
+
 LeftEvenPoints[n_]:=Range[-1,(n-1)/n,2/n];
 LeftEvenPoints[n_,a_,b_]:=a+(b-a)(1+ LeftEvenPoints[n])/2;
 NLeftEvenPoints[v__]:=N[LeftEvenPoints[v]];
@@ -260,7 +264,12 @@ ChebyshevLobattoPoints;
 NChebyshevPoints;
 NChebyshevLobattoPoints;
 InverseDCT;
+
+
+
 Begin["Private`"];
+
+
 ChebyshevPoints[0,a_:-1,b_:1]:={};
 ChebyshevPoints[n_,a_:-1,b_:1]:=(b+a)/2+(b-a)/2 Cos[(2 Range[n,1,-1] -1)/(2 n) Pi];
 ChebyshevLobattoPoints[n_,a_:-1,b_:1]:=(b+a)/2+(b-a)/2 Cos[Pi Range[n-1,0,-1]/(n-1)];
@@ -335,13 +344,17 @@ RealLine::usage="The real line Line[{-\[Infinity],\[Infinity]}]";
 MapToIntervalSeriesAtInfinity::usage="Gives the coefficient of the asymptotic series at \[Infinity].";
 
 
+Begin["Private`"];
+
+
+
 Unprotect[Line];
 Line/:Line[{a_,b_}]+c_:=Line[{a,b}+c];
 Line/:c_ Line[{a_,b_}]:=Line[c {a,b}];
 Protect[Line];
 
 
-Begin["Private`"];
+
 CircleToInterval[z_]:=1/2 (z+1/z);
 SetAttributes[IntervalToTopCircle,Listable];
 IntervalToTopCircle[x_]:=x+I Sqrt[1-x]Sqrt[1+x];
@@ -605,7 +618,13 @@ MapToIntervalSeriesAtInfinityD;
 PointsD;
 ValuesDomainD;
 ToValueListD;
+
+
+
 Begin["Private`"];
+
+
+
 MapToIntervalDomainD[1,0][Line[{a_,b_}],z_]:=-((2 (b-z))/(a-b)^2);
 MapToIntervalDomainD[0,1][Line[{a_,b_}],z_]:=(2 (a-z))/(a-b)^2;
 MapToIntervalDDomainD[1,0][Line[{a_,b_}],z_]:=2/(a-b)^2;
@@ -644,6 +663,9 @@ End[];
 FinitePoints;
 
 Begin["Private`"];
+
+
+
 CirclePoints[n_]:=Exp[I \[Pi] LeftEvenPoints[n]];
 NCirclePoints[n_]:=CirclePoints[n]//N;
 FourierRealLinePoints[n_]:=Map[CircleToRealLine,CirclePoints[n]//Rest];
@@ -697,7 +719,11 @@ ReImLineLogPlot;
 ReImLineLogLogPlot;
 $FunFormat={ImageSize->Small};
 
+
+
 Begin["Private`"];
+
+
 
 ListFunQ[f_?FunQ]:=f//Values//First//ListQ;
 ScalarFunQ[f_?FunQ]:=f//Values//First//ScalarQ;
@@ -834,7 +860,13 @@ ChebyshevD::usage="Maps a list of Chebyshev coefficients to those of its derivat
 ChebyshevLobattoDerivative::usage="Maps a list of function values at Chebyshev points to those of its derivative.";
 ChebyshevI::usage="Maps a list of Chebyshev coefficients to those of its indefinite integral.";
 ChebyshevLobattoIntegrate::usage="Maps a list of function values at Chebyshev points to those of its indefinite integral.";
+
+
+
 Begin["Private`"];
+
+
+
 ChebyshevD[c_List]:=Module[{d,n},
 n=Length[c];
 If[n==1,{0},
@@ -1021,7 +1053,12 @@ End[];
 
 
 SetLength;
-Begin["Private`"];SetLength[if_LFun,n_?OddQ]:=LFun[SetIndexRange[if//FFT,{(1-n)/2,(n-1)/2}]//InverseFFT,if//Domain];
+
+
+Begin["Private`"];
+
+
+SetLength[if_LFun,n_?OddQ]:=LFun[SetIndexRange[if//FFT,{(1-n)/2,(n-1)/2}]//InverseFFT,if//Domain];
 SetLength[if_LFun,n_?EvenQ]:=LFun[SetIndexRange[if//FFT,{-(n/2),n/2-1}]//InverseFFT,if//Domain];
 
 

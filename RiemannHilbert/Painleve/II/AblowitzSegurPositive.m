@@ -114,7 +114,7 @@ Gl[{x_,s_}]:=({
 Glx[{x_,s_}]:=({
  {Gx[{x,s},1], Gx[{x,s},6]}
 });
-n=70;slvr//Clear;slvr:=slvr=ScaledRHSolver[Cdefs[n]];
+nn=70;slvr//Clear;slvr:=slvr=ScaledRHSolver[Cdefs[nn]];
 
 
 AblowitzSegurPositivePainleveII[s_,x_]:=-(I/\[Pi])Sqrt[x]Total[DomainIntegrate/@slvr[x,Gl[{x,-s}]]][[1,2]];
@@ -123,7 +123,7 @@ slvrx=slvr[x];
 Cm=ScaledCauchyOperator[-1,slvrx];
 Cp=ScaledCauchyOperator[1,slvrx];
 Ul=slvrx[Gl[{x,-s}]];
-I(-(1/(\[Pi] 2)) x^(-1/2) Total[DomainIntegrate/@Ul][[1,2]] -1/\[Pi] Sqrt[x]((Cm[Ul]~FunListDot~ConstructCurve[Cdefs[n],Glx[{x,-s}],x]~FunListDot~(Inverse/@Cp[Ul])//DomainIntegrate))[[1,2]])
+I(-(1/(\[Pi] 2)) x^(-1/2) Total[DomainIntegrate/@Ul][[1,2]] -1/\[Pi] Sqrt[x]((Cm[Ul]~FunListDot~ConstructCurve[Cdefs[nn],Glx[{x,-s}],x]~FunListDot~(Inverse/@Cp[Ul])//DomainIntegrate))[[1,2]])
 ]
 
 

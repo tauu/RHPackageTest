@@ -239,12 +239,12 @@ Cell[BoxData[{
           RowBox[{"x", ",", "s"}], "}"}], ",", "6"}], "]"}]}
      }], ")"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"n", "=", "70"}], ";", 
+  RowBox[{"nn", "=", "70"}], ";", 
   RowBox[{"slvr", "//", "Clear"}], ";", 
   RowBox[{"slvr", ":=", 
    RowBox[{"slvr", "=", 
     RowBox[{"ScaledRHSolver", "[", 
-     RowBox[{"Cdefs", "[", "n", "]"}], "]"}]}]}], ";"}]}], "Input",
+     RowBox[{"Cdefs", "[", "nn", "]"}], "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True],
 
 Cell[BoxData[{
@@ -320,7 +320,7 @@ Cell[BoxData[{
               RowBox[{"Cm", "[", "Ul", "]"}], "~", "FunListDot", "~", 
               RowBox[{"ConstructCurve", "[", 
                RowBox[{
-                RowBox[{"Cdefs", "[", "n", "]"}], ",", 
+                RowBox[{"Cdefs", "[", "nn", "]"}], ",", 
                 RowBox[{"Glx", "[", 
                  RowBox[{"{", 
                   RowBox[{"x", ",", 

@@ -11,7 +11,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"BeginPackage", "[", "$CommonPackage", "]"}], ";"}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -415,8 +415,9 @@ Cell[BoxData[{
   RowBox[{"ToChebyshevTSeries", ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"NotListOrPatternQ", "[", "f_", "]"}], ":=", 
@@ -583,7 +584,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -609,8 +610,9 @@ list.\>\""}], ";"}], "\[IndentingNewLine]",
 on the unit circle.\>\""}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"LeftEvenPoints", "[", "n_", "]"}], ":=", 
@@ -848,7 +850,7 @@ on the unit circle.\>\""}], ";"}],
    RowBox[{"End", "[", "]"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -859,10 +861,13 @@ Cell[BoxData[{
  RowBox[{"ChebyshevLobattoPoints", ";"}], "\[IndentingNewLine]", 
  RowBox[{"NChebyshevPoints", ";"}], "\[IndentingNewLine]", 
  RowBox[{"NChebyshevLobattoPoints", ";"}], "\[IndentingNewLine]", 
- RowBox[{"InverseDCT", ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{"InverseDCT", ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"ChebyshevPoints", "[", 
@@ -1087,7 +1092,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1222,6 +1227,11 @@ the domain d.\>\""}], ";"}], "\[IndentingNewLine]",
 \[Infinity].\>\""}], ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"Unprotect", "[", "Line", "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Line", "/:", 
@@ -1247,10 +1257,7 @@ the domain d.\>\""}], ";"}], "\[IndentingNewLine]",
  RowBox[{
   RowBox[{
    RowBox[{"Protect", "[", "Line", "]"}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"CircleToInterval", "[", "z_", "]"}], ":=", 
@@ -3374,7 +3381,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3388,10 +3395,14 @@ Cell[BoxData[{
  RowBox[{"MapToIntervalSeriesAtInfinityD", ";"}], "\[IndentingNewLine]", 
  RowBox[{"PointsD", ";"}], "\[IndentingNewLine]", 
  RowBox[{"ValuesDomainD", ";"}], "\[IndentingNewLine]", 
- RowBox[{"ToValueListD", ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{"ToValueListD", ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
+   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -3643,7 +3654,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3657,6 +3668,7 @@ Cell[BoxData[
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
@@ -3794,7 +3806,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3867,10 +3879,12 @@ matrix\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
     RowBox[{"$FunFormat", "=", 
      RowBox[{"{", 
       RowBox[{"ImageSize", "\[Rule]", "Small"}], "}"}]}], ";"}], 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"ListFunQ", "[", 
@@ -4021,7 +4035,7 @@ Cell[BoxData[{
   ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4730,12 +4744,16 @@ derivative.\>\""}], ";"}], "\[IndentingNewLine]",
 integral.\>\""}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"ChebyshevLobattoIntegrate", "::", "usage"}], "=", 
-   "\"\<Maps a list of function values at Chebyshev points to those of its \
+   RowBox[{
+    RowBox[{"ChebyshevLobattoIntegrate", "::", "usage"}], "=", 
+    "\"\<Maps a list of function values at Chebyshev points to those of its \
 indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -4790,7 +4808,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -5020,7 +5038,7 @@ Cell[BoxData[{
       RowBox[{"{", "if", "}"}]}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6142,9 +6160,14 @@ Cell[CellGroupData[{
 Cell["Set Length", "Subsection"],
 
 Cell[BoxData[{
- RowBox[{"SetLength", ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";", 
+  RowBox[{"SetLength", ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{
    RowBox[{"SetLength", "[", 
     RowBox[{"if_LFun", ",", 
@@ -6184,7 +6207,7 @@ Cell[BoxData[{
       "InverseFFT"}], ",", 
      RowBox[{"if", "//", "Domain"}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -9130,7 +9153,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{814, 809},
-WindowMargins->{{285, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, -1536}, {Automatic, -35}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
