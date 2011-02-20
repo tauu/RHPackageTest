@@ -174,6 +174,8 @@ ArrayFunQ::usage="Tests if an object is in IFun whose values are an array.";
 
 BoundedIntegrate::usage="BoundedIntegrate[lf] integrates an LFun with its -1 coefficient removed";
 
+OneFun;
+
 
 
 NotListOrPatternQ;
@@ -342,7 +344,7 @@ MapFromCircleD::usage="MapFromCircleD[d,z] is the derivative of MapFromCircle[d,
 
 RealLine::usage="The real line Line[{-\[Infinity],\[Infinity]}]";
 MapToIntervalSeriesAtInfinity::usage="Gives the coefficient of the asymptotic series at \[Infinity].";
-
+Orientation;
 
 Begin["Private`"];
 
@@ -550,6 +552,16 @@ MapFromCircle[Circle[a_,r_],z_]:=r z+a;
 MapToCircleD[Circle[a_,r_],z_]:=1/r;
 MapFromCircleD[Circle[a_,r_],z_]:=r ;
 
+MapToCircle[Circle[a_,r_,Orientation->1],z_]:=(z-a)/r;
+MapFromCircle[Circle[a_,r_,Orientation->1],z_]:=r z+a;
+MapToCircleD[Circle[a_,r_,Orientation->1],z_]:=1/r;
+MapFromCircleD[Circle[a_,r_,Orientation->1],z_]:=r ;
+
+MapToCircle[Circle[a_,r_,Orientation->-1],z_]:=r/(z-a);
+MapFromCircle[Circle[a_,r_,Orientation->-1],z_]:=r/ z+a;
+MapToCircleD[Circle[a_,r_,Orientation->-1],z_]:=-r/(z-a)^2;
+MapFromCircleD[Circle[a_,r_,Orientation->-1],z_]:=-r /z^2;
+
 
 
 RealLine=Line[{-\[Infinity],\[Infinity]}];
@@ -737,9 +749,9 @@ ArrayFunQ[f_?FunQ]:=f//Values//First//ArrayQ;
 ToMatrixOfFuns[f_]:=MatrixMap[Head[f][#,Domain[f]]&,Values[f]//ToMatrixOfLists];
 ToMatrixFun[f_]:=Head[First[Flatten[f[[1]]]]][MatrixMap[Values,f]//ToListOfMatrices,Domain[f[[1,1]]]];
 
-ToArrayOfFuns[f_?MatrixFunQ]:=ToMatrixOfFuns[f];ToArrayOfFuns[f_?VectorFunQ]:=Map[IFun[#,Domain[f]]&,Values[f]//ToArrayOfLists];
+ToArrayOfFuns[f_?MatrixFunQ]:=ToMatrixOfFuns[f];ToArrayOfFuns[f_?VectorFunQ]:=Map[Head[f][#,Domain[f]]&,Values[f]//ToArrayOfLists];
 ToArrayOfFuns[f_?ScalarFunQ]:=f;
-ToArrayFun[f_]:=IFun[ArrayMap[Values,f]//ToListOfArrays,Domain[First[Flatten[{f}]]]];
+ToArrayFun[f_]:=Head[Flatten[{f}][[1]]][ArrayMap[Values,f]//ToListOfArrays,Domain[First[Flatten[{f}]]]];
 
 
 ReImLinePlot[f_?ArrayFunQ,opts___]:=ArrayMap[ReImLinePlot[#,opts]&,f//ToArrayOfFuns]//MatrixForm;
@@ -788,7 +800,7 @@ Inverse[if_IFun]^:=Inverse/@if;
 Transpose[f_IFun]^:=Transpose/@f;
 Max[f_IFun]^:=f//Values//Max;
 Min[f_IFun]^:=f//Values//Min;
-Norm[f_IFun]^:=f//Values//Norm;
+Norm[f_IFun]^:=f//Values//Flatten//Norm;
 Mean[f_IFun]^:=DCT[f][[1]];
 
 
@@ -928,6 +940,13 @@ DomainPlot[Circle[z0_,r_],opts___]:=
 Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],
 Arrow[{z0+r Exp[I 0.2] //{Re[#],Im[#]}&,z0 + r Exp[I 0.2001]//{Re[#],Im[#]}&}],
 Circle[{Re[#],Im[#]}&[z0],r]},opts,Axes->True];
+DomainPlot[Circle[z0_,r_,Orientation->1],opts___]:=
+DomainPlot[Circle[z0,r],opts];
+DomainPlot[Circle[z0_,r_,Orientation->-1],opts___]:=
+Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],
+Arrow[{z0 + r Exp[I 0.2001]//{Re[#],Im[#]}&,z0+r Exp[I 0.2] //{Re[#],Im[#]}&}],
+Circle[{Re[#],Im[#]}&[z0],r]},opts,Axes->True];
+
 
 DomainPlot[ell_Ellipse,opts___]:=Module[{t},
 Show[ComplexPlot[MapFromCircle[ell,Exp[I t]],{t,-\[Pi],\[Pi]},PlotStyle->Thick],Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],
@@ -973,7 +992,7 @@ LMapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
 
 Max[f_LFun]^:=f//Values//Max;
 Min[f_LFun]^:=f//Values//Min;
-Norm[f_LFun]^:=f//Values//Norm;
+Norm[f_LFun]^:=f//Values//Flatten//Norm;
 Mean[f_LFun]^:=FFT[f][[0]];
 
 
@@ -982,6 +1001,9 @@ NEqual[f_IFun,g_IFun]:=Norm[f-g]<$MachineTolerance;
 
 MeanZero[f_LFun]:=f-Mean[f];
 MeanZero[sl_ShiftList]:=sl-sl[[0]] BasisShiftList[sl,0];
+
+LFun/:f_LFun?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
+LFun/:f_LFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]];
 
 ComplexMapToCircle[f_?FunQ,z_]:=ComplexMapToCircle[f//Domain,z];
 
@@ -1392,6 +1414,9 @@ FiniteLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=LegendreTransformMatr
 
 FiniteInverseLegendreTransformMatrix[if_?LeftEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[2;;,All]];
 FiniteInverseLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[;;-2,All]];
+
+
+OneFun[lf_?FunQ]:=Head[lf][1&,lf//Domain,lf//Length];
 
 
 End[];

@@ -677,6 +677,49 @@ Test[
 
 
 (* ::Section:: *)
+(* Matrix *)
+
+
+lf = LFun[{{Exp[#],Sin[#]},{AiryAi[#],BesselJ[0,#]}}&, Circle[0, 1.]];
+lf2 = LFun[{{Exp[#],#},{Exp[#],Cos[#]}}&, Circle[0, 1.]];
+
+Test[
+	NegativePart[lf] + NonNegativePart[lf] - lf // Norm
+	,
+	0
+	,
+	TestID->"LFun-Matrix-NegativePlusNonNegative"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+
+
+
+Test[
+	Cauchy[1, lf] - Cauchy[-1, lf] - lf // Norm
+	,
+	0
+	,
+	TestID->"LFun-Matrix-CauchyDifference"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	Norm/@(Cauchy[1, {lf,lf2}] - Cauchy[-1, {lf,lf2}] - {lf,lf2}) //Norm
+	,
+	0
+	,
+	TestID->"LFun-Matrix-List-CauchyDifference"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+
+
+
+(* ::Section:: *)
 (* Arc *)
 
 

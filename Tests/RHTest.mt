@@ -46,6 +46,18 @@ Test[
 	TestID->"RHTest-Circle-Cauchy-JumpCondition"
 ]
 
+Test[
+	Cauchy[+1, lf, {1,Exp[I 0.1]}] - Cauchy[-1, lf, {1,Exp[I 0.1]}] - 
+ (lf[{1,Exp[I 0.1]}])//Norm
+	,
+	0
+	,
+	EquivalenceFunction -> NEqual
+	,
+	TestID->"RHTest-Circle-Cauchy-List"
+]
+
+
 
 
 (* ::Section:: *)
@@ -241,6 +253,18 @@ Test[
 	0
 	,
 	TestID->"RHTest-Interval-CauchyList"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	Cauchy[{if}, {1. I, 1. I + 1., 
+    1. I + 2.}] - (NIntegrate[f[x]/(x - #), {x, -1, 1}] & /@ {1. I, 
+      1. I + 1., 1. I + 2.})/(2 \[Pi] I) // Norm
+	,
+	0
+	,
+	TestID->"RHTest-Interval-List-CauchyList"
 	,
 	EquivalenceFunction -> NEqual
 ]

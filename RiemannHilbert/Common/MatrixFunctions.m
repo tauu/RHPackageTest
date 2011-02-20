@@ -90,11 +90,11 @@ NegativeList[ShiftList[ln_,ind_]]:=ln[[1;;ind-1]];
 NonPositiveList[ShiftList[ln_,ind_]]:=ln[[1;;ind]];
 NonNegativeList[ShiftList[ln_,ind_]]:=ln[[ind;;-1]];
 PositiveList[ShiftList[ln_,ind_]]:=ln[[ind+1;;-1]];
-NegativeShiftList[l_ShiftList]:=ShiftList[NegativeList[l],ZeroVector[Length[NonNegativeList[l]]]];
-NonNegativeShiftList[l_ShiftList]:=ShiftList[ZeroVector[Length[NegativeList[l]]],NonNegativeList[l]];
-NonPositiveShiftList[l_ShiftList]:=ShiftList[NegativeList[l],Join[{l[[0]]},ZeroVector[Length[PositiveList[l]]]]];
-PositiveShiftList[l_ShiftList]:=ShiftList[ZeroVector[Length[NegativeList[l]]],Join[{0},PositiveList[l]]];
-ZeroShiftList[l_ShiftList]:=ShiftList[ZeroVector[Length[NegativeList[l]]],Join[{l[[0]]},ZeroVector[Length[PositiveList[l]]]]];
+NegativeShiftList[l_ShiftList]:=ShiftList[NegativeList[l],Array[0 ToList[l][[1]]&,Length[NonNegativeList[l]]]];
+NonNegativeShiftList[l_ShiftList]:=ShiftList[Array[0 ToList[l][[1]]&,Length[NegativeList[l]]] ,NonNegativeList[l]];
+NonPositiveShiftList[l_ShiftList]:=ShiftList[NegativeList[l],Join[{l[[0]]},Array[0 ToList[l][[1]]&,Length[PositiveList[l]]] ]];
+PositiveShiftList[l_ShiftList]:=ShiftList[Array[0 ToList[l][[1]]&,Length[NegativeList[l]]],Join[{0 ToList[l][[1]]},PositiveList[l]]];
+ZeroShiftList[l_ShiftList]:=ShiftList[Array[0 ToList[l][[1]]&,Length[NegativeList[l]]],Join[{l[[0]]},Array[0 ToList[l][[1]]&,Length[PositiveList[l]]] ]];
 
 
 ln_ShiftList+ln2_ShiftList^:=Module[{lnn,lnn2},
