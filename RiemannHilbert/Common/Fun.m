@@ -987,6 +987,11 @@ LFun/:Times[g_LFun,f_?ConstantQ]:=LFun[Values[g]f,g//Domain];
 LFun/:f_LFun^c_?ConstantQ:=LFun[Values[f]^c,f//Domain];
 LFun/:c_?ConstantQ^f_LFun:=LFun[c^Values[f],f//Domain];
 
+Dot[f_LFun?ArrayFunQ,g_LFun?ArrayFunQ]^:=ToArrayFun[ToArrayOfFuns[f].ToArrayOfFuns[g]];
+
+LFun/:Dot[f_List?(!ArrayFunQ[#]&),g_LFun?ArrayFunQ]:=ToArrayFun[f.ToArrayOfFuns[g]];
+
+
 LMapToValues[op_]:=(op[if_LFun]^:=LFun[op[Values[if]],if//Domain]);
 LMapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
 

@@ -4903,7 +4903,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -5133,7 +5133,7 @@ Cell[BoxData[{
       RowBox[{"{", "if", "}"}]}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5760,6 +5760,33 @@ Cell[BoxData[{
        RowBox[{"Values", "[", "f", "]"}]}], ",", 
       RowBox[{"f", "//", "Domain"}]}], "]"}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Dot", "[", 
+     RowBox[{
+      RowBox[{"f_LFun", "?", "ArrayFunQ"}], ",", 
+      RowBox[{"g_LFun", "?", "ArrayFunQ"}]}], "]"}], "^:=", 
+    RowBox[{"ToArrayFun", "[", 
+     RowBox[{
+      RowBox[{"ToArrayOfFuns", "[", "f", "]"}], ".", 
+      RowBox[{"ToArrayOfFuns", "[", "g", "]"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"LFun", "/:", 
+    RowBox[{"Dot", "[", 
+     RowBox[{
+      RowBox[{"f_List", "?", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"!", 
+          RowBox[{"ArrayFunQ", "[", "#", "]"}]}], "&"}], ")"}]}], ",", 
+      RowBox[{"g_LFun", "?", "ArrayFunQ"}]}], "]"}], ":=", 
+    RowBox[{"ToArrayFun", "[", 
+     RowBox[{"f", ".", 
+      RowBox[{"ToArrayOfFuns", "[", "g", "]"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"LMapToValues", "[", "op_", "]"}], ":=", 

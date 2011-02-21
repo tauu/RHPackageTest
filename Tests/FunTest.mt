@@ -680,8 +680,21 @@ Test[
 (* Matrix *)
 
 
-lf = LFun[{{Exp[#],Sin[#]},{AiryAi[#],BesselJ[0,#]}}&, Circle[0, 1.]];
-lf2 = LFun[{{Exp[#],#},{Exp[#],Cos[#]}}&, Circle[0, 1.]];
+lf = LFun[{{Exp[#],Sin[#]},{AiryAi[#],BesselJ[0,#]}}&, Circle[0, 1.],40];
+lf2 = LFun[{{Exp[#],#},{Exp[#],Cos[#]}}&, Circle[0, 1.],40];
+
+
+Test[
+	Values[lf.lf2] - (#[[1]].#[[2]]&/@Thread[{Values[lf],Values[lf2]}])//Norm
+	,
+	0
+	,
+	TestID->"LFun-Matrix-Dot"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+
 
 Test[
 	NegativePart[lf] + NonNegativePart[lf] - lf // Norm
