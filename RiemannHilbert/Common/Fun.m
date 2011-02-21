@@ -176,6 +176,9 @@ BoundedIntegrate::usage="BoundedIntegrate[lf] integrates an LFun with its -1 coe
 
 OneFun;
 
+AddIdentityMatrix::usage=
+"Adds IdentityMatrix[2] to a list of ifuns.";
+
 
 
 NotListOrPatternQ;
@@ -752,6 +755,9 @@ ToMatrixFun[f_]:=Head[First[Flatten[f[[1]]]]][MatrixMap[Values,f]//ToListOfMatri
 ToArrayOfFuns[f_?MatrixFunQ]:=ToMatrixOfFuns[f];ToArrayOfFuns[f_?VectorFunQ]:=Map[Head[f][#,Domain[f]]&,Values[f]//ToArrayOfLists];
 ToArrayOfFuns[f_?ScalarFunQ]:=f;
 ToArrayFun[f_]:=Head[Flatten[{f}][[1]]][ArrayMap[Values,f]//ToListOfArrays,Domain[First[Flatten[{f}]]]];
+
+AddIdentityMatrix[l_IFun]:=(IdentityMatrix[2]+#)&/@l;
+AddIdentityMatrix[l_List]:=AddIdentityMatrix/@l;
 
 
 ReImLinePlot[f_?ArrayFunQ,opts___]:=ArrayMap[ReImLinePlot[#,opts]&,f//ToArrayOfFuns]//MatrixForm;

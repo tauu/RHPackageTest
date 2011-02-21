@@ -395,7 +395,13 @@ infinity\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
      RowBox[{"BoundedIntegrate", "::", "usage"}], "=", 
      "\"\<BoundedIntegrate[lf] integrates an LFun with its -1 coefficient \
 removed\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   RowBox[{"OneFun", ";"}], "\[IndentingNewLine]"}]}]], "Input",
+   RowBox[{"OneFun", ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"AddIdentityMatrix", "::", "usage"}], "=", 
+     "\[IndentingNewLine]", 
+     "\"\<Adds IdentityMatrix[2] to a list of ifuns.\>\""}], ";"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -1512,8 +1518,7 @@ Cell[BoxData[{
        RowBox[{"{", 
         RowBox[{"a_", ",", 
          RowBox[{"b_", "?", "InfinityQ"}]}], "}"}], ",", 
-       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=",
-    
+       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=", 
    RowBox[{"HalfLineToInterval", "[", 
     RowBox[{
      RowBox[{"Exp", "[", 
@@ -4092,8 +4097,21 @@ Cell[BoxData[
        RowBox[{"Domain", "[", 
         RowBox[{"First", "[", 
          RowBox[{"Flatten", "[", 
-          RowBox[{"{", "f", "}"}], "]"}], "]"}], "]"}]}], "]"}]}], 
-    ";"}]}]}]], "Input",
+          RowBox[{"{", "f", "}"}], "]"}], "]"}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"AddIdentityMatrix", "[", "l_IFun", "]"}], ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"IdentityMatrix", "[", "2", "]"}], "+", "#"}], ")"}], "&"}], 
+      "/@", "l"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"AddIdentityMatrix", "[", "l_List", "]"}], ":=", 
+     RowBox[{"AddIdentityMatrix", "/@", "l"}]}], ";"}]}]}]], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -4903,7 +4921,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{

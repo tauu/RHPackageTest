@@ -685,7 +685,7 @@ lf2 = LFun[{{Exp[#],#},{Exp[#],Cos[#]}}&, Circle[0, 1.],40];
 
 
 Test[
-	Values[lf.lf2] - (#[[1]].#[[2]]&/@Thread[{Values[lf],Values[lf2]}])//Norm
+	Values[lf.lf2] - (#[[1]].#[[2]]&/@Thread[{Values[lf],Values[lf2]}])//Flatten//Norm
 	,
 	0
 	,
