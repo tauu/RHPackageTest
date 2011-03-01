@@ -41,6 +41,10 @@ Begin["`Private`"];
 Cauchy[lf_LFun,z_List]:=Cauchy[lf,#]&/@z;
 Cauchy[s_?SignQ,lf_LFun,z_List]:=Cauchy[s,lf,#]&/@z;
 
+
+CauchyS[-1,lf_LFun?UnitCircleFunQ,z_?InfinityQ]:=0;
+
+
 CauchyS[+1,lf_LFun?UnitCircleFunQ,z_?ScalarQ]:=NonNegativeEvaluate[lf,z];
 CauchyS[-1,lf_LFun?UnitCircleFunQ,z_?ScalarQ]:=-NegativeEvaluate[lf,z];
 Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]<=1.&)]:=CauchyS[+1,lf,z];
@@ -140,9 +144,9 @@ CauchyBasis[s_?SignQ,d_?CircleDomainQ,i_;;j_,z_]:=Module[{k},Table[CauchyBasis[s
 
 FPCauchyBasis[s_?SignQ,f_?FunQ,k_,g_?FunQ]:=FPCauchyBasis[s,f//Domain,k,g];
 
-FPCauchyBasis[s_?SignQ,d_?CircleDomainQ,i_;;j_,lf_]/;Domain[lf]~NEqual~d:=LFun[#,lf//Domain]&/@CauchyBasis[s,d,i;;j,lf//Points];
+FPCauchyBasis[s_?SignQ,d_?CircleDomainQ,i_;;j_,lf_?FunQ]:=Fun[#,lf//Domain]&/@CauchyBasis[s,d,i;;j,lf//Points];
 
-CauchyMatrix[s_?SignQ,lf_LFun?ScalarFunQ,lf2_LFun]:=Transpose[(FiniteValues/@FPCauchyBasis[s,lf,Span@@(lf//FFT//IndexRange),lf2])].FiniteTransformMatrix[lf];
+CauchyMatrix[s_?SignQ,lf_LFun?ScalarFunQ,lf2_?FunQ]:=Transpose[(FiniteValues/@FPCauchyBasis[s,lf,Span@@(lf//FFT//IndexRange),lf2])].FiniteTransformMatrix[lf];
 
 CauchyMatrix[s_?SignQ,f_LFun]:=CauchyMatrix[s,f,f];
 

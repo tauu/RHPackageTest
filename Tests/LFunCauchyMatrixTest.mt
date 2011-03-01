@@ -320,3 +320,33 @@ Test[
 
 
 
+
+(* ::Section:: *)
+(* Mixed *)
+
+fl = {Fun[{Exp[#], Sin[#]} &, UnitInterval], 
+   Fun[{Exp[#], Sin[#]} &, Circle[1. I, 0.5]]};
+   
+   
+Test[
+	 Values[FromValueList[fl[[2]], 
+   CauchyMatrix[+1, fl[[1]], fl[[2]]].ToValueList[fl[[1]]]]]
+  ,
+	Cauchy[fl[[1]], Points[fl[[2]]]]
+	,
+	TestID->"Mixed-CauchyMat-12"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	 Values[FromValueList[fl[[2]], 
+   CauchyMatrix[+1, fl, fl[[2]]].ToValueList[fl]]]
+  ,
+	Cauchy[+1,fl, Points[fl[[2]]]]
+	,
+	TestID->"Mixed-CauchyMat-All2"
+	,
+	EquivalenceFunction -> NEqual
+]
+

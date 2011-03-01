@@ -257,7 +257,7 @@ IFun[Join[
 
 
 
-FPCauchyBasis[_?SignQ,f_?DomainQ,k_Integer,g_IFun]:=ZeroAtInfinityIFun[CauchyBasis[f,k,g//FinitePoints],Domain[g]];
+FPCauchyBasis[_?SignQ,f_?DomainQ,k_Integer,g_?FunQ]:=ZeroAtInfinityFun[CauchyBasis[f,k,g//FinitePoints],Domain[g]];
 
 
 
@@ -495,7 +495,7 @@ Transpose[CauchyBasis[f,;;k,g//Points//Rest]]
 
 FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?LeftEndpointInfinityQ]:=ZeroAtInfinityIFun[#,Domain[g]]&/@CauchyBasis[f,1;;k,g//Points//Rest];
 FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun?RightEndpointInfinityQ]:=ZeroAtInfinityIFun[#,Domain[g]]&/@CauchyBasis[f,1;;k,g//Points//Most];
-FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_IFun]:=IFun[#,Domain[g]]&/@CauchyBasis[f,;;k,g//Points];
+FPCauchyBasis[_?SignQ,f_?IntervalDomainQ,1;;k_Integer,g_?FunQ]:=Fun[#,Domain[g]]&/@CauchyBasis[f,;;k,g//Points];
 
 
 \[Psi]pLD[0;;m_?Positive,x_]:=Module[{cur,ph},
@@ -569,6 +569,8 @@ Cauchy[_?SignQ,f_IFun,x_]/;(RightEndpoint[f]~NEqual~x):=\[Infinity];
 
 Cauchy[f_IFun,x_]:=CauchyBasis[f,;;Length[f],x].(f//DCT);
 Cauchy[s_?SignQ,f_IFun,x_]:=CauchyBasis[s,f,;;Length[f],x].(f//DCT);
+
+CauchyS[s_?SignQ,f_IFun,x_]:=CauchyBasisS[s,f,;;Length[f],x].(f//DCT);
 
 
 Cauchy[f_IFun,xv_List]:=Plus@@(Map[Function[x,x #[[2]]],#[[1]]]&/@Thread[{CauchyBasis[f,;;Length[f],xv],DCT[f]}]);
@@ -647,24 +649,7 @@ If[DomainMemberQ[U,#//First],CauchyD[s,U,#],CauchyD[U,#]]&/@SplitBy[x,DomainMemb
 ]/@f);
 
 
-CauchyMatrix[s_?SignQ,f_IFun?ScalarFunQ,g_IFun]:=Transpose[(FiniteValues/@FPCauchyBasis[s,f,;;Length[f],g])].FiniteTransformMatrix[f];
-
-ScalarToVectorMatrix:=BlockDiagonalMatrix[{#,#}]&;
-ScalarToMatrixMatrix:=BlockDiagonalMatrix[{#,#,#,#}]&;
-
-CauchyMatrix[s_?SignQ,f_IFun?VectorFunQ,g_IFun]:=CauchyMatrix[s,f[[1]],g]//ScalarToVectorMatrix;
-CauchyMatrix[s_?SignQ,f_IFun?MatrixFunQ,g_IFun]:=CauchyMatrix[s,f[[1,1]],g]//ScalarToMatrixMatrix;
-
-CauchyMatrix[s_?SignQ,l:{__?MatrixFunQ},g_IFun]:=CauchyMatrix[s,#[[1,1]]&/@l,g]//ScalarToMatrixMatrix;
-CauchyMatrix[s_?SignQ,l:{__?MatrixFunQ},l2_List]:=CauchyMatrix[s,#[[1,1]]&/@l,l2]//ScalarToMatrixMatrix;
-
-CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},g_IFun]:=CauchyMatrix[s,#[[1]]&/@l,g]//ScalarToVectorMatrix;
-CauchyMatrix[s_?SignQ,l:{__?VectorFunQ},l2_List]:=CauchyMatrix[s,#[[1]]&/@l,l2]//ScalarToVectorMatrix;
-CauchyMatrix[s_?SignQ,l:{__IFun},g_IFun]:=RightJoin@@(CauchyMatrix[s,#,g]&/@l);
-CauchyMatrix[s_?SignQ,l:{__IFun},l2:{__IFun}]:=Join@@(CauchyMatrix[s,l,#]&/@l2);
-
-CauchyMatrix[s_?SignQ,f_IFun]:=CauchyMatrix[s,f,f];
-CauchyMatrix[s_?SignQ,f:{__IFun}]:=CauchyMatrix[s,f,f];
+CauchyMatrix[s_?SignQ,f_IFun?ScalarFunQ,g_?FunQ]:=Transpose[(FiniteValues/@FPCauchyBasis[s,f,;;Length[f],g])].FiniteTransformMatrix[f];
 
 
 End[];

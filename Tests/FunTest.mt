@@ -902,3 +902,69 @@ Test[
 	,
 	EquivalenceFunction -> NEqual
 ]
+
+
+
+(* ::Section:: *)
+(* Mixing IFun's and LFun's *)
+
+fl = {Fun[{Exp[#], Sin[#]} &, UnitInterval], 
+   Fun[{Exp[#], Sin[#]} &, Circle[1. I, 0.5]]};
+   
+Test[
+	Head[fl[[1]]]
+	,
+	IFun
+	,
+	TestID->"ValueList-Mixed-Head1"
+]
+
+Test[
+	Head[fl[[2]]]
+	,
+	LFun
+	,
+	TestID->"ValueList-Mixed-Head1"
+]
+
+Test[
+	FromValueList[fl[[1]],fl[[1]]//ToValueList]
+	,
+	fl[[1]]
+	,
+	TestID->"ValueList-Mixed-From-To-1"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	FromValueList[fl[[2]],fl[[2]]//ToValueList]
+	,
+	fl[[2]]
+	,
+	TestID->"ValueList-Mixed-From-To-2"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	FromValueList[{fl[[2]]},{fl[[2]]}//ToValueList]
+	,
+	{fl[[2]]}
+	,
+	TestID->"ValueList-Mixed-From-To-2-List"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+
+Test[
+	FromValueList[fl,fl//ToValueList]
+	,
+	fl
+	,
+	TestID->"ValueList-Mixed-From-To"
+	,
+	EquivalenceFunction -> NEqual
+]
+

@@ -40,9 +40,9 @@ SPCauchyInverseIntegralDomainGrad;
 CauchyInverseIntegralPlusDomainGrad;
 CauchyInverseIntegralPlusDomainD;
 CauchyInverseIntegralPlusD;
-
-
 Begin["Private`"];
+
+
 
 CauchyInverseBasis[d_,1,z_]:=1/2-MapToInterval[d,z]/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
 CauchyInverseBasis[d_,k_,z_]:=IntervalToInnerCircle[MapToInterval[d,z]]^(k-1)/2;

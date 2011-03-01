@@ -11,7 +11,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"BeginPackage", "[", "$CommonPackage", "]"}], ";"}]], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -403,7 +403,7 @@ removed\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
      "\"\<Adds IdentityMatrix[2] to a list of ifuns.\>\""}], ";"}], 
    "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -591,7 +591,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -857,7 +857,7 @@ on the unit circle.\>\""}], ";"}],
    RowBox[{"End", "[", "]"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4147,7 +4147,7 @@ Cell[BoxData[{
   ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4591,10 +4591,11 @@ Cell[BoxData[{
      RowBox[{"f_IFun", "?", "ListFunQ"}], "\[LeftDoubleBracket]", "i_", 
      "\[RightDoubleBracket]"}], ":=", 
     RowBox[{
-     RowBox[{"(", 
-      RowBox[{"f", "//", "ToArrayOfFuns"}], ")"}], "\[LeftDoubleBracket]", 
-     "i", "\[RightDoubleBracket]"}]}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"f", "//", "ToArrayOfFuns"}], ")"}], "\[LeftDoubleBracket]", 
+      "i", "\[RightDoubleBracket]"}], "//", "ToArrayFun"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"MeanZero", "[", "f_IFun", "]"}], ":=", 
@@ -4921,7 +4922,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -5863,13 +5864,29 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"NEqual", "[", 
+    RowBox[{"f_IFun", ",", "g_IFun"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Norm", "[", 
+     RowBox[{"f", "-", "g"}], "]"}], "<", "$MachineTolerance"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
     RowBox[{"NEqual", "[", 
-     RowBox[{"f_IFun", ",", "g_IFun"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"f", ":", 
+       RowBox[{"{", 
+        RowBox[{"__", "?", "FunQ"}], "}"}]}], ",", 
+      RowBox[{"g", ":", 
+       RowBox[{"{", 
+        RowBox[{"__", "?", "FunQ"}], "}"}]}]}], "]"}], ":=", 
     RowBox[{
      RowBox[{"Norm", "[", 
-      RowBox[{"f", "-", "g"}], "]"}], "<", "$MachineTolerance"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+      RowBox[{"Norm", "/@", 
+       RowBox[{"(", 
+        RowBox[{"f", "-", "g"}], ")"}]}], "]"}], "<", "$MachineTolerance"}]}],
+    ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"MeanZero", "[", "f_LFun", "]"}], ":=", 
@@ -5904,9 +5921,10 @@ Cell[BoxData[{
      RowBox[{"f_LFun", "?", "ListFunQ"}], "\[LeftDoubleBracket]", "i_", 
      "\[RightDoubleBracket]"}], ":=", 
     RowBox[{
-     RowBox[{"(", 
-      RowBox[{"f", "//", "ToArrayOfFuns"}], ")"}], "\[LeftDoubleBracket]", 
-     "i", "\[RightDoubleBracket]"}]}], ";"}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"f", "//", "ToArrayOfFuns"}], ")"}], "\[LeftDoubleBracket]", 
+      "i", "\[RightDoubleBracket]"}], "//", "ToArrayFun"}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -5956,76 +5974,77 @@ Cell[CellGroupData[{
 
 Cell["Finite points and graphs", "Subsection"],
 
-Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", 
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"FinitePoints", "[", 
+    RowBox[{"if", ":", 
+     RowBox[{"LFun", "[", 
+      RowBox[{"_", ",", "RealLine"}], "]"}]}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"if", "//", "Points"}], "//", "Rest"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FinitePoints", "[", "if_LFun", "]"}], ":=", 
+   RowBox[{"if", "//", "Points"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FiniteValues", "[", "if_LFun", "]"}], ":=", 
+   RowBox[{"Last", "/@", 
+    RowBox[{"Select", "[", 
+     RowBox[{
+      RowBox[{"Thread", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Points", "[", "if", "]"}], ",", 
+         RowBox[{"Values", "[", "if", "]"}]}], "}"}], "]"}], ",", 
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"InfinityQ", "[", 
+         RowBox[{"First", "[", "#", "]"}], "]"}]}], "&"}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FiniteLength", "[", "f_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"f", "//", "FinitePoints"}], "//", "Length"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FiniteRealPoints", "[", "if_LFun", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"if", "//", "FinitePoints"}], "//", "Re"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{
-     RowBox[{"FinitePoints", "[", "if_LFun", "]"}], ":=", 
-     RowBox[{"Select", "[", 
-      RowBox[{
-       RowBox[{"if", "//", "Points"}], ",", 
-       RowBox[{
-        RowBox[{"!", 
-         RowBox[{"InfinityQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ";"}], 
-   "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"FiniteValues", "[", "if_LFun", "]"}], ":=", 
-     RowBox[{"Last", "/@", 
-      RowBox[{"Select", "[", 
-       RowBox[{
-        RowBox[{"Thread", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"Points", "[", "if", "]"}], ",", 
-           RowBox[{"Values", "[", "if", "]"}]}], "}"}], "]"}], ",", 
-        RowBox[{
-         RowBox[{"!", 
-          RowBox[{"InfinityQ", "[", 
-           RowBox[{"First", "[", "#", "]"}], "]"}]}], "&"}]}], "]"}]}]}], 
-    ";"}], "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"FiniteLength", "[", "f_", "]"}], ":=", 
+     RowBox[{"FiniteRealPoints", "[", "if_IFun", "]"}], "/;", 
      RowBox[{
-      RowBox[{"f", "//", "FinitePoints"}], "//", "Length"}]}], ";"}], 
-   "\[IndentingNewLine]", 
-   RowBox[{
+      RowBox[{"Re", "[", 
+       RowBox[{"LeftEndpoint", "[", "if", "]"}], "]"}], "~", "NEqual", "~", 
+      RowBox[{"Re", "[", 
+       RowBox[{"RightEndpoint", "[", "if", "]"}], "]"}]}]}], ":=", 
     RowBox[{
-     RowBox[{"FiniteRealPoints", "[", "if_LFun", "]"}], ":=", 
-     RowBox[{
-      RowBox[{"if", "//", "FinitePoints"}], "//", "Re"}]}], ";"}], 
-   "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{
-     RowBox[{
-      RowBox[{"FiniteRealPoints", "[", "if_IFun", "]"}], "/;", 
-      RowBox[{
-       RowBox[{"Re", "[", 
-        RowBox[{"LeftEndpoint", "[", "if", "]"}], "]"}], "~", "NEqual", "~", 
-       RowBox[{"Re", "[", 
-        RowBox[{"RightEndpoint", "[", "if", "]"}], "]"}]}]}], ":=", 
-     RowBox[{
-      RowBox[{"if", "//", "FinitePoints"}], "//", "Im"}]}], ";"}], 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"$FunFormat", "=", 
-     RowBox[{"{", 
-      RowBox[{"ImageSize", "\[Rule]", "Small"}], "}"}]}], ";"}], 
-   "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"Format", "[", 
-      RowBox[{"f", ":", 
-       RowBox[{"LFun", "[", 
-        RowBox[{"l_List", ",", "_"}], "]"}]}], "]"}], ":=", 
-     RowBox[{"ReImLinePlot", "[", 
-      RowBox[{"f", ",", 
-       RowBox[{"Sequence", "@@", "$FunFormat"}]}], "]"}]}], 
-    ";"}]}]}]], "Input",
+     RowBox[{"if", "//", "FinitePoints"}], "//", "Im"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$FunFormat", "=", 
+   RowBox[{"{", 
+    RowBox[{"ImageSize", "\[Rule]", "Small"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Format", "[", 
+    RowBox[{"f", ":", 
+     RowBox[{"LFun", "[", 
+      RowBox[{"l_List", ",", "_"}], "]"}]}], "]"}], ":=", 
+   RowBox[{"ReImLinePlot", "[", 
+    RowBox[{"f", ",", 
+     RowBox[{"Sequence", "@@", "$FunFormat"}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -7042,7 +7061,7 @@ Cell[BoxData[{
       "ls_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{
-      RowBox[{"ZeroAtInfinityIFun", "[", 
+      RowBox[{"ZeroAtInfinityFun", "[", 
        RowBox[{
         RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
         ",", 
@@ -7081,7 +7100,7 @@ Cell[BoxData[{
       "ls_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{
-      RowBox[{"ZeroAtInfinityIFun", "[", 
+      RowBox[{"ZeroAtInfinityFun", "[", 
        RowBox[{
         RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
         ",", 
@@ -7123,7 +7142,7 @@ Cell[BoxData[{
       "ls_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{
-      RowBox[{"ZeroAtInfinityIFun", "[", 
+      RowBox[{"ZeroAtInfinityFun", "[", 
        RowBox[{
         RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
         ",", 

@@ -564,3 +564,56 @@ Test[
 
 (* ::Section:: *)
 (* Cauchy Matrix *)
+
+
+(* ::Section:: *)
+(* RHSolve Sine Kernel *)
+
+
+G[x_] := IFun[( {
+      {0, Exp[I 2 # x]},
+      {-Exp[-I 2 # x], 2}
+     } ) &, UnitInterval, 20];
+     
+
+Test[
+	RHSolve[G[0.]]
+	,
+	RHSolve[{G[0.]}][[1]]
+	,
+	TestID->"RHTest-RHSolve-SineKernel-ListAndNoList"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	RHSolver[G[0.]][G[0.]]
+	,
+	RHSolve[G[0.]]
+	,
+	TestID->"RHTest-RHSolve-SineKernel-RHSolver"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	RHSolverTop[G[0.]][G[0.]]
+	,
+	RHSolve[G[0.]][[1]]
+	,
+	TestID->"RHTest-RHSolve-SineKernel-RHSolverTop"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+
+Test[
+	RHSolveTop[G[0.]]
+	,
+	RHSolve[G[0.]][[1]]
+	,
+	TestID->"RHTest-RHSolve-SineKernel-RHSolveTop"
+	,
+	EquivalenceFunction -> NEqual
+]
+

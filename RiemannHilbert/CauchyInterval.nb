@@ -53,7 +53,7 @@ to zero)\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]",
 the same domain and number of points as flist, then C[glist] = \
 Cauchy[s,glist]\>\""}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2537,7 +2537,7 @@ Cell[BoxData[{
       "]"}], ",", 
      RowBox[{"Domain", "[", "g", "]"}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2550,16 +2550,16 @@ Cell[BoxData[
     RowBox[{"FPCauchyBasis", "[", 
      RowBox[{
       RowBox[{"_", "?", "SignQ"}], ",", 
-      RowBox[{"f_", "?", "DomainQ"}], ",", "k_Integer", ",", "g_IFun"}], 
-     "]"}], ":=", 
-    RowBox[{"ZeroAtInfinityIFun", "[", 
+      RowBox[{"f_", "?", "DomainQ"}], ",", "k_Integer", ",", 
+      RowBox[{"g_", "?", "FunQ"}]}], "]"}], ":=", 
+    RowBox[{"ZeroAtInfinityFun", "[", 
      RowBox[{
       RowBox[{"CauchyBasis", "[", 
        RowBox[{"f", ",", "k", ",", 
         RowBox[{"g", "//", "FinitePoints"}]}], "]"}], ",", 
       RowBox[{"Domain", "[", "g", "]"}]}], "]"}]}], ";"}]}]], "Input",
  InitializationCell->True]
-}, Closed]]
+}, Open  ]]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -4891,10 +4891,11 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"_", "?", "SignQ"}], ",", 
      RowBox[{"f_", "?", "IntervalDomainQ"}], ",", 
-     RowBox[{"1", ";;", "k_Integer"}], ",", "g_IFun"}], "]"}], ":=", 
+     RowBox[{"1", ";;", "k_Integer"}], ",", 
+     RowBox[{"g_", "?", "FunQ"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{
-     RowBox[{"IFun", "[", 
+     RowBox[{"Fun", "[", 
       RowBox[{"#", ",", 
        RowBox[{"Domain", "[", "g", "]"}]}], "]"}], "&"}], "/@", 
     RowBox[{"CauchyBasis", "[", 
@@ -4903,7 +4904,7 @@ Cell[BoxData[{
       RowBox[{"g", "//", "Points"}]}], "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5417,7 +5418,7 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5571,6 +5572,20 @@ Cell[BoxData[{
       RowBox[{"s_", "?", "SignQ"}], ",", "f_IFun", ",", "x_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{"CauchyBasis", "[", 
+      RowBox[{"s", ",", "f", ",", 
+       RowBox[{";;", 
+        RowBox[{"Length", "[", "f", "]"}]}], ",", "x"}], "]"}], ".", 
+     RowBox[{"(", 
+      RowBox[{"f", "//", "DCT"}], ")"}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyS", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", "f_IFun", ",", "x_"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"CauchyBasisS", "[", 
       RowBox[{"s", ",", "f", ",", 
        RowBox[{";;", 
         RowBox[{"Length", "[", "f", "]"}]}], ",", "x"}], "]"}], ".", 
@@ -5861,7 +5876,7 @@ Cell[BoxData[{
           RowBox[{"ToValueList", "[", "#", "]"}]}]}], "]"}], "&"}]}]}], 
     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6036,187 +6051,30 @@ Cell[BoxData[{
        "]"}], "/@", "f"}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["CauchyMatrix", "Section"],
 
-Cell[BoxData[{
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", 
-      RowBox[{"f_IFun", "?", "ScalarFunQ"}], ",", "g_IFun"}], "]"}], ":=", 
-    RowBox[{
-     RowBox[{"Transpose", "[", 
-      RowBox[{"(", 
-       RowBox[{"FiniteValues", "/@", 
-        RowBox[{"FPCauchyBasis", "[", 
-         RowBox[{"s", ",", "f", ",", 
-          RowBox[{";;", 
-           RowBox[{"Length", "[", "f", "]"}]}], ",", "g"}], "]"}]}], ")"}], 
-      "]"}], ".", 
-     RowBox[{"FiniteTransformMatrix", "[", "f", "]"}]}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"ScalarToVectorMatrix", ":=", 
-   RowBox[{
-    RowBox[{"BlockDiagonalMatrix", "[", 
-     RowBox[{"{", 
-      RowBox[{"#", ",", "#"}], "}"}], "]"}], "&"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"ScalarToMatrixMatrix", ":=", 
-    RowBox[{
-     RowBox[{"BlockDiagonalMatrix", "[", 
-      RowBox[{"{", 
-       RowBox[{"#", ",", "#", ",", "#", ",", "#"}], "}"}], "]"}], "&"}]}], 
-   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+Cell[BoxData[
  RowBox[{
   RowBox[{
    RowBox[{"CauchyMatrix", "[", 
     RowBox[{
      RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"f_IFun", "?", "VectorFunQ"}], ",", "g_IFun"}], "]"}], ":=", 
+     RowBox[{"f_IFun", "?", "ScalarFunQ"}], ",", 
+     RowBox[{"g_", "?", "FunQ"}]}], "]"}], ":=", 
    RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{"s", ",", 
-      RowBox[{"f", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
-      ",", "g"}], "]"}], "//", "ScalarToVectorMatrix"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", 
-      RowBox[{"f_IFun", "?", "MatrixFunQ"}], ",", "g_IFun"}], "]"}], ":=", 
-    RowBox[{
-     RowBox[{"CauchyMatrix", "[", 
-      RowBox[{"s", ",", 
-       RowBox[{"f", "\[LeftDoubleBracket]", 
-        RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], ",", "g"}], "]"}],
-      "//", "ScalarToMatrixMatrix"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"l", ":", 
-      RowBox[{"{", 
-       RowBox[{"__", "?", "MatrixFunQ"}], "}"}]}], ",", "g_IFun"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{"s", ",", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"#", "\[LeftDoubleBracket]", 
-         RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], "&"}], "/@", 
-       "l"}], ",", "g"}], "]"}], "//", "ScalarToMatrixMatrix"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", 
-      RowBox[{"l", ":", 
-       RowBox[{"{", 
-        RowBox[{"__", "?", "MatrixFunQ"}], "}"}]}], ",", "l2_List"}], "]"}], ":=", 
-    RowBox[{
-     RowBox[{"CauchyMatrix", "[", 
-      RowBox[{"s", ",", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"#", "\[LeftDoubleBracket]", 
-          RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], "&"}], "/@", 
-        "l"}], ",", "l2"}], "]"}], "//", "ScalarToMatrixMatrix"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"l", ":", 
-      RowBox[{"{", 
-       RowBox[{"__", "?", "VectorFunQ"}], "}"}]}], ",", "g_IFun"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{"s", ",", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
-        "&"}], "/@", "l"}], ",", "g"}], "]"}], "//", 
-    "ScalarToVectorMatrix"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"l", ":", 
-      RowBox[{"{", 
-       RowBox[{"__", "?", "VectorFunQ"}], "}"}]}], ",", "l2_List"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{"s", ",", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
-        "&"}], "/@", "l"}], ",", "l2"}], "]"}], "//", 
-    "ScalarToVectorMatrix"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"l", ":", 
-      RowBox[{"{", "__IFun", "}"}]}], ",", "g_IFun"}], "]"}], ":=", 
-   RowBox[{"RightJoin", "@@", 
-    RowBox[{"(", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"CauchyMatrix", "[", 
-        RowBox[{"s", ",", "#", ",", "g"}], "]"}], "&"}], "/@", "l"}], 
-     ")"}]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"CauchyMatrix", "[", 
-     RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", 
-      RowBox[{"l", ":", 
-       RowBox[{"{", "__IFun", "}"}]}], ",", 
-      RowBox[{"l2", ":", 
-       RowBox[{"{", "__IFun", "}"}]}]}], "]"}], ":=", 
-    RowBox[{"Join", "@@", 
+    RowBox[{"Transpose", "[", 
      RowBox[{"(", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"CauchyMatrix", "[", 
-         RowBox[{"s", ",", "l", ",", "#"}], "]"}], "&"}], "/@", "l2"}], 
-      ")"}]}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", "f_IFun"}], "]"}], ":=", 
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{"s", ",", "f", ",", "f"}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"f", ":", 
-      RowBox[{"{", "__IFun", "}"}]}]}], "]"}], ":=", 
-   RowBox[{"CauchyMatrix", "[", 
-    RowBox[{"s", ",", "f", ",", "f"}], "]"}]}], ";"}]}], "Input",
+      RowBox[{"FiniteValues", "/@", 
+       RowBox[{"FPCauchyBasis", "[", 
+        RowBox[{"s", ",", "f", ",", 
+         RowBox[{";;", 
+          RowBox[{"Length", "[", "f", "]"}]}], ",", "g"}], "]"}]}], ")"}], 
+     "]"}], ".", 
+    RowBox[{"FiniteTransformMatrix", "[", "f", "]"}]}]}], ";"}]], "Input",
  InitializationCell->True]
 }, Open  ]],
 

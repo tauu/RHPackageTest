@@ -834,7 +834,7 @@ Last[f_IFun]^:=f//Values//Last;
 Dimensions[f_IFun]^:=f//First//Dimensions;
 ReverseOrientation[f_IFun]:=IFun[Reverse[Values[f]],ReverseOrientation[Domain[f]]];
 IFun/:f_IFun?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
-IFun/:f_IFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]];
+IFun/:f_IFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 
 
 MeanZero[f_IFun]:=f-First[DCT[f]];
@@ -1009,12 +1009,13 @@ Mean[f_LFun]^:=FFT[f][[0]];
 
 NEqual[f_LFun,g_LFun]:=Norm[f-g]<$MachineTolerance;
 NEqual[f_IFun,g_IFun]:=Norm[f-g]<$MachineTolerance;
+NEqual[f:{__?FunQ},g:{__?FunQ}]:=Norm[Norm/@(f-g)]<$MachineTolerance;
 
 MeanZero[f_LFun]:=f-Mean[f];
 MeanZero[sl_ShiftList]:=sl-sl[[0]] BasisShiftList[sl,0];
 
 LFun/:f_LFun?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
-LFun/:f_LFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]];
+LFun/:f_LFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 
 ComplexMapToCircle[f_?FunQ,z_]:=ComplexMapToCircle[f//Domain,z];
 
@@ -1024,8 +1025,8 @@ MapFromCircle[f_LFun,z_]:=MapFromCircle[f//Domain,z];
 MapFromCircleD[f_LFun,z_]:=MapFromCircleD[f//Domain,z];
 
 
-
-FinitePoints[if_LFun]:=Select[if//Points,!InfinityQ[#]&];
+FinitePoints[if:LFun[_,RealLine]]:=if//Points//Rest;
+FinitePoints[if_LFun]:=if//Points;
 FiniteValues[if_LFun]:=Last/@Select[Thread[{Points[if],Values[if]}],!InfinityQ[First[#]]&];
 FiniteLength[f_]:=f//FinitePoints//Length;
 FiniteRealPoints[if_LFun]:=if//FinitePoints//Re;
@@ -1176,15 +1177,15 @@ FromValueList[f_LFun?VectorFunQ,ls_]:=ZeroAtInfinityLFun[#,Domain[f]]&/@Partitio
 FromValueList[f_IFun?MatrixFunQ,ls_]:=MatrixMap[ZeroAtInfinityIFun[#,Domain[f]]&,PartitionList[Partition[ls,FiniteLength[f]],f//Dimensions]]//ToArrayFun;
 FromValueList[f_LFun?MatrixFunQ,ls_]:=MatrixMap[ZeroAtInfinityLFun[#,Domain[f]]&,PartitionList[Partition[ls,FiniteLength[f]],f//Dimensions]]//ToArrayFun;
 
-FromValueList[GI_List?(VectorFunQ[First[#]]&),ls_]:=ZeroAtInfinityIFun[#[[2]],Domain[#[[1]]]]&/@
+FromValueList[GI_List?(VectorFunQ[First[#]]&),ls_]:=ZeroAtInfinityFun[#[[2]],Domain[#[[1]]]]&/@
 Thread[
 {GI,ToListOfArrays/@
 Thread[PartitionList[PartitionList[ls,Flatten[ArrayMap[FiniteLength,ToArrayOfListOfFuns[GI]]]],Length/@ToArrayOfLists[ToArrayOfFuns/@GI]]]}];
 
-FromValueList[GI_List?(MatrixFunQ[First[#]]&),ls_]:=ZeroAtInfinityIFun[#[[2]],Domain[#[[1]]]]&/@Thread[{GI,ToListOfMatrices/@(PartitionList[Partition[PartitionList[ls,Flatten[ArrayMap[FiniteLength,ToArrayOfListOfFuns[GI]]]],Length[GI]],Dimensions[First[GI]]]//ToListOfMatrices)}];
+FromValueList[GI_List?(MatrixFunQ[First[#]]&),ls_]:=ZeroAtInfinityFun[#[[2]],Domain[#[[1]]]]&/@Thread[{GI,ToListOfMatrices/@(PartitionList[Partition[PartitionList[ls,Flatten[ArrayMap[FiniteLength,ToArrayOfListOfFuns[GI]]]],Length[GI]],Dimensions[First[GI]]]//ToListOfMatrices)}];
 
 
-FromValueList[GI_List?(ScalarFunQ[First[#]]&),ls_]:=ZeroAtInfinityIFun[#[[2]],Domain[#[[1]]]]&/@Thread[{GI,PartitionList[ls,FiniteLength/@GI]}];
+FromValueList[GI_List?(ScalarFunQ[First[#]]&),ls_]:=ZeroAtInfinityFun[#[[2]],Domain[#[[1]]]]&/@Thread[{GI,PartitionList[ls,FiniteLength/@GI]}];
 
 MatrixMultVectorFun[G_List]:=Join@@(RightJoin@@#&/@MatrixMap[SparseDiagonalMatrix[ToValueList[#]]&,G//ToArrayOfListOfFuns]);
 
