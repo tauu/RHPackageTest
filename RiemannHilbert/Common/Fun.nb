@@ -110,13 +110,6 @@ Cell[BoxData[
    RowBox[{"Orientation", ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"DomainQ", "[", "d_", "]"}], ":=", 
-     RowBox[{
-      RowBox[{"IntervalDomainQ", "[", "d", "]"}], "~", "Or", "~", 
-      RowBox[{"CircleDomainQ", "[", "d", "]"}]}]}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
@@ -126,12 +119,16 @@ Cell[BoxData[
      RowBox[{"DomainMemberQ", "[", 
       RowBox[{
        RowBox[{"f", "//", "Domain"}], ",", "x"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"DomainQ", "[", "_", "]"}], ":=", "False"}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}]}]}]], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -171,7 +168,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -277,7 +274,7 @@ matrix\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
        RowBox[{"f", "//", "Values"}], "//", "First"}], "//", "ArrayQ"}]}], 
     ";"}]}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -372,7 +369,7 @@ Cell[BoxData[
      RowBox[{"AddIdentityMatrix", "[", "l_List", "]"}], ":=", 
      RowBox[{"AddIdentityMatrix", "/@", "l"}]}], ";"}]}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -394,7 +391,7 @@ Cell[BoxData[
   ";"}]], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -979,7 +976,7 @@ Cell[BoxData[{
    RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1128,15 +1125,7 @@ Cell[BoxData[{
           RowBox[{
            RowBox[{"Underflow", "[", "]"}], "\[Rule]", "0"}]}]}], "]"}], 
        "&"}], ",", "d", ",", "opts"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"ZeroAtInfinityFun", "[", 
-     RowBox[{"f_List", ",", 
-      RowBox[{"d_", "?", "CircleDomainQ"}]}], "]"}], ":=", 
-    RowBox[{"ZeroAtInfinityLFun", "[", 
-     RowBox[{"f", ",", "d"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -1164,7 +1153,7 @@ Cell[BoxData[{
           RowBox[{"Underflow", "[", "]"}], "\[Rule]", "0"}]}]}], "]"}], "&"}],
       ",", "pars"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 

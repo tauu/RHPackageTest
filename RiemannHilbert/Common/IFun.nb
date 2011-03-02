@@ -1087,6 +1087,12 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{
+    RowBox[{"DomainQ", "[", 
+     RowBox[{"d_", "?", "IntervalDomainQ"}], "]"}], ":=", "True"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"BoundedDomainQ", "[", "_", "]"}], ":=", "False"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
@@ -4675,8 +4681,7 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"Curve", "[", 
       RowBox[{"cr_IFun", ",", 
-       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=", \
-
+       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=", 
    RowBox[{
     RowBox[{"MapFromIntervalD", "[", 
      RowBox[{

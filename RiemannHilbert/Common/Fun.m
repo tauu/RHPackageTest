@@ -59,10 +59,8 @@ Orientation;
 
 Begin["Private`"];
 
-
-DomainQ[d_]:=IntervalDomainQ[d]~Or~CircleDomainQ[d];
-
 DomainMemberQ[f_?FunQ,x_]:=DomainMemberQ[f//Domain,x];
+DomainQ[_]:=False;
 
 End[];
 
@@ -284,7 +282,7 @@ Fun[f_,l_List,opts___]:=Flatten[Fun[f,#,opts]&/@l];
 ZeroAtInfinityFun[f_?NotListOrPatternQ,d_,opts___]:=Fun[If[InfinityQ[#],0 f[0.],f[#]/.Underflow[]->0]&,d,opts];
 
 
-ZeroAtInfinityFun[f_List,d_?CircleDomainQ]:=ZeroAtInfinityLFun[f,d];
+
 
 IdentityAtInfinityFun[G_?NotListOrPatternQ,pars___]:=Fun[If[InfinityQ[#],If[G[0.]//MatrixQ,IdentityMatrix[Length[G[0.]]],1],G[#]/.Underflow[]->0]&,pars];
 

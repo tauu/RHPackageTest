@@ -110,7 +110,7 @@ circle.\>\""}], ";"}], "\[IndentingNewLine]",
    "\"\<LogPlots the norm of the Fourier coefficients of an LFun\>\""}], 
   ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -473,9 +473,15 @@ to the domain d.\>\""}], ";"}], "\[IndentingNewLine]",
          RowBox[{"MapToCircle", "[", 
           RowBox[{"d", ",", "x"}], "]"}], "]"}], "-", "1"}], "]"}], 
       "\[LessEqual]", 
-      RowBox[{"10", " ", "$MachineTolerance"}]}]}], ";"}]}]}]], "Input",
+      RowBox[{"10", " ", "$MachineTolerance"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"DomainQ", "[", 
+      RowBox[{"d_", "?", "CircleDomainQ"}], "]"}], ":=", "True"}], 
+    ";"}]}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1142,7 +1148,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2480,7 +2486,7 @@ Cell[BoxData[
     RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]", 
    "\[IndentingNewLine]", "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2767,10 +2773,17 @@ Cell[BoxData[{
    RowBox[{"ZeroAtInfinityLFun", "[", 
     RowBox[{"f_List", ",", "d_"}], "]"}], ":=", 
    RowBox[{"LFun", "[", 
+    RowBox[{"f", ",", "d"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ZeroAtInfinityFun", "[", 
+    RowBox[{"f_List", ",", 
+     RowBox[{"d_", "?", "CircleDomainQ"}]}], "]"}], ":=", 
+   RowBox[{"ZeroAtInfinityLFun", "[", 
     RowBox[{"f", ",", "d"}], "]"}]}], ";"}], "\[IndentingNewLine]"}], "Input",
  
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 

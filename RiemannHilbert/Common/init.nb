@@ -56,6 +56,8 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"<<", "RiemannHilbert`Common`LFun`"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
+  RowBox[{"<<", "RiemannHilbert`Common`PFun`"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{
    RowBox[{"<<", "RiemannHilbert`Common`Fun`"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",

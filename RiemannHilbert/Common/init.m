@@ -37,6 +37,7 @@ RiemannHilbert`Common`$CommonPackage="RiemannHilbert`Common`";
 
 <<RiemannHilbert`Common`IFun`;
 <<RiemannHilbert`Common`LFun`;
+<<RiemannHilbert`Common`PFun`;
 <<RiemannHilbert`Common`Fun`;
 
 

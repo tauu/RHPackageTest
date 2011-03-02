@@ -138,6 +138,7 @@ IntervalToNegativePeriodicInterval[x_]:=-ArcCos[x];
 
 CircleDomainQ[_]:=False;
 DomainMemberQ[d_?CircleDomainQ,x_]:=Abs[Abs[MapToCircle[d,x]]-1]<=10 $MachineTolerance;
+DomainQ[d_?CircleDomainQ]:=True;
 
 
 UnitCircle=Circle[0,1];
@@ -478,6 +479,7 @@ Fun[f_,d_?CircleDomainQ,opts___]:=LFun[f,d,opts];
 ZeroAtInfinityLFun[f_?NotListOrPatternQ,d_,opts___]:=LFun[If[InfinityQ[#],0 f[0.],f[#]/.Underflow[]->0]&,d,opts];
 ZeroAtInfinityLFun[f_List,RealLine]:=LFun[Join[{0},f],RealLine];
 ZeroAtInfinityLFun[f_List,d_]:=LFun[f,d];
+ZeroAtInfinityFun[f_List,d_?CircleDomainQ]:=ZeroAtInfinityLFun[f,d];
 
 
 

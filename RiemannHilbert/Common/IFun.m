@@ -317,6 +317,8 @@ RightContourArg[Line[{a_,b_},___]]:=(a-b)//Arg;
 IntervalDomainQ[_]:=False;
 IntervalDomainQ[_Line]:=True;
 
+DomainQ[d_?IntervalDomainQ]:=True;
+
 BoundedDomainQ[_]:=False;
 BoundedDomainQ[_?(!LeftEndpointInfinityQ[#]&&!RightEndpointInfinityQ[#]&)]:=True;
 
