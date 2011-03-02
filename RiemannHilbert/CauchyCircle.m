@@ -58,7 +58,7 @@ Cauchy[s_?SignQ,f:LFun[_,_Curve],z_?ScalarQ]/;DomainMemberQ[f,z]:=Total[Cauchy[s
 
 Cauchy[lf_LFun,z_?ScalarQ]:=Cauchy[lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
 Cauchy[s_?SignQ,lf_LFun,z_?ScalarQ]:=Cauchy[s,lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
-RiemannHilbert`Hilbert[lf_LFun,z_?ScalarQ]:=I (Cauchy[+1,lf,z]+Cauchy[-1,lf,z]);
+Hilbert[lf_LFun,z_?ScalarQ]:=I (Cauchy[+1,lf,z]+Cauchy[-1,lf,z]);
 
 
 

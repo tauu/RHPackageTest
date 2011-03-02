@@ -24,7 +24,8 @@ Cell[BoxData[{
     RowBox[{"PFun", "::", "usage"}], "=", 
     "\"\<PFun[c0,p0,n] defines a function taking the value c0 and the point \
 p0.\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{"PointDomainQ", ";"}]}], "Input",
+ RowBox[{"PointDomainQ", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ToUnitPoint", ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -98,8 +99,24 @@ Cell[CellGroupData[{
 Cell["Circle", "Subsection"],
 
 Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+ RowBox[{"\[IndentingNewLine]", 
   RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"MapToPoint", "[", 
+      RowBox[{"f_PFun", ",", "z_"}], "]"}], ":=", 
+     RowBox[{"MapToPoint", "[", 
+      RowBox[{
+       RowBox[{"f", "//", "Domain"}], ",", "z"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MapFromPoint", "[", 
+      RowBox[{"f_PFun", ",", "z_"}], "]"}], ":=", 
+     RowBox[{"MapFromPoint", "[", 
+      RowBox[{
+       RowBox[{"f", "//", "Domain"}], ",", "z"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"MapToPoint", "[", 
@@ -203,19 +220,7 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"c0", ":", 
       RowBox[{"{", 
-       RowBox[{"__", "?", "ScalarQ"}], "}"}]}], ",", "d_"}], "]"}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{"{", "c0", "}"}], ",", "d"}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{"c0", ":", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", "__", "}"}], ".."}], "}"}]}], ",", "d_"}], "]"}], ":=", 
+       RowBox[{"_", ",", "_", ",", "___"}], "}"}]}], ",", "d_"}], "]"}], ":=", 
    RowBox[{"PFun", "[", 
     RowBox[{
      RowBox[{"{", "c0", "}"}], ",", "d"}], "]"}]}], 
@@ -279,6 +284,10 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"FiniteValues", "[", "pf_PFun", "]"}], ":=", 
+   RowBox[{"Values", "[", "pf", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
     RowBox[{"Domain", "[", 
      RowBox[{"PFun", "[", 
@@ -292,9 +301,10 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"Points", "[", "if_PFun", "]"}], ":=", 
-    RowBox[{
-     RowBox[{"Domain", "[", "if", "]"}], "\[LeftDoubleBracket]", "1", 
-     "\[RightDoubleBracket]"}]}], ";"}], 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Domain", "[", "if", "]"}], "\[LeftDoubleBracket]", "1", 
+      "\[RightDoubleBracket]"}], "}"}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"PFun", "/:", 

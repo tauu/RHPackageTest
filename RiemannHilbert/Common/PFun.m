@@ -25,6 +25,7 @@ BeginPackage[$CommonPackage];
 PFun::usage="PFun[c0,p0,n] defines a function taking the value c0 and the point p0.";
 
 PointDomainQ;
+ToUnitPoint;
 
 
 UnitPoint;
@@ -46,6 +47,8 @@ UnitPointFunQ[_]:=False;
 
 
 
+MapToPoint[f_PFun,z_]:=MapToPoint[f//Domain,z];
+MapFromPoint[f_PFun,z_]:=MapFromPoint[f//Domain,z];
 
 MapToPoint[Point[z0_],z_]:=z-z0;
 MapFromPoint[Point[z0_],z_]:=z+z0;
@@ -73,18 +76,18 @@ Point[{Re[z0],Im[z0]}]},opts,Axes->True];
 
 PFun[c0_,d_][z_]:=c0[[1]];
 PFun[c0_?ScalarQ,d_]:=PFun[{c0},d];
-PFun[c0:{__?ScalarQ},d_]:=PFun[{c0},d];
-PFun[c0:{{__}..},d_]:=PFun[{c0},d];
+PFun[c0:{_,_,___},d_]:=PFun[{c0},d];
 PFun[f_?(NotListOrPatternQ[#]&&!ScalarQ[#] &&!ScalarQ[First[Flatten[#]]]&)&,d_,1]:=PFun[{f[d[[1]]]},d];
 PFun[f_?(NotListOrPatternQ[#]&&!ScalarQ[#]&&!ScalarQ[First[Flatten[#]]]&)&,d_,opts:OptionsPattern[]]:=PFun[f,d,1];
 
 FunQ[_PFun]:=True;
 
 Values[PFun[c0_,_]]:=c0;
+FiniteValues[pf_PFun]:=Values[pf];
 Domain[PFun[_,d_]]:=d;
 
 Length[if_PFun]^:=1;
-Points[if_PFun]:=Domain[if][[1]];
+Points[if_PFun]:={Domain[if][[1]]};
 
 PFun/:Map[f_,g_PFun]:=PFun[f/@Values[g],Domain[g]];
 FastPlus[f__PFun]:=PFun[Plus@@(Values/@{f}),Domain[{f}[[1]]]];
