@@ -48,12 +48,13 @@ Cell[BoxData[{
   RowBox[{"<<", "RiemannHilbert`Common`NumericalFunctions`"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"<<", "RiemannHilbert`Common`MatrixFunctions`"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
   RowBox[{
-   RowBox[{"<<", "RiemannHilbert`Common`IFun`"}], ";"}], 
+   RowBox[{"<<", "RiemannHilbert`Common`MatrixFunctions`"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"<<", "RiemannHilbert`Common`IFun`"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"<<", "RiemannHilbert`Common`LFun`"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"<<", "RiemannHilbert`Common`Fun`"}], ";"}], 

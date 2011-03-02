@@ -81,15 +81,11 @@ the union of the domains of a list of IFuns\>\""}], ";"}],
    "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Arc", "::", "usage"}], "=", "\[IndentingNewLine]", 
-   "\"\<Arc[z0,r,{t0,t1}] represents the arc centred at z0 of radius r from \
-argument t0 to t1.\>\""}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
    RowBox[{
-    RowBox[{"Ellipse", "::", "usage"}], "=", "\[IndentingNewLine]", 
-    "\"\<Ellipse[{a_,b_},r] represents the Bernstein ellipse arond the \
-interval (a,b).\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+    RowBox[{"Arc", "::", "usage"}], "=", "\[IndentingNewLine]", 
+    "\"\<Arc[z0,r,{t0,t1}] represents the arc centred at z0 of radius r from \
+argument t0 to t1.\>\""}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -150,14 +146,7 @@ an IFun, then it is equivalent to RightEndpoint[Domain[d]].\>\""}], " ",
    RowBox[{
     RowBox[{"Stretch", "::", "usage"}], "=", "\[IndentingNewLine]", 
     "\"\<Stretch is a possible parameter for Line used in determining the \
-conformal map.\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
-
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"Centre", "::", "usage"}], "=", "\[IndentingNewLine]", 
-    "\"\<Centre is a possible parameter for Line used in determining the \
-conformal map.\>\""}], ";"}], 
+conformal map.\>\""}], ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -820,7 +809,7 @@ interval.\>\""}], ";"}], "\[IndentingNewLine]",
     RowBox[{"ComplexMapFromIntervalD", ",", "Listable"}], "]"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2313,7 +2302,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2613,7 +2602,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3302,7 +3291,7 @@ Cell[BoxData[
      RowBox[{"f", "-", 
       RowBox[{"First", "[", "f", "]"}]}]}], ";"}]}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3402,7 +3391,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3497,7 +3486,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -3743,7 +3732,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4122,8 +4111,8 @@ Cell[BoxData[
      RowBox[{"ReduceDimensionMatrix", "[", 
       RowBox[{
        RowBox[{"f", "//", "Domain"}], ",", 
-       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\n", 
-   "\[IndentingNewLine]", 
+       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\[IndentingNewLine]",
+    "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"ReduceDimensionIntegrateMatrix", "[", 
@@ -4686,7 +4675,8 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"Curve", "[", 
       RowBox[{"cr_IFun", ",", 
-       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=", 
+       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=", \
+
    RowBox[{
     RowBox[{"MapFromIntervalD", "[", 
      RowBox[{
@@ -4818,7 +4808,7 @@ Cell[BoxData[{
           RowBox[{"Im", "[", "#", "]"}]}], "}"}], "&"}], "/@", "cf"}], "//", 
       "Values"}], ",", "opts"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5108,7 +5098,7 @@ Cell[BoxData[{
            RowBox[{"I", " ", "t2"}], "]"}]}]}], "}"}], "//", "Flatten"}], "//",
        "Abs"}], "//", "Max"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5534,24 +5524,6 @@ Cell[BoxData[{
 
 Cell[CellGroupData[{
 
-Cell["Special Funs", "Section"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"OneFun", "[", 
-    RowBox[{"lf_", "?", "FunQ"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"Head", "[", "lf", "]"}], "[", 
-    RowBox[{
-     RowBox[{"1", "&"}], ",", 
-     RowBox[{"lf", "//", "Domain"}], ",", 
-     RowBox[{"lf", "//", "Length"}]}], "]"}]}], ";"}]], "Input",
- InitializationCell->True]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
 Cell["Finish", "Section"],
 
 Cell[BoxData[{
@@ -5564,7 +5536,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{814, 809},
-WindowMargins->{{Automatic, -984}, {-15, Automatic}},
+WindowMargins->{{Automatic, 129}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

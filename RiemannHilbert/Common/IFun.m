@@ -50,8 +50,7 @@ Options[DomainPlot]=Options[Graphics];
 
 Arc::usage=
 "Arc[z0,r,{t0,t1}] represents the arc centred at z0 of radius r from argument t0 to t1.";
-Ellipse::usage=
-"Ellipse[{a_,b_},r] represents the Bernstein ellipse arond the interval (a,b).";
+
 
 DomainIntegrate::usage=
 "DomainIntegrate[ifun] returns the definite integral of the function ifun over its domain.";
@@ -79,8 +78,6 @@ RightEndpoint::usage=
 Stretch::usage=
 "Stretch is a possible parameter for Line used in determining the conformal map.";
 
-Centre::usage=
-"Centre is a possible parameter for Line used in determining the conformal map.";
 
 MapToInterval::usage=
 "MapToInterval[d,x] maps the point x via the conformal map that maps the domain d to the unit interval. If d is an IFun, then it is equivalent to MapToInterval[Domain[d],x].";
@@ -919,9 +916,6 @@ FiniteLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=LegendreTransformMatr
 
 FiniteInverseLegendreTransformMatrix[if_?LeftEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[2;;,All]];
 FiniteInverseLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[;;-2,All]];
-
-
-OneFun[lf_?FunQ]:=Head[lf][1&,lf//Domain,lf//Length];
 
 
 End[];
