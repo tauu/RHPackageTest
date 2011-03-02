@@ -45,6 +45,18 @@ Test[
 	EquivalenceFunction -> NEqual
 ]
 
+
+Test[
+	ToArrayFun[hf]
+	,
+	hf
+	,
+	TestID->"Fun-ToArrayFun"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+
 (* ::Subsection:: *)
 (* values of derivatives and integrals *)
 
@@ -611,6 +623,16 @@ Test[
 	EquivalenceFunction -> NEqual
 ]
 
+Test[
+	ToArrayFun[lf]
+	,
+	lf
+	,
+	TestID->"LFun-ArrayFun"
+	,
+	EquivalenceFunction -> NEqual
+]
+
 (* ::Subsection:: *)
 (* values of derivatives and integrals *)
 
@@ -968,3 +990,18 @@ Test[
 	EquivalenceFunction -> NEqual
 ]
 
+
+(* ::Section:: *)
+(* Misc *)
+
+
+Test[
+		(ZeroAtInfinityFun[0 &, Line[{0, \[Infinity] Exp[I \[Pi]/6]}], 10] // 
+    FiniteTransformMatrix // Dimensions)
+    ,
+     {10, 9}
+     ,
+     TestID->"FiniteTransformMatrix"
+]
+    
+    

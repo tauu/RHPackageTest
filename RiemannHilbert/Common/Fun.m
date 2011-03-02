@@ -181,47 +181,6 @@ AddIdentityMatrix::usage=
 
 
 
-NotListOrPatternQ;
-NotListOrPatternOrFunQ;
-ConstantQ;
-HalfFirst;
-DoubleFirst;
-HalfFirstAndLast;
-DoubleFirstAndLast;
-ToChebyshevUSeries;
-ToChebyshevTSeries;
-
-
-Begin["Private`"];
-
-
-NotListOrPatternQ[f_]:=(!ListQ[f])&&!(Head[f]===Pattern)&&!(Head[f]===Blank);
-NotListOrPatternOrFunQ[f_]:=NotListOrPatternQ[f]&&!(Head[f]===IFun);
-ConstantQ[f_]:=f//N//NumberQ;
-
-
-
-HalfFirst[{m1_,m___}]:={m1/2,m};
-DoubleFirst[{m1_,m___}]:={2m1,m};
-HalfFirstAndLast[{m1_,m___,m2_}]:={m1/2,m,m2/2};
-DoubleFirstAndLast[{m1_,m___,m2_}]:={m1 2,m,m2 2};
-ToChebyshevUSeries[ts:{_}]:=ts;
-ToChebyshevUSeries[ts_]:=DoubleFirst[ts]/ 2-PadRight[(ts//Rest//Rest)/ 2,Length[ts]];
-ToChebyshevTSeries[us:{_}]:=us;
-ToChebyshevTSeries[us:{_,_}]:={1,2}.us;
-ToChebyshevTSeries[us_List]:=Module[{ds,k},
-ds=ZeroVector[Length[us]];
-ds[[-1]]=2 us[[-1]];
-ds[[-2]]=2 us[[-2]];
-Do[
-ds[[k]]=2 us[[k]]+ds[[k+2]];
-,{k,-3,-Length[us]+1,-1}];
-ds[[1]]=us[[1]]+ds[[3]]/2;
-ds];
-End[];
-
-
-
 LeftEvenPoints::usage="Evenly spaced points on the unit interval.";
 NLeftEvenPoints;
 FFT::usage=
@@ -264,79 +223,20 @@ End[];
 
 
 
-ChebyshevPoints;
-ChebyshevLobattoPoints;
-NChebyshevPoints;
-NChebyshevLobattoPoints;
-InverseDCT;
 
-
-
-Begin["Private`"];
-
-
-ChebyshevPoints[0,a_:-1,b_:1]:={};
-ChebyshevPoints[n_,a_:-1,b_:1]:=(b+a)/2+(b-a)/2 Cos[(2 Range[n,1,-1] -1)/(2 n) Pi];
-ChebyshevLobattoPoints[n_,a_:-1,b_:1]:=(b+a)/2+(b-a)/2 Cos[Pi Range[n-1,0,-1]/(n-1)];
-NChebyshevPoints[v__]:=N[ChebyshevPoints[v]];
-NChebyshevLobattoPoints[v__]:=N[ChebyshevLobattoPoints[v]];
-
-
-
-DCT[f:{__?ScalarQ}]:=AlternatingVector[Length[f]] HalfFirstAndLast[FourierDCT[f,1]Sqrt[2/(Length[f]-1)]];
-InverseDCT[f:{__?ScalarQ}]:= (Length[f]-1)/2 AlternatingVector[Length[f]] DoubleFirstAndLast[DCT[DoubleFirstAndLast[f]]]//Reverse;
-DCT[f:{__?VectorQ}]:=DCT/@ToArrayOfLists[f]//ToListOfArrays;
-DCT[f:{__?MatrixQ}]:=MatrixMap[DCT,ToArrayOfLists[f]]//ToListOfArrays;
-InverseDCT[f:{__?VectorQ}]:=InverseDCT/@ToArrayOfLists[f]//ToListOfArrays;
-InverseDCT[f:{__?MatrixQ}]:=MatrixMap[InverseDCT,ToArrayOfLists[f]]//ToListOfArrays;
-
-ChebyshevLobattoBarycentricInterpolation[f_List,x_]:=Module[{w,j,p,k,n},
-k=Length[f];
-n=NChebyshevLobattoPoints[k];
-w[1]=1/2;
-w[j_]=(-1)^(j+1);
-w[k]=(-1)^(k+1) 1/2;
-If[MemberQ[n,N[Chop[x,$MachineEpsilon]]],f[[Position[n,N[Chop[x,$MachineEpsilon]]][[1,1]]]],
-\!\(
-\*UnderoverscriptBox[\(\[Sum]\), \(j = 1\), \(k\)]\(w[j]/\((x - n[[j]])\) f[[j]]\)\)/\!\(
-\*UnderoverscriptBox[\(\[Sum]\), \(j = 1\), \(k\)]\(w[j]/\((x - n[[j]])\)\)\)]
-];
-End[];
-
-
-CircleToInterval::usage="CircleToInterval[z] conformally maps the unit circle to the unit interval.";
-IntervalToTopCircle::usage="IntervalToTopCircle[x] maps the unit interval to the top half of the circle.";
-IntervalToBottomCircle::usage="IntervalToBottomCircle[x] maps the unit interval to the bottom half of the circle.";
-IntervalToOuterCircle;
-IntervalToInnerCircle;
-IntervalToInnerCircleD;
-IntervalToOuterCircleD;
-IntervalToTopCircleD;
-IntervalToBottomCircleD;
-
-IntervalToRealLine;
-RealLineToInterval;
 CircleToPeriodicInterval;
 RealLineToPeriodicInterval;
 PeriodicIntervalToRealLine;
-IntervalToPositivePeriodicInterval;
-IntervalToNegativePeriodicInterval;
-IntervalToHalfLine;
-HalfLineToInterval;
 
 InfinityInDomainQ::usage="InfinityInDomainQ[d] tests if a domain is unbounded.";
 RightEndpointInfinityQ::usage="RightEndpointInfinityQ[d] tests if a domain's right endpoint is unbounded.";
 LeftEndpointInfinityQ::usage="LeftEndpointInfinityQ[d] tests if a domain's left endpoint is unbounded.";
 ReverseOrientation::usage="ReverseOrientation[ifun] gives ifun with the orientation reversed.";
 
-LeftContourArg::usage="LeftContourArg[d] gives the angle in the complex plane of the left endpoint of a domain d.";
-RightContourArg::usage="RightContourArg[d] gives the angle in the complex plane of the right endpoint of a domain d.";
 
 DomainMemberQ::usage="DomainMemberQ[d,z] tests whether z is numerically on the domain d.";
 
 UnitCircleFunQ::usage="Tests whether an object is an LFun whose domain is the unit circle.";
-UnitIntervalFunQ::usage="Tests whether an object is an IFun whose domain is the unit interval.";
-IntervalFunQ::usage="Tests whether an object is an IFun whose domain is an interval.";
 
 MapToCircle::usage="MapToCircle[d,z] maps z via the conformal map from the domain d to the unit circle.";
 MapFromCircle::usage="MapToCircle[d,z] maps z via the conformal map from the unit circle to the domain d.";
@@ -346,204 +246,29 @@ MapFromCircleD::usage="MapFromCircleD[d,z] is the derivative of MapFromCircle[d,
 
 
 RealLine::usage="The real line Line[{-\[Infinity],\[Infinity]}]";
-MapToIntervalSeriesAtInfinity::usage="Gives the coefficient of the asymptotic series at \[Infinity].";
 Orientation;
 
 Begin["Private`"];
 
 
-
-Unprotect[Line];
-Line/:Line[{a_,b_}]+c_:=Line[{a,b}+c];
-Line/:c_ Line[{a_,b_}]:=Line[c {a,b}];
-Protect[Line];
-
-
-
-CircleToInterval[z_]:=1/2 (z+1/z);
-SetAttributes[IntervalToTopCircle,Listable];
-IntervalToTopCircle[x_]:=x+I Sqrt[1-x]Sqrt[1+x];
-SetAttributes[IntervalToBottomCircle,Listable];
-IntervalToBottomCircle[x_]:=x-I Sqrt[1-x]Sqrt[1+x];
-SetAttributes[IntervalToOuterCircle,Listable];
-IntervalToOuterCircle[t_]:=t+Sqrt[t-1]Sqrt[t+1];
-SetAttributes[IntervalToInnerCircle,Listable];
-IntervalToInnerCircle[t_]:=t-Sqrt[t-1]Sqrt[t+1];
-IntervalToInnerCircle[t_?InfinityQ]:=0;
-
-IntervalToInnerCircleD[x_]:=1-x/(Sqrt[-1+x] Sqrt[1+x]);
-IntervalToOuterCircleD[x_]:=1+x/(Sqrt[-1+x] Sqrt[1+x]);
-IntervalToTopCircleD[x_]:=1-(I x)/Sqrt[1-x^2];
-IntervalToBottomCircleD[x_]:=1-(I x)/Sqrt[1-x^2];
-
-IntervalToRealLine[x_]:=x/Sqrt[1-x^2];
-RealLineToInterval[u_]:=u/Sqrt[1+u^2];
 CircleToPeriodicInterval[z_]:=-I Log[z];
 RealLineToPeriodicInterval[x_]:=CircleToPeriodicInterval[RealLineToCircle[x]];
 PeriodicIntervalToRealLine[t_]:=CircleToRealLine[Exp[I t]];
 IntervalToPositivePeriodicInterval[x_]:=ArcCos[x];
 IntervalToNegativePeriodicInterval[x_]:=-ArcCos[x];
 
-
-SetAttributes[IntervalToHalfLine,Listable];
-IntervalToHalfLine[_?(#~NEqual~1.&)]:=\[Infinity] ;
-IntervalToHalfLine[_?InfinityQ]:=-1.;
-IntervalToHalfLine[x_]:=(x+1)/(1-x) ;
-
-SetAttributes[HalfLineToInterval,Listable];
-HalfLineToInterval[y_?InfinityQ]:=1.;
-HalfLineToInterval[y_]/;y==-1:=\[Infinity] ;
-HalfLineToInterval[y_]:=(-1+y)/(1+y) ;
-
-
-SetAttributes[MapToInterval,Listable];
-SetAttributes[MapFromInterval,Listable];
-
-SetAttributes[ComplexMapToInterval,Listable];
-SetAttributes[ComplexMapFromInterval,Listable];
-
-
-SetAttributes[MapToIntervalD,Listable];
-SetAttributes[MapFromIntervalD,Listable];
-
-SetAttributes[ComplexMapToIntervalD,Listable];
-SetAttributes[ComplexMapFromIntervalD,Listable];
-
-
-MapToInterval[Line[{a_,b_?InfinityQ},Stretch->L_],z_]:=HalfLineToInterval[Exp[-I Arg[b]](z-a)/L];
-MapToIntervalD[Line[{a_,b_?InfinityQ},Stretch->L_],z_]:=(2 E^(I Arg[b]) L)/(-a+E^(I Arg[b]) L+z)^2;
-MapFromInterval[Line[{a_,b_?InfinityQ},Stretch->L_],x_]:=L Exp[I Arg[b]] IntervalToHalfLine[x]+a;
-
-MapFromIntervalD[Line[{a_,b_?InfinityQ},Stretch->L_],1.]:=0.;
-MapFromIntervalD[Line[{a_,b_?InfinityQ},Stretch->L_],x_]:=(2 E^(I Arg[b]) L)/(-1+x)^2;
-
-MapToInterval[Line[{a_?InfinityQ,b_},Stretch->L_],z_]:=-MapToInterval[Line[{b,a},Stretch->L],z];
-MapToIntervalD[Line[{a_?InfinityQ,b_},Stretch->L_],z_]:=-MapToIntervalD[Line[{b,a},Stretch->L],z];
-MapFromInterval[Line[{a_?InfinityQ,b_},Stretch->L_],x_]:=MapFromInterval[Line[{b,a},Stretch->L],-x];
-MapFromIntervalD[Line[{a_?InfinityQ,b_},Stretch->L_],x_]:=-MapFromIntervalD[Line[{b,a},Stretch->L],-x];
-
-
-
-MapToInterval[Line[{a_,b_?InfinityQ}],z_]:=MapToInterval[Line[{a,b},Stretch->1.],z];
-MapToIntervalD[Line[{a_,b_?InfinityQ}],z_]:=MapToIntervalD[Line[{a,b},Stretch->1.],z];
-MapFromInterval[Line[{a_,b_?InfinityQ}],x_]:=MapFromInterval[Line[{a,b},Stretch->1.],x];
-MapFromIntervalD[Line[{a_,b_?InfinityQ}],1.]:=0.;
-MapFromIntervalD[Line[{a_,b_?InfinityQ}],x_]:=MapFromIntervalD[Line[{a,b},Stretch->1.],x];
-
-MapToInterval[Line[{a_?InfinityQ,b_}],z_]:=MapToInterval[Line[{a,b},Stretch->1.],z];
-MapToIntervalD[Line[{a_?InfinityQ,b_}],z_]:=MapToIntervalD[Line[{a,b},Stretch->1.],z];
-MapFromInterval[Line[{a_?InfinityQ,b_}],x_]:=MapFromInterval[Line[{a,b},Stretch->1.],x];
-MapFromIntervalD[Line[{a_?InfinityQ,b_}],-1.]:=0.;
-MapFromIntervalD[Line[{a_?InfinityQ,b_}],x_]:=MapFromIntervalD[Line[{a,b},Stretch->1.],x];
-
-
-
-InfinityInDomainQ[_]:=False;
-InfinityInDomainQ[Line[{_?InfinityQ,_},___]]:=True;
-InfinityInDomainQ[Line[{_,_?InfinityQ},___]]:=True;
-
-RightEndpointInfinityQ[_]:=False;
-RightEndpointInfinityQ[Line[{_,_?InfinityQ},___]]:=True;
-LeftEndpointInfinityQ[_]:=False;
-LeftEndpointInfinityQ[Line[{_?InfinityQ,_},___]]:=True;
-
-LeftEndpoint[Line[{a_,b_},___]]:=a;
-RightEndpoint[Line[{a_,b_},___]]:=b;
-
-ReverseOrientation[Line[{a_,b_},l___]]:=Line[{b,a},l];
-
-LeftContourArg[Line[{a_,b_},___]]:=(b-a)//Arg;
-RightContourArg[Line[{a_,b_},___]]:=(a-b)//Arg;
-
-
 DomainQ[d_]:=IntervalDomainQ[d]~Or~CircleDomainQ[d];
 
 CircleDomainQ[_]:=False;
-IntervalDomainQ[_]:=False;
-IntervalDomainQ[_Line]:=True;
-
-BoundedDomainQ[_]:=False;
-BoundedDomainQ[_?(!LeftEndpointInfinityQ[#]&&!RightEndpointInfinityQ[#]&)]:=True;
-
 DomainMemberQ[f_?FunQ,x_]:=DomainMemberQ[f//Domain,x];
-
-
-DomainMemberQ[d_?IntervalDomainQ,x_]:=MapToInterval[d,x]//(NumberQ[#]&&Abs[Im[#]]<10 $MachineTolerance&&Abs[#]<=1.+10 $MachineTolerance&);
-
 DomainMemberQ[d_?CircleDomainQ,x_]:=Abs[Abs[MapToCircle[d,x]]-1]<=10 $MachineTolerance;
-
-
-MapToInterval[Line[{a_,b_}],z_]:=(a+b-2z)/(a-b);
-MapFromInterval[Line[{a_,b_}],x_]:=(b+a)/2+(b-a)/2 x;
-MapToIntervalD[Line[{a_,b_}],x_]:=-(2/(a-b)) ;
-MapFromIntervalD[Line[{a_,b_}],x_]:=(b-a)/2  ;
-
-MapToIntervalSeriesAtInfinity[Line[{a_,b_}],1]:=2/(b-a);
-
-MapToInterval[z_]:=z;
-MapFromInterval[z_]:=z;
-
 
 
 UnitCircle=Circle[0,1];
 UnitCircleFunQ[f_LFun]:=N[Domain[f]]==N[UnitCircle];
 UnitCircleFunQ[_]:=False;
 
-UnitInterval=Line[{-1,1}];
-UnitIntervalFunQ[f_IFun]:=N[Domain[f]]===N[UnitInterval];
-UnitIntervalFunQ[_]:=False;
-IntervalFunQ[f_IFun]:=MatchQ[Domain[f],Line[{_?FiniteQ,_?FiniteQ}]];
-IntervalFunQ[_]:=False;
-
 CircleDomainQ[_Circle]:=True;
-
-
-MapToInterval[Line[{a_,b_},Stretch->_?(1.~NEqual~#&)],_?InfinityQ]:=\[Infinity];
-MapFromInterval[Line[{a_,b_},Stretch->_?(1.~NEqual~#&)],_?InfinityQ]:=\[Infinity];
-MapFromInterval[Line[{a_,b_},Stretch->L_],_?InfinityQ]:=(-a+b L)/(-1+L) ;
-MapToInterval[Line[{a_,b_},Stretch->L_],_?InfinityQ]:=(1+L)/(1-L) ;
-MapFromInterval[Line[{a_,b_},Stretch->L_],_?InfinityQ]:=(-a+b L)/(-1+L) ;
-MapToInterval[Line[{a_,b_},Stretch->L_],z_]:=(- a- b L+(1 +L) z)/(- a+b L+ z-L z) ;
-MapFromInterval[Line[{a_,b_},Stretch->L_],z_]:=(b L (-1- z)+a (-1+ z))/(-1- L+z- L z) ;
-MapToIntervalD[Line[{a_,b_},Stretch->L_],z_]:=-((2 (a L-b L))/(a-b L-z+L z)^2) ;
-MapFromIntervalD[Line[{a_,b_},Stretch->L_],z_]:=(2 (-a L+b L))/(1+L-z+L z)^2 ;
-
-
-MapFromInterval[Arc[z0_,r_,{t0_,t1_}],x_]:=(-E^(1/2 I (t0+2 t1)) r (1+x)-E^((I t0)/2) (1+x) z0+E^((I t1)/2) (-1+x) (E^(I t0) r+z0))/(E^((I t1)/2) (-1+x)-E^((I t0)/2) (1+x));
-MapFromInterval[Arc[z0_,r_,{t0_,t1_}],_?InfinityQ]:=-E^(1/2 I (t0+t1)) r+z0;
-MapToInterval[Arc[z0_,r_,{t0_,t1_}],z_]/;((-E^(1/2 I (t0+t1)) r+z0)~NEqual~z):=\[Infinity];
-MapToInterval[Arc[z0_,r_,{t0_,t1_}],z_]:=-(((E^((I t0)/2)+E^((I t1)/2)) (E^((I t0)/2+(I t1)/2) r-z+z0))/((-E^(((I t0)/2))+E^((I t1)/2)) (E^((I t0)/2+(I t1)/2) r+z-z0)));
-MapToInterval[Arc[z0_,r_,{t0_,t1_}],_?InfinityQ]:=-((E^((I t0)/2)+E^((I t1)/2))/(E^((I t0)/2)-E^((I t1)/2)));
-
-MapFromIntervalD[Arc[z0_,r_,{t0_,t1_}],x_]:=(2 E^(1/2 I (t0+t1)) (-E^(I t0)+E^(I t1)) r)/(E^((I t1)/2) (-1+x)-E^((I t0)/2) (1+x))^2;
-MapToIntervalD[Arc[z0_,r_,{t0_,t1_}],z_]:=(2 E^((I t0)/2) (E^(I t1)+E^(1/2 I (t0+t1))) r)/((-E^(((I t0)/2))+E^((I t1)/2)) (E^(1/2 I (t0+t1)) r+z-z0)^2);
-
-
-LeftEndpoint[Arc[z0_,r_,{t0_,t1_}]]:=z0+r Exp[I t0]//N;
-RightEndpoint[Arc[z0_,r_,{t0_,t1_}]]:=z0+r Exp[I t1]//N;
-
-ReverseOrientation[Arc[z0_,r_,{t0_,t1_}]]:=Arc[z0,r,{t1,t0}];
-
-LeftContourArg[Arc[z0_,r_,{t0_,t1_}]]:=t0+Sign[t1-t0] \[Pi]/2//N;
-RightContourArg[Arc[z0_,r_,{t0_,t1_}]]:=t1-Sign[t1-t0] \[Pi]/2//N;
-
-IntervalDomainQ[_Arc]:=True;
-
-
-Arc[{a_,b_,c_}]:=(Det[({
- {Abs[a]^2, Im[a], 1},
- {Abs[b]^2, Im[b], 1},
- {Abs[c]^2, Im[c], 1}
-})]-I Det[({
- {Abs[a]^2, Re[a], 1},
- {Abs[b]^2, Re[b], 1},
- {Abs[c]^2, Re[c], 1}
-})])/(2 Det[({
- {Re[a], Im[a], 1},
- {Re[b], Im[b], 1},
- {Re[c], Im[c], 1}
-})])//Function[x0,Arc[x0,Abs[a-x0],{Arg[a-x0],Arg[c-x0]}]];
-
 
 
 SetAttributes[ComplexMapToCircle,Listable];
@@ -617,58 +342,7 @@ MapToCircle[Ellipse[{a_,b_},r_],z_]:=MapToCircle[Circle[0,r],IntervalToInnerCirc
 MapFromCircleD[Ellipse[{a_,b_},r_],z_]:=MapFromIntervalD[Line[{a,b}],CircleToInterval[MapFromCircle[Circle[0,r],z]]]CircleToInterval'[MapFromCircle[Circle[0,r],z]]MapFromCircleD[Circle[0,r],z];
 MapToCircleD[Ellipse[{a_,b_},r_],z_]:=MapToCircleD[Circle[0,r],IntervalToInnerCircle[MapToInterval[Line[{a,b}],z]]]IntervalToInnerCircle'[MapToInterval[Line[{a,b}],z]]MapToIntervalD[Line[{a,b}],z];
 
-
-LeftEndpoint[comp_]:=MapFromInterval[comp,-1];
-RightEndpoint[comp_]:=MapFromInterval[comp,1];
-LeftContourArg[comp_]:=-Arg[MapToIntervalD[comp,LeftEndpoint[comp]]];
-RightContourArg[comp_]:=-Arg[-MapToIntervalD[comp,RightEndpoint[comp]]];
 End[];
-
-
-MapToIntervalDomainD;
-MapToIntervalDDomainD;
-MapFromIntervalDomainD;
-BaryDomainD;
-MapToIntervalSeriesAtInfinityD;
-PointsD;
-ValuesDomainD;
-ToValueListD;
-
-
-
-Begin["Private`"];
-
-
-
-MapToIntervalDomainD[1,0][Line[{a_,b_}],z_]:=-((2 (b-z))/(a-b)^2);
-MapToIntervalDomainD[0,1][Line[{a_,b_}],z_]:=(2 (a-z))/(a-b)^2;
-MapToIntervalDDomainD[1,0][Line[{a_,b_}],z_]:=2/(a-b)^2;
-MapToIntervalDDomainD[0,1][Line[{a_,b_}],z_]:=-(2/(a-b)^2);
-
-MapFromIntervalDomainD[1,0][Line[{a_,b_}],z_]:=1/2-z/2;
-MapFromIntervalDomainD[0,1][Line[{a_,b_}],z_]:=1/2+z/2;
-MapToIntervalDomainD[spc__][d_IFun,z_]:=MapToIntervalDomainD[spc][d//Domain,z];
-MapToIntervalDDomainD[spc__][d_IFun,z_]:=MapToIntervalDDomainD[spc][d//Domain,z];
-MapFromIntervalDomainD[spc__][d_IFun,z_]:=MapFromIntervalDomainD[spc][d//Domain,z];
-
-
-
-BaryDomainD[spc__][f_,z_]:=MapToIntervalDomainD[spc][f,z] ToUnitInterval[f]'[MapToInterval[f,z]];
-
-MapToIntervalSeriesAtInfinityD[1,0][Line[{a_,b_}],1]:=2/(-a+b)^2;
-MapToIntervalSeriesAtInfinityD[0,1][Line[{a_,b_}],1]:=-(2/(-a+b)^2);
-MapToIntervalSeriesAtInfinityD[spc__][f_IFun,s_]:=MapToIntervalSeriesAtInfinityD[spc][f//Domain,s];
-
-
-PointsD[spc__][d_,n_]:=MapFromIntervalDomainD[spc][d,Points[UnitInterval,n]];
-PointsD[spc__][d_IFun]:=PointsD[spc][d//Domain,d//Length];
-
-
-ValuesDomainD[spc__][f_IFun]:=Values[f']MapFromIntervalDomainD[spc][f,Points[UnitInterval,f//Length]];
-
-ToValueListD[spca__][f_List]:=Join@@(If[#[[2]]=={0,0},ZeroVector[Length[#[[1]]]],ValuesDomainD[Sequence@@#[[2]]][#[[1]]]]&/@Thread[{f,{spca}}]);
-End[];
-
 
 
 
@@ -683,21 +357,13 @@ Begin["Private`"];
 
 CirclePoints[n_]:=Exp[I \[Pi] LeftEvenPoints[n]];
 NCirclePoints[n_]:=CirclePoints[n]//N;
-FourierRealLinePoints[n_]:=Map[CircleToRealLine,CirclePoints[n]//Rest];
-NFourierRealLinePoints[n_]:=Map[CircleToRealLine,NCirclePoints[n]//Rest]//Re;
-RealLinePoints[n_]:=Map[IntervalToRealLine,ChebyshevLobattoPoints[n][[2;;-2]]];
-NRealLinePoints[n_]:=Map[IntervalToRealLine,NChebyshevLobattoPoints[n][[2;;-2]]]//Re;
 
-Points[d_Circle,n_]:=MapFromCircle[d,NCirclePoints[n]];
-Points[RealLine,n_]:=MapFromCircle[RealLine,Points[UnitCircle,n]];
-Points[d:Line[{-\[Infinity],\[Infinity]},___],n_]:=MapFromCircle[RealLine,Points[UnitCircle,n]];
-Points[d_Ellipse,n_]:=MapFromCircle[d,Points[UnitCircle,n]];
-Points[d_,n_]:=MapFromInterval[d,#]&/@NChebyshevLobattoPoints[n];
+Points[d_?CircleDomainQ,n_]:=MapFromCircle[d,NCirclePoints[n]];
 
-Points[l:{__IFun}]:=Points/@l//Flatten;
-FinitePoints[l:{__IFun}]:=FinitePoints/@l//Flatten;
+Points[l:{__?FunQ}]:=Points/@l//Flatten;
+FinitePoints[l:{__?FunQ}]:=FinitePoints/@l//Flatten;
 
-FinitePoints[d_,n_]:=Select[Points[d,n],!InfinityQ[#]&];
+FinitePoints[d_,n_]:=Points[d,n];
 End[];
 
 
@@ -756,105 +422,27 @@ ToArrayOfFuns[f_?MatrixFunQ]:=ToMatrixOfFuns[f];ToArrayOfFuns[f_?VectorFunQ]:=Ma
 ToArrayOfFuns[f_?ScalarFunQ]:=f;
 ToArrayFun[f_]:=Head[Flatten[{f}][[1]]][ArrayMap[Values,f]//ToListOfArrays,Domain[First[Flatten[{f}]]]];
 
-AddIdentityMatrix[l_IFun]:=(IdentityMatrix[2]+#)&/@l;
+AddIdentityMatrix[l_?FunQ]:=(IdentityMatrix[2]+#)&/@l;
 AddIdentityMatrix[l_List]:=AddIdentityMatrix/@l;
 
 
 ReImLinePlot[f_?ArrayFunQ,opts___]:=ArrayMap[ReImLinePlot[#,opts]&,f//ToArrayOfFuns]//MatrixForm;
-IFun/:Derivative[k_?Positive][f_IFun?ArrayFunQ]:=ArrayMap[Derivative[k],f//ToArrayOfFuns]//ToArrayFun;
 
 
-IFun[l_List,d_][z_]:=ChebyshevLobattoBarycentricInterpolation[l,MapToInterval[d,z]];
-IFun[f_?NotListOrPatternQ,d_,n_Integer]:=IFun[f/@Points[d,n],d];
+MatrixMap[f_,g_?FunQ]:=MatrixMap[f,g//ToMatrixOfFuns];
+ArrayMap[f_,g_?ScalarFunQ]:=f[g];
+ArrayMap[f_,g_?FunQ]:=ArrayMap[f,g//ToArrayOfFuns];
 
-
-FunQ[_IFun]:=True;
-
-Values[IFun[l_List,_]]:=l;
-Domain[IFun[_List,d_]]:=d;
-
-Length[if_IFun]^:=if//Values//Length;
-Points[if_IFun]:=Points[if//Domain,if//Length];
-
-
-
-MatrixMap[f_,g_IFun]:=MatrixMap[f,g//ToMatrixOfFuns];
-ArrayMap[f_,g_IFun?ScalarFunQ]:=f[g];
-ArrayMap[f_,g_IFun]:=ArrayMap[f,g//ToArrayOfFuns];
-
-DCT[f_IFun?ArrayFunQ]:=ArrayMap[DCT,f]//ToListOfArrays;
-DCT[if_IFun]:=if//Values//DCT;
-
-IFun/:Map[f_,g_IFun]:=IFun[f/@Values[g],Domain[g]];
-FastPlus[f__IFun]:=IFun[Plus@@(Values/@{f}),Domain[{f}[[1]]]];
-FastTimes[f__IFun]:=IFun[Times@@(Values/@{f}),Domain[{f}[[1]]]];
-f_IFun+g_IFun^:=f~FastPlus~g;
-Times[f_IFun,g_IFun]^:=f~FastTimes~g;
-IFun/:f_?ConstantQ+g_IFun:=IFun[f+Values[g],g//Domain];
-IFun/:g_IFun+f_?ConstantQ:=IFun[Values[g]+f,g//Domain];
-IFun/:Times[f_?ConstantQ,g_IFun]:=IFun[f Values[g],g//Domain];
-IFun/:Times[g_IFun,f_?ConstantQ]:=IFun[Values[g]f,g//Domain];
-IFun/:f_IFun^c_?ConstantQ:=IFun[Values[f]^c,f//Domain];
-IFun/:c_?ConstantQ^f_IFun:=IFun[c^Values[f],f//Domain];
-Dot[f_IFun?ArrayFunQ,g_IFun?ArrayFunQ]^:=ToArrayFun[ToArrayOfFuns[f].ToArrayOfFuns[g]];
-
-IFun/:Dot[f_List?(!ArrayFunQ[#]&),g_IFun?ArrayFunQ]:=ToArrayFun[f.ToArrayOfFuns[g]];
-
-MapToValues[op_]:=(op[if_IFun]^:=IFun[op[Values[if]],if//Domain]);
-MapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
-Inverse[if_IFun]^:=Inverse/@if;
-Transpose[f_IFun]^:=Transpose/@f;
-Max[f_IFun]^:=f//Values//Max;
-Min[f_IFun]^:=f//Values//Min;
-Norm[f_IFun]^:=f//Values//Flatten//Norm;
-Mean[f_IFun]^:=DCT[f][[1]];
-
-
-MapToInterval[f_IFun,z_]:=MapToInterval[f//Domain,z];
-MapToIntervalD[f_IFun,z_]:=MapToIntervalD[f//Domain,z];
-MapFromInterval[f_IFun,z_]:=MapFromInterval[f//Domain,z];
-MapFromIntervalD[f_IFun,z_]:=MapFromIntervalD[f//Domain,z];
-
-ComplexMapToInterval[f_IFun,z_]:=ComplexMapToInterval[f//Domain,z];
-ComplexMapToIntervalD[f_IFun,z_]:=ComplexMapToIntervalD[f//Domain,z];
-
-MapToIntervalSeriesAtInfinity[f_IFun,s_]:=MapToIntervalSeriesAtInfinity[f//Domain,s];
 
 InfinityInDomainQ[f_?FunQ]:=InfinityInDomainQ[Domain[f]];
-RightEndpointInfinityQ[f_?FunQ]:=RightEndpointInfinityQ[Domain[f]];
-LeftEndpointInfinityQ[f_?FunQ]:=LeftEndpointInfinityQ[Domain[f]];
-LeftEndpoint[f_?FunQ]:=f//Domain//LeftEndpoint;
-RightEndpoint[f_?FunQ]:=f//Domain//RightEndpoint;
-LeftContourArg[f_?FunQ]:=f//Domain//LeftContourArg;
-RightContourArg[f_?FunQ]:=f//Domain//RightContourArg;
-
-
-First[f_IFun]^:=f//Values//First;
-Last[f_IFun]^:=f//Values//Last;
-Dimensions[f_IFun]^:=f//First//Dimensions;
-ReverseOrientation[f_IFun]:=IFun[Reverse[Values[f]],ReverseOrientation[Domain[f]]];
-IFun/:f_IFun?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
-IFun/:f_IFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
-
-
-MeanZero[f_IFun]:=f-First[DCT[f]];
-ZeroAtZero[f_IFun]/;OddQ[Length[f]]:=f-f[0.];
-ZeroAtRight[f_]:=f-Last[f];
-ZeroAtLeft[f_]:=f-First[f];
-
-
-
-FinitePoints[if_IFun?(LeftEndpointInfinityQ[#]&&RightEndpointInfinityQ[#]&)]:=if//Points//Most//Rest;
-FiniteValues[if_IFun?(LeftEndpointInfinityQ[#]&&RightEndpointInfinityQ[#]&)]:=if//Values//Most//Rest;
-FinitePoints[if_IFun?LeftEndpointInfinityQ]:=if//Points//Rest;
-FiniteValues[if_IFun?LeftEndpointInfinityQ]:=if//Values//Rest;
-FinitePoints[if_IFun?RightEndpointInfinityQ]:=if//Points//Most;
-FiniteValues[if_IFun?RightEndpointInfinityQ]:=if//Values//Most;
-
-FiniteValues[if_IFun]:=Values[if];
-FinitePoints[if_IFun]:=Points[if];
 FiniteLength[f_]:=f//FinitePoints//Length;
-FiniteRealPoints[if_IFun]:=if//FinitePoints//Re;
+
+FiniteRealPoints[if_?FunQ]:=if//FinitePoints//Re;
+
+
+
+
+
 
 
 LinePlot[f_,opts___]:=ListLinePlot[Thread[{FiniteRealPoints[f],FiniteValues[f]}],opts];
@@ -866,82 +454,14 @@ LinePlot[f_List,opts___]:=ListLinePlot[Map[Thread[{FiniteRealPoints[#],FiniteVal
 LineLogPlot[f_List,opts___]:=ListLineLogPlot[Map[Thread[{FiniteRealPoints[#],FiniteValues[#]}]&,f],opts];
 
 
-Format[f:IFun[l_List,_]]:=ReImLinePlot[f,Sequence@@$FunFormat];
-
-
 
 End[];
-
-
-
-ChebyshevD::usage="Maps a list of Chebyshev coefficients to those of its derivative.";
-ChebyshevLobattoDerivative::usage="Maps a list of function values at Chebyshev points to those of its derivative.";
-ChebyshevI::usage="Maps a list of Chebyshev coefficients to those of its indefinite integral.";
-ChebyshevLobattoIntegrate::usage="Maps a list of function values at Chebyshev points to those of its indefinite integral.";
 
 
 
 Begin["Private`"];
 
 
-
-ChebyshevD[c_List]:=Module[{d,n},
-n=Length[c];
-If[n==1,{0},
-d[n]=d[n-1]=0;
-Do[
-d[k]=d[k+2]+2 (k+1) c[[k+2]],
-{k,n-2,1,-1}];
-d[0]=d[2]/2 + c[[2]];
-Array[d[#-1]&,{n}]]];
-
-ChebyshevLobattoDerivative[c_List]:=
-InverseDCT[ChebyshevD[DCT[c]]];
-
-
-IFun/:Derivative[0][if_IFun]:=if;
-IFun/:Derivative[1][if_IFun]:=IFun[ChebyshevLobattoDerivative[Values[if]] ,if//Domain] IFun[MapToIntervalD[if,#]&,if//Domain,if//Length];
-IFun/:Derivative[k_?Positive][if_IFun]:=Derivative[1][Derivative[k-1][if]];
-IFun/:Derivative[if_IFun]:=if';
-
-
-ReduceDimension[f_IFun]:=
-IFun[f//DCT//Most//InverseDCT,Domain[f]];
-ReduceDimensionIntegrate[f_IFun]:=ReduceDimension[Integrate[f]];
-
-ChebyshevI[c_List]:=Module[{c2},
-c2=ZeroVector[Length[c]+1];
-c2[[2]]=c[[1]];
-c2[[1]]=c[[1]];
-If[Length[c]>1,
-c2[[3]]=c[[2]]/4;
-c2[[1]]=c2[[1]]-c[[2]]/4;
-Table[c2[[k+1]]=c2[[k+1]]+c[[k]]/(2k);
-	c2[[k-1]]=c2[[k-1]]-c[[k]]/(2(k-2));
-	c2[[1]]=c2[[1]]+(-1)^k c[[k]](1/(2(k-2))-1/(2k));
-,{k,3,Length[c]}]];
-c2
-];
-
-ChebyshevLobattoIntegrate[c_List]:=
-InverseDCT[ChebyshevI[DCT[c]]];
-
-Integrate[if_IFun]^:=IFun[(Values[if] Values[IFun[MapFromIntervalD[if,#]&,UnitInterval,if//Length]])//ChebyshevLobattoIntegrate,if//Domain] ;
-
-DomainIntegrate[if_IFun]:=if//Integrate//Last;
-DomainIntegrate[{if__IFun}]:=Plus@@(DomainIntegrate/@{if});
-
-
-DomainPlot[Line[{a_,b_?InfinityQ},___],opts___]:=Graphics[{Thick,Blue,Arrowheads[Large],PointSize[Large],Point[a//{Re[#],Im[#]}&],Arrow[{a//{Re[#],Im[#]}&,a+2 Exp[I Arg[b]]//{Re[#],Im[#]}&}]},opts,Axes->True];
-DomainPlot[Line[{a_?InfinityQ,b_},___],opts___]:=Graphics[{Thick,Blue,Arrowheads[Large],PointSize[Large],Point[b//{Re[#],Im[#]}&],Arrow[{b+2 Exp[I Arg[a]]//{Re[#],Im[#]}&,b//{Re[#],Im[#]}&}]},opts,Axes->True];
-DomainPlot[Line[{a_,b_},___],opts___]:=Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],Point[a//{Re[#],Im[#]}&],
-Point[b//{Re[#],Im[#]}&],Arrow[{a//{Re[#],Im[#]}&,b//{Re[#],Im[#]}&}]},opts,Axes->True];
-DomainPlot[Arc[z0_,r_,{t0_,t1_}],opts___]:=
-Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],
-Point[z0 + r Exp[I t0]//{Re[#],Im[#]}& ],
-Point[z0 + r Exp[I t1]//{Re[#],Im[#]}& ],
-Arrow[{z0+r Exp[I (t1-0.0001 Sign[t1-t0])]//{Re[#],Im[#]}&,z0 + r Exp[I t1]//{Re[#],Im[#]}&}],
-Circle[{Re[#],Im[#]}&[z0],r,{t0,t1}//N//Sort]},opts,Axes->True];
 DomainPlot[Circle[z0_,r_],opts___]:=
 Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],
 Arrow[{z0+r Exp[I 0.2] //{Re[#],Im[#]}&,z0 + r Exp[I 0.2001]//{Re[#],Im[#]}&}],
@@ -958,8 +478,7 @@ DomainPlot[ell_Ellipse,opts___]:=Module[{t},
 Show[ComplexPlot[MapFromCircle[ell,Exp[I t]],{t,-\[Pi],\[Pi]},PlotStyle->Thick],Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],
 Arrow[{MapFromCircle[ell,Exp[I 0.2]]//{Re[#],Im[#]}&,MapFromCircle[ell,Exp[I 0.2001]]//{Re[#],Im[#]}&}]},opts,Axes->True]]];
 
-DomainPlot[if_IFun,opts___]:=DomainPlot[if//Domain,opts];
-DomainPlot[if_LFun,opts___]:=DomainPlot[if//Domain,opts];
+DomainPlot[if_?FunQ,opts___]:=DomainPlot[if//Domain,opts];
 
 DomainPlot[l_List,opts___]:=Show[DomainPlot[#,opts]&/@l,PlotRange->All];
 
@@ -1008,7 +527,6 @@ Mean[f_LFun]^:=FFT[f][[0]];
 
 
 NEqual[f_LFun,g_LFun]:=Norm[f-g]<$MachineTolerance;
-NEqual[f_IFun,g_IFun]:=Norm[f-g]<$MachineTolerance;
 NEqual[f:{__?FunQ},g:{__?FunQ}]:=Norm[Norm/@(f-g)]<$MachineTolerance;
 
 MeanZero[f_LFun]:=f-Mean[f];
@@ -1030,7 +548,6 @@ FinitePoints[if_LFun]:=if//Points;
 FiniteValues[if_LFun]:=Last/@Select[Thread[{Points[if],Values[if]}],!InfinityQ[First[#]]&];
 FiniteLength[f_]:=f//FinitePoints//Length;
 FiniteRealPoints[if_LFun]:=if//FinitePoints//Re;
-FiniteRealPoints[if_IFun]/;Re[LeftEndpoint[if]]~NEqual~Re[RightEndpoint[if]]:=if//FinitePoints//Im;
 
 
 $FunFormat={ImageSize->Small};
@@ -1101,28 +618,20 @@ SetLength[if_LFun,n_?EvenQ]:=LFun[SetIndexRange[if//FFT,{-(n/2),n/2-1}]//Inverse
 LFun[f_IFun]:=LFun[Join[Values[f],Reverse[Values[f]][[2;;-2]]],UnitCircle];
 
 
-SetDomain[f_IFun,d_]:=IFun[Values[f],d];
-SetDomain[f_LFun,d_]:=LFun[Values[f],d];
+SetDomain[f_?FunQ,d_]:=Head[f][Values[f],d];
 
 SetDomain[f_List,d_List]:=SetDomain@@#&/@Thread[{f,d}];
 
 ToUnitCircle[lf_LFun]:=SetDomain[lf,UnitCircle];
-ToUnitInterval[lf_IFun]:=SetDomain[lf,UnitInterval];
 
 
 
-ChopDrop[cf_IFun,prec_]:=IFun[InverseDCT[ChopDrop[cf//DCT,prec]//Which[Length[#]==0,{0,0},Length[#]==1,{#[[1]],0 #[[1]]},True,#]&],Domain[cf]];
-ChopDrop[cf_IFun]:=IFun[InverseDCT[ChopDrop[cf//DCT]//Which[Length[#]==0,{0,0},Length[#]==1,{#[[1]],0 #[[1]]},True,#]&],Domain[cf]];
 
 ChopDrop[cf_LFun,prec_]:=LFun[ChopDrop[cf//FFT,prec]//Which[Length[#]==0,ShiftList[{0,0,0},2],IndexRange[#]=={0,0}, ShiftList[{0 #[[0]],#[[0]],0 #[[0]]},2],True,#]&//SetIndexRange[#,{-Max[Abs[IndexRange[#]]],Max[Abs[IndexRange[#]]]}]&//InverseFFT,cf//Domain];
 ChopDrop[cf_LFun]:=LFun[ChopDrop[cf//FFT]//Which[Length[#]==0,ShiftList[{0,0,0},2],IndexRange[#]=={0,0}, ShiftList[{0 #[[0]],#[[0]],0 #[[0]]},2],True,#]&//SetIndexRange[#,{-Max[Abs[IndexRange[#]]],Max[Abs[IndexRange[#]]]}]&//InverseFFT,cf//Domain];
 
 
-Options[AdaptiveIFun]:={InterpolationPrecision->$MachineTolerance};
-AdaptiveIFun[m_Integer,f_,d_,pars:OptionsPattern[]]:=Module[{prec},
-prec=InterpolationPrecision/.{pars}/.Options[AdaptiveIFun];
-IFun[f,d,m]//If[(DCT[#][[-2;;-1]]//Flatten//Abs//Max)<prec (Max[$MachineTolerance,Norm/@Values[#]]),#,AdaptiveIFun[2m,f,d,pars]]&//ChopDrop[#,prec (Max[$MachineTolerance,Norm/@Values[#]])]&//IFun[f,d,Length[#]]&
-];
+
 
 Options[AdaptiveLFun]:={InterpolationPrecision->$MachineTolerance};
 AdaptiveLFun[m_Integer,f_,d_,pars:OptionsPattern[]]:=Module[{prec},
@@ -1132,7 +641,6 @@ d,Length[ChopDrop[LFun[f,d,m]//If[(ToList[FFT[#]][[{1,2,-1,-2}]]//Flatten//Abs//
 ];
 
 
-IFun[f_?NotListOrPatternQ,d_,opts:OptionsPattern[]]:=AdaptiveIFun[4,f,d,opts];
 LFun[f_?NotListOrPatternQ,d_,opts:OptionsPattern[]]:=AdaptiveLFun[8,f,d,opts];
 
 
@@ -1149,19 +657,10 @@ RightMatrixMultVectorFun;
 RightMatrixMultMatrixFun;
 MatrixMultMatrixFun;
 
-TransformMatrix;
-DerivativeMatrix;
-IntegrateMatrix;
-FiniteTransformMatrix;
-BoundedIntegrateMatrix;
 
 
 Begin["Private`"];
 
-
-ZeroAtInfinityIFun[ls_List,d_?LeftEndpointInfinityQ]:=IFun[Join[{0 ls[[1]]},ls],d];
-ZeroAtInfinityIFun[ls_List,d_?RightEndpointInfinityQ]:=IFun[Join[ls,{0 ls[[1]]}],d];
-ZeroAtInfinityIFun[ls_List,d_]:=IFun[ls,d];
 
 ToArrayOfListOfFuns[f_List]:=ToArrayOfLists[ToArrayOfFuns/@f];
 ToListOfArrayFuns[f_List]:=(ToArrayFun/@Thread[f]);
@@ -1170,12 +669,10 @@ ToValueList[GI_List]:=Flatten[ArrayMap[FiniteValues,#]&/@(ToArrayOfFuns/@GI//ToA
 ToValueList[f_?FunQ]:=ArrayMap[FiniteValues,ToArrayOfFuns[f]]//Flatten;
 
 
-FromValueList[f_IFun?ScalarFunQ,ls_]:=ZeroAtInfinityIFun[ls,Domain[f]];
 FromValueList[f_LFun?ScalarFunQ,ls_]:=ZeroAtInfinityLFun[ls,Domain[f]];
-FromValueList[f_IFun?VectorFunQ,ls_]:=ZeroAtInfinityIFun[#,Domain[f]]&/@Partition[ls,FiniteLength[f]]//ToArrayFun;
-FromValueList[f_LFun?VectorFunQ,ls_]:=ZeroAtInfinityLFun[#,Domain[f]]&/@Partition[ls,FiniteLength[f]]//ToArrayFun;
-FromValueList[f_IFun?MatrixFunQ,ls_]:=MatrixMap[ZeroAtInfinityIFun[#,Domain[f]]&,PartitionList[Partition[ls,FiniteLength[f]],f//Dimensions]]//ToArrayFun;
 FromValueList[f_LFun?MatrixFunQ,ls_]:=MatrixMap[ZeroAtInfinityLFun[#,Domain[f]]&,PartitionList[Partition[ls,FiniteLength[f]],f//Dimensions]]//ToArrayFun;
+FromValueList[f_LFun?VectorFunQ,ls_]:=ZeroAtInfinityLFun[#,Domain[f]]&/@Partition[ls,FiniteLength[f]]//ToArrayFun;
+
 
 FromValueList[GI_List?(VectorFunQ[First[#]]&),ls_]:=ZeroAtInfinityFun[#[[2]],Domain[#[[1]]]]&/@
 Thread[
@@ -1199,36 +696,44 @@ MatrixMultMatrixFun[G_List]:=Join[(RightJoin@@(SparseDiagonalMatrix/@Flatten[Thr
 (RightJoin@@(SparseDiagonalMatrix/@Flatten[Thread[{1,0}Reverse[ MatrixMap[ToValueList,G//ToArrayOfListOfFuns]]],1])),
 (RightJoin@@(SparseDiagonalMatrix/@Flatten[Reverse/@Thread[{1,0}Reverse[ MatrixMap[ToValueList,G//ToArrayOfListOfFuns]]],1]))];
 
+End[];
 
 
-DCTTransformMatrix[n_Integer]:=ColumnMap[DCT,IdentityMatrix[n]];
+
+
+
+TransformMatrix;
+DerivativeMatrix;
+IntegrateMatrix;
+FiniteTransformMatrix;
+BoundedIntegrateMatrix;
+ReduceDimensionMatrix;
+
+
+Begin["Private`"];
+
+
 FFTTransformMatrix[n_Integer]:=ColumnMap[ToList[FFT[#]]&,IdentityMatrix[n]];
 
 TransformMatrix[_?CircleDomainQ,n_Integer]:=FFTTransformMatrix[n];
-TransformMatrix[_?IntervalDomainQ,n_Integer]:=DCTTransformMatrix[n];
+
 TransformMatrix[f_?FunQ]:=TransformMatrix[f//Domain,f//Length];
 FiniteTransformMatrix[RealLine,n_Integer]:=TransformMatrix[RealLine,n][[All,2;;]];
-FiniteTransformMatrix[d_?LeftEndpointInfinityQ,n_Integer]:=TransformMatrix[d,n][[All,2;;]];
-FiniteTransformMatrix[d_?RightEndpointInfinityQ,n_Integer]:=TransformMatrix[d,n][[All,;;-2]];
+
 FiniteTransformMatrix[d_?DomainQ,n_Integer]:=TransformMatrix[d,n];
 FiniteTransformMatrix[f_]:=FiniteTransformMatrix[f//Domain,f//Length];
-DerivativeMatrix[1][d_?IntervalDomainQ,n_Integer]:=MapToIntervalD[d,Points[d,n]]ColumnMap[ChebyshevLobattoDerivative,IdentityMatrix[n]];
+
 DerivativeMatrix[1][f_?FunQ]:=DerivativeMatrix[1][f//Domain,f//Length];
 DerivativeMatrix[k_Integer][pars__]:=MatrixPower[DerivativeMatrix[1][pars],k];
 DerivativeMatrix[d_?DomainQ,n_Integer]:=DerivativeMatrix[1][d,n];
 DerivativeMatrix[f_?FunQ]:=DerivativeMatrix[1][f];
 
-ReduceDimensionMatrix[d_,n_]:=Inverse[TransformMatrix[d,n-1]].IdentityMatrix[n][[;;-2,All]].TransformMatrix[n];
-ReduceDimensionMatrix[f_]:=ReduceDimensionMatrix[f//Domain,f//Length];
 
-IntegrateMatrix[d_?IntervalDomainQ,n_Integer]:=ColumnMap[ChebyshevLobattoIntegrate,IdentityMatrix[n]].DiagonalMatrix[MapFromIntervalD[d,Points[UnitInterval,n]]];
+
+
 IntegrateMatrix[f_]:=IntegrateMatrix[f//Domain,f//Length];
 
-ReduceDimensionIntegrateMatrix[d_?DomainQ,n_Integer]:=ReduceDimensionMatrix[d,n+1].IntegrateMatrix[d,n];
-ReduceDimensionIntegrateMatrix[f_]:=ReduceDimensionIntegrateMatrix[f//Domain,f//Length];
 
-DiagonalMatrix[f_IFun]^:=f//Values//DiagonalMatrix;
-IdentityMatrix[f_IFun]^:=f//Length//IdentityMatrix;
 DiagonalMatrix[f_LFun]^:=f//Values//DiagonalMatrix;
 IdentityMatrix[f_LFun]^:=f//Length//IdentityMatrix;
 
@@ -1239,22 +744,6 @@ T=TransformMatrix[lf];
 IM=SparseArray[{i_,j_}/;j==i-1->If[FirstIndex[FFT[lf]]==1-i,0,1/(i-1+FirstIndex[FFT[lf]])],{n,n}];
 Inverse[T].IM.T];
 BoundedIntegrateMatrix[lf_LFun]:=BoundedIntegrateMatrix[lf//ToUnitCircle].DiagonalMatrix[LFun[MapFromCircleD[lf,#]&,UnitCircle,lf//Length]];
-
-
-ComplexRoots[cf_IFun?UnitIntervalFunQ]:=Module[{dct},
-dct=Chop[cf//DCT,$MachineTolerance]//RemoveZeros;
-Which[Length[dct]<=1,
-{},
-Length[dct]==2,
-{-dct[[1]]/dct[[2]]},
-True,
--PadLeft[{(dct//Most)/(2 (dct//Last))},{Length[dct]-1,Length[dct]-1}]+(SparseArray[{{1,2}->1,{i_,j_}/;j==i+1->0.5,{i_,j_}/;j==i-1->0.5},{Length[dct]-1,Length[dct]-1}])//Eigenvalues]];
-
-
-ComplexRoots[cf_IFun]:=MapFromInterval[cf,cf//ToUnitInterval//ComplexRoots];
-
-Roots[cf_IFun]^:=
-MapFromInterval[cf,Select[cf//ToUnitInterval//ComplexRoots,(Abs[Im[#]]<100$MachineTolerance)&&(-1.<=Re[#]<=1.)&]//Re//Sort];
 
 
 ComplexRoots[lf_LFun]:=ComplexRoots[lf//Domain,Chop[lf//FFT,$MachineTolerance]//RemoveZeros];
@@ -1271,15 +760,9 @@ Select[Join[Transpose[SparseArray[{i_,j_}/;j==i-1->1,{Length[dct]-1, Length[dct]
 Abs[Abs[#]-1]<10.^(-6)&]]];
 
 
-Minimize[cf_IFun]^:=Join[cf'//Roots,Endpoints[cf]]//Thread[{cf/@#//Abs,#}]&//Sort//First//Second;
 
 
-Fun[f_?NotListOrPatternQ,l:Line[{_,_},___],opts___]:=IFun[f,l,opts];
 
-Fun[f_?NotListOrPatternQ,Line[l:{_,_,___},Lopts___],n_List]:=IFun[f,Line[#[[1]],Sequence@@If[Or@@(InfinityQ/@#[[1]]),{Lopts},{}]],#[[2]]]&/@Thread[{Partition[l,2,1],n}]//If[Length[#]==1,#[[1]],#]&;
-Fun[f_?NotListOrPatternQ,Line[l:{_,_,___},Lopts___],n_Integer]:=Fun[f,Line[l,Lopts],n OneVector[Length[l]-1]];
-Fun[f_?NotListOrPatternQ,Line[l:{_,_,___},Lopts___],opts:OptionsPattern[]]:=IFun[f,Line[#,Sequence@@If[Or@@(InfinityQ/@#),{Lopts},{}]],opts]&/@Partition[l,2,1]//If[Length[#]==1,#[[1]],#]&;
-Fun[f_,d_?IntervalDomainQ,opts___]:=IFun[f,d,opts];
 Fun[f_,d_?CircleDomainQ,opts___]:=LFun[f,d,opts];
 
 Fun[f_,l_List,n_List]:=Flatten[Fun[f,#[[1]],#[[2]]]&/@Thread[{l,n}]];
@@ -1290,14 +773,11 @@ Fun[f_,l_List,opts___]:=Flatten[Fun[f,#,opts]&/@l];
 
 ZeroAtInfinityFun[f_?NotListOrPatternQ,d_,opts___]:=Fun[If[InfinityQ[#],0 f[0.],f[#]/.Underflow[]->0]&,d,opts];
 
-ZeroAtInfinityFun[f_List,d_?IntervalDomainQ]:=ZeroAtInfinityIFun[f,d];
+
 ZeroAtInfinityFun[f_List,d_?CircleDomainQ]:=ZeroAtInfinityLFun[f,d];
 
 IdentityAtInfinityFun[G_?NotListOrPatternQ,pars___]:=Fun[If[InfinityQ[#],If[G[0.]//MatrixQ,IdentityMatrix[Length[G[0.]]],1],G[#]/.Underflow[]->0]&,pars];
 
-ZeroAtInfinityIFun[f_?NotListOrPatternQ,d_,opts___]:=IFun[If[InfinityQ[#],0 f[0.],f[#]/.Underflow[]->0]&,d,opts];
-
-IdentityAtInfinityIFun[G_?NotListOrPatternQ,pars___]:=IFun[If[InfinityQ[#],If[G[0.]//MatrixQ,IdentityMatrix[Length[G[0.]]],1],G[#]/.Underflow[]->0]&,pars];
 
 ZeroAtInfinityLFun[f_?NotListOrPatternQ,d_,opts___]:=LFun[If[InfinityQ[#],0 f[0.],f[#]/.Underflow[]->0]&,d,opts];
 ZeroAtInfinityLFun[f_List,RealLine]:=LFun[Join[{0},f],RealLine];
@@ -1308,27 +788,14 @@ ZeroAtInfinityLFun[f_List,d_]:=LFun[f,d];
 FunListDot[f_,g_]:=#[[1]].#[[2]]&/@Thread[{f,g}];
 
 
-DCTPlot[f_IFun,opts:OptionsPattern[]]:=ListLineLogPlot[Norm/@(f//DCT),opts];
 FFTPlot[f_LFun,opts:OptionsPattern[]]:=ListLineLogPlot[Norm/@(f//FFT),opts];
 
 
-IntervalDomainQ[Curve[_IFun]]:=True;
+
 CircleDomainQ[Curve[_LFun]]:=True;
 
 
 
-
-
-MapFromInterval[Curve[cr_IFun],z_]:=MapDot[ChebyshevT[#-1,z]&,DCT[cr]];
-MapFromIntervalD[Curve[cr_IFun],z_]:=MapDot[ChebyshevT[#-1,z]&,DCT[cr']];
-MapToInterval[Curve[cr_],z_?InfinityQ]:=z;
-MapFromInterval[Curve[cr_],z_?InfinityQ]:=z;
-MapToInterval[Curve[cr_],z_]/;z~NEqual~First[cr]:=-1.;
-MapToInterval[Curve[cr_],z_]/;z~NEqual~Last[cr]:=1.;
-MapToInterval[Curve[cr_],z_]:=cr-z//Roots//If[#=={},{},First[#]]&;
-MapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,MapToInterval[cr,z]];
-ComplexMapToInterval[Curve[cr_],z_]:=cr-z//ComplexRoots;
-ComplexMapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,ComplexMapToInterval[cr,z]];
 
 
 MapFromCircle[Curve[cr_LFun],z_]:=MapDot[z^#&,FFT[cr]];
@@ -1339,93 +806,17 @@ MapFromCircle[Curve[cr_],z_?ZeroQ]:=0;
 MapToCircle[Curve[cr_],z_]:=cr-z//Roots//First;
 MapToCircleD[cr:Curve[_],z_]:=1/MapFromCircleD[cr,MapToCircle[cr,z]];
 ComplexMapToCircle[Curve[cr_],z_]:=ComplexRoots[UnitCircle,IncreaseIndexRange[RemoveNZeros[FFT[cr]],{0,0}]//#-z  BasisShiftList[#,0]&];
-ComplexMapToIntervalD[cr:Curve[_],z_]:=1/MapFromIntervalD[cr,ComplexMapToInterval[cr,z]];
 
 
 
 
-
-MapFromInterval[Curve[cr_IFun,Stretch->L_],z_]:=MapFromInterval[Curve[cr],MapFromInterval[Line[{-1,1},Stretch->L],z]];
-MapFromIntervalD[Curve[cr_IFun,Stretch->L_],z_]:=MapFromIntervalD[Line[{-1,1},Stretch->L],z] MapFromIntervalD[Curve[cr],MapFromInterval[Line[{-1,1},Stretch->L],z]];
-MapToInterval[Curve[cr_IFun,Stretch->L_],z_]:=MapToInterval[Line[{-1,1},Stretch->L],MapToInterval[cr//Curve,z]];
-MapToIntervalD[Curve[cr_IFun,Stretch->L_],z_]:=MapToIntervalD[Line[{-1,1},Stretch->L],MapToInterval[cr//Curve,z]]/MapFromIntervalD[cr//Curve,MapToInterval[cr//Curve,z]];
-ComplexMapToInterval[Curve[cr_IFun,Stretch->L_],z_]:=MapToInterval[Line[{-1,1},Stretch->L],ComplexMapToInterval[cr//Curve,z]];
-ComplexMapToIntervalD[Curve[cr_IFun,Stretch->L_],z_]:=MapToIntervalD[Line[{-1,1},Stretch->L],ComplexMapToInterval[cr//Curve,z]]/MapFromIntervalD[cr//Curve,ComplexMapToInterval[cr//Curve,z]];
-
-
-
-ComplexPlot[cf_IFun,opts:OptionsPattern[]]:=ListLinePlot[{Re[#],Im[#]}&/@cf//Values,opts];
 ComplexPlot[cf_LFun,opts:OptionsPattern[]]:=ListLinePlot[{Re[#],Im[#]}&/@cf//Values,opts];
 DomainPlot[Curve[cf_,___],opts:OptionsPattern[]]:=Show[ComplexPlot[cf,opts,PlotStyle->{Thick,Blue}],
 {Arrowheads[Medium],Blue,Arrow[{cf//Values//Last//{Re[#],Im[#]}&,(cf//Values//Last)+0.01Exp[I Arg[((cf//Values//Last)-(cf//Values)[[-2]])]]//{Re[#],Im[#]}&}]}//Graphics];
 
 
-Conjugate[Arc[x0_,r_,{t0_,t1_}]]^:=Arc[Conjugate[x0],r,{-t0,-t1}];
-Conjugate[Curve[cr_IFun,opts___]]^:=Curve[Conjugate[cr],opts];
-ReverseOrientation[Curve[cr_IFun,opts___]]:=Curve[Head[cr][Reverse[Values[cr]],Domain[cr]],opts];
-Curve/:c_?NumberQ+Curve[cr_IFun,opts___]:=Curve[c+cr,opts];
-Curve/:c_?NumberQ Curve[cr_IFun,opts___]:=Curve[c cr,opts];
-Arc/:c_?NumberQ Arc[x0_,r_,{t0_,t1_}]:=Arc[c x0,r,{\[Pi]-t0,\[Pi]-t1}];
 
-
-Line[ls_,___]~NEqual~Line[ls2_,___]:=NZeroQ[(If[#[[1]]==#[[2]],0,#[[1]]-#[[2]]]&/@Thread[{Sort[ls],Sort[ls2]}])//Flatten//Abs//Max];
-Arc[x0_,r_,t0_]~NEqual~Arc[x2_,r2_,t2_]:=NZeroQ[{x0-x2,r-r2,Exp[I t0]-Exp[I t2]}//Flatten//Abs//Max];
 Curve[f_,opts___]~NEqual~Curve[g_,opts___]:=If[Length[f]==Length[g],(f-g//Values//Norm)<$MachineTolerance,False];
-
-
-SelectWithPoint[GG_,Gg_]:=Sort[Select[GG,Or[LeftEndpoint[#]~NEqual~(Gg),RightEndpoint[#]~NEqual~(Gg)]&],
-If[LeftEndpoint[#1]~NEqual~(Gg),
-LeftContourArg[#1],
-RightContourArg[#1]]<If[LeftEndpoint[#2]~NEqual~(Gg),
-LeftContourArg[#2],
-RightContourArg[#2]]&];
-SelectWithPoint[GG_,_?InfinityQ]:=Sort[Select[GG,Or[InfinityQ[LeftEndpoint[#]],InfinityQ[RightEndpoint[#]]]&],
-If[LeftEndpoint[#1]//InfinityQ,
-LeftContourArg[#1],
-RightContourArg[#1]]<If[LeftEndpoint[#2]//InfinityQ,
-LeftContourArg[#2],
-RightContourArg[#2]]&];
-Endpoints[GG_IFun]:={GG//LeftEndpoint//N//Chop,GG//RightEndpoint//N//Chop}/._?InfinityQ->\[Infinity];
-Endpoints[GG_List]:=Union@@({LeftEndpoint/@GG//N//Chop,RightEndpoint/@GG//N//Chop}/._?InfinityQ->\[Infinity]);
-FiniteEndpoints[GG_]:=Select[Endpoints[GG],!InfinityQ[#]&];
-
-
-LegendreTransform[if_,m_]:=Module[{p,w,cf,ifv,j,n},
-{p,w}=Thread[GaussianQuadratureWeights[m,-1,1]];
-ifv=if/@p;
-cf[0]=w LegendreP[0,p];
-cf[1]=w LegendreP[1,p];
-cf[n_]:=cf[n]=((2n-1) p cf[n-1] - (n-1) cf[n-2])/n;
-Table[(2 j+1)/2 (cf[j].ifv),{j,0,m-1}]];
-
-LegendreTransform[if_IFun]:=LegendreTransform[if//ToUnitInterval,if//Length];
-LegendreTransform[if_List]:=LegendreTransform[IFun[if,UnitInterval],if//Length];
-
-EvaluateMatrix[f_IFun,x_List]:=EvaluateMatrix[f//ToUnitInterval,MapToInterval[f,x]];
-EvaluateMatrix[f_IFun?UnitIntervalFunQ,x_List]:=Module[{w,j,p,k,n},
-k=Length[f];
-n=NChebyshevLobattoPoints[k];
-w[1]=1/2;
-w[j_]=(-1)^(j+1);
-w[k]=(-1)^(k+1) 1/2;
-If[MemberQ[n,N[Chop[#,$MachineEpsilon]]],BasisVector[k][Position[n,N[Chop[#,$MachineEpsilon]]][[1,1]]],
-Table[w[j]/(#-n[[j]]),{j,1,k}]/\!\(
-\*UnderoverscriptBox[\(\[Sum]\), \(j = 1\), \(k\)]\(w[j]/\((# - n[[j]])\)\)\)]&/@x
-];
-EvaluateMatrix[f_IFun,x_]:=EvaluateMatrix[f,{x}]//First;
-LegendreTransformMatrix[if_IFun]:=Module[{p,w,cf,ifv,j,n,m},
-m=Length[if];
-{p,w}=Thread[GaussianQuadratureWeights[m,-1,1]];
-cf[0]=w LegendreP[0,p];
-cf[1]=w LegendreP[1,p];
-cf[n_]:=cf[n]=((2n-1) p cf[n-1] - (n-1) cf[n-2])/n;
-Table[(2 j+1)/2 (cf[j]),{j,0,m-1}].EvaluateMatrix[if//ToUnitInterval,p]];
-
-FiniteLegendreTransformMatrix[if_?LeftEndpointInfinityQ]:=LegendreTransformMatrix[if][[All,2;;]];
-FiniteLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=LegendreTransformMatrix[if][[All,;;-2]];
-
-FiniteInverseLegendreTransformMatrix[if_?LeftEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[2;;,All]];
-FiniteInverseLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[;;-2,All]];
 
 
 OneFun[lf_?FunQ]:=Head[lf][1&,lf//Domain,lf//Length];

@@ -37,6 +37,17 @@ ScalarQ::usage=
 CDot;SDot;
 ZeroQ;NZeroQ;
 
+NotListOrPatternQ;
+NotListOrPatternOrFunQ;
+ConstantQ;
+
+HalfFirst;
+DoubleFirst;
+HalfFirstAndLast;
+DoubleFirstAndLast;
+
+
+
 
 Begin["Private`"];
 OneVector[n_]:=Table[1,{n}];
@@ -71,6 +82,17 @@ FiniteQ[x_]:=!InfinityQ[x];
 SignQ[+1]:=True;
 SignQ[-1]:=True;
 SignQ[_]:=False;
+
+
+NotListOrPatternQ[f_]:=(!ListQ[f])&&!(Head[f]===Pattern)&&!(Head[f]===Blank);
+NotListOrPatternOrFunQ[f_]:=NotListOrPatternQ[f]&&!(Head[f]===IFun);
+ConstantQ[f_]:=f//N//NumberQ;
+
+HalfFirst[{m1_,m___}]:={m1/2,m};
+DoubleFirst[{m1_,m___}]:={2m1,m};
+HalfFirstAndLast[{m1_,m___,m2_}]:={m1/2,m,m2/2};
+DoubleFirstAndLast[{m1_,m___,m2_}]:={m1 2,m,m2 2};
+
 
 
 

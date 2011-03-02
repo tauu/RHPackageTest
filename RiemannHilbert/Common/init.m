@@ -34,6 +34,11 @@ RiemannHilbert`Common`$CommonPackage="RiemannHilbert`Common`";
 <<RiemannHilbert`Common`GraphicsFunctions`;
 <<RiemannHilbert`Common`NumericalFunctions`;
 <<RiemannHilbert`Common`MatrixFunctions`;
+<<RiemannHilbert`Common`IFun`;
+
 <<RiemannHilbert`Common`Fun`;
+
+
+
 
 

@@ -67,7 +67,20 @@ as equal.\>\""}], ";"}], "\[IndentingNewLine]",
    "\"\<Tests whether something has a scalar value.\>\""}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{"CDot", ";", "SDot", ";"}], "\[IndentingNewLine]", 
- RowBox[{"ZeroQ", ";", "NZeroQ", ";"}]}], "Input",
+ RowBox[{
+  RowBox[{"ZeroQ", ";", "NZeroQ", ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"NotListOrPatternQ", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"NotListOrPatternOrFunQ", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ConstantQ", ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"HalfFirst", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DoubleFirst", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"HalfFirstAndLast", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DoubleFirstAndLast", ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -237,8 +250,79 @@ Cell[BoxData[{
     RowBox[{"-", "1"}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"SignQ", "[", "_", "]"}], ":=", "False"}], 
-  ";"}], "\[IndentingNewLine]"}], "Input",
+   RowBox[{
+    RowBox[{"SignQ", "[", "_", "]"}], ":=", "False"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NotListOrPatternQ", "[", "f_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"!", 
+      RowBox[{"ListQ", "[", "f", "]"}]}], ")"}], "&&", 
+    RowBox[{"!", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Head", "[", "f", "]"}], "===", "Pattern"}], ")"}]}], "&&", 
+    RowBox[{"!", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Head", "[", "f", "]"}], "===", "Blank"}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NotListOrPatternOrFunQ", "[", "f_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"NotListOrPatternQ", "[", "f", "]"}], "&&", 
+    RowBox[{"!", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Head", "[", "f", "]"}], "===", "IFun"}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ConstantQ", "[", "f_", "]"}], ":=", 
+    RowBox[{
+     RowBox[{"f", "//", "N"}], "//", "NumberQ"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"HalfFirst", "[", 
+    RowBox[{"{", 
+     RowBox[{"m1_", ",", "m___"}], "}"}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"m1", "/", "2"}], ",", "m"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoubleFirst", "[", 
+    RowBox[{"{", 
+     RowBox[{"m1_", ",", "m___"}], "}"}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"2", "m1"}], ",", "m"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"HalfFirstAndLast", "[", 
+    RowBox[{"{", 
+     RowBox[{"m1_", ",", "m___", ",", "m2_"}], "}"}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"m1", "/", "2"}], ",", "m", ",", 
+     RowBox[{"m2", "/", "2"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"DoubleFirstAndLast", "[", 
+     RowBox[{"{", 
+      RowBox[{"m1_", ",", "m___", ",", "m2_"}], "}"}], "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"m1", " ", "2"}], ",", "m", ",", 
+      RowBox[{"m2", " ", "2"}]}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]],
 

@@ -186,25 +186,7 @@ Test[
 	EquivalenceFunction -> NEqual
 ]
 
-Test[
-	lf // RightEndpointInfinityQ
-	,
-	True
-	,
-	TestID->"LFun-RealLine-RightEndpointInf"
-	,
-	EquivalenceFunction -> NEqual
-]
 
-Test[
-	lf // LeftEndpointInfinityQ
-	,
-	True
-	,
-	TestID->"LFun-RealLine-LeftEndpointInf"
-	,
-	EquivalenceFunction -> NEqual
-]
 
 Test[
 	ZeroAtInfinityFun[CauchyMatrix[+1, lf, lf].FiniteValues[lf], lf // Domain]
