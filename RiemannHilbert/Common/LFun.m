@@ -267,7 +267,7 @@ SetupFun[LFun];
 
 FFT[if_LFun]:=if//Values//FFT;
 
-LaurentCoefficients[lf:LFun[_,_Circle]]:=MapOuter[MapToCircle[lf,1]^#&,FFT[lf]];
+LaurentCoefficients[lf:LFun[_,_Circle]]:=MapOuter[MapToCircleD[lf,0]^#&,FFT[lf]];
 
 Mean[f_LFun]^:=FFT[f][[0]];
 
