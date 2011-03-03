@@ -80,46 +80,14 @@ PFun[c0:{_,_,___},d_]:=PFun[{c0},d];
 PFun[f_?(NotListOrPatternQ[#]&&!ScalarQ[#] &&!ScalarQ[First[Flatten[#]]]&)&,d_,1]:=PFun[{f[d[[1]]]},d];
 PFun[f_?(NotListOrPatternQ[#]&&!ScalarQ[#]&&!ScalarQ[First[Flatten[#]]]&)&,d_,opts:OptionsPattern[]]:=PFun[f,d,1];
 
-FunQ[_PFun]:=True;
 
 Values[PFun[c0_,_]]:=c0;
 FiniteValues[pf_PFun]:=Values[pf];
 Domain[PFun[_,d_]]:=d;
 
-Length[if_PFun]^:=1;
-Points[if_PFun]:={Domain[if][[1]]};
+SetupFun[PFun];
 
-PFun/:Map[f_,g_PFun]:=PFun[f/@Values[g],Domain[g]];
-FastPlus[f__PFun]:=PFun[Plus@@(Values/@{f}),Domain[{f}[[1]]]];
-FastTimes[f__PFun]:=PFun[Times@@(Values/@{f}),Domain[{f}[[1]]]];
-f_PFun+g_PFun^:=f~FastPlus~g;
-Times[f_PFun,g_PFun]^:=f~FastTimes~g;
-PFun/:f_?ConstantQ+g_PFun:=PFun[f+Values[g],g//Domain];
-PFun/:g_PFun+f_?ConstantQ:=PFun[Values[g]+f,g//Domain];
-PFun/:Times[f_?ConstantQ,g_PFun]:=PFun[f Values[g],g//Domain];
-PFun/:Times[g_PFun,f_?ConstantQ]:=PFun[Values[g]f,g//Domain];
-PFun/:f_PFun^c_?ConstantQ:=PFun[Values[f]^c,f//Domain];
-PFun/:c_?ConstantQ^f_PFun:=PFun[c^Values[f],f//Domain];
-
-Dot[f_PFun?ArrayFunQ,g_PFun?ArrayFunQ]^:=ToArrayFun[ToArrayOfFuns[f].ToArrayOfFuns[g]];
-
-PFun/:Dot[f_List?(!ArrayFunQ[#]&),g_PFun?ArrayFunQ]:=ToArrayFun[f.ToArrayOfFuns[g]];
-
-
-PMapToValues[op_]:=(op[if_PFun]^:=PFun[op[Values[if]],if//Domain]);
-PMapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
-
-Max[f_PFun]^:=f//Values//Max;
-Min[f_PFun]^:=f//Values//Min;
-Norm[f_PFun]^:=f//Values//Flatten//Norm;
 Mean[f_PFun]^:=f//Values//First;
-
-
-NEqual[f_PFun,g_PFun]:=Norm[f-g]<$MachineTolerance;
-
-
-PFun/:f_PFun?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
-PFun/:f_PFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 
 
 FinitePoints[if_PFun]:=if//Points;
@@ -144,6 +112,8 @@ Begin["Private`"];
 FromValueList[f_PFun?ScalarFunQ,ls_]:=PFun[ls,Domain[f]];
 FromValueList[f_PFun?MatrixFunQ,ls_]:=PFun[{PartitionList[ls,f//Dimensions]},f//Domain];
 FromValueList[f_PFun?VectorFunQ,ls_]:=PFun[{ls},f//Domain];
+
+ZeroAtInfinityFun[f_List,d_?PointDomainQ]:=PFun[f,d];
 
 
 End[];

@@ -25,22 +25,19 @@ Needs["NumericalDifferentialEquationAnalysis`"];
 RiemannHilbert`Common`GaussianQuadratureWeights:=NumericalDifferentialEquationAnalysis`GaussianQuadratureWeights;
 $ContextPath=Select[$ContextPath,#!="NumericalDifferentialEquationAnalysis`" &];
 On[General::shdw];
+
+$CommonPackage="RiemannHilbert`Common`";
+
+<<`Functions`;
+<<`SpecialFunctions`;
+<<`GraphicsFunctions`;
+<<`NumericalFunctions`;
+<<`MatrixFunctions`;
+
+
+<<`Fun`;
+
+
+
 EndPackage[];
-
-RiemannHilbert`Common`$CommonPackage="RiemannHilbert`Common`";
-
-<<RiemannHilbert`Common`Functions`;
-<<RiemannHilbert`Common`SpecialFunctions`;
-<<RiemannHilbert`Common`GraphicsFunctions`;
-<<RiemannHilbert`Common`NumericalFunctions`;
-<<RiemannHilbert`Common`MatrixFunctions`;
-
-<<RiemannHilbert`Common`IFun`;
-<<RiemannHilbert`Common`LFun`;
-<<RiemannHilbert`Common`PFun`;
-<<RiemannHilbert`Common`Fun`;
-
-
-
-
 

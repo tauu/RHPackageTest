@@ -51,6 +51,110 @@ VectorFunQ::usage="Tests if an object is in IFun whose values are a vector.";
 MatrixFunQ::usage="Tests if an object is in IFun whose values are a matrix.";
 ArrayFunQ::usage="Tests if an object is in IFun whose values are an array.";
 
+AddIdentityMatrix::usage=
+"Adds IdentityMatrix[2] to a list of ifuns.";
+
+SubtractIdentityMatrix;
+
+DomainPlot::usage=
+"DomainPlot[ifun] plots the domain of ifun. DomainPlot[list] plots the union of the domains of a list of IFuns";
+
+Options[DomainPlot]=Options[Graphics];
+
+DomainIntegrate::usage=
+"DomainIntegrate[ifun] returns the definite integral of the function ifun over its domain.";
+ReduceDimension::usage=
+"Reduces the length of an IFun by one.";
+ReduceDimensionIntegrate::usage=
+"ReduceDimensionIntegrate[ifun] returns the ReduceDimension[Integrate[ifun]].";
+
+Domain::usage=
+"Domain[ifun] returns the domain of an IFun.";
+Values::usage=
+"Values[ifun] returns the values of an IFun at Points[ifun].";
+Points::usage=
+"Points[ifun] returns the the mapped Chebyshev\[Dash]Lobatto points.  Points[d,n] returns n mapped Chebyshev\[Dash]Lobatto points over a domain d.";
+
+SetDomain::usage="SetDomain[f,d] changes the domain of the Fun (or List of Funs) f to d";
+
+
+
+DomainQ::usage=
+"Test whether something is a domain (Line, Arc, Circle, Curve, etc).";
+
+
+ComplexRoots::usage="Returns all roots";
+
+
+Curve::usage="Turns an IFun into a domain";
+
+OneFun;
+
+FunQ;
+ReImLinePlot;
+MatrixFunQ;
+ArrayFunQ;
+ToArrayOfFuns;
+ToArrayFun;
+ListFunQ;
+ToMatrixOfFuns;
+$FunFormat;
+ScalarFunQ;
+VectorFunQ;
+Fun;
+ZeroAtInfinityFun;
+MeanZero;
+
+
+
+
+SetupFun[head_]:=Module[{MapToValues},
+FunQ[_head]:=True;
+head/:Map[f_,g_head]:=head[f/@Values[g],Domain[g]];
+
+Length[if_head]^:=if//Values//Length;
+Points[if_head]:=Points[if//Domain,if//Length];
+
+FastPlus[f__head]:=head[Plus@@(Values/@{f}),Domain[{f}[[1]]]];
+FastTimes[f__head]:=head[Times@@(Values/@{f}),Domain[{f}[[1]]]];
+
+f_head+g_head^:=f~FastPlus~g;
+
+Times[f_head,g_head]^:=f~FastTimes~g;
+head/:f_?ConstantQ+g_head:=head[f+Values[g],g//Domain];
+head/:g_head+f_?ConstantQ:=head[Values[g]+f,g//Domain];
+head/:Times[f_?ConstantQ,g_head]:=head[f Values[g],g//Domain];
+head/:Times[g_head,f_?ConstantQ]:=head[Values[g]f,g//Domain];
+head/:f_head^c_?ConstantQ:=head[Values[f]^c,f//Domain];
+head/:c_?ConstantQ^f_head:=head[c^Values[f],f//Domain];
+Dot[f_head?ArrayFunQ,g_head?ArrayFunQ]^:=ToArrayFun[ToArrayOfFuns[f].ToArrayOfFuns[g]];
+
+head/:Dot[f_List?(!ArrayFunQ[#]&),g_head?ArrayFunQ]:=ToArrayFun[f.ToArrayOfFuns[g]];
+
+MapToValues[op_]:=(op[if_head]^:=head[op[Values[if]],if//Domain]);
+MapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
+
+Inverse[if_head]^:=Inverse/@if;
+Transpose[f_head]^:=Transpose/@f;
+Max[f_head]^:=f//Values//Max;
+Min[f_head]^:=f//Values//Min;
+Norm[f_head]^:=f//Values//Flatten//Norm;
+
+NEqual[f_head,g_head]:=Norm[f-g]<$MachineTolerance;
+
+First[f_head]^:=f//Values//First;
+Last[f_head]^:=f//Values//Last;
+Dimensions[f_head]^:=f//First//Dimensions;
+
+head/:f_head?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
+head/:f_head?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
+MeanZero[f_head]:=f-Mean[f];
+]
+
+
+<<`IFun`;
+<<`LFun`;
+<<`PFun`;
 
 
 
@@ -127,6 +231,8 @@ ToArrayFun[f_]:=Head[Flatten[{f}][[1]]][ArrayMap[Values,f]//ToListOfArrays,Domai
 
 AddIdentityMatrix[l_?FunQ]:=(IdentityMatrix[2]+#)&/@l;
 AddIdentityMatrix[l_List]:=AddIdentityMatrix/@l;
+SubtractIdentityMatrix[l_?FunQ]:=(#-IdentityMatrix[2])&/@l;
+SubtractIdentityMatrix[l_List]:=SubtractIdentityMatrix/@l;
 
 
 ReImLinePlot[f_?ArrayFunQ,opts___]:=ArrayMap[ReImLinePlot[#,opts]&,f//ToArrayOfFuns]//MatrixForm;

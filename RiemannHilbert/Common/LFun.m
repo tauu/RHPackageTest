@@ -259,52 +259,20 @@ Arrow[{MapFromCircle[ell,Exp[I 0.2]]//{Re[#],Im[#]}&,MapFromCircle[ell,Exp[I 0.2
 LFun[l_List,d_][z_]:=MapDot[MapToCircle[d,z]^#&,FFT[l]];
 LFun[f_,d_,n_]:=LFun[f/@MapFromCircle[d,Points[UnitCircle,n]],d];
 
-FunQ[_LFun]:=True;
-
 Values[LFun[l_List,_]]:=l;
 Domain[LFun[_,d_]]:=d;
 
-Length[if_LFun]^:=if//Values//Length;
-Points[if_LFun]:=MapFromCircle[if//Domain,Points[UnitCircle,if//Length]];
+SetupFun[LFun];
 
 
 FFT[if_LFun]:=if//Values//FFT;
 
 LaurentCoefficients[lf:LFun[_,_Circle]]:=MapOuter[MapToCircle[lf,1]^#&,FFT[lf]];
 
-LFun/:Map[f_,g_LFun]:=LFun[f/@Values[g],Domain[g]];
-FastPlus[f__LFun]:=LFun[Plus@@(Values/@{f}),Domain[{f}[[1]]]];
-FastTimes[f__LFun]:=LFun[Times@@(Values/@{f}),Domain[{f}[[1]]]];
-f_LFun+g_LFun^:=f~FastPlus~g;
-Times[f_LFun,g_LFun]^:=f~FastTimes~g;
-LFun/:f_?ConstantQ+g_LFun:=LFun[f+Values[g],g//Domain];
-LFun/:g_LFun+f_?ConstantQ:=LFun[Values[g]+f,g//Domain];
-LFun/:Times[f_?ConstantQ,g_LFun]:=LFun[f Values[g],g//Domain];
-LFun/:Times[g_LFun,f_?ConstantQ]:=LFun[Values[g]f,g//Domain];
-LFun/:f_LFun^c_?ConstantQ:=LFun[Values[f]^c,f//Domain];
-LFun/:c_?ConstantQ^f_LFun:=LFun[c^Values[f],f//Domain];
-
-Dot[f_LFun?ArrayFunQ,g_LFun?ArrayFunQ]^:=ToArrayFun[ToArrayOfFuns[f].ToArrayOfFuns[g]];
-
-LFun/:Dot[f_List?(!ArrayFunQ[#]&),g_LFun?ArrayFunQ]:=ToArrayFun[f.ToArrayOfFuns[g]];
-
-
-LMapToValues[op_]:=(op[if_LFun]^:=LFun[op[Values[if]],if//Domain]);
-LMapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
-
-Max[f_LFun]^:=f//Values//Max;
-Min[f_LFun]^:=f//Values//Min;
-Norm[f_LFun]^:=f//Values//Flatten//Norm;
 Mean[f_LFun]^:=FFT[f][[0]];
 
-
-NEqual[f_LFun,g_LFun]:=Norm[f-g]<$MachineTolerance;
-
-MeanZero[f_LFun]:=f-Mean[f];
 MeanZero[sl_ShiftList]:=sl-sl[[0]] BasisShiftList[sl,0];
 
-LFun/:f_LFun?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
-LFun/:f_LFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 
 ComplexMapToCircle[f_?FunQ,z_]:=ComplexMapToCircle[f//Domain,z];
 
@@ -477,7 +445,7 @@ Abs[Abs[#]-1]<10.^(-6)&]]];
 Fun[f_,d_?CircleDomainQ,opts___]:=LFun[f,d,opts];
 
 ZeroAtInfinityLFun[f_?NotListOrPatternQ,d_,opts___]:=LFun[If[InfinityQ[#],0 f[0.],f[#]/.Underflow[]->0]&,d,opts];
-ZeroAtInfinityLFun[f_List,RealLine]:=LFun[Join[{0},f],RealLine];
+ZeroAtInfinityLFun[f_List,RealLine]:=LFun[Join[{0 f[[1]]},f],RealLine];
 ZeroAtInfinityLFun[f_List,d_]:=LFun[f,d];
 ZeroAtInfinityFun[f_List,d_?CircleDomainQ]:=ZeroAtInfinityLFun[f,d];
 

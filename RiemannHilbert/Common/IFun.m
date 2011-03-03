@@ -42,33 +42,16 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)InterpolationPrecision\[Rule]tol] choos
 Options[IFun]:={InterpolationPrecision->$MachineTolerance};
 
 
-DomainPlot::usage=
-"DomainPlot[ifun] plots the domain of ifun. DomainPlot[list] plots the union of the domains of a list of IFuns";
 
-Options[DomainPlot]=Options[Graphics];
 
 
 Arc::usage=
 "Arc[z0,r,{t0,t1}] represents the arc centred at z0 of radius r from argument t0 to t1.";
 
 
-DomainIntegrate::usage=
-"DomainIntegrate[ifun] returns the definite integral of the function ifun over its domain.";
-
-
 DCT::usage=
 "DCT[ifun] returns the Chebyshev coefficients of an IFun.";
-ReduceDimension::usage=
-"Reduces the length of an IFun by one.";
-ReduceDimensionIntegrate::usage=
-"ReduceDimensionIntegrate[ifun] returns the ReduceDimension[Integrate[ifun]].";
 
-Domain::usage=
-"Domain[ifun] returns the domain of an IFun.";
-Values::usage=
-"Values[ifun] returns the values of an IFun at Points[ifun].";
-Points::usage=
-"Points[ifun] returns the the mapped Chebyshev\[Dash]Lobatto points.  Points[d,n] returns n mapped Chebyshev\[Dash]Lobatto points over a domain d.";
 
 LeftEndpoint::usage=
 "LeftEndpoint[d] returns the left endpoint of the domain d. If d is an IFun, then it is equivalent to LeftEndpoint[Domain[d]]." ;
@@ -100,13 +83,10 @@ ComplexMapFromIntervalD::usage=
 UnitInterval::usage=
 "The unit interval Line[{-1.,1.}].";
 
-SetDomain::usage="SetDomain[f,d] changes the domain of the Fun (or List of Funs) f to d";
+
 
 ToUnitInterval::usage=
 "ToUnitInterval[ifun] maps ifun to an IFun defined over the unit interval.";
-
-DomainQ::usage=
-"Test whether something is a domain (Line, Arc, Circle, Curve, etc).";
 
 IntervalDomainQ::usage=
 "Test whether something is a domain mapped from the unit interval.";
@@ -118,9 +98,8 @@ IdentityAtInfinityIFun::usage="Constructs a Fun with the default value of the id
 
 DCTPlot::usage="LogPlots the norm of the Chebyshev coefficients of an IFun";
 
-ComplexRoots::usage="Returns all roots";
 
-Curve::usage="Turns an IFun into a domain";
+
 
 
 SelectWithPoint::usage="Select from a list of Funs the Fun which contains a point";
@@ -133,24 +112,6 @@ EvaluateMatrix::usage="Matrix for evaluating at a point";
 
 BoundedIntegrate::usage="BoundedIntegrate[lf] integrates an LFun with its -1 coefficient removed";
 
-OneFun;
-
-AddIdentityMatrix::usage=
-"Adds IdentityMatrix[2] to a list of ifuns.";
-
-FunQ;
-ReImLinePlot;
-MatrixFunQ;
-ArrayFunQ;
-ToArrayOfFuns;
-ToArrayFun;
-ListFunQ;
-ToMatrixOfFuns;
-$FunFormat;
-ScalarFunQ;
-VectorFunQ;
-Fun;
-ZeroAtInfinityFun;
 
 
 ToChebyshevUSeries;
@@ -533,47 +494,18 @@ IFun[l_List,d_][z_]:=ChebyshevLobattoBarycentricInterpolation[l,MapToInterval[d,
 IFun[f_?NotListOrPatternQ,d_,n_Integer]:=IFun[f/@Points[d,n],d];
 
 
-FunQ[_IFun]:=True;
-
 Values[IFun[l_List,_]]:=l;
 Domain[IFun[_List,d_]]:=d;
 
-Length[if_IFun]^:=if//Values//Length;
-Points[if_IFun]:=Points[if//Domain,if//Length];
 
+SetupFun[IFun];
 
 DCT[f_IFun?ArrayFunQ]:=ArrayMap[DCT,f]//ToListOfArrays;
 DCT[if_IFun]:=if//Values//DCT;
 
-IFun/:Map[f_,g_IFun]:=IFun[f/@Values[g],Domain[g]];
 
-FastPlus[f__IFun]:=IFun[Plus@@(Values/@{f}),Domain[{f}[[1]]]];
-FastTimes[f__IFun]:=IFun[Times@@(Values/@{f}),Domain[{f}[[1]]]];
-
-
-
-f_IFun+g_IFun^:=f~FastPlus~g;
-Times[f_IFun,g_IFun]^:=f~FastTimes~g;
-IFun/:f_?ConstantQ+g_IFun:=IFun[f+Values[g],g//Domain];
-IFun/:g_IFun+f_?ConstantQ:=IFun[Values[g]+f,g//Domain];
-IFun/:Times[f_?ConstantQ,g_IFun]:=IFun[f Values[g],g//Domain];
-IFun/:Times[g_IFun,f_?ConstantQ]:=IFun[Values[g]f,g//Domain];
-IFun/:f_IFun^c_?ConstantQ:=IFun[Values[f]^c,f//Domain];
-IFun/:c_?ConstantQ^f_IFun:=IFun[c^Values[f],f//Domain];
-Dot[f_IFun?ArrayFunQ,g_IFun?ArrayFunQ]^:=ToArrayFun[ToArrayOfFuns[f].ToArrayOfFuns[g]];
-
-IFun/:Dot[f_List?(!ArrayFunQ[#]&),g_IFun?ArrayFunQ]:=ToArrayFun[f.ToArrayOfFuns[g]];
-
-MapToValues[op_]:=(op[if_IFun]^:=IFun[op[Values[if]],if//Domain]);
-MapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
-Inverse[if_IFun]^:=Inverse/@if;
-Transpose[f_IFun]^:=Transpose/@f;
-Max[f_IFun]^:=f//Values//Max;
-Min[f_IFun]^:=f//Values//Min;
-Norm[f_IFun]^:=f//Values//Flatten//Norm;
 Mean[f_IFun]^:=DCT[f][[1]];
 
-NEqual[f_IFun,g_IFun]:=Norm[f-g]<$MachineTolerance;
 
 
 MapToInterval[f_IFun,z_]:=MapToInterval[f//Domain,z];
@@ -594,16 +526,8 @@ RightEndpoint[f_IFun]:=f//Domain//RightEndpoint;
 LeftContourArg[f_IFun]:=f//Domain//LeftContourArg;
 RightContourArg[f_IFun]:=f//Domain//RightContourArg;
 
-
-First[f_IFun]^:=f//Values//First;
-Last[f_IFun]^:=f//Values//Last;
-Dimensions[f_IFun]^:=f//First//Dimensions;
 ReverseOrientation[f_IFun]:=IFun[Reverse[Values[f]],ReverseOrientation[Domain[f]]];
-IFun/:f_IFun?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
-IFun/:f_IFun?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 
-
-MeanZero[f_IFun]:=f-First[DCT[f]];
 ZeroAtZero[f_IFun]/;OddQ[Length[f]]:=f-f[0.];
 ZeroAtRight[f_]:=f-Last[f];
 ZeroAtLeft[f_]:=f-First[f];

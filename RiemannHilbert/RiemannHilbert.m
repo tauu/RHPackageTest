@@ -60,7 +60,7 @@ CauchyMatrix[s_?SignQ,f:{__?FunQ}]:=CauchyMatrix[s,f,f];
 
 
 MakeMachineNumber[x_]:=Chop[x,$MinMachineNumber]//N;
-RHSolverTop[GGIn:{__IFun},opts:OptionsPattern[] ]:=
+RHSolverTop[GGIn:{__?FunQ},opts:OptionsPattern[] ]:=
 RHSolverTop[CauchyMatrix[-1,#[[1,1]]&/@GGIn]//MakeMachineNumber,opts];
 
 
@@ -84,7 +84,7 @@ solv=LinearSolve[matt];
 sol=FromValueList[#,solv[#//ToValueList//MakeMachineNumber]]&/@GR
 ];
 
-RHSolverTop[matm_,opts:OptionsPattern[]][GG_List] := RHSolverTop[matm,opts][GG,#[[1,All]]&/@(#-IdentityMatrix[2]&/@#&/@GG)];
+RHSolverTop[matm_,opts:OptionsPattern[]][GG_List] := RHSolverTop[matm,opts][GG,#[[1,All]]&/@SubtractIdentityMatrix[GG]];
 
 RHSolverTop[matm_,opts:OptionsPattern[]][GG_List,GR_List]:=
 RHSolverTop[matm,opts][GG,{GR}]//First;
@@ -223,7 +223,7 @@ OuterIteratedRHSolver[{},Uls_,_]:=Uls;
 OuterIteratedRHSolver[{{{scale_,domains_},jumps_,R_},rest___},Uls_,x_]:=OuterIteratedRHSolver[{rest},IteratedRHSolver[Thread[{scale[x]//Transpose,jumps//Transpose}],Uls,R,domains],x];
 
 
-ConvertIteratedToStandardFunList[ifl_]:=(Function[sfl,IFun[Values[#],((#//Domain)/sfl[[2]]+sfl[[1]])]&/@Last[sfl]]/@ifl);
+ConvertIteratedToStandardFunList[ifl_]:=(Function[sfl,Fun[Values[#],((#//Domain)/sfl[[2]]+sfl[[1]])]&/@Last[sfl]]/@ifl);
 
 
 ScaledRHSolver[l:{{_,_}..}]:=Module[{scale,domains},

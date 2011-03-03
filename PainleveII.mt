@@ -20,4 +20,6 @@ TestSuite[{
 	"Tests/LFunCauchyMatrixTest.mt"
 	,
 	"Tests/CurveFunTest.mt"
+	,
+	"Tests/PFunTest.mt"
 }]

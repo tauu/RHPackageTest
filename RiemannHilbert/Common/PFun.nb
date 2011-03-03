@@ -134,7 +134,7 @@ Cell[BoxData[
     RowBox[{"End", "[", "]"}], ";"}]}]}]], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -269,13 +269,8 @@ Cell[BoxData[{
       RowBox[{"opts", ":", 
        RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
     RowBox[{"PFun", "[", 
-     RowBox[{"f", ",", "d", ",", "1"}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"FunQ", "[", "_PFun", "]"}], ":=", "True"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+     RowBox[{"f", ",", "d", ",", "1"}], "]"}]}], ";"}], "\[IndentingNewLine]",
+   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"Values", "[", 
@@ -295,228 +290,13 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Length", "[", "if_PFun", "]"}], "^:=", "1"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"Points", "[", "if_PFun", "]"}], ":=", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"Domain", "[", "if", "]"}], "\[LeftDoubleBracket]", "1", 
-      "\[RightDoubleBracket]"}], "}"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{"Map", "[", 
-    RowBox[{"f_", ",", "g_PFun"}], "]"}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{"f", "/@", 
-      RowBox[{"Values", "[", "g", "]"}]}], ",", 
-     RowBox[{"Domain", "[", "g", "]"}]}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"FastPlus", "[", "f__PFun", "]"}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{"Plus", "@@", 
-      RowBox[{"(", 
-       RowBox[{"Values", "/@", 
-        RowBox[{"{", "f", "}"}]}], ")"}]}], ",", 
-     RowBox[{"Domain", "[", 
-      RowBox[{
-       RowBox[{"{", "f", "}"}], "\[LeftDoubleBracket]", "1", 
-       "\[RightDoubleBracket]"}], "]"}]}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"FastTimes", "[", "f__PFun", "]"}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{"Times", "@@", 
-      RowBox[{"(", 
-       RowBox[{"Values", "/@", 
-        RowBox[{"{", "f", "}"}]}], ")"}]}], ",", 
-     RowBox[{"Domain", "[", 
-      RowBox[{
-       RowBox[{"{", "f", "}"}], "\[LeftDoubleBracket]", "1", 
-       "\[RightDoubleBracket]"}], "]"}]}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"f_PFun", "+", "g_PFun"}], "^:=", 
-   RowBox[{"f", "~", "FastPlus", "~", "g"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Times", "[", 
-    RowBox[{"f_PFun", ",", "g_PFun"}], "]"}], "^:=", 
-   RowBox[{"f", "~", "FastTimes", "~", "g"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{
-    RowBox[{"f_", "?", "ConstantQ"}], "+", "g_PFun"}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{"f", "+", 
-      RowBox[{"Values", "[", "g", "]"}]}], ",", 
-     RowBox[{"g", "//", "Domain"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{"g_PFun", "+", 
-    RowBox[{"f_", "?", "ConstantQ"}]}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"Values", "[", "g", "]"}], "+", "f"}], ",", 
-     RowBox[{"g", "//", "Domain"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{"Times", "[", 
-    RowBox[{
-     RowBox[{"f_", "?", "ConstantQ"}], ",", "g_PFun"}], "]"}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{"f", " ", 
-      RowBox[{"Values", "[", "g", "]"}]}], ",", 
-     RowBox[{"g", "//", "Domain"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{"Times", "[", 
-    RowBox[{"g_PFun", ",", 
-     RowBox[{"f_", "?", "ConstantQ"}]}], "]"}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"Values", "[", "g", "]"}], "f"}], ",", 
-     RowBox[{"g", "//", "Domain"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{"f_PFun", "^", 
-    RowBox[{"c_", "?", "ConstantQ"}]}], ":=", 
-   RowBox[{"PFun", "[", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"Values", "[", "f", "]"}], "^", "c"}], ",", 
-     RowBox[{"f", "//", "Domain"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"PFun", "/:", 
-    RowBox[{
-     RowBox[{"c_", "?", "ConstantQ"}], "^", "f_PFun"}], ":=", 
-    RowBox[{"PFun", "[", 
-     RowBox[{
-      RowBox[{"c", "^", 
-       RowBox[{"Values", "[", "f", "]"}]}], ",", 
-      RowBox[{"f", "//", "Domain"}]}], "]"}]}], ";"}], 
+   RowBox[{"SetupFun", "[", "PFun", "]"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"Mean", "[", "f_PFun", "]"}], "^:=", 
    RowBox[{
-    RowBox[{"Dot", "[", 
-     RowBox[{
-      RowBox[{"f_PFun", "?", "ArrayFunQ"}], ",", 
-      RowBox[{"g_PFun", "?", "ArrayFunQ"}]}], "]"}], "^:=", 
-    RowBox[{"ToArrayFun", "[", 
-     RowBox[{
-      RowBox[{"ToArrayOfFuns", "[", "f", "]"}], ".", 
-      RowBox[{"ToArrayOfFuns", "[", "g", "]"}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"PFun", "/:", 
-    RowBox[{"Dot", "[", 
-     RowBox[{
-      RowBox[{"f_List", "?", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"!", 
-          RowBox[{"ArrayFunQ", "[", "#", "]"}]}], "&"}], ")"}]}], ",", 
-      RowBox[{"g_PFun", "?", "ArrayFunQ"}]}], "]"}], ":=", 
-    RowBox[{"ToArrayFun", "[", 
-     RowBox[{"f", ".", 
-      RowBox[{"ToArrayOfFuns", "[", "g", "]"}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"PMapToValues", "[", "op_", "]"}], ":=", 
-   RowBox[{"(", 
-    RowBox[{
-     RowBox[{"op", "[", "if_PFun", "]"}], "^:=", 
-     RowBox[{"PFun", "[", 
-      RowBox[{
-       RowBox[{"op", "[", 
-        RowBox[{"Values", "[", "if", "]"}], "]"}], ",", 
-       RowBox[{"if", "//", "Domain"}]}], "]"}]}], ")"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"PMapToValues", "/@", 
-    RowBox[{"{", 
-     RowBox[{
-     "Abs", ",", "Arg", ",", "Re", ",", "Im", ",", "Conjugate", ",", "Exp", 
-      ",", "Tan", ",", "ArcSin", ",", "Sec", ",", "Sin", ",", "Cos", ",", 
-      "Log", ",", "ArcTanh"}], "}"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Max", "[", "f_PFun", "]"}], "^:=", 
-   RowBox[{
-    RowBox[{"f", "//", "Values"}], "//", "Max"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Min", "[", "f_PFun", "]"}], "^:=", 
-   RowBox[{
-    RowBox[{"f", "//", "Values"}], "//", "Min"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Norm", "[", "f_PFun", "]"}], "^:=", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"f", "//", "Values"}], "//", "Flatten"}], "//", "Norm"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"Mean", "[", "f_PFun", "]"}], "^:=", 
-    RowBox[{
-     RowBox[{"f", "//", "Values"}], "//", "First"}]}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"NEqual", "[", 
-     RowBox[{"f_PFun", ",", "g_PFun"}], "]"}], ":=", 
-    RowBox[{
-     RowBox[{"Norm", "[", 
-      RowBox[{"f", "-", "g"}], "]"}], "<", "$MachineTolerance"}]}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{
-    RowBox[{"f_PFun", "?", "MatrixFunQ"}], "\[LeftDoubleBracket]", 
-    RowBox[{"i_", ",", "j_"}], "\[RightDoubleBracket]"}], ":=", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{"f", "//", "ToMatrixOfFuns"}], ")"}], "\[LeftDoubleBracket]", 
-     RowBox[{"i", ",", "j"}], "\[RightDoubleBracket]"}], "//", 
-    "ToArrayFun"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PFun", "/:", 
-   RowBox[{
-    RowBox[{"f_PFun", "?", "ListFunQ"}], "\[LeftDoubleBracket]", "i_", 
-    "\[RightDoubleBracket]"}], ":=", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{"f", "//", "ToArrayOfFuns"}], ")"}], "\[LeftDoubleBracket]", 
-     "i", "\[RightDoubleBracket]"}], "//", "ToArrayFun"}]}], ";"}]}], "Input",
- 
+    RowBox[{"f", "//", "Values"}], "//", "First"}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -603,12 +383,20 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"{", "ls", "}"}], ",", 
        RowBox[{"f", "//", "Domain"}]}], "]"}]}], ";"}], "\[IndentingNewLine]",
-    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ZeroAtInfinityFun", "[", 
+      RowBox[{"f_List", ",", 
+       RowBox[{"d_", "?", "PointDomainQ"}]}], "]"}], ":=", 
+     RowBox[{"PFun", "[", 
+      RowBox[{"f", ",", "d"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]", 
    "\[IndentingNewLine]", "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -668,7 +456,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{814, 809},
-WindowMargins->{{235, Automatic}, {10, Automatic}},
+WindowMargins->{{Automatic, -1066}, {Automatic, 13}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

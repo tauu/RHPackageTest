@@ -872,7 +872,7 @@ Test[
 (* ::Subsection:: *)
 (* Matrix Tests *)
 
-Clear[f,l,lV];
+Clear[f,l,lV,lf];
 
 f[z_] := ( {
     {Sech[z], Exp[-z^2]},
@@ -884,6 +884,8 @@ f[_?InfinityQ] := ( {
    } );
 l = {IFun[f, Line[{-\[Infinity], -1.}]], IFun[f, Line[{-1., 1.}]], IFun[f, Line[{1., \[Infinity]}]]};
 lV = #[[All, 1]] & /@ l;
+
+lf= LFun[{{Sech[#],Exp[-#^2]},{Exp[-#^2],Sech[#]}}&,RealLine,100];
 
 
 Test[
@@ -921,6 +923,47 @@ Test[
 	0
 	,
 	TestID->"ValueList-MatrixList-MatrixMultVectorFun"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+
+Test[
+	FromValueList[lf, lf//ToValueList]
+	,
+	lf
+	,
+	TestID->"ValueList-MatrixList-LFun"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	FromValueList[{lf}, {lf}//ToValueList]
+	,
+	{lf}
+	,
+	TestID->"ValueList-MatrixList-LFun-Set"
+		,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	FromValueList[{lf[[1]]}, {lf[[1]]}//ToValueList]
+	,
+	{lf[[1]]}
+	,
+	TestID->"ValueList-VectorList-LFun-Set"
+	,
+	EquivalenceFunction -> NEqual
+]
+
+Test[
+	FromValueList[lf[[1]], lf[[1]]//ToValueList]
+	,
+	lf[[1]]
+	,
+	TestID->"ValueList-VectorList-LFun"
 	,
 	EquivalenceFunction -> NEqual
 ]
