@@ -111,7 +111,7 @@ CircleToPeriodicInterval;
 RealLineToPeriodicInterval;
 PeriodicIntervalToRealLine;
 
-
+MakeFFTIndexRange;
 
 UnitCircleFunQ::usage="Tests whether an object is an LFun whose domain is the unit circle.";
 
@@ -213,6 +213,9 @@ MapToCircleD[l_Line,z_]:=MapToCircleD[PeriodicInterval,MapToInterval[l,z] \[Pi] 
 
 
 Ellipse[r_]:=Ellipse[{-1,1},r];
+CircleDomainQ[_Ellipse]:=True;
+IntervalDomainQ[_Ellipse]:=False;
+
 
 MapFromCircle[Ellipse[{a_,b_},r_],z_]:=MapFromInterval[Line[{a,b}],CircleToInterval[MapFromCircle[Circle[0,r],z]]];
 MapToCircle[Ellipse[{a_,b_},r_],z_]:=MapToCircle[Circle[0,r],IntervalToInnerCircle[MapToInterval[Line[{a,b}],z]]];

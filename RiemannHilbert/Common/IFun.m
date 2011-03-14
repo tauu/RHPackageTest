@@ -462,6 +462,8 @@ End[];
 
 
 
+Begin["Private`"];
+
 DomainPlot[Line[{a_,b_?InfinityQ},___],opts___]:=Graphics[{Thick,Blue,Arrowheads[Large],PointSize[Large],Point[a//{Re[#],Im[#]}&],Arrow[{a//{Re[#],Im[#]}&,a+2 Exp[I Arg[b]]//{Re[#],Im[#]}&}]},opts,Axes->True];
 DomainPlot[Line[{a_?InfinityQ,b_},___],opts___]:=Graphics[{Thick,Blue,Arrowheads[Large],PointSize[Large],Point[b//{Re[#],Im[#]}&],Arrow[{b+2 Exp[I Arg[a]]//{Re[#],Im[#]}&,b//{Re[#],Im[#]}&}]},opts,Axes->True];
 DomainPlot[Line[{a_,b_},___],opts___]:=Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],Point[a//{Re[#],Im[#]}&],
@@ -472,6 +474,8 @@ Point[z0 + r Exp[I t0]//{Re[#],Im[#]}& ],
 Point[z0 + r Exp[I t1]//{Re[#],Im[#]}& ],
 Arrow[{z0+r Exp[I (t1-0.0001 Sign[t1-t0])]//{Re[#],Im[#]}&,z0 + r Exp[I t1]//{Re[#],Im[#]}&}],
 Circle[{Re[#],Im[#]}&[z0],r,{t0,t1}//N//Sort]},opts,Axes->True];
+
+End[];
 
 
 

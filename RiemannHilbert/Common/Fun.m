@@ -108,6 +108,7 @@ MeanZero;
 
 
 
+Begin["Private`"];
 SetupFun[head_]:=Module[{MapToValues},
 FunQ[_head]:=True;
 head/:Map[f_,g_head]:=head[f/@Values[g],Domain[g]];
@@ -149,7 +150,8 @@ Dimensions[f_head]^:=f//First//Dimensions;
 head/:f_head?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
 head/:f_head?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 MeanZero[f_head]:=f-Mean[f];
-]
+];
+End[];
 
 
 <<`IFun`;
