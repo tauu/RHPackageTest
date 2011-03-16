@@ -410,6 +410,8 @@ MapToIntervalSeriesAtInfinityD;
 PointsD;
 ValuesDomainD;
 ToValueListD;
+DomainD;
+FromValueList;
 
 
 
@@ -444,6 +446,8 @@ PointsD[spc__][d_IFun]:=PointsD[spc][d//Domain,d//Length];
 ValuesDomainD[spc__][f_IFun]:=Values[f']MapFromIntervalDomainD[spc][f,Points[UnitInterval,f//Length]];
 
 ToValueListD[spca__][f_List]:=Join@@(If[#[[2]]=={0,0},ZeroVector[Length[#[[1]]]],ValuesDomainD[Sequence@@#[[2]]][#[[1]]]]&/@Thread[{f,{spca}}]);
+
+DomainD[spc__][f_IFun]:=FromValueList[f,ValuesDomainD[spc][f]];
 End[];
 
 
@@ -692,7 +696,7 @@ FiniteTransformMatrix[d_?RightEndpointInfinityQ,n_Integer]:=TransformMatrix[d,n]
 DerivativeMatrix[1][d_?IntervalDomainQ,n_Integer]:=MapToIntervalD[d,Points[d,n]]ColumnMap[ChebyshevLobattoDerivative,IdentityMatrix[n]];
 
 
-ReduceDimensionMatrix[d_,n_]:=Inverse[TransformMatrix[d,n-1]].IdentityMatrix[n][[;;-2,All]].TransformMatrix[n];
+ReduceDimensionMatrix[d_,n_]:=Inverse[TransformMatrix[d,n-1]].IdentityMatrix[n][[;;-2,All]].TransformMatrix[d,n];
 ReduceDimensionMatrix[f_]:=ReduceDimensionMatrix[f//Domain,f//Length];
 
 ReduceDimensionIntegrateMatrix[d_?DomainQ,n_Integer]:=ReduceDimensionMatrix[d,n+1].IntegrateMatrix[d,n];
