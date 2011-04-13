@@ -43,6 +43,8 @@ CauchyInverseIntegralPlusD;
 CauchyInverseIntegralDomainD;
 CauchyInverseIntegralDomainGrad;
 BoundedCauchyInverse;
+EquilibriumMeasureSupport::usage="EquilibriumMeasureSupport[V] Computes the support of the equilibrium measure (currently only for convex V";
+EquilibriumMeasure::usage="EquilibriumMeasure[V,x] Computes the equilibrium measure at a point x inside the support";
 Begin["Private`"];
 
 
@@ -80,26 +82,6 @@ CauchyInversePlus[f_IFun,z_]:=2 CauchyInverse[f,z];
 
 HilbertInverse[f_IFun,z_]:=-Sqrt[1-MapToInterval[f,z]^2] MapDot[ChebyshevU[#-1,MapToInterval[f,z]]&,f//DCT//Rest];
 
-SPCauchyInverseIntegral[f_IFun?IntervalFunQ]:=1/MapToIntervalD[f,0.] IFun[1/2  ( MapOuter[Which[#==1,0,#==2,2/(#-1),True,1/(#-1)]&,(DCT[f]//GrowShiftRight)]-PadRight[MapOuter[If[#==1,0,1/(#-1)]&,(DCT[f]//GrowShiftLeft)],Length[f]+1])//InverseDCT,Domain[f]];
-
-CauchyInverseIntegral[f_IFun?IntervalFunQ,z_]:=
-CauchyInverse[SPCauchyInverseIntegral[f],z]-1/(4 MapToIntervalD[f,0.]) DCT[f][[2]]Log[IntervalToInnerCircle[MapToInterval[f,z]]];
-
-CauchyInverseIntegralS[s_?SignQ,f_IFun?IntervalFunQ,z_]:=
-CauchyInverse[s,SPCauchyInverseIntegral[f],z]+s ArcCos[MapToInterval[f,z]]1/(4MapToIntervalD[f,0.]) DCT[f][[2]]  I;
-
-CauchyInverseIntegral[s_?SignQ,f_IFun?IntervalFunQ,z_]/;DomainMemberQ[f,z]:=
-CauchyInverse[s,SPCauchyInverseIntegral[f],z]+s ArcCos[MapToInterval[f,z]]1/(4MapToIntervalD[f,0.]) DCT[f][[2]]  I;
-
-CauchyInverseIntegral[s_?SignQ,f_IFun?IntervalFunQ,z_]/;NZeroQ[Im[MapToInterval[f,z]]]&&Re[MapToInterval[f,z]]<=-1.:=
-CauchyInverse[SPCauchyInverseIntegral[f],z]-1/(4 MapToIntervalD[f,0.]) DCT[f][[2]](Log[Abs[IntervalToInnerCircle[MapToInterval[f,z]]]]-s I \[Pi]);
-CauchyInverseIntegral[_?SignQ,f_IFun?IntervalFunQ,z_]:=CauchyInverseIntegral[f,z];
-
-CauchyInverseIntegralPlus[f_IFun?IntervalFunQ,z_]/;DomainMemberQ[f,z]:=SPCauchyInverseIntegral[f][z];
-CauchyInverseIntegralPlus[f_IFun?IntervalFunQ,z_]/;NZeroQ[Im[MapToInterval[f,z]]]&&Re[MapToInterval[f,z]]<=-1.:=CauchyInversePlus[SPCauchyInverseIntegral[f],z]-1/(2 MapToIntervalD[f,0.]) DCT[f][[2]](Log[Abs[IntervalToInnerCircle[MapToInterval[f,z]]]]);
-CauchyInverseIntegralPlus[f_IFun?IntervalFunQ,z_]:=2 CauchyInverseIntegral[f,z];
-
-
 
 CauchyInverseMatrix[s_?SignQ,f_IFun]:=Transpose[Array[CauchyInverseBasis[s,f,#,Points[f]]&,Length[f]]].TransformMatrix[f];
 CauchyInverseMatrix[s_?SignQ,f_IFun,g_IFun]/;Domain[f]==Domain[g]:=With[{pts=Points[g]},Transpose[Array[CauchyInverseBasis[s,f,#,pts]&,Length[f]]].TransformMatrix[f]];
@@ -116,14 +98,6 @@ CauchyInverse[s_?SignQ,l_List,z_]:=Plus@@(If[DomainMemberQ[#,z],CauchyInverse[s,
 
 CauchyInverseSeriesAtInfinity[f_IFun]:=DCT[f][[2]]/(4 MapToIntervalSeriesAtInfinity[f,1]);
 CauchyInverseSeriesAtInfinity[l_List]:=Plus@@(CauchyInverseSeriesAtInfinity[#]&/@CauchyInverseCurves[l]);
-
-
-
-
-CauchyInverseIntegral[l_List,z_]:=Plus@@(CauchyInverseIntegral[#,z]&/@CauchyInverseCurves[l]);
-CauchyInverseIntegral[s_?SignQ,l_List,z_]:=Plus@@(CauchyInverseIntegral[s,#,z]&/@CauchyInverseCurves[l]);
-
-CauchyInverseIntegralPlus[l_,z_]:=Plus@@(CauchyInverseIntegralPlus[#,z]&/@CauchyInverseCurves[l]);
 
 
 
@@ -198,6 +172,41 @@ CauchyInverseSeriesAtInfinityD[spc__][fl_List]:=Plus@@((DCT[#][[2]]/(4 MapToInte
 
 
 
+CauchyInverseD[f_IFun,z_]:=MapDot[CauchyInverseBasisD[f,#,z]&,f//DCT];
+CauchyInverseD[s_?SignQ,f_IFun,z_]:=MapDot[CauchyInverseBasisD[s,f,#,z]&,f//DCT];
+CauchyInversePlusD[f_IFun,z_]:=2 CauchyInverseD[f,z];
+CauchyInversePlusD[f_IFun,z_]/;DomainMemberQ[f,z]:=f'[z];
+
+
+
+SPCauchyInverseIntegral[f_IFun?IntervalFunQ]:=1/MapToIntervalD[f,0.] IFun[1/2  ( MapOuter[Which[#==1,0,#==2,2/(#-1),True,1/(#-1)]&,(DCT[f]//GrowShiftRight)]-PadRight[MapOuter[If[#==1,0,1/(#-1)]&,(DCT[f]//GrowShiftLeft)],Length[f]+1])//InverseDCT,Domain[f]];
+
+CauchyInverseIntegral[f_IFun?IntervalFunQ,z_]:=
+CauchyInverse[SPCauchyInverseIntegral[f],z]+DCT[f][[2]]/(4 MapToIntervalD[f,0.]) (Log[1/4 (RightEndpoint[f]-LeftEndpoint[f])]-Log[IntervalToInnerCircle[MapToInterval[f,z]]]);
+
+CauchyInverseIntegralS[s_?SignQ,f_IFun?IntervalFunQ,z_]:=
+CauchyInverse[s,SPCauchyInverseIntegral[f],z]+DCT[f][[2]]/(4MapToIntervalD[f,0.]) (Log[1/4 (RightEndpoint[f]-LeftEndpoint[f])]+s ArcCos[MapToInterval[f,z]]   I);
+
+CauchyInverseIntegral[s_?SignQ,f_IFun?IntervalFunQ,z_]/;DomainMemberQ[f,z]:=
+CauchyInverseIntegralS[s,f,z];
+
+CauchyInverseIntegral[s_?SignQ,f_IFun?IntervalFunQ,z_]/;NZeroQ[Im[MapToInterval[f,z]]]&&Re[MapToInterval[f,z]]<=-1.:=
+CauchyInverse[SPCauchyInverseIntegral[f],z]-1/(4 MapToIntervalD[f,0.]) DCT[f][[2]](Log[Abs[IntervalToInnerCircle[MapToInterval[f,z]]]]-s I \[Pi]);
+CauchyInverseIntegral[_?SignQ,f_IFun?IntervalFunQ,z_]:=CauchyInverseIntegral[f,z];
+
+CauchyInverseIntegralPlus[f_IFun?IntervalFunQ,z_]/;DomainMemberQ[f,z]:=SPCauchyInverseIntegral[f][z];
+CauchyInverseIntegralPlus[f_IFun?IntervalFunQ,z_]/;NZeroQ[Im[MapToInterval[f,z]]]&&Re[MapToInterval[f,z]]<=-1.:=CauchyInversePlus[SPCauchyInverseIntegral[f],z]-1/(2 MapToIntervalD[f,0.]) DCT[f][[2]](Log[Abs[IntervalToInnerCircle[MapToInterval[f,z]]]]);
+CauchyInverseIntegralPlus[f_IFun?IntervalFunQ,z_]:=2 CauchyInverseIntegral[f,z];
+
+
+
+CauchyInverseIntegral[l_List,z_]:=Plus@@(CauchyInverseIntegral[#,z]&/@CauchyInverseCurves[l]);
+CauchyInverseIntegral[s_?SignQ,l_List,z_]:=Plus@@(CauchyInverseIntegral[s,#,z]&/@CauchyInverseCurves[l]);
+
+CauchyInverseIntegralPlus[l_,z_]:=Plus@@(CauchyInverseIntegralPlus[#,z]&/@CauchyInverseCurves[l]);
+
+
+
 SPCauchyInverseIntegralDomainGrad[spc__][f_]:=-(MapToIntervalDDomainD[spc][f,0.]/MapToIntervalD[f,0.]^2)IFun[1/2  ( MapOuter[Which[#==1,0,#==2,2/(#-1),True,1/(#-1)]&,(DCT[f]//ShiftRight)]-MapOuter[If[#==1,0,1/(#-1)]&,(DCT[f]//GrowShiftLeft)])//InverseDCT,Domain[f]];
 
 SPCauchyInverseIntegralDomainD[spc__][f_]:=SPCauchyInverseIntegralDomainGrad[spc][f]+1/MapToIntervalD[f,0.] IFun[1/2  ( MapOuter[Which[#==1,0,#==2,2/(#-1),True,1/(#-1)]&,(DCT[ValuesDomainD[spc][f]]//ShiftRight)]-MapOuter[If[#==1,0,1/(#-1)]&,(DCT[ValuesDomainD[spc][f]]//GrowShiftLeft)])//InverseDCT,Domain[f]];
@@ -247,12 +256,6 @@ CauchyInverseIntegralPlusDomainD[spc__][f_IFun?IntervalFunQ,z_]/;NZeroQ[Im[MapTo
 );
 CauchyInverseIntegralPlusDomainD[spc__][f_IFun?IntervalFunQ,z_]:=2 CauchyInverseIntegralDomainD[spc][f,z];
 
-
-
-CauchyInverseD[f_IFun,z_]:=MapDot[CauchyInverseBasisD[f,#,z]&,f//DCT];
-CauchyInverseD[s_?SignQ,f_IFun,z_]:=MapDot[CauchyInverseBasisD[s,f,#,z]&,f//DCT];
-CauchyInversePlusD[f_IFun,z_]:=2 CauchyInverseD[f,z];
-CauchyInversePlusD[f_IFun,z_]/;DomainMemberQ[f,z]:=f'[z];
 
 
 CauchyInverseIntegralD[f_IFun?IntervalFunQ,z_]:=
@@ -309,6 +312,28 @@ CauchyInverseIntegralDomainGrad[Sequence@@sc][crv,z]+CauchyInverseIntegral[s,crv
 
 
 
+
+
+EquilibriumMeasureSupport[V_,retin_:{-1,1}]:=Module[{ret,retold,F,J},
+F[{a_,b_}]:=Module[{Vf},
+Vf=Fun[V,Line[{a,b}]];
+{DCT[Vf'][[1]],(b-a)/8 DCT[Vf'][[2]]-1}];
+J[{a_,b_}]:=Module[{Vf,x},
+Vf=Fun[V,Line[{a,b}]];
+x=IFun[Points[UnitInterval,Length[Vf]],Vf//Domain];
+({
+ {DCT[(1/2-x/2)Vf''][[1]], DCT[(1/2+x/2)Vf''][[1]]},
+ {1/8 ((b-a)DCT[(1/2-x/2)Vf''][[2]]-DCT[Vf'][[2]]), 1/8 ((b-a)DCT[(1/2+x/2)Vf''][[2]]+DCT[Vf'][[2]])}
+})
+];
+ret=retin;
+retold={0,0};
+While[Norm[ret-retold]>$MachineTolerance,
+retold=ret;
+ret=ret-LeastSquares[J[ret],F[ret]];
+];
+ret//Sort];
+EquilibriumMeasure[V_,retin_:{-1,1},x_]:=-(1/(2\[Pi]))HilbertInverse[IFun[V',Line[EquilibriumMeasureSupport[V,retin]]],x];
 
 
 End[];

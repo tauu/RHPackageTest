@@ -26,6 +26,7 @@ ZeroMatrix;OuterProduct;
 Second:=#[[2]]&;
 SparseZeroMatrix;
 SparseIdentityMatrix;
+DiagonalMatrixQ;
 Begin["Private`"];
 ZeroMatrix[]=0;
 ZeroMatrix[n_]:=0 IdentityMatrix[n];
@@ -34,6 +35,7 @@ SparseZeroMatrix[n_,m_]:=SparseArray[{},{n,m}];
 SparseIdentityMatrix[n_]:=SparseArray[{i_,i_}->1,{n,n}];
 OuterProduct[f_List,g_List]:=Transpose[Map[# f&,g]];
 OuterProduct[f_List,g_]:=f g;
+DiagonalMatrixQ[DD_]:=Norm[DD-DiagonalMatrix[Diagonal[DD]]]==0;
 End[];
 
 

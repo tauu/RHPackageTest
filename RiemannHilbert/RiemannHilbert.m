@@ -157,37 +157,6 @@ IdentityMatrix[m]-(Transpose[{w}].{w})Outer[Ks[a],x,x]//Det
 ];
 
 
-DiagonalMatrixQ[DD_]:=Norm[DD-DiagonalMatrix[Diagonal[DD]]]==0;
-
-Parametrix[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_]:=({
- {((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[1,1]]]]+ I (Arg[DD[[1,1]]]))), 0},
- {0, ((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)))}
-});
-ParametrixBranch[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_,t_]:=({
- {PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) Log[DD[[1,1]]],t], 0},
- {0, PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)),t]}
-});
-
-ParametrixBranch[({
- {0, 1},
- {-1, 0}
-}),Line[{a_,b_}],z_,t_]:=Module[{\[Beta],p},
-\[Beta][p_]:=PowerBranch[(z-a)/(z-b),1/4,t];
-({
- {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/(2 I)},
- {-((\[Beta][z]-1/\[Beta][z])/(2I)), (\[Beta][z]+1/\[Beta][z])/2}
-})];
-Parametrix[({
- {0, 1},
- {-1, 0}
-}),Line[{a_,b_}],z_]:=Module[{\[Beta],p},
-\[Beta][p_]:=((p-b)/(p-a))^(1/4);
-({
- {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/(2 I)},
- {-((\[Beta][z]-1/\[Beta][z])/(2I)), (\[Beta][z]+1/\[Beta][z])/2}
-})];
-
-
 RHWellPosed[GG_,Gg_]:=Dot@@(If[LeftEndpoint[#]~NEqual~(Gg),
 First[#],
 Inverse[Last[#]]]&/@

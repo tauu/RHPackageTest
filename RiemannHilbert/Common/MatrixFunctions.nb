@@ -26,6 +26,7 @@ Cell[BoxData[{
     "&"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{"SparseZeroMatrix", ";"}], "\[IndentingNewLine]", 
  RowBox[{"SparseIdentityMatrix", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DiagonalMatrixQ", ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
   ";"}], "\[IndentingNewLine]", 
@@ -85,6 +86,15 @@ Cell[BoxData[{
    RowBox[{"OuterProduct", "[", 
     RowBox[{"f_List", ",", "g_"}], "]"}], ":=", 
    RowBox[{"f", " ", "g"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DiagonalMatrixQ", "[", "DD_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Norm", "[", 
+     RowBox[{"DD", "-", 
+      RowBox[{"DiagonalMatrix", "[", 
+       RowBox[{"Diagonal", "[", "DD", "]"}], "]"}]}], "]"}], "\[Equal]", 
+    "0"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
@@ -1887,8 +1897,8 @@ WindowMargins->{{51, Automatic}, {Automatic, 73}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
-2010)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
 
