@@ -37,6 +37,8 @@ ScaledRHSolver;
 ScaledCauchyOperator;
 ConstructCurve;
 RHSolverMatrix;
+SowCondition::usage="Option for RHSolve";
+SparseSolve::usage="Option for RHSolve";
 Begin["Private`"];
 
 
@@ -73,14 +75,14 @@ RHSolverMatrix[R_RHSolverTop,GG_?FunQ]:=RHSolverMatrix[R,{GG}];
 RHSolverMatrix[GG_]:=RHSolverMatrix[GG//RHSolverTop,GG];
 
 
-RHSolverTop[matmS_,opts:OptionsPattern[{SowCondition->False}]][GG_List,GR:{__List}]:=Module[{matt,solv,sol,cond,matm},
+RHSolverTop[matmS_,opts:OptionsPattern[{SowCondition->False,SparseSolve->False}]][GG_List,GR:{__List}]:=Module[{matt,solv,sol,cond,matm},
 matm=matmS//ScalarToVectorMatrix;
 matt =RHSolverMatrix[RHSolverTop[matmS,opts],GG];
 If[OptionValue[SowCondition],
 cond=LinearAlgebra`MatrixConditionNumber[matt];
 Sow[cond];
 ];
-solv=LinearSolve[matt];
+solv=LinearSolve[If[OptionValue[SparseSolve],matt,matt//Normal]];
 sol=FromValueList[#,solv[#//ToValueList//MakeMachineNumber]]&/@GR
 ];
 
