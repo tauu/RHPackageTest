@@ -295,7 +295,8 @@ End[];
 
 Begin["Private`"];
 
-SetDomain[f_?FunQ,d_]:=Head[f][Values[f],d];
+SetDomain[f_?FunQ,d_?FunQ]:=SetDomain[f,d//Domain];
+SetDomain[f_?FunQ,d_?DomainQ]:=Head[f][Values[f],d];
 
 SetDomain[f_List,d_List]:=SetDomain@@#&/@Thread[{f,d}];
 End[];

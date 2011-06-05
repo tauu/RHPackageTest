@@ -179,7 +179,7 @@ d\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]",
    RowBox[{"MeanZero", ";"}], "\[IndentingNewLine]", 
    "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1039,7 +1039,17 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"SetDomain", "[", 
       RowBox[{
-       RowBox[{"f_", "?", "FunQ"}], ",", "d_"}], "]"}], ":=", 
+       RowBox[{"f_", "?", "FunQ"}], ",", 
+       RowBox[{"d_", "?", "FunQ"}]}], "]"}], ":=", 
+     RowBox[{"SetDomain", "[", 
+      RowBox[{"f", ",", 
+       RowBox[{"d", "//", "Domain"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"SetDomain", "[", 
+      RowBox[{
+       RowBox[{"f_", "?", "FunQ"}], ",", 
+       RowBox[{"d_", "?", "DomainQ"}]}], "]"}], ":=", 
      RowBox[{
       RowBox[{"Head", "[", "f", "]"}], "[", 
       RowBox[{
