@@ -282,6 +282,31 @@ Test[
  TestID->"CauchySPCauchyInverseIntegralDomainD-b"
 ]
 
+Test[
+	Chop[
+		1/eps (CauchyInverse[+1,SPCauchyInverseIntegral[cfaeps], .15] - 
+    CauchyInverse[+1,SPCauchyInverseIntegral[cf], 
+     .15])- (
+     CauchyInverse[+1,SPCauchyInverseIntegralDomainD[1, 0][cf],.15] + 
+     CauchyInverseDomainGrad[1, 0][+1,SPCauchyInverseIntegral[cf], .15]),10^(-5)]
+ ,
+ 0
+ ,
+ TestID->"CauchySPCauchyInverseIntegralDomainD-a-mid+1"
+]
+
+Test[
+	Chop[
+		1/eps (CauchyInverse[+1,SPCauchyInverseIntegral[cfaeps],a+eps] - 
+    CauchyInverse[+1,SPCauchyInverseIntegral[cf], 
+     a])- (
+     CauchyInverse[+1, SPCauchyInverseIntegralDomainD[1, 0][cf], a]),10^(-5)]
+ ,
+ 0
+ ,
+ TestID->"CauchySPCauchyInverseIntegralDomainD-a+1"
+]
+
 
 Test[
 	Chop[
@@ -319,6 +344,42 @@ Test[
  TestID->"CauchyInverseIntegralDomainGrad-a-mid+1"
 ]
 
+Test[
+	Chop[
+	(CauchyInverseIntegral[+1,cfa, 0.] - 
+  CauchyInverseIntegral[+1,cf, 0.])/eps - 
+ CauchyInverseIntegralDomainGrad[1, 0][+1,cf, 0.]
+   ,10^(-5)]
+ ,
+ 0
+ ,
+ TestID->"CauchyInverseIntegralDomainGrad-a-left+1"
+]
+
+Test[
+	Chop[
+	(CauchyInverseIntegral[+1,cfa, a+eps] - 
+  CauchyInverseIntegral[+1,cf, a])/eps - 
+ CauchyInverseIntegralDomainGradBoundary[1, 0][+1,cf, a]
+   ,10^(-5)]
+ ,
+ 0
+ ,
+ TestID->"CauchyInverseIntegralDomainGradBoundary-a-a+1"
+]
+
+
+Test[
+	Chop[
+	(CauchyInverseIntegral[+1,cfaeps, .15] - 
+  CauchyInverseIntegral[+1,cf, .15])/eps - 
+ CauchyInverseIntegralDomainD[1, 0][+1,cf, .15]
+   ,10^(-5)]
+ ,
+ 0
+ ,
+ TestID->"CauchyInverseIntegralDomainD-a-mid+1"
+]
 
 
    
@@ -345,24 +406,35 @@ Test[
 
 
 Test[
-	Chop[(CauchyInverseIntegral[+1,cfaeps, a] - 
+	Chop[(CauchyInverseIntegral[+1,cfaeps, a+eps] - 
   CauchyInverseIntegral[+1,cf, a])/eps - 
- CauchyInverseIntegralDomainD[1, 0][+1,cf, a],10.^(-5)]
+ CauchyInverseIntegralDomainDBoundary[1, 0][+1,cf, a],10.^(-5)]
 	,
 	0
 	,
-	TestID->"+CauchyInverseIntegralD-Domain-a-a"
+	TestID->"+CauchyInverseIntegralDBoundary-Domain-a-a"
 ] 
 
 
 Test[
-	Chop[(CauchyInverseIntegral[-1,cfaeps, a] - 
+	Chop[(CauchyInverseIntegral[-1,cfaeps, a+eps] - 
   CauchyInverseIntegral[-1,cf, a])/eps - 
- CauchyInverseIntegralDomainD[1, 0][-1,cf, a],10.^(-5)]
+ CauchyInverseIntegralDomainDBoundary[1, 0][-1,cf, a],10.^(-5)]
 	,
 	0
 	,
-	TestID->"-CauchyInverseIntegralD-Domain-a-a"
+	TestID->"-CauchyInverseIntegralDBoundary-Domain-a-a"
+] 
+
+
+Test[
+	Chop[(CauchyInverseIntegral[-1,cfbeps, b+eps] - 
+  CauchyInverseIntegral[-1,cf, b])/eps - 
+ CauchyInverseIntegralDomainDBoundary[0,1][-1,cf, b],10.^(-5)]
+	,
+	0
+	,
+	TestID->"-CauchyInverseIntegralDBoundary-Domain-b-b"
 ] 
 
 
@@ -384,6 +456,11 @@ b=0.2 I;
 cf = Fun[1/# &, Line[{a,b}]];
 cfaeps = Fun[1/# &, Line[{a+eps,b}]];
 cfbeps = Fun[1/# &, Line[{a,b+eps}]];
+cfa = SetDomain[cf, Line[{a + eps, b}]];
+cfb = SetDomain[cf, Line[{a, b + eps}]];
+
+
+cfMZ = 
 
 Test[
 	Chop[
@@ -395,6 +472,28 @@ CauchyInverse[cf, 10000000.]
 	TestID->"CauchyInverse-Decay-Complex"
 ]
 
+Test[
+	Chop[
+(CauchyInverse[cfaeps, 1. I] -CauchyInverse[cf, 1. I])/eps - 
+CauchyInverseDomainD[1,0][cf,1. I]
+,10.^(-5)]
+	,
+	0
+	,
+	TestID->"CauchyInverse-DomainD-a-z"
+]
+
+Test[
+	Chop[
+(CauchyInverse[cfbeps, 1. I] -CauchyInverse[cf, 1. I])/eps - 
+CauchyInverseDomainD[0,1][cf,1. I]
+,10.^(-5)]
+	,
+	0
+	,
+	TestID->"CauchyInverse-DomainD-b-z"
+]
+
 
 
 (* ::Subsection:: *)
@@ -404,7 +503,9 @@ g[z_] = CauchyInverseIntegral[cf,z];
 
 Test[
 	Chop[
-CauchyInverseIntegral[cf, 10000000.] 
+CauchyInverseIntegral[cf, 1000000.] -DCT[cf][[2]] ((Log[1/4 (RightEndpoint[cf] - LeftEndpoint[cf])] - 
+     Log[IntervalToInnerCircle[
+       MapToInterval[cf, 1000000.]]]))/(4 MapToIntervalD[cf, 0.`]) 
 ,10.^(-5)]
 	,
 	0
@@ -453,12 +554,38 @@ Test[
 	TestID->"CauchyInverseIntegralD-Complex-b-Complex"
 ] 
 
+Test[
+	Chop[
+(CauchyInverseIntegral[+1, cfb, a] - 
+  CauchyInverseIntegral[+1, cf, a])/eps - 
+ CauchyInverseIntegralDomainGrad[0, 1][+1, cf, a]
+  ,10.^(-5)]
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralD-Domain-b-a-Complex"
+] 
+
+Test[
+	Chop[
+(CauchyInverseIntegral[+1, cfa, b] - 
+  CauchyInverseIntegral[+1, cf, b])/eps - 
+ CauchyInverseIntegralDomainGrad[1, 0][+1, cf, b]
+  ,10.^(-5)]
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralD-Domain-a-b-Complex"
+] 
+
 
 
 Test[
-	Chop[(CauchyInverseIntegral[+1,cfaeps, a] - 
+	Chop[
+		(CauchyInverseIntegral[+1,cfaeps, a+eps] - 
   CauchyInverseIntegral[+1,cf, a])/eps - 
- CauchyInverseIntegralDomainD[1, 0][+1,cf, a],10.^(-5)]
+ CauchyInverseIntegralDomainDBoundary[1, 0][+1,cf, a]
+ ,10.^(-5)]
 	,
 	0
 	,
@@ -467,9 +594,9 @@ Test[
 
 
 Test[
-	Chop[(CauchyInverseIntegral[-1,cfaeps, a] - 
+	Chop[(CauchyInverseIntegral[-1,cfaeps, a+eps] - 
   CauchyInverseIntegral[-1,cf, a])/eps - 
- CauchyInverseIntegralDomainD[1, 0][-1,cf, a],10.^(-5)]
+ CauchyInverseIntegralDomainDBoundary[1, 0][-1,cf, a],10.^(-5)]
 	,
 	0
 	,
@@ -595,25 +722,80 @@ Test[
 ] 
 
 
+Test[
+Chop[
+	(CauchyInverseIntegral[CauchyInverseCurves[cfbeps][[2]], a] - 
+  CauchyInverseIntegral[CauchyInverseCurves[cf][[2]], a])/eps - 
+ CauchyInverseIntegral[CauchyInverseCurvesD[{0,1},{0,0}][cf][[2]], a],
+ 10^(-5)]
+ 	,
+	0
+	,
+	TestID->"-CauchyInverseIntegralD-List-Domain-b-a-second"
+] 
+
+
 
 Test[
-	Chop[(CauchyInverseIntegral[+1,cfaeps, a] - 
-  CauchyInverseIntegral[+1,cf, a])/eps - 
- CauchyInverseIntegralDomainD[{1, 0}, {0, 0}][+1,cf, a],10.^(-5)]
+	Chop[(CauchyInverseIntegral[-1,cfbeps, a] - 
+  CauchyInverseIntegral[-1,cf, a])/eps - 
+ CauchyInverseIntegralDomainD[{0, 1}, {0, 0}][-1,cf, a],10.^(-5)]
 	,
 	0
 	,
-	TestID->"+CauchyInverseIntegralD-List-Domain-a-a"
+	TestID->"-CauchyInverseIntegralD-List-Domain-b-a"
+] 
+
+
+
+Test[
+	Chop[(CauchyInverseIntegral[+1,cfaeps, a+eps] - 
+  CauchyInverseIntegral[+1,cf, a])/eps - 
+ CauchyInverseIntegralDomainDBoundary[{1, 0}, {0, 0}][+1,cf, a],10.^(-5)]
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralDBoundary-List-Domain-a-a"
 ] 
 
 
 Test[
-	Chop[(CauchyInverseIntegral[-1,cfaeps, a] - 
+	Chop[(CauchyInverseIntegral[-1,cfaeps, a+eps] - 
   CauchyInverseIntegral[-1,cf, a])/eps - 
- CauchyInverseIntegralDomainD[{1, 0}, {0, 0}][-1,cf, a],10.^(-5)]
+ CauchyInverseIntegralDomainDBoundary[{1, 0}, {0, 0}][-1,cf, a],10.^(-5)]
 	,
 	0
 	,
-	TestID->"-CauchyInverseIntegralD-List-Domain-a-a"
+	TestID->"-CauchyInverseIntegralDBoundary-List-Domain-a-a"
+] 
+
+Test[
+	Chop[(CauchyInverseIntegral[-1,cfbeps, b+eps] - 
+  CauchyInverseIntegral[-1,cf, b])/eps - 
+ CauchyInverseIntegralDomainDBoundary[{0, 1}, {0, 0}][-1,cf, b],10.^(-5)]
+	,
+	0
+	,
+	TestID->"-CauchyInverseIntegralDBoundary-List-Domain-b-b"
+] 
+
+Test[
+	Chop[(CauchyInverseIntegral[-1,cfceps, c+eps] - 
+  CauchyInverseIntegral[-1,cf, c])/eps - 
+ CauchyInverseIntegralDomainDBoundary[{0, 0}, {1, 0}][-1,cf, c],10.^(-5)]
+	,
+	0
+	,
+	TestID->"-CauchyInverseIntegralDBoundary-List-Domain-c-c"
+] 
+
+Test[
+	Chop[(CauchyInverseIntegral[-1,cfdeps, d+eps] - 
+  CauchyInverseIntegral[-1,cf, d])/eps - 
+ CauchyInverseIntegralDomainDBoundary[{0, 0}, {0, 1}][-1,cf, d],10.^(-5)]
+	,
+	0
+	,
+	TestID->"-CauchyInverseIntegralDBoundary-List-Domain-d-d"
 ] 
 

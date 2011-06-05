@@ -22,4 +22,8 @@ TestSuite[{
 	"Tests/CurveFunTest.mt"
 	,
 	"Tests/PFunTest.mt"
+	,
+	"Tests/ParametrixTest.mt"
+	,
+	"Tests/CauchyInverseTest.mt"
 }]
