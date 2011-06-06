@@ -218,6 +218,19 @@ CauchyInverseIntegralPlus[l_,z_]:=Plus@@(CauchyInverseIntegralPlus[#,z]&/@Cauchy
 
 
 
+Module[{LogB},
+LogB[y_,t_?(#<=\[Pi]&)]:=Log[IntervalToInnerCircle[y]]+If[t<Arg[y+1]<=\[Pi],2I \[Pi],0];
+LogB[y_,t_?(2\[Pi]>=#>\[Pi]&)]:=Log[IntervalToInnerCircle[y]]+If[Arg[y+1]==\[Pi]||-\[Pi]<=Arg[y+1]<=t-2 \[Pi],-2I \[Pi],0];
+
+
+CauchyInverseIntegralLogTermBranch[f_IFun,z_,t_]:=DCT[f][[2]]/(4 MapToIntervalD[f,0.]) (Log[1/4 (RightEndpoint[f]-LeftEndpoint[f])]-LogB[MapToInterval[f,z],t+Arg[1/(RightEndpoint[f]-LeftEndpoint[f])]]);
+]
+
+
+CauchyInverseIntegralBranch[f_IFun?IntervalFunQ,z_,t_]:=
+CauchyInverse[SPCauchyInverseIntegral[f],z]+CauchyInverseIntegralLogTermBranch[f,z,t];
+
+
 SPCauchyInverseIntegralDomainGrad[spc__][f_]:=-(MapToIntervalDDomainD[spc][f,0.]/MapToIntervalD[f,0.]^2)IFun[1/2  ( MapOuter[Which[#==1,0,#==2,2/(#-1),True,1/(#-1)]&,(DCT[f]//GrowShiftRight)]-PadRight[MapOuter[If[#==1,0,1/(#-1)]&,(DCT[f]//GrowShiftLeft)],Length[f]+1])//InverseDCT,Domain[f]];
 
 SPCauchyInverseIntegralDomainD[spc__][f_]:=SPCauchyInverseIntegralDomainGrad[spc][f]+1/MapToIntervalD[f,0.] IFun[1/2  ( MapOuter[Which[#==1,0,#==2,2/(#-1),True,1/(#-1)]&,(DCT[ValuesDomainD[spc][f]]//GrowShiftRight)]-PadRight[MapOuter[If[#==1,0,1/(#-1)]&,(DCT[ValuesDomainD[spc][f]]//GrowShiftLeft)],Length[f]+1])//InverseDCT,Domain[f]];

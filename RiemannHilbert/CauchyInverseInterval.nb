@@ -1195,7 +1195,7 @@ Cell[BoxData[{
     RowBox[{"f", "'"}], "[", "z", "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1203,7 +1203,7 @@ Cell["CauchyInverseIntegral", "Section"],
 
 Cell[CellGroupData[{
 
-Cell["Definition", "Subsubsection"],
+Cell["Definition", "Subsection"],
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
@@ -1574,6 +1574,110 @@ Cell[BoxData[
    "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
 }, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Branch", "Subsection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "LogB", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"LogB", "[", 
+       RowBox[{"y_", ",", 
+        RowBox[{"t_", "?", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"#", "\[LessEqual]", "\[Pi]"}], "&"}], ")"}]}]}], "]"}], ":=", 
+      RowBox[{
+       RowBox[{"Log", "[", 
+        RowBox[{"IntervalToInnerCircle", "[", "y", "]"}], "]"}], "+", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"t", "<", 
+          RowBox[{"Arg", "[", 
+           RowBox[{"y", "+", "1"}], "]"}], "<=", "\[Pi]"}], ",", 
+         RowBox[{"2", "I", " ", "\[Pi]"}], ",", "0"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"LogB", "[", 
+       RowBox[{"y_", ",", 
+        RowBox[{"t_", "?", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"2", "\[Pi]"}], ">=", "#", ">", "\[Pi]"}], "&"}], 
+          ")"}]}]}], "]"}], ":=", 
+      RowBox[{
+       RowBox[{"Log", "[", 
+        RowBox[{"IntervalToInnerCircle", "[", "y", "]"}], "]"}], "+", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"Arg", "[", 
+            RowBox[{"y", "+", "1"}], "]"}], "==", "\[Pi]"}], "||", 
+          RowBox[{
+           RowBox[{"-", "\[Pi]"}], "<=", 
+           RowBox[{"Arg", "[", 
+            RowBox[{"y", "+", "1"}], "]"}], "\[LessEqual]", 
+           RowBox[{"t", "-", 
+            RowBox[{"2", " ", "\[Pi]"}]}]}]}], ",", 
+         RowBox[{
+          RowBox[{"-", "2"}], "I", " ", "\[Pi]"}], ",", "0"}], "]"}]}]}], ";",
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"CauchyInverseIntegralLogTermBranch", "[", 
+       RowBox[{"f_IFun", ",", "z_", ",", "t_"}], "]"}], ":=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"DCT", "[", "f", "]"}], "\[LeftDoubleBracket]", "2", 
+         "\[RightDoubleBracket]"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"4", " ", 
+          RowBox[{"MapToIntervalD", "[", 
+           RowBox[{"f", ",", "0."}], "]"}]}], ")"}]}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Log", "[", 
+          RowBox[{
+           FractionBox["1", "4"], " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"RightEndpoint", "[", "f", "]"}], "-", 
+             RowBox[{"LeftEndpoint", "[", "f", "]"}]}], ")"}]}], "]"}], "-", 
+         RowBox[{"LogB", "[", 
+          RowBox[{
+           RowBox[{"MapToInterval", "[", 
+            RowBox[{"f", ",", "z"}], "]"}], ",", 
+           RowBox[{"t", "+", 
+            RowBox[{"Arg", "[", 
+             RowBox[{"1", "/", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"RightEndpoint", "[", "f", "]"}], "-", 
+                RowBox[{"LeftEndpoint", "[", "f", "]"}]}], ")"}]}], "]"}]}]}],
+           "]"}]}], ")"}]}]}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyInverseIntegralBranch", "[", 
+    RowBox[{
+     RowBox[{"f_IFun", "?", "IntervalFunQ"}], ",", "z_", ",", "t_"}], "]"}], ":=",
+    "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"CauchyInverse", "[", 
+     RowBox[{
+      RowBox[{"SPCauchyInverseIntegral", "[", "f", "]"}], ",", "z"}], "]"}], 
+    "+", 
+    RowBox[{"CauchyInverseIntegralLogTermBranch", "[", 
+     RowBox[{"f", ",", "z", ",", "t"}], "]"}]}]}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3404,7 +3508,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
