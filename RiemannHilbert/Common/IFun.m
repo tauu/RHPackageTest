@@ -679,6 +679,7 @@ FiniteTransformMatrix;
 BoundedIntegrateMatrix;
 
 ReduceDimensionMatrix;
+ReduceDimensionIntegrateMatrix;
 
 
 Begin["Private`"];

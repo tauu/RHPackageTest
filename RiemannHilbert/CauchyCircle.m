@@ -45,8 +45,8 @@ Cauchy[s_?SignQ,lf_LFun,z_List]:=Cauchy[s,lf,#]&/@z;
 CauchyS[-1,lf_LFun?UnitCircleFunQ,z_?InfinityQ]:=0;
 
 
-CauchyS[+1,lf_LFun?UnitCircleFunQ,z_?ScalarQ]:=NonNegativeEvaluate[lf,z];
-CauchyS[-1,lf_LFun?UnitCircleFunQ,z_?ScalarQ]:=-NegativeEvaluate[lf,z];
+CauchyS[+1,lf_LFun?UnitCircleFunQ,z_]:=NonNegativeEvaluate[lf,z];
+CauchyS[-1,lf_LFun?UnitCircleFunQ,z_]:=-NegativeEvaluate[lf,z];
 Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]<=1.&)]:=CauchyS[+1,lf,z];
 Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]>1.&)]:=CauchyS[-1,lf,z];
 Cauchy[s_?SignQ,lf_LFun?UnitCircleFunQ,z_?(DomainMemberQ[UnitCircle,#]&)]:=CauchyS[s,lf,z];

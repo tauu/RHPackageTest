@@ -58,9 +58,21 @@ GaussQuadrature[f_,n_,a_:0,b_:1]:=WeightedSum[f,GaussianQuadratureWeights[n,a,b]
 
 
 LaguerreQuadratureWeights[n_,a_:0]:=LaguerreQuadratureWeights[n,a]=Module[{\[Alpha],\[Beta]},
-\[Beta][j_]:=Sqrt[j (j+a)];\[Alpha][j_]:=a-1+ 2j;
+\[Beta][j_]:=Sqrt[j(j+a)];\[Alpha][j_]:=a-1+ 2j;
 GolubWelschWeights[n,Gamma[a+1],\[Alpha],\[Beta]]
 ]
+
+
+JacobiQuadratureWeights[n_,a_,b_]:=JacobiQuadratureWeights[n,a,b]=Module[{A,B,CC,\[Alpha],\[Beta]},
+A[j_]:=((2j+a+b+1)(2j+a+b+2))/(2(j+1)(j+a+b+1));
+B[j_]:=((a^2-b^2)(2j+a+b+1))/(2(j+1)(j+a+b+1)(2j+a+b));
+CC[j_]:=((j+a)(j+b)(2j+a+b+2))/((j+1)(j+a+b+1)(2j+a+b));
+
+\[Alpha][j_]:=-(B[j-1]/A[j-1]);\[Beta][j_]:=Sqrt[CC[j]/(A[j-1]A[j])];
+
+GolubWelschWeights[n,Hypergeometric2F1[1,-a,2+b,-1]/(1+b)+Hypergeometric2F1[1,-b,2+a,-1]/(1+a),\[Alpha],\[Beta]]
+
+];
 
 
 HermiteQuadratureWeights[n_]:=HermiteQuadratureWeights[n,2];
@@ -92,8 +104,8 @@ LobattoPoints[2,a_:-1,b_:1]:={a,b};
 LobattoPoints[n_,a_:-1,b_:1,prec_:$MachinePrecision]:=LobattoPoints[n,a,b,prec]=N[Join[{a,b},(b+a)/2+(b-a)/2 Map[#[[2]]&,Apply[List,Roots[0==D[LegendreP[n-1,x],x],x]]]],prec]//Sort;
 LobattoPoints[n_,a_:-1,b_:1]:=LobattoPoints[n,a,b]=N[Join[{a,b},(b+a)/2+(b-a)/2 Map[#[[2]]&,Apply[List,Roots[0==D[LegendreP[n-1,x],x],x]]]]]//Sort;
 LobattoPoints[3,a_:-1,b_:1]:=LobattoPoints[3,a,b]=N[Join[{a,b},{(b+a)/2+(b-a)/2 Apply[List,Roots[0==D[LegendreP[2,x],x],x]][[2]]}]]//Sort;
-LobattoWeights[n_,a_:-1,b_:1]:=LobattoWeights[n,a,b]=Thread[{LobattoPoints[n,a,b],Map[Function[x,(b-a)/(n (n-1)LegendreP[n-1,x]^2)],LobattoPoints[n,-1,1]]}]//N//Chop//Sort;
-LobattoWeights[n_,a_:-1,b_:1,prec_:$MachinePrecision]:=LobattoWeights[n,a,b,prec]=N[Thread[{LobattoPoints[n,a,b,prec],Map[Function[x,(b-a)/(n (n-1)LegendreP[n-1,x]^2)],LobattoPoints[n,-1,1,prec]]}],prec]//Chop//Sort;
+LobattoWeights[n_,a_:-1,b_:1]:=LobattoWeights[n,a,b]=Thread[{LobattoPoints[n,a,b],Map[Function[x,(b-a)/(n(n-1)LegendreP[n-1,x]^2)],LobattoPoints[n,-1,1]]}]//N//Chop//Sort;
+LobattoWeights[n_,a_:-1,b_:1,prec_:$MachinePrecision]:=LobattoWeights[n,a,b,prec]=N[Thread[{LobattoPoints[n,a,b,prec],Map[Function[x,(b-a)/(n(n-1)LegendreP[n-1,x]^2)],LobattoPoints[n,-1,1,prec]]}],prec]//Chop//Sort;
 
 
 SetAttributes[WeightIntegrate,HoldFirst];

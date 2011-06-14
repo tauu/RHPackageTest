@@ -383,7 +383,8 @@ Cell[BoxData[
              RowBox[{"-", "1"}]}], "]"}], 
            RowBox[{"1", "+", "a"}]]}], ",", "\[Alpha]", ",", "\[Beta]"}], 
         "]"}]}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}]}]}], 
-  ";"}]], "Input"],
+  ";"}]], "Input",
+ InitializationCell->True],
 
 Cell[BoxData[""], "Input"],
 
@@ -1595,6 +1596,8 @@ WindowMargins->{{158, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
+

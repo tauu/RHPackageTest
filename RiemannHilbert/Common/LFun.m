@@ -285,6 +285,8 @@ MapFromCircle[f_LFun,z_]:=MapFromCircle[f//Domain,z];
 MapFromCircleD[f_LFun,z_]:=MapFromCircleD[f//Domain,z];
 
 
+Points[lf_LFun]:=MapFromCircle[lf//Domain,Points[UnitCircle,lf//Length]];
+
 FinitePoints[if:LFun[_,RealLine]]:=if//Points//Rest;
 FinitePoints[if_LFun]:=if//Points;
 FiniteValues[if_LFun]:=Last/@Select[Thread[{Points[if],Values[if]}],!InfinityQ[First[#]]&];

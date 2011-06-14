@@ -93,19 +93,19 @@ ClearPainleveDatabase[]:=Module[{},Clear[M]; M[n_,k_]:=M[n,k]=CauchyMatrix[+1,Ze
 ];
 
 
-PainleveII[sin_?((#[[1]] #[[3]])~NEqual~1&),x_?(#<=-8.5&)]:=PainleveIINegative["HMNeg"][sin,x] ;
-PainleveII[sin_?((#[[1]] #[[3]])~NEqual~1&),x_?(#<=-2&)]:=PainleveIINegative["HMMed"][sin,x] ;
+PainleveII[sin_?((#[[1]] #[[3]])~NEqual~1&),x_?(NZeroQ[Im[#]]&&Re[#]<=-8.5&)]:=PainleveIINegative["HMNeg"][sin,x] ;
+PainleveII[sin_?((#[[1]] #[[3]])~NEqual~1&),x_?(NZeroQ[Im[#]]&&Re[#]<=-2&)]:=PainleveIINegative["HMMed"][sin,x] ;
 
-PainleveII[s_,x_?(#<=-5&),opts:OptionsPattern[{InterpolationPrecision->10^-7,Contour->3}]]:=With[{c=OptionValue[Contour]},
+PainleveII[s_,x_?(NZeroQ[Im[#]]&&Re[#]<=-5&),opts:OptionsPattern[{InterpolationPrecision->10^-7,Contour->3}]]:=With[{c=OptionValue[Contour]},
 With[{fopts =Sequence@@ If[List[opts]!= List[],FilterRules[opts//List,PainleveIINegative[c]//Options],{}]},PainleveIINegative[c][s,x,fopts] ]];
 
-PainleveII[{s1_,_?NZeroQ,s3_},x_?(#>=5&)]:=PainleveIIPositive["AS"][s1,x];
+PainleveII[{s1_,_?NZeroQ,s3_},x_?(NZeroQ[Im[#]]&&Re[#]>=5&)]:=PainleveIIPositive["AS"][s1,x];
 
-PainleveII[{s1_,s2_,s3_},x_?(#>=9&)]:=PainleveIIPositive["Pos"][{s1,s2,s3},x];
+PainleveII[{s1_,s2_,s3_},x_?(NZeroQ[Im[#]]&&Re[#]>=9&)]:=PainleveIIPositive["Pos"][{s1,s2,s3},x];
 
 
 PainleveII[s_,x_]:=PainleveIISmall[120,s,x];
 PainleveII[s_,x_,opts:OptionsPattern[{InterpolationPrecision->10^-7}]]:=PainleveIISmall[Quiet[ZeroAtInfinityFun[Exp[-8 I /3 #^3-2 I x #]/.Underflow[]->0&,Line[{0,\[Infinity] Exp[I \[Pi]/2]}],opts]]//Length,s,x];
-PainleveIID[{s1_,_?NZeroQ,s3_},x_?(#>=5&)]:=PainleveIIPositiveD["AS"][s1,x];
+PainleveIID[{s1_,_?NZeroQ,s3_},x_?(NZeroQ[Im[#]]&&Re[#]>=5&)]:=PainleveIIPositiveD["AS"][s1,x];
 PainleveIID[s_,x_]:=PainleveIIDSmall[120,s,x];
 End[];

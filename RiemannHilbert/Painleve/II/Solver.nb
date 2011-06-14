@@ -1181,8 +1181,12 @@ Cell[BoxData[{
      RowBox[{"x_", "?", 
       RowBox[{"(", 
        RowBox[{
-        RowBox[{"#", "<=", 
-         RowBox[{"-", "8.5"}]}], "&"}], ")"}]}]}], "]"}], ":=", 
+        RowBox[{
+         RowBox[{"NZeroQ", "[", 
+          RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+         RowBox[{
+          RowBox[{"Re", "[", "#", "]"}], "<=", 
+          RowBox[{"-", "8.5"}]}]}], "&"}], ")"}]}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{"PainleveIINegative", "[", "\"\<HMNeg\>\"", "]"}], "[", 
     RowBox[{"sin", ",", "x"}], "]"}]}], " ", ";"}], "\[IndentingNewLine]", 
@@ -1206,8 +1210,12 @@ Cell[BoxData[{
       RowBox[{"x_", "?", 
        RowBox[{"(", 
         RowBox[{
-         RowBox[{"#", "<=", 
-          RowBox[{"-", "2"}]}], "&"}], ")"}]}]}], "]"}], ":=", 
+         RowBox[{
+          RowBox[{"NZeroQ", "[", 
+           RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+          RowBox[{
+           RowBox[{"Re", "[", "#", "]"}], "<=", 
+           RowBox[{"-", "2"}]}]}], "&"}], ")"}]}]}], "]"}], ":=", 
     RowBox[{
      RowBox[{"PainleveIINegative", "[", "\"\<HMMed\>\"", "]"}], "[", 
      RowBox[{"sin", ",", "x"}], "]"}]}], " ", ";"}], 
@@ -1220,8 +1228,12 @@ Cell[BoxData[{
       RowBox[{"x_", "?", 
        RowBox[{"(", 
         RowBox[{
-         RowBox[{"#", "<=", 
-          RowBox[{"-", "5"}]}], "&"}], ")"}]}], ",", 
+         RowBox[{
+          RowBox[{"NZeroQ", "[", 
+           RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+          RowBox[{
+           RowBox[{"Re", "[", "#", "]"}], "<=", 
+           RowBox[{"-", "5"}]}]}], "&"}], ")"}]}], ",", 
       RowBox[{"opts", ":", 
        RowBox[{"OptionsPattern", "[", 
         RowBox[{"{", 
@@ -1268,7 +1280,12 @@ Cell[BoxData[{
       RowBox[{"x_", "?", 
        RowBox[{"(", 
         RowBox[{
-         RowBox[{"#", "\[GreaterEqual]", "5"}], "&"}], ")"}]}]}], "]"}], ":=", 
+         RowBox[{
+          RowBox[{"NZeroQ", "[", 
+           RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+          RowBox[{
+           RowBox[{"Re", "[", "#", "]"}], "\[GreaterEqual]", "5"}]}], "&"}], 
+        ")"}]}]}], "]"}], ":=", 
     RowBox[{
      RowBox[{"PainleveIIPositive", "[", "\"\<AS\>\"", "]"}], "[", 
      RowBox[{"s1", ",", "x"}], "]"}]}], ";"}], 
@@ -1283,7 +1300,12 @@ Cell[BoxData[{
       RowBox[{"x_", "?", 
        RowBox[{"(", 
         RowBox[{
-         RowBox[{"#", "\[GreaterEqual]", "9"}], "&"}], ")"}]}]}], "]"}], ":=", 
+         RowBox[{
+          RowBox[{"NZeroQ", "[", 
+           RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+          RowBox[{
+           RowBox[{"Re", "[", "#", "]"}], "\[GreaterEqual]", "9"}]}], "&"}], 
+        ")"}]}]}], "]"}], ":=", 
     RowBox[{
      RowBox[{"PainleveIIPositive", "[", "\"\<Pos\>\"", "]"}], "[", 
      RowBox[{
@@ -1344,8 +1366,12 @@ Cell[BoxData[{
      RowBox[{"x_", "?", 
       RowBox[{"(", 
        RowBox[{
-        RowBox[{"#", "\[GreaterEqual]", "5"}], "&"}], ")"}]}]}], "]"}], ":=", 
-   
+        RowBox[{
+         RowBox[{"NZeroQ", "[", 
+          RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+         RowBox[{
+          RowBox[{"Re", "[", "#", "]"}], "\[GreaterEqual]", "5"}]}], "&"}], 
+       ")"}]}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{"PainleveIIPositiveD", "[", "\"\<AS\>\"", "]"}], "[", 
     RowBox[{"s1", ",", "x"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
@@ -1367,8 +1393,8 @@ WindowMargins->{{Automatic, 196}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
-2010)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
 

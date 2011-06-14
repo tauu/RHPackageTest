@@ -1519,6 +1519,17 @@ Cell["Finite points and graphs", "Subsection"],
 Cell[BoxData[{
  RowBox[{
   RowBox[{
+   RowBox[{
+    RowBox[{"Points", "[", "lf_LFun", "]"}], ":=", 
+    RowBox[{"MapFromCircle", "[", 
+     RowBox[{
+      RowBox[{"lf", "//", "Domain"}], ",", 
+      RowBox[{"Points", "[", 
+       RowBox[{"UnitCircle", ",", 
+        RowBox[{"lf", "//", "Length"}]}], "]"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"FinitePoints", "[", 
     RowBox[{"if", ":", 
      RowBox[{"LFun", "[", 
@@ -1741,9 +1752,8 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"End", "::", "noctx"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"No previous context defined. \\!\\(\\*ButtonBox[\\\"\
+   RowBox[{"End", "::", "noctx"}], "MessageName"], ":", 
+  " ", "\<\"No previous context defined. \\!\\(\\*ButtonBox[\\\"\
 \[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:ref/message/End/noctx\\\", ButtonNote -> \
 \\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
