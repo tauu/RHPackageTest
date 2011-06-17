@@ -412,7 +412,8 @@ ValuesDomainD;
 ToValueListD;
 DomainD;
 FromValueList;
-
+DCTDomainD;
+MeanDomainD;
 
 
 Begin["Private`"];
@@ -448,6 +449,8 @@ ValuesDomainD[spc__][f_IFun]:=Values[f']MapFromIntervalDomainD[spc][f,Points[Uni
 ToValueListD[spca__][f_List]:=Join@@(If[#[[2]]=={0,0},ZeroVector[Length[#[[1]]]],ValuesDomainD[Sequence@@#[[2]]][#[[1]]]]&/@Thread[{f,{spca}}]);
 
 DomainD[spc__][f_IFun]:=FromValueList[f,ValuesDomainD[spc][f]];
+DCTDomainD[spc__][if_IFun]:=DCT[ValuesDomainD[spc][if]];
+MeanDomainD[spc__][if_IFun]:=DCTDomainD[spc][if][[1]];
 End[];
 
 

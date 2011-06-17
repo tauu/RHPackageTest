@@ -46,11 +46,49 @@ ParametrixBranch[({
 Parametrix[({
  {0, 1},
  {-1, 0}
-}),Line[{a_,b_}],z_]:=Module[{\[Beta],p},
+}),Line[{a_,b_}],z_,t_]:=Module[{\[Beta],p},
 \[Beta][p_]:=((p-b)/(p-a))^(1/4);
 ({
  {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/(2 I)},
  {-((\[Beta][z]-1/\[Beta][z])/(2I)), (\[Beta][z]+1/\[Beta][z])/2}
+})];
+
+ParametrixBranch[({
+ {0, I },
+ {I , 0}
+}),Line[{a_,b_}],z_,t_]:=Module[{\[Beta],p},
+\[Beta][p_]:=PowerBranch[(p-b)/(p-a),1/4,t];
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/2 },
+ {(\[Beta][z]-1/\[Beta][z])/2, (\[Beta][z]+1/\[Beta][z])/2}
+})];
+Parametrix[({
+ {0,  I },
+ {I , 0}
+}),Line[{a_,b_}],z_]:=Module[{\[Beta],p},
+\[Beta][p_]:=((p-b)/(p-a))^(1/4);
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/2 },
+ {(\[Beta][z]-1/\[Beta][z])/2, (\[Beta][z]+1/\[Beta][z])/2}
+})];
+
+ParametrixBranch[({
+ {0, -I },
+ {-I , 0}
+}),Line[{a_,b_}],z_,t_]:=Module[{\[Beta],p},
+\[Beta][p_]:=PowerBranch[(p-b)/(p-a),1/4,t];
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, -((\[Beta][z]-1/\[Beta][z])/2 )},
+ {-((\[Beta][z]-1/\[Beta][z])/2), (\[Beta][z]+1/\[Beta][z])/2}
+})];
+Parametrix[({
+ {0,  -I },
+ {-I , 0}
+}),Line[{a_,b_}],z_]:=Module[{\[Beta],p},
+\[Beta][p_]:=((p-b)/(p-a))^(1/4);
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, -((\[Beta][z]-1/\[Beta][z])/2 )},
+ {-((\[Beta][z]-1/\[Beta][z])/2), (\[Beta][z]+1/\[Beta][z])/2}
 })];
 
 

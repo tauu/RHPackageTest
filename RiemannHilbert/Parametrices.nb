@@ -213,12 +213,230 @@ Cell[BoxData[{
         }], ")"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{
+    RowBox[{"Parametrix", "[", 
+     RowBox[{
+      RowBox[{"(", GridBox[{
+         {"0", "1"},
+         {
+          RowBox[{"-", "1"}], "0"}
+        }], ")"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{"a_", ",", "b_"}], "}"}], "]"}], ",", "z_", ",", "t_"}], 
+     "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\[Beta]", ",", "p"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Beta]", "[", "p_", "]"}], ":=", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"p", "-", "b"}], 
+           RowBox[{"p", "-", "a"}]], ")"}], 
+         RowBox[{"1", "/", "4"}]]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(", GridBox[{
+          {
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"], 
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], 
+            RowBox[{"2", " ", "I"}]]},
+          {
+           RowBox[{"-", 
+            FractionBox[
+             RowBox[{
+              RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+              RowBox[{"1", "/", 
+               RowBox[{"\[Beta]", "[", "z", "]"}]}]}], 
+             RowBox[{"2", "I"}]]}], 
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"]}
+         }], ")"}]}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ParametrixBranch", "[", 
+    RowBox[{
+     RowBox[{"(", GridBox[{
+        {"0", 
+         RowBox[{"I", " "}]},
+        {
+         RowBox[{"I", " "}], "0"}
+       }], ")"}], ",", 
+     RowBox[{"Line", "[", 
+      RowBox[{"{", 
+       RowBox[{"a_", ",", "b_"}], "}"}], "]"}], ",", "z_", ",", "t_"}], "]"}],
+    ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Beta]", ",", "p"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Beta]", "[", "p_", "]"}], ":=", 
+       RowBox[{"PowerBranch", "[", 
+        RowBox[{
+         FractionBox[
+          RowBox[{"p", "-", "b"}], 
+          RowBox[{"p", "-", "a"}]], ",", 
+         RowBox[{"1", "/", "4"}], ",", "t"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(", GridBox[{
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+            RowBox[{"1", "/", 
+             RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+            RowBox[{"1", "/", 
+             RowBox[{"\[Beta]", "[", "z", "]"}]}]}], 
+           RowBox[{"2", " "}]]},
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+            RowBox[{"1", "/", 
+             RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+            RowBox[{"1", "/", 
+             RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"]}
+        }], ")"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Parametrix", "[", 
+     RowBox[{
+      RowBox[{"(", GridBox[{
+         {"0", 
+          RowBox[{" ", "I", " "}]},
+         {
+          RowBox[{"I", " "}], "0"}
+        }], ")"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{"a_", ",", "b_"}], "}"}], "]"}], ",", "z_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\[Beta]", ",", "p"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Beta]", "[", "p_", "]"}], ":=", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"p", "-", "b"}], 
+           RowBox[{"p", "-", "a"}]], ")"}], 
+         RowBox[{"1", "/", "4"}]]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"(", GridBox[{
+          {
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"], 
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], 
+            RowBox[{"2", " "}]]},
+          {
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"], 
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"]}
+         }], ")"}]}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ParametrixBranch", "[", 
+    RowBox[{
+     RowBox[{"(", GridBox[{
+        {"0", 
+         RowBox[{"-", "I", " "}]},
+        {
+         RowBox[{"-", "I", " "}], "0"}
+       }], ")"}], ",", 
+     RowBox[{"Line", "[", 
+      RowBox[{"{", 
+       RowBox[{"a_", ",", "b_"}], "}"}], "]"}], ",", "z_", ",", "t_"}], "]"}],
+    ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Beta]", ",", "p"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Beta]", "[", "p_", "]"}], ":=", 
+       RowBox[{"PowerBranch", "[", 
+        RowBox[{
+         FractionBox[
+          RowBox[{"p", "-", "b"}], 
+          RowBox[{"p", "-", "a"}]], ",", 
+         RowBox[{"1", "/", "4"}], ",", "t"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(", GridBox[{
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+            RowBox[{"1", "/", 
+             RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"], 
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], 
+            RowBox[{"2", " "}]]}]},
+         {
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"]}], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
+            RowBox[{"1", "/", 
+             RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"]}
+        }], ")"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"Parametrix", "[", 
     RowBox[{
      RowBox[{"(", GridBox[{
-        {"0", "1"},
+        {"0", 
+         RowBox[{" ", 
+          RowBox[{"-", "I", " "}]}]},
         {
-         RowBox[{"-", "1"}], "0"}
+         RowBox[{"-", "I", " "}], "0"}
        }], ")"}], ",", 
      RowBox[{"Line", "[", 
       RowBox[{"{", 
@@ -243,20 +461,20 @@ Cell[BoxData[{
             RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
             RowBox[{"1", "/", 
              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"], 
-          FractionBox[
-           RowBox[{
-            RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
-            RowBox[{"1", "/", 
-             RowBox[{"\[Beta]", "[", "z", "]"}]}]}], 
-           RowBox[{"2", " ", "I"}]]},
-         {
           RowBox[{"-", 
            FractionBox[
             RowBox[{
              RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
              RowBox[{"1", "/", 
               RowBox[{"\[Beta]", "[", "z", "]"}]}]}], 
-            RowBox[{"2", "I"}]]}], 
+            RowBox[{"2", " "}]]}]},
+         {
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{
+             RowBox[{"\[Beta]", "[", "z", "]"}], "-", 
+             RowBox[{"1", "/", 
+              RowBox[{"\[Beta]", "[", "z", "]"}]}]}], "2"]}], 
           FractionBox[
            RowBox[{
             RowBox[{"\[Beta]", "[", "z", "]"}], "+", 
@@ -1851,7 +2069,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{839, 815},
-WindowMargins->{{Automatic, 215}, {Automatic, 0}},
+WindowMargins->{{Automatic, 189}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

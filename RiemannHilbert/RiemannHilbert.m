@@ -37,6 +37,7 @@ ScaledRHSolver;
 ScaledCauchyOperator;
 ConstructCurve;
 RHSolverMatrix;
+CauchySeriesAtInfinity;
 SowCondition::usage="Option for RHSolve";
 SparseSolve::usage="Option for RHSolve";
 Begin["Private`"];
@@ -58,6 +59,8 @@ CauchyMatrix[s_?SignQ,l:{__?FunQ},l2:{__?FunQ}]:=Join@@(CauchyMatrix[s,l,#]&/@l2
 
 CauchyMatrix[s_?SignQ,f_?FunQ]:=CauchyMatrix[s,f,f];
 CauchyMatrix[s_?SignQ,f:{__?FunQ}]:=CauchyMatrix[s,f,f];
+
+CauchySeriesAtInfinity[U_]:=-(U//DomainIntegrate)/(2 \[Pi]\[NonBreakingSpace]I);
 
 
 

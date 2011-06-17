@@ -2233,9 +2233,11 @@ Cell[BoxData[{
  RowBox[{"ValuesDomainD", ";"}], "\[IndentingNewLine]", 
  RowBox[{"ToValueListD", ";"}], "\[IndentingNewLine]", 
  RowBox[{"DomainD", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FromValueList", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DCTDomainD", ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"FromValueList", ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+  RowBox[{"MeanDomainD", ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
@@ -2501,9 +2503,26 @@ Cell[BoxData[{
       RowBox[{"ValuesDomainD", "[", "spc", "]"}], "[", "f", "]"}]}], "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"DCTDomainD", "[", "spc__", "]"}], "[", "if_IFun", "]"}], ":=", 
+   RowBox[{"DCT", "[", 
+    RowBox[{
+     RowBox[{"ValuesDomainD", "[", "spc", "]"}], "[", "if", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"MeanDomainD", "[", "spc__", "]"}], "[", "if_IFun", "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"DCTDomainD", "[", "spc", "]"}], "[", "if", "]"}], 
+    "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3176,7 +3195,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -3802,8 +3821,8 @@ Cell[BoxData[
      RowBox[{"ReduceDimensionMatrix", "[", 
       RowBox[{
        RowBox[{"f", "//", "Domain"}], ",", 
-       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\n", 
-   "\[IndentingNewLine]", 
+       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\[IndentingNewLine]",
+    "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"ReduceDimensionIntegrateMatrix", "[", 

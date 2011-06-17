@@ -48,6 +48,7 @@ CauchyInverseIntegralDomainDBoundary;
 CauchyInverseDomainGrad;
 CauchyInverseDomainD;
 BoundedCauchyInverse;
+
 EquilibriumMeasureSupport::usage="EquilibriumMeasureSupport[V] Computes the support of the equilibrium measure (currently only for convex V";
 EquilibriumMeasure::usage="EquilibriumMeasure[V,x] Computes the equilibrium measure at a point x inside the support";
 Begin["Private`"];

@@ -57,6 +57,7 @@ Cell[BoxData[
    RowBox[{"CauchyInverseDomainGrad", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInverseDomainD", ";"}], "\[IndentingNewLine]", 
    RowBox[{"BoundedCauchyInverse", ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"EquilibriumMeasureSupport", "::", "usage"}], "=", 
@@ -3508,7 +3509,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3689,7 +3690,7 @@ Cell[BoxData[{
           RowBox[{"V", ",", "retin"}], "]"}], "]"}]}], "]"}], ",", "x"}], 
      "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
