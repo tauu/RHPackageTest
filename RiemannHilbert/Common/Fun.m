@@ -61,6 +61,9 @@ DomainPlot::usage=
 
 Options[DomainPlot]=Options[Graphics];
 
+JumpScaleDomainPlot::usage="JumpScaleDomainPlot[ifun] or JumpScaleDomainPlot[{ifun, ... }] plots the scale of each ifun over its domain.";
+Options[JumpScaleDomainPlot]= Options[Graphics];
+
 DomainIntegrate::usage=
 "DomainIntegrate[ifun] returns the definite integral of the function ifun over its domain.";
 ReduceDimension::usage=
@@ -273,10 +276,32 @@ End[];
 Begin["Private`"];
 
 
+
 DomainPlot[if_?FunQ,opts___]:=DomainPlot[if//Domain,opts];
 
 DomainPlot[l_List,opts___]:=Show[DomainPlot[#,opts]&/@l,PlotRange->All];
 
+
+
+JumpScaleDomainPlot[l_List,opts:OptionsPattern[]]:= Show[JumpScaleDomainPlot[#,opts]&/@l,opts];
+
+JumpScale[v_,min_]:=Module[{w},
+w=(v-IdentityMatrix[2])//Abs//Max//Log10;
+(* Indeterminate happens for w={{1.`,0.`},{0.`,1.`} so we set this to a more useful value *)w=w/.Indeterminate->min;
+Return[w];
+];
+
+
+JumpScaleColorFunction[range_]:=Module[{},
+Return[
+ColorDataFunction["trafficLight","Gradients",range,
+Function[
+Blend[
+List[Darker[Green],Yellow,Darker[Red]],
+Rescale[Slot[1],range]]
+]
+]
+];];
 
 
 NEqual[f:{__?FunQ},g:{__?FunQ}]:=Norm[Norm/@(f-g)]<$MachineTolerance;

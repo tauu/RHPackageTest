@@ -471,6 +471,9 @@ End[];
 
 Begin["Private`"];
 
+
+
+
 DomainPlot[Line[{a_,b_?InfinityQ},___],opts___]:=Graphics[{Thick,Blue,Arrowheads[Large],PointSize[Large],Point[a//{Re[#],Im[#]}&],Arrow[{a//{Re[#],Im[#]}&,a+2 Exp[I Arg[b]]//{Re[#],Im[#]}&}]},opts,Axes->True];
 DomainPlot[Line[{a_?InfinityQ,b_},___],opts___]:=Graphics[{Thick,Blue,Arrowheads[Large],PointSize[Large],Point[b//{Re[#],Im[#]}&],Arrow[{b+2 Exp[I Arg[a]]//{Re[#],Im[#]}&,b//{Re[#],Im[#]}&}]},opts,Axes->True];
 DomainPlot[Line[{a_,b_},___],opts___]:=Graphics[{Thick,Blue,PointSize[Large],Arrowheads[Medium],Point[a//{Re[#],Im[#]}&],
@@ -482,8 +485,24 @@ Point[z0 + r Exp[I t1]//{Re[#],Im[#]}& ],
 Arrow[{z0+r Exp[I (t1-0.0001 Sign[t1-t0])]//{Re[#],Im[#]}&,z0 + r Exp[I t1]//{Re[#],Im[#]}&}],
 Circle[{Re[#],Im[#]}&[z0],r,{t0,t1}//N//Sort]},opts,Axes->True];
 
-End[];
 
+
+(*For some reason ListLinePlot calls the colorfunction at the point (0,0) if we try to plot just one point therefore each function with just one plotable point,will be assigned another plotable point ASSUMPTION:only constant function will triggers this special case*)
+JumpScaleDomainPlot[IFun[l_,d_]?(FiniteLength[#]==1&),opts___]:=JumpScaleDomainPlot[IFun[{l[[1]],l[[1]],l[[-1]]},d],opts];
+
+JumpScaleDomainPlot[if_IFun,opts___]:=With[{min=-16,max=4},
+ListLinePlot[{Re[#],Im[#]}&/@(Select[Points[if],NumberQ]),
+ColorFunctionScaling->False,
+ColorFunction->Function[{x,y},
+JumpScaleColorFunction[{min,max}][JumpScale[if[x+I y],min]]],
+AspectRatio->1,
+PlotStyle->Thickness[0.02],
+PlotRange->All
+]
+];
+
+
+End[];
 
 
 
