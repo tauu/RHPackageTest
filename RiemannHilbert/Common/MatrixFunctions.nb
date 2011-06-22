@@ -106,8 +106,13 @@ Cell["Shift List", "Section"],
 
 Cell[BoxData[{
  RowBox[{"ToRotatedList", ";", "Index", ";", "FirstIndex", ";", "IndexRange", 
-  ";", "IncreaseIndexRange", ";", "SetIndexRange", ";", "DropNegative", ";", 
-  "ShiftList", ";", "ToList", ";"}], "\[IndentingNewLine]", 
+  ";", "IncreaseIndexRange", ";", "SetIndexRange", ";", "DropNegative", 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"ShiftList", ",", "NHoldRest"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ToList", ";"}], "\[IndentingNewLine]", 
  RowBox[{"NegativeList", ";"}], "\[IndentingNewLine]", 
  RowBox[{"NonPositiveList", ";"}], "\[IndentingNewLine]", 
  RowBox[{"NonNegativeList", ";"}], "\[IndentingNewLine]", 
@@ -976,8 +981,16 @@ Cell[BoxData[{
         RowBox[{
          RowBox[{"Indices", "[", "sl", "]"}], ",", 
          RowBox[{"ToList", "[", "sl", "]"}]}], "]"}], "]"}], ",", "opts"}], 
-     "]"}]}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+     "]"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ToeplitzMatrix", "[", "sl_ShiftList", "]"}], "^:=", 
+   RowBox[{"ToeplitzMatrix", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"sl", "//", "NonPositiveList"}], "//", "Reverse"}], ",", 
+     RowBox[{"sl", "//", "NonNegativeList"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
@@ -1323,6 +1336,14 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"MatrixMap", "[", 
         RowBox[{"f", ",", "#"}], "]"}], "&"}], "/@", "m"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ArrayMap", "[", 
+      RowBox[{"f_", ",", "m_ShiftList"}], "]"}], ":=", 
+     RowBox[{"ArrayMap", "[", 
+      RowBox[{"f", ",", 
+       RowBox[{"m", "//", "ToArrayOfShiftLists"}]}], "]"}]}], ";"}], 
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{

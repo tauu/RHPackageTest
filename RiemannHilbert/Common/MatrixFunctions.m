@@ -39,7 +39,9 @@ DiagonalMatrixQ[DD_]:=Norm[DD-DiagonalMatrix[Diagonal[DD]]]==0;
 End[];
 
 
-ToRotatedList;Index;FirstIndex;IndexRange;IncreaseIndexRange;SetIndexRange;DropNegative;ShiftList;ToList;
+ToRotatedList;Index;FirstIndex;IndexRange;IncreaseIndexRange;SetIndexRange;DropNegative;
+SetAttributes[ShiftList,NHoldRest];
+ToList;
 NegativeList;
 NonPositiveList;
 NonNegativeList;
@@ -156,7 +158,7 @@ ReImLinePlot[sl_ShiftList,opts___]:=ReImListLinePlot[Thread[List[Indices[sl],ToL
 ReImLineLogPlot[sl_ShiftList,opts___]:=ReImListLineLogPlot[Thread[List[Indices[sl],ToList[sl]]],opts];
 ReImLogPlot[sl_ShiftList,opts___]:=ReImListLogPlot[Thread[List[Indices[sl],ToList[sl]]],opts];
 
-
+ToeplitzMatrix[sl_ShiftList]^:=ToeplitzMatrix[sl//NonPositiveList//Reverse,sl//NonNegativeList];
 End[];
 
 
@@ -257,6 +259,7 @@ MatrixMap[f_,m_]:=Map[f,m,{2}];
 ArrayMap[f_,m_?MatrixQ]:=MatrixMap[f,m];
 ArrayMap[f_,m_?VectorQ]:=f/@m;
 ArrayMap[f_,m_?TensorQ]:=MatrixMap[f,#]&/@m;
+ArrayMap[f_,m_ShiftList]:=ArrayMap[f,m//ToArrayOfShiftLists];
 ArrayMap[f_,m_]:=f[m];
 
 SortEigensystem[A_]:=({#[[1]],Map[Function[vec,Exp[-I Arg[First[vec]]]],#[[2]]]#[[2]] }&)[Sort[Thread[Eigensystem[A]]]//Thread];
