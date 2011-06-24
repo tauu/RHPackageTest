@@ -291,8 +291,14 @@ Cell[BoxData[{
 Cell[BoxData[{
  RowBox[{
   RowBox[{
+   RowBox[{"Options", "[", "ComplexPlot3D", "]"}], "=", 
+   RowBox[{"Options", "[", "Plot3D", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"ComplexPlot3D", "[", 
-    RowBox[{"h_", ",", "v_", ",", "opts___"}], "]"}], ":=", 
+    RowBox[{"h_", ",", "v_", ",", 
+     RowBox[{"opts", ":", 
+      RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
    RowBox[{"Module", "[", 
     RowBox[{
      RowBox[{"{", 
@@ -1867,6 +1873,8 @@ WindowSize->{520, 644},
 WindowMargins->{{281, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TrackCellChangeTimes->False,
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
+

@@ -261,6 +261,8 @@ Arrow[{MapFromCircle[ell,Exp[I 0.2]]//{Re[#],Im[#]}&,MapFromCircle[ell,Exp[I 0.2
 
 LFun[l_List,d_][z_]:=MapDot[MapToCircle[d,z]^#&,FFT[l]];
 LFun[f_,d_,n_]:=LFun[f/@MapFromCircle[d,Points[UnitCircle,n]],d];
+LFun[l_ShiftList,d_]:=LFun[l//MakeFFTIndexRange//InverseFFT,d];
+
 
 Values[LFun[l_List,_]]:=l;
 Domain[LFun[_,d_]]:=d;

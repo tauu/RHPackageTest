@@ -90,7 +90,8 @@ CirclePlot[h_,{z_,r_},opts___]:=CirclePlot[h,{z,0,r},opts];
 CirclePlot[h_,z_,opts___]:=CirclePlot[h,{z,1},opts];
 
 
-ComplexPlot3D[h_,v_,opts___]:=Module[{x,y,h2,xv,yv},
+Options[ComplexPlot3D]=Options[Plot3D];
+ComplexPlot3D[h_,v_,opts:OptionsPattern[]]:=Module[{x,y,h2,xv,yv},
 	h2=h/.First[v]->x+I y;
 	xv={x,Re[v[[2]]],Re[Last[v]]};
 	yv={y,Im[v[[2]]],Im[Last[v]]};
