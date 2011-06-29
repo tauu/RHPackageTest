@@ -358,6 +358,11 @@ MapToIntervalD[Line[{a_,b_},Stretch->L_],z_]:=-((2 (a L-b L))/(a-b L-z+L z)^2) ;
 MapFromIntervalD[Line[{a_,b_},Stretch->L_],z_]:=(2 (-a L+b L))/(1+L-z+L z)^2 ;
 
 
+Arc[a_,r_,{t0_,t1_},Left]/;t0<t1:=Arc[a,r,{t0,t1}];
+Arc[a_,r_,{t0_,t1_},Left]:=Arc[a,r,{t0-2 \[Pi],t1},Left];
+Arc[a_,r_,{t0_,t1_},Right]/;t0>t1:=Arc[a,r,{t0,t1}];
+Arc[a_,r_,{t0_,t1_},Right]:=Arc[a,r,{t0+2 \[Pi],t1},Right];
+
 MapFromInterval[Arc[z0_,r_,{t0_,t1_}],x_]:=(-E^(1/2 I (t0+2 t1)) r (1+x)-E^((I t0)/2) (1+x) z0+E^((I t1)/2) (-1+x) (E^(I t0) r+z0))/(E^((I t1)/2) (-1+x)-E^((I t0)/2) (1+x));
 MapFromInterval[Arc[z0_,r_,{t0_,t1_}],_?InfinityQ]:=-E^(1/2 I (t0+t1)) r+z0;
 MapToInterval[Arc[z0_,r_,{t0_,t1_}],z_]/;((-E^(1/2 I (t0+t1)) r+z0)~NEqual~z):=\[Infinity];

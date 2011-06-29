@@ -48,6 +48,7 @@ CauchyInverseIntegralDomainDBoundary;
 CauchyInverseDomainGrad;
 CauchyInverseDomainD;
 BoundedCauchyInverse;
+CauchyInverseIntegralBranch;
 
 EquilibriumMeasureSupport::usage="EquilibriumMeasureSupport[V] Computes the support of the equilibrium measure (currently only for convex V";
 EquilibriumMeasure::usage="EquilibriumMeasure[V,x] Computes the equilibrium measure at a point x inside the support";
@@ -230,6 +231,7 @@ CauchyInverseIntegralLogTermBranch[f_IFun,z_,t_]:=DCT[f][[2]]/(4 MapToIntervalD[
 
 CauchyInverseIntegralBranch[f_IFun?IntervalFunQ,z_,t_]:=
 CauchyInverse[SPCauchyInverseIntegral[f],z]+CauchyInverseIntegralLogTermBranch[f,z,t];
+CauchyInverseIntegralBranch[l_List,z_,t_List]:=Plus@@(CauchyInverseIntegralBranch[#[[1]],z,#[[2]]]&/@Thread[{CauchyInverseCurves[l],t}]);
 
 
 SPCauchyInverseIntegralDomainGrad[spc__][f_]:=-(MapToIntervalDDomainD[spc][f,0.]/MapToIntervalD[f,0.]^2)IFun[1/2  ( MapOuter[Which[#==1,0,#==2,2/(#-1),True,1/(#-1)]&,(DCT[f]//GrowShiftRight)]-PadRight[MapOuter[If[#==1,0,1/(#-1)]&,(DCT[f]//GrowShiftLeft)],Length[f]+1])//InverseDCT,Domain[f]];

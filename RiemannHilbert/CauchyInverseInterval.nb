@@ -57,6 +57,7 @@ Cell[BoxData[
    RowBox[{"CauchyInverseDomainGrad", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInverseDomainD", ";"}], "\[IndentingNewLine]", 
    RowBox[{"BoundedCauchyInverse", ";"}], "\[IndentingNewLine]", 
+   RowBox[{"CauchyInverseIntegralBranch", ";"}], "\[IndentingNewLine]", 
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
@@ -1574,7 +1575,7 @@ Cell[BoxData[
         RowBox[{"CauchyInverseCurves", "[", "l", "]"}]}], ")"}]}]}], ";"}], 
    "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1676,7 +1677,28 @@ Cell[BoxData[{
       RowBox[{"SPCauchyInverseIntegral", "[", "f", "]"}], ",", "z"}], "]"}], 
     "+", 
     RowBox[{"CauchyInverseIntegralLogTermBranch", "[", 
-     RowBox[{"f", ",", "z", ",", "t"}], "]"}]}]}], ";"}]}], "Input",
+     RowBox[{"f", ",", "z", ",", "t"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyInverseIntegralBranch", "[", 
+    RowBox[{"l_List", ",", "z_", ",", "t_List"}], "]"}], ":=", 
+   RowBox[{"Plus", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"CauchyInverseIntegralBranch", "[", 
+        RowBox[{
+         RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+         ",", "z", ",", 
+         RowBox[{
+         "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], "]"}],
+        "&"}], "/@", 
+      RowBox[{"Thread", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"CauchyInverseCurves", "[", "l", "]"}], ",", "t"}], "}"}], 
+       "]"}]}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -3509,7 +3531,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{

@@ -88,13 +88,18 @@ Cell[BoxData[{
    RowBox[{"f", " ", "g"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"DiagonalMatrixQ", "[", "DD_", "]"}], ":=", 
+   RowBox[{"DiagonalMatrixQ", "[", 
+    RowBox[{"DD_", "?", "MatrixQ"}], "]"}], ":=", 
    RowBox[{
     RowBox[{"Norm", "[", 
      RowBox[{"DD", "-", 
       RowBox[{"DiagonalMatrix", "[", 
        RowBox[{"Diagonal", "[", "DD", "]"}], "]"}]}], "]"}], "\[Equal]", 
     "0"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DiagonalMatrixQ", "[", "_", "]"}], ":=", "False"}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]

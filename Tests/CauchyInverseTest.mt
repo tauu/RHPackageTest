@@ -759,6 +759,9 @@ Test[
 ] 
 
 
+
+
+
 Test[
 	Chop[(CauchyInverseIntegral[-1,cfaeps, a+eps] - 
   CauchyInverseIntegral[-1,cf, a])/eps - 
@@ -798,4 +801,66 @@ Test[
 	,
 	TestID->"-CauchyInverseIntegralDBoundary-List-Domain-d-d"
 ] 
+
+
+
+(* ::Subsection:: *)
+(* Real List *)
+
+
+eps = 10.^(-7);
+a=-.3;
+b=-.2 ;
+c=0.3;
+d=0.4;
+cf = Fun[1/# &, {Line[{a,b}], Line[{c,d}]}];
+cfaeps = Fun[
+   1/# &, {Line[{a + eps, b}], Line[{c,d}]}];
+cfbeps = Fun[
+   1/# &, {Line[{a , b+ eps}], Line[c,d]}];
+cfceps = Fun[
+   1/# &, {Line[{a , b}], Line[{c+ eps, d}]}];
+cfdeps = Fun[
+   1/# &, {Line[{a , b}], Line[{c, d+eps}]}];  
+
+Test[
+	Chop[(CauchyInverseIntegral[+1,cfaeps, 0] - 
+  CauchyInverseIntegral[+1,cf, 0])/eps - 
+ CauchyInverseIntegralDomainD[{1, 0}, {0, 0}][+1,cf, 0],10.^(-5)]
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralDBoundary-List-Domain-a-0-Bug"
+] 
+
+Test[
+	Chop[(CauchyInverseIntegral[+1,cfaeps, eps I] - 
+  CauchyInverseIntegral[+1,cf, eps I])/eps - 
+ CauchyInverseIntegralDomainD[{1, 0}, {0, 0}][+1,cf, eps I],10.^(-5)]
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralDBoundary-List-Domain-a-epsI-Bug"
+] 
+
+Test[
+	Chop[(CauchyInverseIntegral[+1,cfceps, 0] - 
+  CauchyInverseIntegral[+1,cf, 0])/eps - 
+ CauchyInverseIntegralDomainD[{0, 0}, {1, 0}][+1,cf, 0],10.^(-5)]
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralDBoundary-List-Domain-c-0-Bug"
+] 
+
+Test[
+	Chop[(CauchyInverseIntegral[cfceps, eps I] - 
+  CauchyInverseIntegral[cf, eps I])/eps - 
+ CauchyInverseIntegralDomainD[{0, 0}, {1, 0}][cf, eps I],10.^(-5)]
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralDBoundary-List-Domain-c-epsI-Bug"
+] 
+
 
