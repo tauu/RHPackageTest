@@ -567,6 +567,8 @@ ZeroAtZero[f_IFun]/;OddQ[Length[f]]:=f-f[0.];
 ZeroAtRight[f_]:=f-Last[f];
 ZeroAtLeft[f_]:=f-First[f];
 
+SetLength[if_IFun,n_]:=IFun[PadRight[if//DCT,n]//InverseDCT,if//Domain];
+
 
 
 FinitePoints[if_IFun?(LeftEndpointInfinityQ[#]&&RightEndpointInfinityQ[#]&)]:=if//Points//Most//Rest;

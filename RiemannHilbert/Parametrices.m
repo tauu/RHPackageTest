@@ -72,6 +72,34 @@ Parametrix[({
  {(\[Beta][z]-1/\[Beta][z])/2, (\[Beta][z]+1/\[Beta][z])/2}
 })];
 
+Parametrix[({
+ {0,  1 },
+ {1, 0}
+}),Line[{a_,b_}],z_]:=Module[{\[Beta],p},
+\[Beta][p_]:=((p-b)/(p-a))^(1/4);
+1/\[Beta][z] ({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/2 },
+ {(\[Beta][z]-1/\[Beta][z])/2, (\[Beta][z]+1/\[Beta][z])/2}
+})];
+
+Parametrix[({
+ {0,  r_ },
+ {r_, 0}
+}),Line[{a_,b_}],z_]:=Parametrix[({
+ {0, 1},
+ {1, 0}
+}),Line[{a,b}],z]Exp[Log[r] (Log[b-z]-Log[a-z])/(2 \[Pi]\[NonBreakingSpace]I)];
+Parametrix[({
+ {0,  r_ },
+ {r2_, 0}
+}),Line[{a_,b_}],z_]/;r2~NEqual~1/r:=Parametrix[({
+ {0, 1},
+ {1, 0}
+}),Line[{a,b}],z].({
+ {Exp[Log[1/r]CauchyInverseBasis[Line[{a,b}],1,z]], 0},
+ {0, Exp[-Log[1/r]CauchyInverseBasis[Line[{a,b}],1,z]]}
+});
+
 ParametrixBranch[({
  {0, -I },
  {-I , 0}
@@ -90,6 +118,426 @@ Parametrix[({
  {(\[Beta][z]+1/\[Beta][z])/2, -((\[Beta][z]-1/\[Beta][z])/2 )},
  {-((\[Beta][z]-1/\[Beta][z])/2), (\[Beta][z]+1/\[Beta][z])/2}
 })];
+
+
+RightLocalParametrix//Clear;RightLocalParametrix[({
+ {0, 1},
+ {-1, 0}
+}),Line[{b_,a_}],z_]:=Module[{PP,\[Beta],g,y},
+\[Beta][y_]:=PowerBranch[y-b,1/4,Arg[a-b]];
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/(2 I)},
+ {-((\[Beta][z]-1/\[Beta][z])/(2I)), (\[Beta][z]+1/\[Beta][z])/2}
+})
+];
+LeftLocalParametrix[({
+ {0, 1},
+ {-1, 0}
+}),Line[{b_,a_}],z_]:=Inverse[RightLocalParametrix[({
+ {0, 1},
+ {-1, 0}
+}),Line[{b,a}],z]];
+
+RightLocalParametrix[({
+ {0, s_},
+ {s2_, 0}
+}),Line[{b_,a_}],z_]/;s2==-1/s:=
+RightLocalParametrix[({
+ {0, 1},
+ {-1, 0}
+}),Line[{b,a}],z].({
+ {1/Sqrt[s], 0},
+ {0, Sqrt[s]}
+});
+
+LeftLocalParametrix[({
+ {0, s_},
+ {s2_, 0}
+}),Line[{b_,a_}],z_]/;s2==-1/s:=
+LeftLocalParametrix[({
+ {0, 1},
+ {-1, 0}
+}),Line[{b,a}],z].({
+ {1/Sqrt[s], 0},
+ {0, Sqrt[s]}
+});
+
+
+LocalParametrix[{({
+ {0, s_},
+ {s2_, 0}
+}),({
+ {q_, 0},
+ {0, q2_}
+})},Line[{a_,b_,c_}],z_]/;s2==-1/s&&q2==1/q:=Module[{g,y},
+g[y_]=Log[1/s]/2-Log[q] /(2 \[Pi]\[NonBreakingSpace]I) (LogBranch[y-b,Arg[c-b]]+I \[Pi] Sign[Arg[c-b]]-LogBranch[y-b,Arg[a-b]]);
+RightLocalParametrix[({
+ {0, 1},
+ {-1, 0}
+}),Line[{b,a}],z].({
+ {E^g[z], 0},
+ {0, E^-g[z]}
+})
+];
+
+LocalParametrix[{({
+ {q_, 0},
+ {0, q2_}
+}),({
+ {0, s_},
+ {s2_, 0}
+})},Line[{a_,b_,c_}],z_]/;s2==-1/s&&q2==1/q:=Module[{g,y},
+g[y_]=Log[1/s]/2-Log[q] /(2 \[Pi]\[NonBreakingSpace]I) (LogBranch[y-b,Arg[c-b]]+I \[Pi] Sign[Arg[c-b]]-LogBranch[y-b,Arg[a-b]]);
+LeftLocalParametrix[({
+ {0, 1},
+ {-1, 0}
+}),Line[{b,c}],z].({
+ {E^g[z], 0},
+ {0, E^-g[z]}
+})
+];
+
+
+
+RightLocalParametrixBranch[({
+ {0, 1},
+ {-1, 0}
+}),b_,z_,t_]:=Module[{PP,\[Beta],g,y},
+\[Beta][y_]:=PowerBranch[y-b,1/4,t];
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/(2 I)},
+ {-((\[Beta][z]-1/\[Beta][z])/(2I)), (\[Beta][z]+1/\[Beta][z])/2}
+})
+];
+LeftLocalParametrixBranch[({
+ {0, 1},
+ {-1, 0}
+}),b_,z_,t_]:=RightLocalParametrixBranch[({
+ {0, 1},
+ {-1, 0}
+}),b,z,t]//Inverse;
+RightLocalParametrix[+1,({
+ {0, 1},
+ {-1, 0}
+}),Line[{b_,a_}],z_]:=RightLocalParametrixBranch[({
+ {0, 1},
+ {-1, 0}
+}),b,z,Arg[a-b]-  \[Pi]/2];
+RightLocalParametrix[-1,({
+ {0, 1},
+ {-1, 0}
+}),Line[{b_,a_}],z_]:=RightLocalParametrixBranch[({
+ {0, 1},
+ {-1, 0}
+}),b,z,Arg[a-b]+ \[Pi]/2];
+
+LeftLocalParametrix[s_?SignQ,({
+ {0, 1},
+ {-1, 0}
+}),b_,z_]:=RightLocalParametrix[s,({
+ {0, 1},
+ {-1, 0}
+}),b,z]//Inverse;
+
+
+RightLocalParametrix[ss_?SignQ,({
+ {0, s_},
+ {s2_, 0}
+}),b_,z_]/;s2==-1/s:=
+RightLocalParametrix[ss,({
+ {0, 1},
+ {-1, 0}
+}),b,z].({
+ {1/Sqrt[s], 0},
+ {0, Sqrt[s]}
+});
+
+LeftLocalParametrix[ss_?SignQ,({
+ {0, s_},
+ {s2_, 0}
+}),b_,z_]/;s2==-1/s:=
+LeftLocalParametrix[ss,({
+ {0, 1},
+ {-1, 0}
+}),b,z].({
+ {1/Sqrt[s], 0},
+ {0, Sqrt[s]}
+});
+
+LocalParametrix[ss_?SignQ,{({
+ {0, s_},
+ {s2_, 0}
+}),({
+ {q_, 0},
+ {0, q2_}
+})},Line[{a_,b_,c_}],z_]/;s2==-1/s&&q2==1/q:=Module[{g,y},
+g[y_]=Log[1/s]/2+ss Log[q] /2;
+RightLocalParametrixBranch[({
+ {0, 1},
+ {-1, 0}
+}),b,z,Arg[ss (a-b+c-b)/2]].({
+ {E^g[z], 0},
+ {0, E^-g[z]}
+})
+];
+
+LocalParametrix[ss_?SignQ,{({
+ {q_, 0},
+ {0, q2_}
+}),({
+ {0, s_},
+ {s2_, 0}
+})},Line[{a_,b_,c_}],z_]/;s2==-1/s&&q2==1/q:=Module[{g,y},
+g[y_]=Log[1/s]/2+ss Log[q] /2;
+LeftLocalParametrixBranch[({
+ {0, 1},
+ {-1, 0}
+}),b,z,Arg[-ss (a-b+c-b)/2]].({
+ {E^g[z], 0},
+ {0, E^-g[z]}
+})
+];
+
+
+
+Parametrix[{({
+ {0, -1},
+ {1, 0}
+}),({
+ {0, 1},
+ {-1, 0}
+})},{Line[{c_,d_}],Line[{a_,b_}]},z_]/;c==-b&&d==-a:=Module[{\[Beta],p},
+\[Beta][p_]:=((p^2-b^2)/(p^2-a^2))^(1/4);
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/(2 I)},
+ {-((\[Beta][z]-1/\[Beta][z])/(2I)), (\[Beta][z]+1/\[Beta][z])/2}
+})];
+
+Parametrix[{({
+ {0, -I},
+ {-I, 0}
+}),({
+ {0, I},
+ {I, 0}
+})},{Line[{c_,d_}],Line[{a_,b_}]},z_]/;c==-b&&d==-a:=Module[{\[Beta],p},
+\[Beta][p_]:=((p^2-b^2)/(p^2-a^2))^(1/4);
+({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/2 },
+ {(\[Beta][z]-1/\[Beta][z])/2, (\[Beta][z]+1/\[Beta][z])/2}
+})];
+
+Parametrix[{({
+ {0,  1 },
+ {1, 0}
+}),({
+ {0,  1 },
+ {1, 0}
+})},{Line[{c_,d_}],Line[{a_,b_}]},z_]/;c==-b&&d==-a:=Module[{\[Beta],p},
+\[Beta][p_]:=((p^2-b^2)/(p^2-a^2))^(1/4);
+1/\[Beta][z] ({
+ {(\[Beta][z]+1/\[Beta][z])/2, (\[Beta][z]-1/\[Beta][z])/2 },
+ {(\[Beta][z]-1/\[Beta][z])/2, (\[Beta][z]+1/\[Beta][z])/2}
+})];
+
+SLCauchyInverse[{if1_IFun,if2_IFun},z_]/;Domain[if1]~NEqual~(-Reverse/@Domain[if2]):=Module[{l,m,endp,\[Alpha],\[Rho]},
+endp=MapToInterval[if2,if1//RightEndpoint];
+\[Alpha]=Abs[endp];
+\[Rho]=\[Alpha]+Sqrt[\[Alpha]^2-1];
+m=-((Log[$MachineEpsilon]-Log[2])/Log[\[Rho]]);
+l=Log[$MachineEpsilon]/(Log[Abs[IntervalToInnerCircle[endp]]]);
+CauchyInverse[{SetLength[if1,Max[l,m,Length[if1]]//Ceiling],SetLength[if2,Max[l,m,Length[if2]]//Ceiling]},z]
+];
+
+Parametrix[{({
+ {0,  p_ },
+ {p2_, 0}
+}),({
+ {0,  r_ },
+ {r2_, 0}
+})},{Line[{c_,d_}],Line[{a_,b_}]},z_]/;p2~NEqual~(1/p)&&r2~NEqual~(1/r):=Module[{g},
+g=-SLCauchyInverse[{Fun[Log[p]&,Line[{c,d}]],Fun[Log[r]&,Line[{a,b}]]},z];
+Parametrix[{({
+ {0,  1 },
+ {1, 0}
+}),({
+ {0,  1 },
+ {1, 0}
+})},{Line[{c,d}],Line[{a,b}]},z].({
+ {Exp[g], 0},
+ {0, Exp[-g]}
+})]
+
+
+
+Parametrix[{({
+ {0, s_},
+ {s2_, 0}
+}),({
+ {q_, 0},
+ {0, q2_}
+}),({
+ {0, t_},
+ {t2_, 0}
+})},Line[{a_,b_,c_,d_}],NL_:{30,30,30,30}]/;s2==-1/s&&q2==1/q&&t2==-1/t:=Module[{U,r,eps},
+r=0.02;eps=$MachineTolerance;
+
+U=({Fun[LeftLocalParametrix[-1,({
+ {0, s},
+ {-1/s, 0}
+}),Line[{a,b}],#]&,Arc[a,r,{Arg[b-a],Arg[b-a]-\[Pi]}],NL[[1]]],
+Fun[LeftLocalParametrix[1,({
+ {0, s},
+ {-1/s, 0}
+}),Line[{a,b}],#]&,Arc[a,r,{Arg[b-a]+\[Pi],Arg[b-a]}],NL[[1]]],
+Fun[({
+ {0, s},
+ {-1/s, 0}
+})&,Line[{a+r Exp[I Arg[b-a]],b+r Exp[I Arg[a-b]]}],NL[[2]]],
+Fun[LocalParametrix[{({
+ {0, s},
+ {-1/s, 0}
+}),({
+ {q, 0},
+ {0, 1/q}
+})},Line[{a,b,c}],#-eps I]&,Arc[b,r,{Arg[c-b],Arg[a-b]},Right],NL[[1]]],
+Fun[LocalParametrix[{({
+ {0, s},
+ {-1/s, 0}
+}),({
+ {q, 0},
+ {0, 1/q}
+})},Line[{a,b,c}],#+eps I]&,Arc[b,r,{Arg[a-b],Arg[c-b]},Right],NL[[1]]],
+Fun[({
+ {q, 0},
+ {0, 1/q}
+})&,Line[{b+Exp[I Arg[c-b]]r,c+Exp[I Arg[b-c]]r}],NL[[3]]],
+Fun[LocalParametrix[{({
+ {q, 0},
+ {0, 1/q}
+}),({
+ {0, t},
+ {-1/t, 0}
+})},Line[{b,c,d}],#-eps I]&,Arc[c,r,{Arg[d-c],Arg[b-c]},Right],NL[[1]]],
+Fun[LocalParametrix[{({
+ {q, 0},
+ {0, 1/q}
+}),({
+ {0, t},
+ {-1/t, 0}
+})},Line[{b,c,d}],#+eps I]&,Arc[c,r,{Arg[b-c],Arg[d-c]},Right],NL[[1]]],
+Fun[({
+ {0, t},
+ {-1/t, 0}
+})&,Line[{c+Exp[I Arg[d-c]]r,d+Exp[I Arg[c-d]]r}],NL[[4]]],
+Fun[RightLocalParametrix[({
+ {0, t},
+ {-1/t, 0}
+}),Line[{d,c}],#+eps I]&,Arc[d,r,{Arg[c-d],Arg[d-c]},Right],NL[[1]]],
+Fun[RightLocalParametrix[({
+ {0, t},
+ {-1/t, 0}
+}),Line[{d,c}],#-eps I]&,Arc[d,r,{Arg[d-c],Arg[c-d]},Right],NL[[1]]]
+})//RHSolve;
+Function[z,
+(IdentityMatrix[2]+Cauchy[U,z]).\!\(\*
+TagBox[GridBox[{
+{"\[Piecewise]", GridBox[{
+{
+RowBox[{"LeftLocalParametrix", "[", 
+RowBox[{
+RowBox[{"(", GridBox[{
+{"0", "s"},
+{
+RowBox[{
+RowBox[{"-", "1"}], "/", "s"}], "0"}
+}], ")"}], ",", 
+RowBox[{"Line", "[", 
+RowBox[{"{", 
+RowBox[{"a", ",", "b"}], "}"}], "]"}], ",", "z"}], "]"}], 
+RowBox[{
+RowBox[{"Abs", "[", 
+RowBox[{"z", "-", "a"}], "]"}], "<", "r"}]},
+{
+RowBox[{"LocalParametrix", "[", 
+RowBox[{
+RowBox[{"{", 
+RowBox[{
+RowBox[{"(", GridBox[{
+{"0", "s"},
+{
+RowBox[{
+RowBox[{"-", "1"}], "/", "s"}], "0"}
+}], ")"}], ",", 
+RowBox[{"(", GridBox[{
+{"q", "0"},
+{"0", 
+RowBox[{"1", "/", "q"}]}
+}], ")"}]}], "}"}], ",", 
+RowBox[{"Line", "[", 
+RowBox[{"{", 
+RowBox[{"a", ",", "b", ",", "c"}], "}"}], "]"}], ",", "z"}], "]"}], 
+RowBox[{
+RowBox[{"Abs", "[", 
+RowBox[{"z", "-", "b"}], "]"}], "<", "r"}]},
+{
+RowBox[{"LocalParametrix", "[", 
+RowBox[{
+RowBox[{"{", 
+RowBox[{
+RowBox[{"(", GridBox[{
+{"q", "0"},
+{"0", 
+RowBox[{"1", "/", "q"}]}
+}], ")"}], ",", 
+RowBox[{"(", GridBox[{
+{"0", "t"},
+{
+RowBox[{
+RowBox[{"-", "1"}], "/", "t"}], "0"}
+}], ")"}]}], "}"}], ",", 
+RowBox[{"Line", "[", 
+RowBox[{"{", 
+RowBox[{"b", ",", "c", ",", "d"}], "}"}], "]"}], ",", "z"}], "]"}], 
+RowBox[{
+RowBox[{"Abs", "[", 
+RowBox[{"z", "-", "c"}], "]"}], "<", "r"}]},
+{
+RowBox[{"RightLocalParametrix", "[", 
+RowBox[{
+RowBox[{"(", GridBox[{
+{"0", "t"},
+{
+RowBox[{
+RowBox[{"-", "1"}], "/", "t"}], "0"}
+}], ")"}], ",", 
+RowBox[{"Line", "[", 
+RowBox[{"{", 
+RowBox[{"d", ",", "c"}], "}"}], "]"}], ",", "z"}], "]"}], 
+RowBox[{
+RowBox[{"Abs", "[", 
+RowBox[{"z", "-", "d"}], "]"}], "<", "r"}]},
+{
+RowBox[{"IdentityMatrix", "[", "2", "]"}], "True"}
+},
+AllowedDimensions->{2, Automatic},
+Editable->True,
+GridBoxAlignment->{"Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+GridBoxItemSize->{"Columns" -> {{Automatic}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, "RowsIndexed" -> {}},
+GridBoxSpacings->{"Columns" -> {Offset[0.27999999999999997`], {Offset[0.84]}, Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {Offset[0.2], {Offset[0.4]}, Offset[0.2]}, "RowsIndexed" -> {}},
+Selectable->True]}
+},
+GridBoxAlignment->{"Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+GridBoxItemSize->{"Columns" -> {{Automatic}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, "RowsIndexed" -> {}},
+GridBoxSpacings->{"Columns" -> {Offset[0.27999999999999997`], {Offset[0.35]}, Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {Offset[0.2], {Offset[0.4]}, Offset[0.2]}, "RowsIndexed" -> {}}],
+"Piecewise",
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True,
+Selectable->False]\)
+]
+
+
+]
 
 
 End[];

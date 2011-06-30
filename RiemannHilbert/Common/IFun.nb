@@ -2899,7 +2899,7 @@ Cell[BoxData[
            RowBox[{"l", "[", 
             RowBox[{"[", 
              RowBox[{"-", "1"}], "]"}], "]"}]}], "}"}], ",", "d"}], "]"}], 
-       ",", "opts"}], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+       ",", "opts"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"JumpScaleDomainPlot", "[", 
@@ -3163,7 +3163,20 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"ZeroAtLeft", "[", "f_", "]"}], ":=", 
      RowBox[{"f", "-", 
-      RowBox[{"First", "[", "f", "]"}]}]}], ";"}]}]}]], "Input",
+      RowBox[{"First", "[", "f", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"SetLength", "[", 
+      RowBox[{"if_IFun", ",", "n_"}], "]"}], ":=", 
+     RowBox[{"IFun", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"PadRight", "[", 
+         RowBox[{
+          RowBox[{"if", "//", "DCT"}], ",", "n"}], "]"}], "//", 
+        "InverseDCT"}], ",", 
+       RowBox[{"if", "//", "Domain"}]}], "]"}]}], ";"}]}]}]], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -3360,7 +3373,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -3606,7 +3619,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3986,8 +3999,8 @@ Cell[BoxData[
      RowBox[{"ReduceDimensionMatrix", "[", 
       RowBox[{
        RowBox[{"f", "//", "Domain"}], ",", 
-       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\n", 
-   "\[IndentingNewLine]", 
+       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\[IndentingNewLine]",
+    "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"ReduceDimensionIntegrateMatrix", "[", 
