@@ -49,6 +49,7 @@ CauchyInverseDomainGrad;
 CauchyInverseDomainD;
 BoundedCauchyInverse;
 CauchyInverseIntegralBranch;
+SetCauchyInverseLength;
 
 EquilibriumMeasureSupport::usage="EquilibriumMeasureSupport[V] Computes the support of the equilibrium measure (currently only for convex V";
 EquilibriumMeasure::usage="EquilibriumMeasure[V,x] Computes the equilibrium measure at a point x inside the support";
@@ -183,6 +184,31 @@ CauchyInverseD[f_IFun,z_]:=MapDot[CauchyInverseBasisD[f,#,z]&,f//DCT];
 CauchyInverseD[s_?SignQ,f_IFun,z_]:=MapDot[CauchyInverseBasisD[s,f,#,z]&,f//DCT];
 CauchyInversePlusD[f_IFun,z_]:=2 CauchyInverseD[f,z];
 CauchyInversePlusD[f_IFun,z_]/;DomainMemberQ[f,z]:=f'[z];
+
+
+CauchyInverseBasis[d_,1,z_,Bounded->Right]:=1/2-(MapToInterval[d,z]-1)/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
+CauchyInverseBasis[d_,1,z_,Bounded->Left]:=1/2-(MapToInterval[d,z]+1)/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
+CauchyInverseBasis[d_,k_,z_,OptionsPattern[]]:=BoundedCauchyInverseBasis[d,k,z];
+CauchyInverseBasis[s_?SignQ,d_,1,z_,Bounded->Right]:=1/2+s I (MapToInterval[d,z]-1)/(2 Sqrt[1-MapToInterval[d,z]^2]);
+CauchyInverseBasis[s_?SignQ,d_,1,z_,Bounded->Left]:=1/2+s I (MapToInterval[d,z]+1)/(2 Sqrt[1-MapToInterval[d,z]^2]);
+CauchyInverseBasis[s_?SignQ,d_,k_,z_,OptionsPattern[]]:=BoundedCauchyInverseBasis[s,d,k,z];
+
+
+CauchyInverseMatrix[s_?SignQ,f_IFun,opts:OptionsPattern[]]:=Transpose[Array[CauchyInverseBasis[s,f,#,Points[f]]&,Length[f],opts]].TransformMatrix[f];
+CauchyInverseMatrix[s_?SignQ,f_IFun,g_IFun,opts:OptionsPattern[]]/;Domain[f]==Domain[g]:=With[{pts=Points[g]},Transpose[Array[CauchyInverseBasis[s,f,#,pts,opts]&,Length[f]]].TransformMatrix[f]];
+CauchyInverseMatrix[_?SignQ,f_IFun,g_IFun,opts:OptionsPattern[]]:=With[{pts=Points[g]},Transpose[Array[CauchyInverseBasis[f,#,pts,opts]&,Length[f]]].TransformMatrix[f]];
+
+CauchyInversePlusMatrix[l_List,Bounded->bnd_List]:=Join@@((RightJoin@@#)&/@MatrixMap[If[#[[2,1]]===#[[2,2]] ,IdentityMatrix[Length[#[[2,1]]]],2 CauchyInverseMatrix[+1,#[[2,2]],#[[2,1]],Bounded->#[[1]]]]&,Thread[{bnd,#}]&/@Outer[List,l,l]]);
+
+CauchyInversePlusMatrix[l_List,opts:OptionsPattern[]]:=Join@@((RightJoin@@#)&/@MatrixMap[If[#[[1]]===#[[2]] ,IdentityMatrix[Length[#[[1]]]],2 CauchyInverseMatrix[+1,#[[2]],#[[1]],opts]]&,Outer[List,l,l]]);
+
+CauchyInverseCurves[l_List,opts:OptionsPattern[]]:=FromValueList[l,LinearSolve[CauchyInversePlusMatrix[l,opts],l//ToValueList]];
+
+
+CauchyInverse[l_List,z_,Bounded->bnd_List]:=Plus@@(CauchyInverse[#[[2]],z,Bounded->#[[1]]]&/@Thread[{bnd,CauchyInverseCurves[l,Bounded->{bnd}]}]);
+CauchyInverse[l_List,z_,opts:OptionsPattern[]]:=Plus@@(CauchyInverse[#,z,opts]&/@CauchyInverseCurves[l,opts]);
+CauchyInverse[s_?SignQ,l_List,z_,opts:OptionsPattern[]]:=Plus@@(If[DomainMemberQ[#,z],CauchyInverse[s,#,z,opts],CauchyInverse[#,z,opts]]&/@CauchyInverseCurves[l,opts]);
+
 
 
 
@@ -385,6 +411,20 @@ CauchyInverseIntegralDomainGrad[Sequence@@sc][crv,z]+CauchyInverseIntegral[s,crv
 ]
 )&/@Thread[{CauchyInverseCurves[fl],CauchyInverseCurvesD[spc][fl],{spc}}]
 )
+];
+
+
+
+SetCauchyInverseLength[{if1_IFun,if2_IFun}]/;Domain[if1]~NEqual~(-Reverse/@Domain[if2]):=Module[{l,m,endp,\[Alpha],\[Rho]},
+endp=MapToInterval[if2,if1//RightEndpoint];
+\[Alpha]=Abs[endp];
+\[Rho]=\[Alpha]+Sqrt[\[Alpha]^2-1];
+m=-((Log[$MachineEpsilon]-Log[2])/Log[\[Rho]]);
+l=Log[$MachineEpsilon]/(Log[Abs[IntervalToInnerCircle[endp]]]);
+{SetLength[if1,Max[l,m,Length[if1]]//Ceiling],SetLength[if2,Max[l,m,Length[if2]]//Ceiling]}
+];
+SLCauchyInverse[l:{__IFun},z_,opts:OptionsPattern[]]:=Module[{m,endp,\[Alpha],\[Rho]},
+CauchyInverse[SetCauchyInverseLength[l],z,opts]
 ];
 
 

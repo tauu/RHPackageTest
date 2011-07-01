@@ -340,17 +340,6 @@ Parametrix[{({
 })];
 
 
-SetCauchyInverseLength[{if1_IFun,if2_IFun}]/;Domain[if1]~NEqual~(-Reverse/@Domain[if2]):=Module[{l,m,endp,\[Alpha],\[Rho]},
-endp=MapToInterval[if2,if1//RightEndpoint];
-\[Alpha]=Abs[endp];
-\[Rho]=\[Alpha]+Sqrt[\[Alpha]^2-1];
-m=-((Log[$MachineEpsilon]-Log[2])/Log[\[Rho]]);
-l=Log[$MachineEpsilon]/(Log[Abs[IntervalToInnerCircle[endp]]]);
-{SetLength[if1,Max[l,m,Length[if1]]//Ceiling],SetLength[if2,Max[l,m,Length[if2]]//Ceiling]}
-];
-SLCauchyInverse[l:{__IFun},z_]:=Module[{m,endp,\[Alpha],\[Rho]},
-CauchyInverse[SetCauchyInverseLength[l],z]
-];
 
 Parametrix[{({
  {0,  p_ },
@@ -359,7 +348,7 @@ Parametrix[{({
  {0,  r_ },
  {r2_, 0}
 })},{Line[{c_,d_}],Line[{a_,b_}]},z_]/;p2~NEqual~(1/p)&&r2~NEqual~(1/r):=Module[{g},
-g=-SLCauchyInverse[{Fun[Log[p]&,Line[{c,d}]],Fun[Log[r]&,Line[{a,b}]]},z];
+g=-SLCauchyInverse[{Fun[Log[p]&,Line[{c,d}]],Fun[Log[r]&,Line[{a,b}]]},z,Bounded->Right];
 Parametrix[{({
  {0,  1 },
  {1, 0}
@@ -383,6 +372,7 @@ Parametrix[{({
  {0, I},
  {-I, 0}
 })},{Line[{c,d}],Line[{a,b}]},z] Exp[-Log[I] (Log[b-z]-Log[a-z])/(2 \[Pi]\[NonBreakingSpace]I)-Log[I] (Log[d-z]-Log[c-z])/(2 \[Pi]\[NonBreakingSpace]I)];
+
 Parametrix[{({
  {0,  p_ },
  {p2_, 0}
@@ -390,10 +380,10 @@ Parametrix[{({
  {0,  r_ },
  {r2_, 0}
 })},{Line[{c_,d_}],Line[{a_,b_}]},z_]/;p2~NEqual~(-1/p)&&r2~NEqual~(-1/r):=Module[{g},
-g=-SLCauchyInverse[{Fun[Log[p]&,Line[{c,d}]],Fun[Log[r]&,Line[{a,b}]]},z];
+g=SLCauchyInverse[{Fun[-Log[-p]&,Line[{c,d}]],Fun[-Log[r]&,Line[{a,b}]]},z,Bounded->{Left,Right}];
 Parametrix[{({
- {0,  1 },
- {-1, 0}
+ {0,  -1 },
+ {1, 0}
 }),({
  {0,  1 },
  {-1, 0}
