@@ -50,7 +50,8 @@ CauchyInverseDomainD;
 BoundedCauchyInverse;
 CauchyInverseIntegralBranch;
 SetCauchyInverseLength;
-
+SLCauchyInverse;
+Bounded;
 EquilibriumMeasureSupport::usage="EquilibriumMeasureSupport[V] Computes the support of the equilibrium measure (currently only for convex V";
 EquilibriumMeasure::usage="EquilibriumMeasure[V,x] Computes the equilibrium measure at a point x inside the support";
 Begin["Private`"];
@@ -194,6 +195,10 @@ CauchyInverseBasis[s_?SignQ,d_,1,z_,Bounded->Left]:=1/2+s I (MapToInterval[d,z]+
 CauchyInverseBasis[s_?SignQ,d_,k_,z_,OptionsPattern[]]:=BoundedCauchyInverseBasis[s,d,k,z];
 
 
+CauchyInverse[f_IFun,z_,opts:OptionsPattern[]]:=MapDot[CauchyInverseBasis[f,#,z,opts]&,f//DCT];
+CauchyInverse[s_?SignQ,f_IFun,z_,opts:OptionsPattern[]]:=MapDot[CauchyInverseBasis[s,f,#,z,opts]&,f//DCT];
+
+
 CauchyInverseMatrix[s_?SignQ,f_IFun,opts:OptionsPattern[]]:=Transpose[Array[CauchyInverseBasis[s,f,#,Points[f]]&,Length[f],opts]].TransformMatrix[f];
 CauchyInverseMatrix[s_?SignQ,f_IFun,g_IFun,opts:OptionsPattern[]]/;Domain[f]==Domain[g]:=With[{pts=Points[g]},Transpose[Array[CauchyInverseBasis[s,f,#,pts,opts]&,Length[f]]].TransformMatrix[f]];
 CauchyInverseMatrix[_?SignQ,f_IFun,g_IFun,opts:OptionsPattern[]]:=With[{pts=Points[g]},Transpose[Array[CauchyInverseBasis[f,#,pts,opts]&,Length[f]]].TransformMatrix[f]];
@@ -205,7 +210,7 @@ CauchyInversePlusMatrix[l_List,opts:OptionsPattern[]]:=Join@@((RightJoin@@#)&/@M
 CauchyInverseCurves[l_List,opts:OptionsPattern[]]:=FromValueList[l,LinearSolve[CauchyInversePlusMatrix[l,opts],l//ToValueList]];
 
 
-CauchyInverse[l_List,z_,Bounded->bnd_List]:=Plus@@(CauchyInverse[#[[2]],z,Bounded->#[[1]]]&/@Thread[{bnd,CauchyInverseCurves[l,Bounded->{bnd}]}]);
+CauchyInverse[l_List,z_,Bounded->bnd_List]:=Plus@@(CauchyInverse[#[[2]],z,Bounded->#[[1]]]&/@Thread[{bnd,CauchyInverseCurves[l,Bounded->bnd]}]);
 CauchyInverse[l_List,z_,opts:OptionsPattern[]]:=Plus@@(CauchyInverse[#,z,opts]&/@CauchyInverseCurves[l,opts]);
 CauchyInverse[s_?SignQ,l_List,z_,opts:OptionsPattern[]]:=Plus@@(If[DomainMemberQ[#,z],CauchyInverse[s,#,z,opts],CauchyInverse[#,z,opts]]&/@CauchyInverseCurves[l,opts]);
 
