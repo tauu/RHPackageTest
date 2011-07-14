@@ -434,6 +434,11 @@ BoundedIntegrateMatrix[lf_LFun]:=BoundedIntegrateMatrix[lf//ToUnitCircle].Diagon
 
 ComplexRoots[lf_LFun]:=ComplexRoots[lf//Domain,Chop[lf//FFT,$MachineTolerance]//RemoveZeros];
 
+ComplexRoots[d_,fft_ShiftList?(Length[#]==2&)]:=Module[{dct},
+dct=fft//ToList;
+{-(dct[[1]]/dct[[2]])}
+];
+
 ComplexRoots[d_,fft_ShiftList]:=Module[{dct},
 dct=fft//ToList;
 MapFromCircle[d,
