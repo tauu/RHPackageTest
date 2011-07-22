@@ -517,6 +517,8 @@ Cell[CellGroupData[{
 
 Cell["Circle", "Subsection"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"SetAttributes", "[", 
@@ -692,6 +694,17 @@ Cell[BoxData[{
     RowBox[{"RealLine", ",", 
      RowBox[{"_", "?", "InfinityQ"}]}], "]"}], ":=", 
    RowBox[{"-", "1."}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MapToCircle", "[", 
+    RowBox[{"RealLine", ",", 
+     RowBox[{"_", "?", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"#", "~", "NEqual", "~", 
+         RowBox[{"(", 
+          RowBox[{"-", "I"}], ")"}]}], "&"}], ")"}]}]}], "]"}], ":=", 
+   "\[Infinity]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -1156,7 +1169,17 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
- InitializationCell->True]
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"End", "::", "noctx"}], "MessageName"], ":", 
+  " ", "\<\"No previous context defined. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/End/noctx\\\", ButtonNote -> \
+\\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]],
 

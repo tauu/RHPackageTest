@@ -177,6 +177,7 @@ IntervalDomainQ[RealLine]:=False;
 MapFromCircle[RealLine,_?(#~NEqual~-1.&)]:=\[Infinity];
 MapFromCircle[RealLine,z_]:=(-I z +I)/(z +1);
 MapToCircle[RealLine,_?InfinityQ]:=-1.;
+MapToCircle[RealLine,_?(#~NEqual~(-I)&)]:=\[Infinity];
 MapToCircle[RealLine,t_]:=(I-t)/(I+t);
 
 MapFromCircleD[RealLine,z_]:=-((2 I)/(1+z)^2);

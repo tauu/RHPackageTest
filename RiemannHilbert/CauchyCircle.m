@@ -49,6 +49,7 @@ CauchyS[+1,lf_LFun?UnitCircleFunQ,z_]:=NonNegativeEvaluate[lf,z];
 CauchyS[-1,lf_LFun?UnitCircleFunQ,z_]:=-NegativeEvaluate[lf,z];
 Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]<=1.&)]:=CauchyS[+1,lf,z];
 Cauchy[lf_LFun?UnitCircleFunQ,z_?(Abs[#]>1.&)]:=CauchyS[-1,lf,z];
+Cauchy[s_?SignQ,lf_LFun?UnitCircleFunQ,_?InfinityQ]:=0;
 Cauchy[s_?SignQ,lf_LFun?UnitCircleFunQ,z_?(DomainMemberQ[UnitCircle,#]&)]:=CauchyS[s,lf,z];
 Cauchy[s_?SignQ,lf_LFun?UnitCircleFunQ,z_?ScalarQ]:=Cauchy[lf,z];
 
@@ -139,6 +140,25 @@ CauchyBasisS[s_?SignQ,f_?CircleDomainQ,k_Integer,z_]:=CauchyBasisS[s,UnitCircle,
 CauchyBasisS[s_?SignQ,d_?CircleDomainQ,i_;;j_,z_]:=Module[{k},Table[CauchyBasisS[s,d,k,z],{k,i,j}]];
 CauchyBasis[d_?CircleDomainQ,i_;;j_,z_]:=Module[{k},Table[CauchyBasis[d,k,z],{k,i,j}]];
 CauchyBasis[s_?SignQ,d_?CircleDomainQ,i_;;j_,z_]:=Module[{k},Table[CauchyBasis[s,d,k,z],{k,i,j}]];
+
+
+
+CauchyInverseBasis[_?SignQ,_Integer,_?InfinityQ]:=0;
+CauchyInverseBasisS[_?SignQ,_,_Integer,_?InfinityQ]:=0;
+
+
+
+CauchyInverseBasis[f_?FunQ,k_,x_]:=CauchyInverseBasis[f//Domain,k,x];
+CauchyInverseBasis[s_?SignQ,f_?FunQ,k_,x_]:=CauchyInverseBasis[s,f//Domain,k,x];
+
+CauchyInverseBasisS[f_?FunQ,k_,x_]:=CauchyInverseBasisS[f//Domain,k,x];
+CauchyInverseBasisS[s_?SignQ,f_?FunQ,k_,x_]:=CauchyInverseBasisS[s,f//Domain,k,x];
+
+CauchyInverseBasisS[s_?SignQ,lf_?CircleDomainQ,k_,z_]:=s CauchyBasisS[s,lf,k,z];
+CauchyInverseBasis[s_?SignQ,lf_?CircleDomainQ,k_,z_]:=s CauchyBasis[s,lf,k,z];
+
+CauchyInverseBasis[lf_?CircleDomainQ,k_,z_]/;Abs[MapToCircle[lf,z]]<=1.:=CauchyInverseBasis[+1,lf,k,z];
+CauchyInverseBasis[lf_?CircleDomainQ,k_,z_]/;Abs[MapToCircle[lf,z]]>1.:=CauchyInverseBasis[-1,lf,k,z];
 
 
 

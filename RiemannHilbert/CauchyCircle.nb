@@ -154,6 +154,14 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"s_", "?", "SignQ"}], ",", 
      RowBox[{"lf_LFun", "?", "UnitCircleFunQ"}], ",", 
+     RowBox[{"_", "?", "InfinityQ"}]}], "]"}], ":=", "0"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Cauchy", "[", 
+    RowBox[{
+     RowBox[{"s_", "?", "SignQ"}], ",", 
+     RowBox[{"lf_LFun", "?", "UnitCircleFunQ"}], ",", 
      RowBox[{"z_", "?", 
       RowBox[{"(", 
        RowBox[{
@@ -920,6 +928,119 @@ Cell[BoxData[{
         RowBox[{"s", ",", "d", ",", "k", ",", "z"}], "]"}], ",", 
        RowBox[{"{", 
         RowBox[{"k", ",", "i", ",", "j"}], "}"}]}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]"}], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Cauchy inverse basis", "Subsection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyInverseBasis", "[", 
+    RowBox[{
+     RowBox[{"_", "?", "SignQ"}], ",", "_Integer", ",", 
+     RowBox[{"_", "?", "InfinityQ"}]}], "]"}], ":=", "0"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyInverseBasisS", "[", 
+     RowBox[{
+      RowBox[{"_", "?", "SignQ"}], ",", "_", ",", "_Integer", ",", 
+      RowBox[{"_", "?", "InfinityQ"}]}], "]"}], ":=", "0"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyInverseBasis", "[", 
+    RowBox[{
+     RowBox[{"f_", "?", "FunQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
+   RowBox[{"CauchyInverseBasis", "[", 
+    RowBox[{
+     RowBox[{"f", "//", "Domain"}], ",", "k", ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyInverseBasis", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"f_", "?", "FunQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
+    RowBox[{"CauchyInverseBasis", "[", 
+     RowBox[{"s", ",", 
+      RowBox[{"f", "//", "Domain"}], ",", "k", ",", "x"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyInverseBasisS", "[", 
+    RowBox[{
+     RowBox[{"f_", "?", "FunQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
+   RowBox[{"CauchyInverseBasisS", "[", 
+    RowBox[{
+     RowBox[{"f", "//", "Domain"}], ",", "k", ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyInverseBasisS", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"f_", "?", "FunQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
+    RowBox[{"CauchyInverseBasisS", "[", 
+     RowBox[{"s", ",", 
+      RowBox[{"f", "//", "Domain"}], ",", "k", ",", "x"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyInverseBasisS", "[", 
+    RowBox[{
+     RowBox[{"s_", "?", "SignQ"}], ",", 
+     RowBox[{"lf_", "?", "CircleDomainQ"}], ",", "k_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{"s", " ", 
+    RowBox[{"CauchyBasisS", "[", 
+     RowBox[{"s", ",", "lf", ",", "k", ",", "z"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyInverseBasis", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"lf_", "?", "CircleDomainQ"}], ",", "k_", ",", "z_"}], "]"}], ":=", 
+    RowBox[{"s", " ", 
+     RowBox[{"CauchyBasis", "[", 
+      RowBox[{"s", ",", "lf", ",", "k", ",", "z"}], "]"}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyInverseBasis", "[", 
+     RowBox[{
+      RowBox[{"lf_", "?", "CircleDomainQ"}], ",", "k_", ",", "z_"}], "]"}], "/;", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{"MapToCircle", "[", 
+       RowBox[{"lf", ",", "z"}], "]"}], "]"}], "\[LessEqual]", "1."}]}], ":=", 
+   RowBox[{"CauchyInverseBasis", "[", 
+    RowBox[{
+     RowBox[{"+", "1"}], ",", "lf", ",", "k", ",", "z"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyInverseBasis", "[", 
+     RowBox[{
+      RowBox[{"lf_", "?", "CircleDomainQ"}], ",", "k_", ",", "z_"}], "]"}], "/;", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{"MapToCircle", "[", 
+       RowBox[{"lf", ",", "z"}], "]"}], "]"}], ">", "1."}]}], ":=", 
+   RowBox[{"CauchyInverseBasis", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", "lf", ",", "k", ",", "z"}], "]"}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]],

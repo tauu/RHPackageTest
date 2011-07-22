@@ -25,6 +25,7 @@ BeginPackage["RiemannHilbert`",{"RiemannHilbert`Common`"}];
 
 CauchyInverseBasis;
 CauchyInversePlus;
+BoundedCauchyInverseBasis;
 SPCauchyInverseIntegral;
 CauchyInverseIntegral;
 CauchyInverseIntegralS;
@@ -58,24 +59,24 @@ Begin["Private`"];
 
 
 
-BoundedCauchyInverseBasis[UnitInterval,1,z_]:=1/2;
-BoundedCauchyInverseBasis[UnitInterval,k_,z_?(#~NEqual~1.&)]:=1/2;
-BoundedCauchyInverseBasis[UnitInterval,k_,z_?(#~NEqual~-1.&)]:=(-1)^(k-1)/2;
+BoundedCauchyInverseBasis[UnitInterval,1,z_]:=1/2(1+z-z);
+BoundedCauchyInverseBasis[UnitInterval,k_,z_?(#~NEqual~1.&)]:=1/2(1+z-z);
+BoundedCauchyInverseBasis[UnitInterval,k_,z_?(#~NEqual~-1.&)]:=(-1)^(k-1)/2(1+z-z);
 BoundedCauchyInverseBasis[UnitInterval,k_,z_]:=IntervalToInnerCircle[z]^(k-1)/2;
-BoundedCauchyInverseBasis[_?SignQ,UnitInterval,1,z_]:=1/2;
-BoundedCauchyInverseBasis[_?SignQ,UnitInterval,k_,z_?(#~NEqual~1.&)]:=1/2;
-BoundedCauchyInverseBasis[_?SignQ,UnitInterval,k_,z_?(#~NEqual~-1.&)]:=(-1)^(k-1)/2;
+BoundedCauchyInverseBasis[_?SignQ,UnitInterval,1,z_]:=1/2(1+z-z);
+BoundedCauchyInverseBasis[_?SignQ,UnitInterval,k_,z_?(#~NEqual~1.&)]:=1/2(1+z-z);
+BoundedCauchyInverseBasis[_?SignQ,UnitInterval,k_,z_?(#~NEqual~-1.&)]:=(-1)^(k-1)/2(1+z-z);
 BoundedCauchyInverseBasis[+1,UnitInterval,k_,z_]:=IntervalToBottomCircle[z]^(k-1)/2;
 BoundedCauchyInverseBasis[-1,UnitInterval,k_,z_]:=IntervalToTopCircle[z]^(k-1)/2;
 
-BoundedCauchyInverseBasis[d_,k_,z_]:=BoundedCauchyInverseBasis[UnitInterval,k,MapToInterval[d,z]];
-BoundedCauchyInverseBasis[s_?SignQ,d_,k_,z_]:=BoundedCauchyInverseBasis[s,UnitInterval,k,MapToInterval[d,z]];
+BoundedCauchyInverseBasis[d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasis[UnitInterval,k,MapToInterval[d,z]];
+BoundedCauchyInverseBasis[s_?SignQ,d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasis[s,UnitInterval,k,MapToInterval[d,z]];
 
 
-CauchyInverseBasis[d_,1,z_]:=1/2-MapToInterval[d,z]/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
-CauchyInverseBasis[d_,k_,z_]:=BoundedCauchyInverseBasis[d,k,z];
-CauchyInverseBasis[s_?SignQ,d_,1,z_]:=1/2+s I MapToInterval[d,z]/(2 Sqrt[1-MapToInterval[d,z]^2]);
-CauchyInverseBasis[s_?SignQ,d_,k_,z_]:=BoundedCauchyInverseBasis[s,d,k,z];
+CauchyInverseBasis[d_?IntervalDomainQ,1,z_]:=1/2-MapToInterval[d,z]/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
+CauchyInverseBasis[d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasis[d,k,z];
+CauchyInverseBasis[s_?SignQ,d_?IntervalDomainQ,1,z_]:=1/2+s I MapToInterval[d,z]/(2 Sqrt[1-MapToInterval[d,z]^2]);
+CauchyInverseBasis[s_?SignQ,d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasis[s,d,k,z];
 
 CauchyInverse[f_IFun?(NZeroQ[Mean[#]]&),z_]:=MapDot[CauchyInverseBasis[f,#+1,z]&,f//DCT//Rest];
 CauchyInverse[s_?SignQ,f_IFun?(NZeroQ[Mean[#]]&),z_]:=MapDot[CauchyInverseBasis[s,f,#+1,z]&,f//DCT//Rest];
@@ -187,12 +188,12 @@ CauchyInversePlusD[f_IFun,z_]:=2 CauchyInverseD[f,z];
 CauchyInversePlusD[f_IFun,z_]/;DomainMemberQ[f,z]:=f'[z];
 
 
-CauchyInverseBasis[d_,1,z_,Bounded->Right]:=1/2-(MapToInterval[d,z]-1)/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
-CauchyInverseBasis[d_,1,z_,Bounded->Left]:=1/2-(MapToInterval[d,z]+1)/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
-CauchyInverseBasis[d_,k_,z_,OptionsPattern[]]:=BoundedCauchyInverseBasis[d,k,z];
-CauchyInverseBasis[s_?SignQ,d_,1,z_,Bounded->Right]:=1/2+s I (MapToInterval[d,z]-1)/(2 Sqrt[1-MapToInterval[d,z]^2]);
-CauchyInverseBasis[s_?SignQ,d_,1,z_,Bounded->Left]:=1/2+s I (MapToInterval[d,z]+1)/(2 Sqrt[1-MapToInterval[d,z]^2]);
-CauchyInverseBasis[s_?SignQ,d_,k_,z_,OptionsPattern[]]:=BoundedCauchyInverseBasis[s,d,k,z];
+CauchyInverseBasis[d_?IntervalDomainQ,1,z_,Bounded->Right]:=1/2-(MapToInterval[d,z]-1)/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
+CauchyInverseBasis[d_?IntervalDomainQ,1,z_,Bounded->Left]:=1/2-(MapToInterval[d,z]+1)/(2 Sqrt[MapToInterval[d,z]+1] Sqrt[MapToInterval[d,z]-1]);
+CauchyInverseBasis[d_?IntervalDomainQ,k_,z_,OptionsPattern[]]:=BoundedCauchyInverseBasis[d,k,z];
+CauchyInverseBasis[s_?SignQ,d_?IntervalDomainQ,1,z_,Bounded->Right]:=1/2+s I (MapToInterval[d,z]-1)/(2 Sqrt[1-MapToInterval[d,z]^2]);
+CauchyInverseBasis[s_?SignQ,d_?IntervalDomainQ,1,z_,Bounded->Left]:=1/2+s I (MapToInterval[d,z]+1)/(2 Sqrt[1-MapToInterval[d,z]^2]);
+CauchyInverseBasis[s_?SignQ,d_?IntervalDomainQ,k_,z_,OptionsPattern[]]:=BoundedCauchyInverseBasis[s,d,k,z];
 
 
 CauchyInverse[f_IFun,z_,opts:OptionsPattern[]]:=MapDot[CauchyInverseBasis[f,#,z,opts]&,f//DCT];

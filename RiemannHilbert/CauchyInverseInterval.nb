@@ -29,6 +29,7 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"CauchyInverseBasis", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInversePlus", ";"}], "\[IndentingNewLine]", 
+   RowBox[{"BoundedCauchyInverseBasis", ";"}], "\[IndentingNewLine]", 
    RowBox[{"SPCauchyInverseIntegral", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInverseIntegral", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInverseIntegralS", ";"}], "\[IndentingNewLine]", 
@@ -75,7 +76,7 @@ x inside the support\>\""}], ";"}], "\[IndentingNewLine]",
    RowBox[{
     RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}]}]}]], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -94,7 +95,11 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
       RowBox[{"UnitInterval", ",", "1", ",", "z_"}], "]"}], ":=", 
-     RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], 
+      RowBox[{"(", 
+       RowBox[{"1", "+", "z", "-", "z"}], ")"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
@@ -103,7 +108,11 @@ Cell[BoxData[
         RowBox[{"(", 
          RowBox[{
           RowBox[{"#", "~", "NEqual", "~", "1."}], "&"}], ")"}]}]}], "]"}], ":=", 
-     RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], 
+      RowBox[{"(", 
+       RowBox[{"1", "+", "z", "-", "z"}], ")"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
@@ -114,10 +123,14 @@ Cell[BoxData[
           RowBox[{"#", "~", "NEqual", "~", 
            RowBox[{"-", "1."}]}], "&"}], ")"}]}]}], "]"}], ":=", 
      RowBox[{
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{"-", "1"}], ")"}], 
-       RowBox[{"k", "-", "1"}]], "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"-", "1"}], ")"}], 
+        RowBox[{"k", "-", "1"}]], "/", "2"}], 
+      RowBox[{"(", 
+       RowBox[{"1", "+", "z", "-", "z"}], ")"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
@@ -134,7 +147,11 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"_", "?", "SignQ"}], ",", "UnitInterval", ",", "1", ",", 
        "z_"}], "]"}], ":=", 
-     RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], 
+      RowBox[{"(", 
+       RowBox[{"1", "+", "z", "-", "z"}], ")"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
@@ -144,7 +161,11 @@ Cell[BoxData[
         RowBox[{"(", 
          RowBox[{
           RowBox[{"#", "~", "NEqual", "~", "1."}], "&"}], ")"}]}]}], "]"}], ":=", 
-     RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], 
+      RowBox[{"(", 
+       RowBox[{"1", "+", "z", "-", "z"}], ")"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
@@ -156,10 +177,14 @@ Cell[BoxData[
           RowBox[{"#", "~", "NEqual", "~", 
            RowBox[{"-", "1."}]}], "&"}], ")"}]}]}], "]"}], ":=", 
      RowBox[{
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{"-", "1"}], ")"}], 
-       RowBox[{"k", "-", "1"}]], "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"-", "1"}], ")"}], 
+        RowBox[{"k", "-", "1"}]], "/", "2"}], 
+      RowBox[{"(", 
+       RowBox[{"1", "+", "z", "-", "z"}], ")"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
@@ -187,7 +212,9 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
-      RowBox[{"d_", ",", "k_", ",", "z_"}], "]"}], ":=", 
+      RowBox[{
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
      RowBox[{"BoundedCauchyInverseBasis", "[", 
       RowBox[{"UnitInterval", ",", "k", ",", 
        RowBox[{"MapToInterval", "[", 
@@ -197,8 +224,9 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"BoundedCauchyInverseBasis", "[", 
       RowBox[{
-       RowBox[{"s_", "?", "SignQ"}], ",", "d_", ",", "k_", ",", "z_"}], "]"}],
-      ":=", 
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
      RowBox[{"BoundedCauchyInverseBasis", "[", 
       RowBox[{"s", ",", "UnitInterval", ",", "k", ",", 
        RowBox[{"MapToInterval", "[", 
@@ -207,7 +235,8 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"CauchyInverseBasis", "[", 
-      RowBox[{"d_", ",", "1", ",", "z_"}], "]"}], ":=", 
+      RowBox[{
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "1", ",", "z_"}], "]"}], ":=", 
      RowBox[{
       RowBox[{"1", "/", "2"}], "-", 
       RowBox[{
@@ -227,7 +256,9 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"CauchyInverseBasis", "[", 
-      RowBox[{"d_", ",", "k_", ",", "z_"}], "]"}], ":=", 
+      RowBox[{
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
      RowBox[{"BoundedCauchyInverseBasis", "[", 
       RowBox[{"d", ",", "k", ",", "z"}], "]"}]}], ";"}], 
    "\[IndentingNewLine]", 
@@ -235,8 +266,8 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"CauchyInverseBasis", "[", 
       RowBox[{
-       RowBox[{"s_", "?", "SignQ"}], ",", "d_", ",", "1", ",", "z_"}], "]"}], 
-     ":=", 
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "1", ",", "z_"}], "]"}], ":=", 
      RowBox[{
       RowBox[{"1", "/", "2"}], "+", 
       RowBox[{"s", " ", "I", 
@@ -254,8 +285,9 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"CauchyInverseBasis", "[", 
       RowBox[{
-       RowBox[{"s_", "?", "SignQ"}], ",", "d_", ",", "k_", ",", "z_"}], "]"}],
-      ":=", 
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
      RowBox[{"BoundedCauchyInverseBasis", "[", 
       RowBox[{"s", ",", "d", ",", "k", ",", "z"}], "]"}]}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
@@ -1199,7 +1231,7 @@ Cell[BoxData[{
     RowBox[{"f", "'"}], "[", "z", "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1209,7 +1241,8 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"CauchyInverseBasis", "[", 
-    RowBox[{"d_", ",", "1", ",", "z_", ",", 
+    RowBox[{
+     RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "1", ",", "z_", ",", 
      RowBox[{"Bounded", "\[Rule]", "Right"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{"1", "/", "2"}], "-", 
@@ -1232,7 +1265,8 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"CauchyInverseBasis", "[", 
-    RowBox[{"d_", ",", "1", ",", "z_", ",", 
+    RowBox[{
+     RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "1", ",", "z_", ",", 
      RowBox[{"Bounded", "\[Rule]", "Left"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{"1", "/", "2"}], "-", 
@@ -1255,7 +1289,8 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"CauchyInverseBasis", "[", 
-    RowBox[{"d_", ",", "k_", ",", "z_", ",", 
+    RowBox[{
+     RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_", ",", 
      RowBox[{"OptionsPattern", "[", "]"}]}], "]"}], ":=", 
    RowBox[{"BoundedCauchyInverseBasis", "[", 
     RowBox[{"d", ",", "k", ",", "z"}], "]"}]}], 
@@ -1264,7 +1299,8 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"CauchyInverseBasis", "[", 
     RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", "d_", ",", "1", ",", "z_", ",", 
+     RowBox[{"s_", "?", "SignQ"}], ",", 
+     RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "1", ",", "z_", ",", 
      RowBox[{"Bounded", "\[Rule]", "Right"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{"1", "/", "2"}], "+", 
@@ -1284,7 +1320,8 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"CauchyInverseBasis", "[", 
     RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", "d_", ",", "1", ",", "z_", ",", 
+     RowBox[{"s_", "?", "SignQ"}], ",", 
+     RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "1", ",", "z_", ",", 
      RowBox[{"Bounded", "\[Rule]", "Left"}]}], "]"}], ":=", 
    RowBox[{
     RowBox[{"1", "/", "2"}], "+", 
@@ -1305,7 +1342,8 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"CauchyInverseBasis", "[", 
      RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", "d_", ",", "k_", ",", "z_", ",", 
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_", ",", 
       RowBox[{"OptionsPattern", "[", "]"}]}], "]"}], ":=", 
     RowBox[{"BoundedCauchyInverseBasis", "[", 
      RowBox[{"s", ",", "d", ",", "k", ",", "z"}], "]"}]}], ";"}], 
@@ -4195,8 +4233,8 @@ Cell[BoxData[{
 }, Closed]]
 },
 AutoGeneratedPackage->Automatic,
-WindowSize->{793, 779},
-WindowMargins->{{Automatic, 261}, {Automatic, 0}},
+WindowSize->{948, 780},
+WindowMargins->{{202, Automatic}, {24, Automatic}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
