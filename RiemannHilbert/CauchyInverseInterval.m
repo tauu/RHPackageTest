@@ -393,7 +393,7 @@ Plus@@(
 Which[
 sc=={0,0},
 CauchyInverseIntegral[s,crvD,z],
-DomainMemberQ[crv,z],
+NZeroQ[Im[MapToInterval[crv,z]]]&&Re[MapToInterval[crv,z]]<=1,
 CauchyInverseIntegral[s,crvD,z]+CauchyInverseIntegralDomainGrad[Sequence@@sc][s,crv,z],
 True,
 CauchyInverseIntegralDomainGrad[Sequence@@sc][crv,z]+CauchyInverseIntegral[s,crvD,z]

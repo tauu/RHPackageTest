@@ -47,6 +47,7 @@ IFuns.\>\""}], ";"}], "\[IndentingNewLine]",
 an IFun f at a point x on Domain[f].\>\""}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{"CauchyInverse", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"CauchyInverseBasis", ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"HilbertInverse", ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 

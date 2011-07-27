@@ -26,6 +26,7 @@ Cauchy::usage="Cauchy[f,z] evaluates the Cauchy transform \!\(\*FractionBox[\(1\
 Hilbert::usage="Hilbert[f,x] evaluates the Hilbert transform \!\(\*FractionBox[\(1\), \(\[Pi]\)]\)PV\!\(\*SubscriptBox[\(\[Integral]\), \(Domain[f]\)]\)\!\(\*FractionBox[\(f[t]\), \(t - x\)]\)\[DifferentialD]t of an IFun f at a point x on Domain[f].";
 
 CauchyInverse;
+CauchyInverseBasis;
 HilbertInverse;
 
 CauchyMatrix;

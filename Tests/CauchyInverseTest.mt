@@ -817,7 +817,7 @@ cf = Fun[1/# &, {Line[{a,b}], Line[{c,d}]}];
 cfaeps = Fun[
    1/# &, {Line[{a + eps, b}], Line[{c,d}]}];
 cfbeps = Fun[
-   1/# &, {Line[{a , b+ eps}], Line[c,d]}];
+   1/# &, {Line[{a , b+ eps}], Line[{c,d}]}];
 cfceps = Fun[
    1/# &, {Line[{a , b}], Line[{c+ eps, d}]}];
 cfdeps = Fun[
@@ -842,6 +842,17 @@ Test[
 	,
 	TestID->"+CauchyInverseIntegralDBoundary-List-Domain-a-epsI-Bug"
 ] 
+
+Test[
+CauchyInverseIntegralDomainD[{0, 0}, {1, 0}][+1, cf, 0] - 
+  CauchyInverseIntegralDomainD[{0, 0}, {1, 0}][cf, eps I] // Chop
+	,
+	0
+	,
+	TestID->"+CauchyInverseIntegralDBoundary-List-Domain-c-0-Bug-pert"
+] 
+
+
 
 Test[
 	Chop[(CauchyInverseIntegral[+1,cfceps, 0] - 
