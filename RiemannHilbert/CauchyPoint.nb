@@ -87,7 +87,8 @@ Cell[BoxData[{
       RowBox[{"First", "[", 
        RowBox[{"pf", "//", "Values"}], "]"}], 
       RowBox[{"2", " ", "\[Pi]", " ", "I", " ", "z", " "}]]}]}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"Cauchy", "[", 
@@ -124,15 +125,39 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Cauchy", "[", 
+   RowBox[{
+    RowBox[{"Cauchy", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", "lf_PFun", ",", 
+      RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
+    RowBox[{"Cauchy", "[", 
+     RowBox[{"s", ",", 
+      RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
+      RowBox[{"MapToPoint", "[", 
+       RowBox[{"lf", ",", "z"}], "]"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyD", "[", 
     RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", "lf_PFun", ",", 
-     RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
-   RowBox[{"Cauchy", "[", 
-    RowBox[{"s", ",", 
-     RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
-     RowBox[{"MapToPoint", "[", 
-      RowBox[{"lf", ",", "z"}], "]"}]}], "]"}]}], 
+     RowBox[{"pf_PFun", "?", "UnitPointFunQ"}], ",", "z_"}], "]"}], ":=", 
+   FractionBox[
+    RowBox[{"First", "[", 
+     RowBox[{"pf", "//", "Values"}], "]"}], 
+    RowBox[{"2", " ", "\[Pi]", " ", "I", " ", 
+     SuperscriptBox["z", "2"], " "}]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyD", "[", 
+    RowBox[{"lf_PFun", ",", "z_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"CauchyD", "[", 
+     RowBox[{
+      RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
+      RowBox[{"MapToPoint", "[", 
+       RowBox[{"lf", ",", "z"}], "]"}]}], "]"}], 
+    RowBox[{"MapToPointD", "[", 
+     RowBox[{"lf", ",", "z"}], "]"}]}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]]
@@ -140,9 +165,7 @@ Cell[BoxData[{
 
 Cell[CellGroupData[{
 
-Cell["\<\
-PFun CauchyBasis and Cauchy Matrix\
-\>", "Section"],
+Cell["PFun CauchyBasis and Cauchy Matrix", "Section"],
 
 Cell[BoxData[{
  RowBox[{
@@ -316,8 +339,8 @@ WindowMargins->{{Automatic, 215}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
-2010)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
 

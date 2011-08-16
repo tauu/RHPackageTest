@@ -49,9 +49,15 @@ UnitPointFunQ[_]:=False;
 
 MapToPoint[f_PFun,z_]:=MapToPoint[f//Domain,z];
 MapFromPoint[f_PFun,z_]:=MapFromPoint[f//Domain,z];
+MapToPointD[f_PFun,z_]:=MapToPointD[f//Domain,z];
+MapFromPointD[f_PFun,z_]:=MapFromPointD[f//Domain,z];
 
 MapToPoint[Point[z0_],z_]:=z-z0;
 MapFromPoint[Point[z0_],z_]:=z+z0;
+
+MapToPointD[Point[z0_],z_]:=1;
+MapFromPointD[Point[z0_],z_]:=1;
+
 
 End[];
 

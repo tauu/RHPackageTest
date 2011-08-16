@@ -433,8 +433,16 @@ Inverse[T].IM.T];
 BoundedIntegrateMatrix[lf_LFun]:=BoundedIntegrateMatrix[lf//ToUnitCircle].DiagonalMatrix[LFun[MapFromCircleD[lf,#]&,UnitCircle,lf//Length]];
 
 
-ComplexRoots[lf_LFun]:=ComplexRoots[lf//Domain,Chop[lf//FFT,$MachineTolerance]//RemoveZeros];
+ComplexRoots[lf_LFun]:=ComplexRoots[lf//Domain,ChopDrop[lf//FFT,$MachineTolerance]];
 
+ComplexRoots[d_,fft_ShiftList?(Length[#]==1&)]:=
+Which[Index[fft]==1,
+{},
+Index[fft]>1,
+\[Infinity],
+True,
+0
+];
 ComplexRoots[d_,fft_ShiftList?(Length[#]==2&)]:=Module[{dct},
 dct=fft//ToList;
 {-(dct[[1]]/dct[[2]])}
