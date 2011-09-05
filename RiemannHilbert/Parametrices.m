@@ -25,13 +25,13 @@ BeginPackage["RiemannHilbert`",{"RiemannHilbert`Common`"}];
 Begin["`Private`"];
 
 
-Parametrix[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_]:=({
- {((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[1,1]]]]+ I (Arg[DD[[1,1]]]))), 0},
- {0, ((1+2 z)/(2z -1))^(I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)))}
+Parametrix[DD_?DiagonalMatrixQ,Line[{a_,b_}],z_]:=({
+ {((z-a)/(z-b))^(I/(2 \[Pi]) (Log[Abs[DD[[1,1]]]]+ I (Arg[DD[[1,1]]]))), 0},
+ {0, ((z-a)/(z-b))^(I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)))}
 });
-ParametrixBranch[DD_?DiagonalMatrixQ,Line[{-1/2,1/2}],z_,t_]:=({
- {PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) Log[DD[[1,1]]],t], 0},
- {0, PowerBranch[(1+2 z)/(2z -1),I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)),t]}
+ParametrixBranch[DD_?DiagonalMatrixQ,Line[{a_,b_}],z_,t_]:=({
+ {PowerBranch[(z-a)/(z-b),I/(2 \[Pi]) Log[DD[[1,1]]],t], 0},
+ {0, PowerBranch[(z-a)/(z-b),I/(2 \[Pi]) (Log[Abs[DD[[2,2]]]]+ I( Arg[DD[[2,2]]]//If[#>0,#-2 \[Pi],#]&)),t]}
 });
 
 ParametrixBranch[({

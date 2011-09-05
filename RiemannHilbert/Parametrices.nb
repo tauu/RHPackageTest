@@ -35,19 +35,14 @@ Cell[BoxData[{
      RowBox[{"DD_", "?", "DiagonalMatrixQ"}], ",", 
      RowBox[{"Line", "[", 
       RowBox[{"{", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"-", "1"}], "/", "2"}], ",", 
-        RowBox[{"1", "/", "2"}]}], "}"}], "]"}], ",", "z_"}], "]"}], ":=", 
+       RowBox[{"a_", ",", "b_"}], "}"}], "]"}], ",", "z_"}], "]"}], ":=", 
    RowBox[{"(", GridBox[{
       {
        SuperscriptBox[
         RowBox[{"(", 
          FractionBox[
-          RowBox[{"1", "+", 
-           RowBox[{"2", " ", "z"}]}], 
-          RowBox[{
-           RowBox[{"2", "z"}], " ", "-", "1"}]], ")"}], 
+          RowBox[{"z", "-", "a"}], 
+          RowBox[{"z", "-", "b"}]], ")"}], 
         RowBox[{
          FractionBox["I", 
           RowBox[{"2", " ", "\[Pi]"}]], 
@@ -68,10 +63,8 @@ Cell[BoxData[{
        SuperscriptBox[
         RowBox[{"(", 
          FractionBox[
-          RowBox[{"1", "+", 
-           RowBox[{"2", " ", "z"}]}], 
-          RowBox[{
-           RowBox[{"2", "z"}], " ", "-", "1"}]], ")"}], 
+          RowBox[{"z", "-", "a"}], 
+          RowBox[{"z", "-", "b"}]], ")"}], 
         RowBox[{
          FractionBox["I", 
           RowBox[{"2", " ", "\[Pi]"}]], 
@@ -104,20 +97,15 @@ Cell[BoxData[{
       RowBox[{"DD_", "?", "DiagonalMatrixQ"}], ",", 
       RowBox[{"Line", "[", 
        RowBox[{"{", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"-", "1"}], "/", "2"}], ",", 
-         RowBox[{"1", "/", "2"}]}], "}"}], "]"}], ",", "z_", ",", "t_"}], 
+        RowBox[{"a_", ",", "b_"}], "}"}], "]"}], ",", "z_", ",", "t_"}], 
      "]"}], ":=", 
     RowBox[{"(", GridBox[{
        {
         RowBox[{"PowerBranch", "[", 
          RowBox[{
           FractionBox[
-           RowBox[{"1", "+", 
-            RowBox[{"2", " ", "z"}]}], 
-           RowBox[{
-            RowBox[{"2", "z"}], " ", "-", "1"}]], ",", 
+           RowBox[{"z", "-", "a"}], 
+           RowBox[{"z", "-", "b"}]], ",", 
           RowBox[{
            FractionBox["I", 
             RowBox[{"2", " ", "\[Pi]"}]], 
@@ -129,10 +117,8 @@ Cell[BoxData[{
         RowBox[{"PowerBranch", "[", 
          RowBox[{
           FractionBox[
-           RowBox[{"1", "+", 
-            RowBox[{"2", " ", "z"}]}], 
-           RowBox[{
-            RowBox[{"2", "z"}], " ", "-", "1"}]], ",", 
+           RowBox[{"z", "-", "a"}], 
+           RowBox[{"z", "-", "b"}]], ",", 
           RowBox[{
            FractionBox["I", 
             RowBox[{"2", " ", "\[Pi]"}]], 
