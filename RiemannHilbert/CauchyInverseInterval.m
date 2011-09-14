@@ -59,6 +59,13 @@ Begin["Private`"];
 
 
 
+BoundedCauchyInverseBasis[f_?FunQ,k_,x_]:=BoundedCauchyInverseBasis[f//Domain,k,x];
+BoundedCauchyInverseBasis[s_?SignQ,f_?FunQ,k_,x_]:=BoundedCauchyInverseBasis[s,f//Domain,k,x];
+BoundedCauchyInverseBasisD[f_?FunQ,k_,x_]:=BoundedCauchyInverseBasisD[f//Domain,k,x];
+BoundedCauchyInverseBasisD[s_?SignQ,f_?FunQ,k_,x_]:=BoundedCauchyInverseBasisD[s,f//Domain,k,x];
+
+
+
 BoundedCauchyInverseBasis[UnitInterval,1,z_]:=1/2(1+z-z);
 BoundedCauchyInverseBasis[UnitInterval,k_,z_?(#~NEqual~1.&)]:=1/2(1+z-z);
 BoundedCauchyInverseBasis[UnitInterval,k_,z_?(#~NEqual~-1.&)]:=(-1)^(k-1)/2(1+z-z);
@@ -87,6 +94,10 @@ CauchyInverse[s_?SignQ,f_IFun,z_]:=MapDot[CauchyInverseBasis[s,f,#,z]&,f//DCT];
 BoundedCauchyInverse[f_IFun,z_]:=MapDot[BoundedCauchyInverseBasis[f,#,z]&,f//DCT];
 BoundedCauchyInverse[s_?SignQ,f_IFun,z_]:=MapDot[BoundedCauchyInverseBasis[s,f,#,z]&,f//DCT];
 
+BoundedCauchyInverseD[f_IFun,z_]:=MapDot[BoundedCauchyInverseBasisD[f,#,z]&,f//DCT];
+BoundedCauchyInverseD[s_?SignQ,f_IFun,z_]:=MapDot[BoundedCauchyInverseBasisD[s,f,#,z]&,f//DCT];
+
+
 CauchyInversePlus[f_IFun,z_]/;DomainMemberQ[f,z]:=f[z];
 CauchyInversePlus[f_IFun,z_]:=2 CauchyInverse[f,z];
 
@@ -109,6 +120,10 @@ CauchyInverse[s_?SignQ,l_List,z_]:=Plus@@(If[DomainMemberQ[#,z],CauchyInverse[s,
 CauchyInverseSeriesAtInfinity[f_IFun]:=DCT[f][[2]]/(4 MapToIntervalSeriesAtInfinity[f,1]);
 CauchyInverseSeriesAtInfinity[l_List]:=Plus@@(CauchyInverseSeriesAtInfinity[#]&/@CauchyInverseCurves[l]);
 
+
+
+BoundedCauchyInverseBasisD[UnitInterval,1,z_]:=0 z;
+BoundedCauchyInverseBasisD[UnitInterval,k_,z_]:=(k-1)IntervalToInnerCircle[z]^(k-2)/2IntervalToInnerCircle'[z] ;
 
 
 CauchyInverseBasisD[d_,1,z_]:=MapToIntervalD[d,z]/(2 (-1+MapToInterval[d,z])^(3/2) (1+MapToInterval[d,z])^(3/2));

@@ -52,6 +52,16 @@ Exp[I t],0) for x on the branch cut from the left.\>\""}],
 Exp[I t],0) for x on the branch cut from the right.\>\""}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
+  RowBox[{
+   RowBox[{"BesselIPrime", "::", "usage"}], "=", 
+   "\"\<Derivative of BesselI\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"BesselKPrime", "::", "usage"}], "=", 
+    "\"\<Derivative of BesselI\>\""}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
@@ -271,6 +281,44 @@ Cell[BoxData[
       RowBox[{"ArgBranch", "[", 
        RowBox[{"x", ",", "t"}], "]"}]}], "]"}]}]}], ";"}]], "Input"],
 
+Cell["Bessel", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BesselIPrime", "[", 
+    RowBox[{"a_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{
+    FractionBox["1", "2"], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"BesselI", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "1"}], "+", "a"}], ",", "z"}], "]"}], "+", 
+      RowBox[{"BesselI", "[", 
+       RowBox[{
+        RowBox[{"1", "+", "a"}], ",", "z"}], "]"}]}], ")"}]}]}], " ", 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BesselKPrime", "[", 
+    RowBox[{"a_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{
+    FractionBox["1", "2"], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"BesselK", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "1"}], "+", "a"}], ",", "z"}], "]"}]}], "-", 
+      RowBox[{"BesselK", "[", 
+       RowBox[{
+        RowBox[{"1", "+", "a"}], ",", "z"}], "]"}]}], ")"}]}]}], " ", 
+  ";"}]}], "Input",
+ InitializationCell->True],
+
 Cell[CellGroupData[{
 
 Cell["Finish", "Section"],
@@ -289,6 +337,8 @@ WindowSize->{640, 656},
 WindowMargins->{{264, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TrackCellChangeTimes->False,
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
+

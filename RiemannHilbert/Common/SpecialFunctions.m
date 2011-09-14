@@ -29,6 +29,9 @@ LogBranch::usage="LogBranch[x,t] is a log function with a branch cut along (0,\[
 PowerP::usage="PowerP[x,y,t] evaluates x^y with a branch cut along (\[Infinity] Exp[I t],0) for x on the branch cut from the left.";
 PowerM::usage="PowerM[x,y,t] evaluates x^y with a branch cut along (\[Infinity] Exp[I t],0) for x on the branch cut from the right.";
 
+BesselIPrime::usage="Derivative of BesselI";
+BesselKPrime::usage="Derivative of BesselI";
+
 Begin["Private`"];
 
 
@@ -41,11 +44,15 @@ FourierExpStepFourierIntegral[t_]:=-(1/2) I (\[Pi]+4 ArcTan[Tanh[t/2]])/\[Pi];
 
 
 SqrtBranch[x_,t_]:=-I Exp[I t/2]Sqrt[-Exp[-I t]x];
-LogBranch[x_,t_]:=I (t-\[Pi]) +Log[Exp[I (\[Pi]- t)] x];
+LogBranch[x_,t_]:=I (t-\[Pi]) +Log[Exp[I(\[Pi]- t)] x];
 ArgBranch[x_,t_]:=Arg[Exp[I  (\[Pi]-t)]x]+\[Pi]+t;
-PowerBranch[x_,y_,t_]:=(Exp[I (-\[Pi]-t)] x)^y Exp[- y I (-\[Pi]- t)]
+PowerBranch[x_,y_,t_]:=(Exp[I (-\[Pi]-t)] x)^y Exp[- y I(-\[Pi]- t)]
 PowerP[x_,y_,t_]:=Abs[x]^y Exp[y I (2\[Pi]+t)];
 PowerM[x_,y_,t_]:=Abs[x]^y Exp[y I t];
+
+
+BesselIPrime[a_,z_]:=1/2 (BesselI[-1+a,z]+BesselI[1+a,z]) ;
+BesselKPrime[a_,z_]:=1/2 (-BesselK[-1+a,z]-BesselK[1+a,z]) ;
 
 
 End[];
