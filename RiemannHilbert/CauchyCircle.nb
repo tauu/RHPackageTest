@@ -57,7 +57,8 @@ an IFun f at a point x on Domain[f].\>\""}], ";"}],
  RowBox[{"FPCauchyBasis", ";"}], "\[IndentingNewLine]", 
  RowBox[{"CauchyBasis", ";"}], "\[IndentingNewLine]", 
  RowBox[{"CauchyBasisS", ";"}], "\[IndentingNewLine]", 
- RowBox[{"CauchyMatrix", ";"}]}], "Input",
+ RowBox[{"CauchyMatrix", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FastCauchy", ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -532,7 +533,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1112,6 +1113,101 @@ Cell[BoxData[{
     RowBox[{"s", ",", "f", ",", "f"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Fast Cauchy", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"FastCauchy", "[", "lf_LFun", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "fft", ",", "pfft", ",", "mfft", ",", "inf", ",", "infv", ",", "z", ",",
+        "zc"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"fft", "=", 
+       RowBox[{"lf", "//", "FFT"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"pfft", "=", 
+       RowBox[{"ChopDrop", "[", 
+        RowBox[{
+         RowBox[{"fft", "//", "NonNegativeShiftList"}], ",", 
+         "$MachineTolerance"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"mfft", "=", 
+       RowBox[{"ChopDrop", "[", 
+        RowBox[{
+         RowBox[{"fft", "//", "NegativeShiftList"}], ",", 
+         "$MachineTolerance"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"inf", "=", 
+       RowBox[{"MapToCircle", "[", 
+        RowBox[{"lf", ",", "\[Infinity]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"infv", "=", 
+       RowBox[{"MapDot", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"#", "//", "NZeroQ"}], ",", "1", ",", 
+            SuperscriptBox["inf", "#"]}], "]"}], "&"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Abs", "[", "inf", "]"}], "\[GreaterEqual]", "1"}], ",", 
+           "mfft", ",", "pfft"}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Function", "[", 
+       RowBox[{"z", ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"zc", "=", 
+          RowBox[{"MapToCircle", "[", 
+           RowBox[{"lf", ",", "z"}], "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Abs", "[", "zc", "]"}], "\[GreaterEqual]", "1"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"-", 
+             RowBox[{"MapDot", "[", 
+              RowBox[{
+               RowBox[{
+                SuperscriptBox["zc", "#"], "&"}], ",", "mfft"}], "]"}]}], ",",
+             "\[IndentingNewLine]", 
+            RowBox[{"MapDot", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"#", "//", "NZeroQ"}], ",", "1", ",", 
+                 SuperscriptBox["zc", "#"]}], "]"}], "&"}], ",", "pfft"}], 
+             "]"}]}], "\[IndentingNewLine]", "]"}], "-", "infv"}]}]}], 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FastCauchy", "[", 
+   RowBox[{"lfv", ":", 
+    RowBox[{"{", "__LFun", "}"}]}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "CFv", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"CFv", "=", 
+      RowBox[{"FastCauchy", "/@", "lfv"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Function", "[", 
+      RowBox[{"z", ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"#", "[", "z", "]"}], "&"}], "/@", "CFv"}], ")"}], "//", 
+        "Total"}]}], "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]}], "Input",
+ InitializationCell->True]
 }, Open  ]],
 
 Cell[CellGroupData[{

@@ -49,6 +49,7 @@ CauchyInverseIntegralDomainDBoundary;
 CauchyInverseDomainGrad;
 CauchyInverseDomainD;
 BoundedCauchyInverse;
+BoundedCauchyInverseD;
 CauchyInverseIntegralBranch;
 SetCauchyInverseLength;
 SLCauchyInverse;

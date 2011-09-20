@@ -36,6 +36,7 @@ FPCauchyBasis;
 CauchyBasis;
 CauchyBasisS;
 CauchyMatrix;
+FastCauchy;
 
 
 Begin["`Private`"];
@@ -170,6 +171,27 @@ FPCauchyBasis[s_?SignQ,d_?CircleDomainQ,i_;;j_,lf_?FunQ]:=Fun[#,lf//Domain]&/@Ca
 CauchyMatrix[s_?SignQ,lf_LFun?ScalarFunQ,lf2_?FunQ]:=Transpose[(FiniteValues/@FPCauchyBasis[s,lf,Span@@(lf//FFT//IndexRange),lf2])].FiniteTransformMatrix[lf];
 
 CauchyMatrix[s_?SignQ,f_LFun]:=CauchyMatrix[s,f,f];
+
+
+FastCauchy[lf_LFun]:=Module[{fft,pfft,mfft,inf,infv,z,zc},
+fft=lf//FFT;
+pfft=ChopDrop[fft//NonNegativeShiftList,$MachineTolerance];
+mfft=ChopDrop[fft//NegativeShiftList,$MachineTolerance];
+inf=MapToCircle[lf,\[Infinity]];
+infv=MapDot[If[#//NZeroQ,1,inf^#]&,If[Abs[inf]>=1,mfft,pfft]];
+Function[z,
+zc=MapToCircle[lf,z];
+If[Abs[zc]>=1,
+-MapDot[zc^#&,mfft],
+MapDot[If[#//NZeroQ,1,zc^#]&,pfft]
+]-infv]
+];
+FastCauchy[lfv:{__LFun}]:=Module[{CFv},
+CFv=FastCauchy/@lfv;
+Function[z,
+(#[z]&/@CFv)//Total
+]
+]
 
 
 End[];

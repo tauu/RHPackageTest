@@ -58,6 +58,7 @@ Cell[BoxData[
    RowBox[{"CauchyInverseDomainGrad", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInverseDomainD", ";"}], "\[IndentingNewLine]", 
    RowBox[{"BoundedCauchyInverse", ";"}], "\[IndentingNewLine]", 
+   RowBox[{"BoundedCauchyInverseD", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInverseIntegralBranch", ";"}], "\[IndentingNewLine]", 
    RowBox[{"SetCauchyInverseLength", ";"}], "\[IndentingNewLine]", 
    RowBox[{"SLCauchyInverse", ";"}], "\[IndentingNewLine]", 
