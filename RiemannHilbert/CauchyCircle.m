@@ -37,6 +37,7 @@ CauchyBasis;
 CauchyBasisS;
 CauchyMatrix;
 FastCauchy;
+Stieljes;
 
 
 Begin["`Private`"];
@@ -62,7 +63,7 @@ Cauchy[s_?SignQ,f:LFun[_,_Curve],z_?ScalarQ]/;DomainMemberQ[f,z]:=Total[Cauchy[s
 Cauchy[lf_LFun,z_?ScalarQ]:=Cauchy[lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
 Cauchy[s_?SignQ,lf_LFun,z_?ScalarQ]:=Cauchy[s,lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
 Hilbert[lf_LFun,z_?ScalarQ]:=I (Cauchy[+1,lf,z]+Cauchy[-1,lf,z]);
-
+Stieljes[f_,z_]:=-2 \[Pi] I Cauchy[f,z];
 
 
 CauchyInverse[+1,lf_LFun,z_]:=Cauchy[+1,lf,z];

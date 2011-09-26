@@ -25,6 +25,7 @@ BeginPackage["RiemannHilbert`",{"RiemannHilbert`Common`"}];
 
 CauchyInverseBasis;
 CauchyInversePlus;
+BoundedCauchyInverseBasisD;
 BoundedCauchyInverseBasis;
 SPCauchyInverseIntegral;
 CauchyInverseIntegral;
@@ -64,6 +65,8 @@ BoundedCauchyInverseBasis[f_?FunQ,k_,x_]:=BoundedCauchyInverseBasis[f//Domain,k,
 BoundedCauchyInverseBasis[s_?SignQ,f_?FunQ,k_,x_]:=BoundedCauchyInverseBasis[s,f//Domain,k,x];
 BoundedCauchyInverseBasisD[f_?FunQ,k_,x_]:=BoundedCauchyInverseBasisD[f//Domain,k,x];
 BoundedCauchyInverseBasisD[s_?SignQ,f_?FunQ,k_,x_]:=BoundedCauchyInverseBasisD[s,f//Domain,k,x];
+BoundedCauchyInverseBasisD[2][f_?FunQ,k_,x_]:=BoundedCauchyInverseBasisD[2][f//Domain,k,x];
+BoundedCauchyInverseBasisD[2][s_?SignQ,f_?FunQ,k_,x_]:=BoundedCauchyInverseBasisD[2][s,f//Domain,k,x];
 
 
 
@@ -97,6 +100,9 @@ BoundedCauchyInverse[s_?SignQ,f_IFun,z_]:=MapDot[BoundedCauchyInverseBasis[s,f,#
 
 BoundedCauchyInverseD[f_IFun,z_]:=MapDot[BoundedCauchyInverseBasisD[f,#,z]&,f//DCT];
 BoundedCauchyInverseD[s_?SignQ,f_IFun,z_]:=MapDot[BoundedCauchyInverseBasisD[s,f,#,z]&,f//DCT];
+BoundedCauchyInverseD[2][f_IFun,z_]:=MapDot[BoundedCauchyInverseBasisD[2][f,#,z]&,f//DCT];
+BoundedCauchyInverseD[2][s_?SignQ,f_IFun,z_]:=MapDot[BoundedCauchyInverseBasisD[2][s,f,#,z]&,f//DCT];
+
 
 
 CauchyInversePlus[f_IFun,z_]/;DomainMemberQ[f,z]:=f[z];
@@ -125,6 +131,17 @@ CauchyInverseSeriesAtInfinity[l_List]:=Plus@@(CauchyInverseSeriesAtInfinity[#]&/
 
 BoundedCauchyInverseBasisD[UnitInterval,1,z_]:=0 z;
 BoundedCauchyInverseBasisD[UnitInterval,k_,z_]:=(k-1)IntervalToInnerCircle[z]^(k-2)/2IntervalToInnerCircle'[z] ;
+
+BoundedCauchyInverseBasisD[2][UnitInterval,1,z_]:=0 z;
+BoundedCauchyInverseBasisD[2][UnitInterval,k_,z_]:=(k-1)(k-2)IntervalToInnerCircle[z]^(k-3)/2 IntervalToInnerCircle'[z]^2+(k-1)IntervalToInnerCircle[z]^(k-2)/2IntervalToInnerCircle''[z] ;
+
+
+BoundedCauchyInverseBasisD[d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasisD[UnitInterval,k,MapToInterval[d,z]]MapToIntervalD[d,z];
+BoundedCauchyInverseBasisD[s_?SignQ,d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasisD[s,UnitInterval,k,MapToInterval[d,z]]MapToIntervalD[d,z];
+
+BoundedCauchyInverseBasisD[2][d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasisD[2][UnitInterval,k,MapToInterval[d,z]]MapToIntervalD[d,z]^2;
+BoundedCauchyInverseBasisD[2][s_?SignQ,d_?IntervalDomainQ,k_,z_]:=BoundedCauchyInverseBasisD[2][s,UnitInterval,k,MapToInterval[d,z]]MapToIntervalD[d,z]^2;
+
 
 
 CauchyInverseBasisD[d_,1,z_]:=MapToIntervalD[d,z]/(2 (-1+MapToInterval[d,z])^(3/2) (1+MapToInterval[d,z])^(3/2));

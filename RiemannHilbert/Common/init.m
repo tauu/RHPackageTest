@@ -37,6 +37,8 @@ $CommonPackage="RiemannHilbert`Common`";
 
 <<`Fun`;
 
+<<`SingFun`;
+
 
 
 EndPackage[];

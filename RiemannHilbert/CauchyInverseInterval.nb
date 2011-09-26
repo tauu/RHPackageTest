@@ -29,6 +29,7 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"CauchyInverseBasis", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInversePlus", ";"}], "\[IndentingNewLine]", 
+   RowBox[{"BoundedCauchyInverseBasisD", ";"}], "\[IndentingNewLine]", 
    RowBox[{"BoundedCauchyInverseBasis", ";"}], "\[IndentingNewLine]", 
    RowBox[{"SPCauchyInverseIntegral", ";"}], "\[IndentingNewLine]", 
    RowBox[{"CauchyInverseIntegral", ";"}], "\[IndentingNewLine]", 
@@ -127,6 +128,29 @@ Cell[BoxData[
        RowBox[{"s_", "?", "SignQ"}], ",", 
        RowBox[{"f_", "?", "FunQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
      RowBox[{"BoundedCauchyInverseBasisD", "[", 
+      RowBox[{"s", ",", 
+       RowBox[{"f", "//", "Domain"}], ",", "k", ",", "x"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+      RowBox[{
+       RowBox[{"f_", "?", "FunQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+      RowBox[{
+       RowBox[{"f", "//", "Domain"}], ",", "k", ",", "x"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"f_", "?", "FunQ"}], ",", "k_", ",", "x_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
       RowBox[{"s", ",", 
        RowBox[{"f", "//", "Domain"}], ",", "k", ",", "x"}], "]"}]}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
@@ -438,7 +462,33 @@ Cell[BoxData[
         RowBox[{"BoundedCauchyInverseBasisD", "[", 
          RowBox[{"s", ",", "f", ",", "#", ",", "z"}], "]"}], "&"}], ",", 
        RowBox[{"f", "//", "DCT"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseD", "[", "2", "]"}], "[", 
+      RowBox[{"f_IFun", ",", "z_"}], "]"}], ":=", 
+     RowBox[{"MapDot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+         RowBox[{"f", ",", "#", ",", "z"}], "]"}], "&"}], ",", 
+       RowBox[{"f", "//", "DCT"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseD", "[", "2", "]"}], "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", "f_IFun", ",", "z_"}], "]"}], ":=", 
+     
+     RowBox[{"MapDot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+         RowBox[{"s", ",", "f", ",", "#", ",", "z"}], "]"}], "&"}], ",", 
+       RowBox[{"f", "//", "DCT"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{
@@ -686,6 +736,106 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"IntervalToInnerCircle", "'"}], "[", "z", "]"}]}]}], " ", 
     ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+      RowBox[{"UnitInterval", ",", "1", ",", "z_"}], "]"}], ":=", 
+     RowBox[{"0", " ", "z"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+      RowBox[{"UnitInterval", ",", "k_", ",", "z_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"k", "-", "1"}], ")"}], 
+       RowBox[{"(", 
+        RowBox[{"k", "-", "2"}], ")"}], 
+       RowBox[{
+        RowBox[{
+         RowBox[{"IntervalToInnerCircle", "[", "z", "]"}], "^", 
+         RowBox[{"(", 
+          RowBox[{"k", "-", "3"}], ")"}]}], "/", "2"}], 
+       SuperscriptBox[
+        RowBox[{
+         RowBox[{"IntervalToInnerCircle", "'"}], "[", "z", "]"}], "2"]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"k", "-", "1"}], ")"}], 
+       RowBox[{
+        RowBox[{
+         RowBox[{"IntervalToInnerCircle", "[", "z", "]"}], "^", 
+         RowBox[{"(", 
+          RowBox[{"k", "-", "2"}], ")"}]}], "/", "2"}], 
+       RowBox[{
+        RowBox[{"IntervalToInnerCircle", "''"}], "[", "z", "]"}]}]}]}], " ", 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BoundedCauchyInverseBasisD", "[", 
+      RowBox[{
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", 
+       RowBox[{"UnitInterval", ",", "k", ",", 
+        RowBox[{"MapToInterval", "[", 
+         RowBox[{"d", ",", "z"}], "]"}]}], "]"}], 
+      RowBox[{"MapToIntervalD", "[", 
+       RowBox[{"d", ",", "z"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BoundedCauchyInverseBasisD", "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", 
+       RowBox[{"s", ",", "UnitInterval", ",", "k", ",", 
+        RowBox[{"MapToInterval", "[", 
+         RowBox[{"d", ",", "z"}], "]"}]}], "]"}], 
+      RowBox[{"MapToIntervalD", "[", 
+       RowBox[{"d", ",", "z"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+      RowBox[{
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+       RowBox[{"UnitInterval", ",", "k", ",", 
+        RowBox[{"MapToInterval", "[", 
+         RowBox[{"d", ",", "z"}], "]"}]}], "]"}], 
+      SuperscriptBox[
+       RowBox[{"MapToIntervalD", "[", 
+        RowBox[{"d", ",", "z"}], "]"}], "2"]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "k_", ",", "z_"}], "]"}], 
+     ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"BoundedCauchyInverseBasisD", "[", "2", "]"}], "[", 
+       RowBox[{"s", ",", "UnitInterval", ",", "k", ",", 
+        RowBox[{"MapToInterval", "[", 
+         RowBox[{"d", ",", "z"}], "]"}]}], "]"}], 
+      SuperscriptBox[
+       RowBox[{"MapToIntervalD", "[", 
+        RowBox[{"d", ",", "z"}], "]"}], "2"]}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
@@ -2383,7 +2533,7 @@ Cell[BoxData[{
      RowBox[{"TransformMatrix", "[", "f", "]"}]}]}]}], 
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3108,7 +3258,7 @@ Cell[BoxData[{
           RowBox[{"LeftEndpoint", "[", "f", "]"}]}], ")"}]}]], " ", 
       ")"}]}]}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3748,7 +3898,7 @@ Cell[BoxData[{
       RowBox[{"CauchyInverseCurves", "[", "l", "]"}]}], ")"}]}]}], 
   ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 

@@ -1125,8 +1125,9 @@ Cell[BoxData[{
    RowBox[{"NewtonMethod", "[", 
     RowBox[{"f_", ",", "fp_", ",", "x0_", ",", 
      RowBox[{"OptionsPattern", "[", 
-      RowBox[{"InterpolationPrecision", "->", 
-       RowBox[{"100", " ", "$MachineTolerance"}]}], "]"}]}], "]"}], ":=", 
+      RowBox[{"InterpolationPrecision", "\[Rule]", 
+       SuperscriptBox["10", 
+        RowBox[{"-", "12.5"}]]}], "]"}]}], "]"}], ":=", 
    RowBox[{"Module", "[", 
     RowBox[{
      RowBox[{"{", 
@@ -1149,8 +1150,19 @@ Cell[BoxData[{
            FractionBox[
             RowBox[{"f", "[", "ret", "]"}], 
             RowBox[{"fp", "[", "ret", "]"}]]}]}], ";"}]}], 
-       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", "ret"}]}], 
-    "]"}]}], ";"}], "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", "\[IndentingNewLine]", "\t", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"retold", "=", "ret"}], ";", "\[IndentingNewLine]", "\t", 
+         RowBox[{"ret", "=", 
+          RowBox[{"ret", "-", 
+           FractionBox[
+            RowBox[{"f", "[", "ret", "]"}], 
+            RowBox[{"fp", "[", "ret", "]"}]]}]}], ";"}], 
+        "\[IndentingNewLine]", ",", 
+        RowBox[{"{", "3", "}"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      "ret"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"NewtonMethod", "[", 

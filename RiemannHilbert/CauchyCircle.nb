@@ -58,7 +58,8 @@ an IFun f at a point x on Domain[f].\>\""}], ";"}],
  RowBox[{"CauchyBasis", ";"}], "\[IndentingNewLine]", 
  RowBox[{"CauchyBasisS", ";"}], "\[IndentingNewLine]", 
  RowBox[{"CauchyMatrix", ";"}], "\[IndentingNewLine]", 
- RowBox[{"FastCauchy", ";"}]}], "Input",
+ RowBox[{"FastCauchy", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Stieljes", ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -289,7 +290,15 @@ Cell[BoxData[{
       RowBox[{"Cauchy", "[", 
        RowBox[{
         RowBox[{"-", "1"}], ",", "lf", ",", "z"}], "]"}]}], ")"}]}]}], 
-  ";"}], "\[IndentingNewLine]"}], "Input",
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Stieljes", "[", 
+    RowBox[{"f_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"-", "2"}], " ", "\[Pi]", " ", "I", " ", 
+    RowBox[{"Cauchy", "[", 
+     RowBox[{"f", ",", "z"}], "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True],
 
 Cell[BoxData[""], "Input"]
@@ -533,7 +542,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
