@@ -38,6 +38,9 @@ CauchyBasisS;
 CauchyMatrix;
 FastCauchy;
 Stieljes;
+CauchyInverseInverseFunction;
+CauchyInverseFunction;
+StieljesInverseFunction;
 
 
 Begin["`Private`"];
@@ -193,6 +196,15 @@ Function[z,
 (#[z]&/@CFv)//Total
 ]
 ]
+
+
+CauchyInverseInverseFunction[s_?SignQ,lfu_LFun?UnitCircleFunQ,z_]:=Module[{rts,prts,mrts},rts=ComplexRoots[CauchyInverse[s,lfu]-z];prts=Select[rts,s (Abs[#1]-1)<=0&];Which[Length[prts]==1,First[prts],True,{}]]
+CauchyInverseInverseFunction[lf_LFun,z_]:=Join[{CauchyInverseInverseFunction[+1,lf,z]},{CauchyInverseInverseFunction[-1,lf,z]}]//Flatten//If[Length[#]==1,First[#],#]&
+CauchyInverseInverseFunction[s_?SignQ,lf_LFun,z_]:=
+MapFromCircle[lf,CauchyInverseInverseFunction[s,lf//ToUnitCircle,z+s Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]]]];
+
+CauchyInverseFunction[sf_LFun,z_]:=CauchyInverseInverseFunction[-I (sf//Hilbert),z];
+StieljesInverseFunction[sf_LFun,z_]:=CauchyInverseFunction[sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)];
 
 
 End[];

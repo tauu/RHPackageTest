@@ -130,6 +130,12 @@ ifun over its domain.\>\""}], ";"}], "\[IndentingNewLine]",
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
+     RowBox[{"IncreaseDimension", "::", "usage"}], "=", 
+     "\[IndentingNewLine]", 
+     "\"\<Increases the length of an IFun by one.\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
      RowBox[{"ReduceDimensionIntegrate", "::", "usage"}], "=", 
      "\[IndentingNewLine]", 
      "\"\<ReduceDimensionIntegrate[ifun] returns the \
@@ -537,6 +543,7 @@ Cell["Test", "Subsection"],
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  
   RowBox[{
    RowBox[{
     RowBox[{
@@ -803,6 +810,7 @@ Cell[BoxData[{
     RowBox[{"f_", "?", "FunQ"}], "]"}], ":=", 
    RowBox[{"InfinityInDomainQ", "[", 
     RowBox[{"Domain", "[", "f", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+
  RowBox[{
   RowBox[{
    RowBox[{
@@ -1005,7 +1013,7 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"JumpScaleDomainPlot", "[", 
          RowBox[{"#", ",", "opts"}], "]"}], "&"}], "/@", "l"}], ",", "opts"}],
-      "]"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
+      "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"JumpScale", "[", 
@@ -1025,6 +1033,7 @@ Cell[BoxData[{
       RowBox[{"(*", " ", 
        RowBox[{
         RowBox[{"Indeterminate", " ", "happens", " ", "for", " ", "w"}], "=", 
+        
         RowBox[{"{", 
          RowBox[{
           RowBox[{"{", 
@@ -1537,7 +1546,7 @@ Cell[BoxData[{
      RowBox[{"f", "//", "Domain"}], ",", 
      RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1602,6 +1611,7 @@ Cell[BoxData[{
    RowBox[{"IdentityAtInfinityFun", "[", 
     RowBox[{
      RowBox[{"G_", "?", "NotListOrPatternQ"}], ",", "pars___"}], "]"}], ":=", 
+   
    RowBox[{"Fun", "[", 
     RowBox[{
      RowBox[{
@@ -1741,6 +1751,7 @@ Cell[BoxData[
          RowBox[{
           RowBox[{"f", "-", "g"}], "//", "Values"}], "//", "Norm"}], ")"}], 
        "<", "$MachineTolerance"}], ",", "False"}], "]"}]}], ";"}]}]], "Input",
+ 
  InitializationCell->True]
 }, Closed]],
 
@@ -1780,7 +1791,8 @@ WindowMargins->{{24, Automatic}, {Automatic, 37}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
 

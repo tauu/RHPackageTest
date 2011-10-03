@@ -625,6 +625,8 @@ IFun/:Derivative[if_IFun]:=if';
 
 ReduceDimension[f_IFun]:=
 IFun[f//DCT//Most//InverseDCT,Domain[f]];
+IncreaseDimension[f_IFun]:=
+IFun[Append[f//DCT,0]//InverseDCT,Domain[f]];
 ReduceDimensionIntegrate[f_IFun]:=ReduceDimension[Integrate[f]];
 
 ChebyshevI[c_List]:=Module[{c2},

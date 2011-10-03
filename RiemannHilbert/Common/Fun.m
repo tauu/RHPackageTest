@@ -68,6 +68,8 @@ DomainIntegrate::usage=
 "DomainIntegrate[ifun] returns the definite integral of the function ifun over its domain.";
 ReduceDimension::usage=
 "Reduces the length of an IFun by one.";
+IncreaseDimension::usage=
+"Increases the length of an IFun by one.";
 ReduceDimensionIntegrate::usage=
 "ReduceDimensionIntegrate[ifun] returns the ReduceDimension[Integrate[ifun]].";
 

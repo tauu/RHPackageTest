@@ -59,7 +59,10 @@ an IFun f at a point x on Domain[f].\>\""}], ";"}],
  RowBox[{"CauchyBasisS", ";"}], "\[IndentingNewLine]", 
  RowBox[{"CauchyMatrix", ";"}], "\[IndentingNewLine]", 
  RowBox[{"FastCauchy", ";"}], "\[IndentingNewLine]", 
- RowBox[{"Stieljes", ";"}]}], "Input",
+ RowBox[{"Stieljes", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"CauchyInverseInverseFunction", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"CauchyInverseFunction", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"StieljesInverseFunction", ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -542,7 +545,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1216,6 +1219,110 @@ Cell[BoxData[{
            RowBox[{"#", "[", "z", "]"}], "&"}], "/@", "CFv"}], ")"}], "//", 
         "Total"}]}], "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
    "]"}]}]}], "Input",
+ InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["CauchyInverseInverse function", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"CauchyInverseInverseFunction", "[", 
+   RowBox[{
+    RowBox[{"s_", "?", "SignQ"}], ",", 
+    RowBox[{"lfu_LFun", "?", "UnitCircleFunQ"}], ",", "z_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"rts", ",", "prts", ",", "mrts"}], "}"}], ",", 
+    RowBox[{
+     RowBox[{"rts", "=", 
+      RowBox[{"ComplexRoots", "[", 
+       RowBox[{
+        RowBox[{"CauchyInverse", "[", 
+         RowBox[{"s", ",", "lfu"}], "]"}], "-", "z"}], "]"}]}], ";", 
+     RowBox[{"prts", "=", 
+      RowBox[{"Select", "[", 
+       RowBox[{"rts", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"s", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Abs", "[", "#1", "]"}], "-", "1"}], ")"}]}], 
+          "\[LessEqual]", "0"}], "&"}]}], "]"}]}], ";", 
+     RowBox[{"Which", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Length", "[", "prts", "]"}], "\[Equal]", "1"}], ",", 
+       RowBox[{"First", "[", "prts", "]"}], ",", "True", ",", 
+       RowBox[{"{", "}"}]}], "]"}]}]}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"CauchyInverseInverseFunction", "[", 
+   RowBox[{"lf_LFun", ",", "z_"}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Join", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"CauchyInverseInverseFunction", "[", 
+        RowBox[{
+         RowBox[{"+", "1"}], ",", "lf", ",", "z"}], "]"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"CauchyInverseInverseFunction", "[", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", "lf", ",", "z"}], "]"}], "}"}]}], "]"}], "//",
+     "Flatten"}], "//", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Length", "[", "#", "]"}], "\[Equal]", "1"}], ",", 
+      RowBox[{"First", "[", "#", "]"}], ",", "#"}], "]"}], "&"}]}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyInverseInverseFunction", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", "lf_LFun", ",", "z_"}], "]"}], ":=", 
+    "\[IndentingNewLine]", 
+    RowBox[{"MapFromCircle", "[", 
+     RowBox[{"lf", ",", 
+      RowBox[{"CauchyInverseInverseFunction", "[", 
+       RowBox[{"s", ",", 
+        RowBox[{"lf", "//", "ToUnitCircle"}], ",", 
+        RowBox[{"z", "+", 
+         RowBox[{"s", " ", 
+          RowBox[{"Cauchy", "[", 
+           RowBox[{
+            RowBox[{"lf", "//", "ToUnitCircle"}], ",", 
+            RowBox[{"MapToCircle", "[", 
+             RowBox[{"lf", ",", "\[Infinity]"}], "]"}]}], "]"}]}]}]}], 
+       "]"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyInverseFunction", "[", 
+    RowBox[{"sf_LFun", ",", "z_"}], "]"}], ":=", 
+   RowBox[{"CauchyInverseInverseFunction", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "I"}], " ", 
+      RowBox[{"(", 
+       RowBox[{"sf", "//", "Hilbert"}], ")"}]}], ",", "z"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"StieljesInverseFunction", "[", 
+    RowBox[{"sf_LFun", ",", "z_"}], "]"}], ":=", 
+   RowBox[{"CauchyInverseFunction", "[", 
+    RowBox[{"sf", ",", 
+     RowBox[{"z", "/", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "2"}], " ", "\[Pi]", "\[NonBreakingSpace]", "I"}], 
+       ")"}]}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 

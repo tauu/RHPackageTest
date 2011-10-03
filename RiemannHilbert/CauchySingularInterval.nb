@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     18755,        578]
-NotebookOptionsPosition[     17373,        526]
-NotebookOutlinePosition[     17768,        543]
-CellTagsIndexPosition[     17725,        540]
+NotebookDataLength[     19117,        585]
+NotebookOptionsPosition[     17739,        533]
+NotebookOutlinePosition[     18129,        550]
+CellTagsIndexPosition[     18086,        547]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -69,7 +69,8 @@ Cell[BoxData[{
    RowBox[{"Module", "[", 
     RowBox[{
      RowBox[{"{", 
-      RowBox[{"M", ",", "Mi", ",", "y"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"M", ",", "Mi", ",", "y", ",", "prts"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"M", "=", 
        RowBox[{"LFun", "[", 
@@ -83,19 +84,26 @@ Cell[BoxData[{
            "//", "MakeFFTIndexRange"}], "//", "InverseFFT"}], ",", 
          "UnitCircle"}], "]"}]}], ";", "\[IndentingNewLine]", 
       RowBox[{"Mi", "=", 
-       RowBox[{
-        RowBox[{"Select", "[", 
+       RowBox[{"Select", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"M", "-", "r"}], "//", "ComplexRoots"}], ",", 
          RowBox[{
           RowBox[{
-           RowBox[{"M", "-", "r"}], "//", "ComplexRoots"}], ",", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"Abs", "[", "#", "]"}], "\[LessEqual]", "1"}], "&"}]}], 
-         "]"}], "//", "First"}]}], ";", "\[IndentingNewLine]", 
-      RowBox[{"MapFromInterval", "[", 
-       RowBox[{"vf", ",", 
-        RowBox[{"CircleToInterval", "[", "Mi", "]"}]}], "]"}]}]}], 
-    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{"Abs", "[", "#", "]"}], "\[LessEqual]", "1"}], "&"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"prts", "=", 
+       RowBox[{"MapFromInterval", "[", 
+        RowBox[{"vf", ",", 
+         RowBox[{"CircleToInterval", "[", "Mi", "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Which", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", "prts", "]"}], "\[Equal]", "1"}], ",", 
+        RowBox[{"First", "[", "prts", "]"}], ",", "True", ",", "prts"}], 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"CauchyInverseInverseFunction", "[", 
    RowBox[{
@@ -120,13 +128,13 @@ Cell[BoxData[{
            RowBox[{"(", 
             RowBox[{
              RowBox[{"Abs", "[", "#1", "]"}], "-", "1"}], ")"}]}], 
-          "\[LessEqual]", "0"}], "&"}]}], "]"}]}], ";", 
+          "\[LessEqual]", "0"}], "&"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
      RowBox[{"Which", "[", 
       RowBox[{
        RowBox[{
         RowBox[{"Length", "[", "prts", "]"}], "\[Equal]", "1"}], ",", 
-       RowBox[{"First", "[", "prts", "]"}], ",", "True", ",", 
-       RowBox[{"{", "}"}]}], "]"}]}]}], "]"}]}], "\n", 
+       RowBox[{"First", "[", "prts", "]"}], ",", "True", ",", "prts"}], 
+      "]"}]}]}], "]"}]}], "\n", 
  RowBox[{
   RowBox[{"CauchyInverseInverseFunction", "[", 
    RowBox[{"lf_LFun", ",", "z_"}], "]"}], ":=", 
@@ -151,36 +159,31 @@ Cell[BoxData[{
       RowBox[{"First", "[", "#", "]"}], ",", "#"}], "]"}], "&"}]}]}], "\n", 
  RowBox[{
   RowBox[{
-   RowBox[{"CauchyInverseInverseFunction", "[", 
-    RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", "lf_", ",", "z_"}], "]"}], ":=", 
-   "\[IndentingNewLine]", 
-   RowBox[{"MapFromCircle", "[", 
-    RowBox[{"lf", ",", 
-     RowBox[{"CauchyInverseInverseFunction", "[", 
-      RowBox[{"s", ",", 
-       RowBox[{"lf", "//", "ToUnitCircle"}], ",", 
-       RowBox[{"z", "+", 
-        RowBox[{"s", " ", 
-         RowBox[{"Cauchy", "[", 
-          RowBox[{
-           RowBox[{"lf", "//", "ToUnitCircle"}], ",", 
-           RowBox[{"MapToCircle", "[", 
-            RowBox[{"lf", ",", "\[Infinity]"}], "]"}]}], "]"}]}]}]}], "]"}]}],
-     "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"RTransform", "[", 
-    RowBox[{"vf_", ",", "r_"}], "]"}], ":=", 
    RowBox[{
     RowBox[{"CauchyInverseInverseFunction", "[", 
-     RowBox[{"vf", ",", "r"}], "]"}], "-", 
-    RowBox[{"1", "/", "r"}]}]}], 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", "lf_", ",", "z_"}], "]"}], ":=", 
+    "\[IndentingNewLine]", 
+    RowBox[{"MapFromCircle", "[", 
+     RowBox[{"lf", ",", 
+      RowBox[{"CauchyInverseInverseFunction", "[", 
+       RowBox[{"s", ",", 
+        RowBox[{"lf", "//", "ToUnitCircle"}], ",", 
+        RowBox[{"z", "+", 
+         RowBox[{"s", " ", 
+          RowBox[{"Cauchy", "[", 
+           RowBox[{
+            RowBox[{"lf", "//", "ToUnitCircle"}], ",", 
+            RowBox[{"MapToCircle", "[", 
+             RowBox[{"lf", ",", "\[Infinity]"}], "]"}]}], "]"}]}]}]}], 
+       "]"}]}], "]"}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True,
  CellChangeTimes->{{3.5197280665912113`*^9, 3.5197281539836206`*^9}, {
   3.519728607814452*^9, 3.519728632634927*^9}, {3.520253172520351*^9, 
-  3.520253177007667*^9}, {3.526031564337476*^9, 3.5260315704213533`*^9}}],
+  3.520253177007667*^9}, {3.526031564337476*^9, 3.5260315704213533`*^9}, {
+  3.526147332547618*^9, 3.526147333001643*^9}, {3.5264817625014467`*^9, 
+  3.5264817628224163`*^9}, {3.5264844068078957`*^9, 3.526484478533823*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -385,20 +388,24 @@ Cell[BoxData[{
        ")"}]}]}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True,
  CellChangeTimes->{{3.5255180621315937`*^9, 3.525518078460308*^9}, {
-   3.525518212219577*^9, 3.5255182240490503`*^9}, 3.52603157364928*^9}],
+   3.525518212219577*^9, 3.5255182240490503`*^9}, 3.52603157364928*^9, {
+   3.526479228128125*^9, 3.526479230164975*^9}, {3.5264792730388813`*^9, 
+   3.526479276594338*^9}}],
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"RTransform", "[", 
-   RowBox[{"sf_SingFun", ",", "z_"}], "]"}], ":=", 
   RowBox[{
-   RowBox[{"StieljesInverseFunction", "[", 
-    RowBox[{"sf", ",", "z"}], "]"}], "-", 
-   RowBox[{"1", "/", "z"}]}]}]], "Input",
+   RowBox[{"RTransform", "[", 
+    RowBox[{"sf_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"StieljesInverseFunction", "[", 
+     RowBox[{"sf", ",", "z"}], "]"}], "-", 
+    RowBox[{"1", "/", "z"}]}]}], ";"}]], "Input",
  InitializationCell->True,
  CellChangeTimes->{{3.525518257192809*^9, 3.52551829835742*^9}, {
    3.525518433963167*^9, 3.5255184341354933`*^9}, {3.525518485702112*^9, 
-   3.525518492913411*^9}, 3.525518561853127*^9, 3.525518593989064*^9}],
+   3.525518492913411*^9}, 3.525518561853127*^9, 3.525518593989064*^9, {
+   3.526481765477895*^9, 3.526481770133424*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -526,7 +533,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{740, 756},
-WindowMargins->{{Automatic, -1371}, {-106, Automatic}},
+WindowMargins->{{Automatic, 188}, {Automatic, 0}},
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
 2011)",
 StyleDefinitions->"Default.nb"
@@ -555,29 +562,29 @@ Cell[1040, 42, 762, 13, 133, "Input",
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[1839, 60, 105, 1, 67, "Section"],
-Cell[1947, 63, 4282, 119, 283, "Input",
+Cell[1947, 63, 4479, 122, 298, "Input",
  InitializationCell->True],
-Cell[6232, 184, 779, 18, 43, "Input",
+Cell[6429, 187, 779, 18, 43, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7048, 207, 92, 1, 67, "Section"],
-Cell[7143, 210, 2006, 59, 133, "Input",
+Cell[7245, 210, 92, 1, 67, "Section"],
+Cell[7340, 213, 2006, 59, 133, "Input",
  InitializationCell->True],
-Cell[9152, 271, 2356, 74, 73, "Input",
+Cell[9349, 274, 2356, 74, 73, "Input",
  InitializationCell->True],
-Cell[11511, 347, 394, 12, 38, "Text",
+Cell[11708, 350, 394, 12, 38, "Text",
  InitializationCell->True],
-Cell[11908, 361, 933, 26, 58, "Input",
+Cell[12105, 364, 1035, 28, 58, "Input",
  InitializationCell->True],
-Cell[12844, 389, 483, 11, 27, "Input",
+Cell[13143, 394, 550, 13, 27, "Input",
  InitializationCell->True],
-Cell[13330, 402, 3654, 107, 232, "Input",
+Cell[13696, 409, 3654, 107, 232, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[17021, 514, 90, 1, 67, "Section"],
-Cell[17114, 517, 243, 6, 43, "Input",
+Cell[17387, 521, 90, 1, 67, "Section"],
+Cell[17480, 524, 243, 6, 43, "Input",
  InitializationCell->True]
 }, Open  ]]
 }

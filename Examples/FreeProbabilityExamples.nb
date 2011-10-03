@@ -10,14 +10,235 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[    107843,       2049]
-NotebookOptionsPosition[    105793,       1980]
-NotebookOutlinePosition[    106150,       1996]
-CellTagsIndexPosition[    106107,       1993]
+NotebookDataLength[    116735,       2271]
+NotebookOptionsPosition[    114620,       2201]
+NotebookOutlinePosition[    114977,       2217]
+CellTagsIndexPosition[    114934,       2214]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FreeAdd", "[", 
+   RowBox[{"sfA_", ",", "sfB_", ",", 
+    RowBox[{"m_:", "50"}], ",", 
+    RowBox[{"n_:", "30"}]}], "]"}], ":=", 
+  RowBox[{"Quiet", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "GAB", ",", "GABD", ",", "GABDD", ",", "xia", ",", "xib", ",", "Apts", 
+        ",", "Bpts", ",", "sIptsA", ",", "sIptsB", ",", "sIpts", ",", "sgpts",
+         ",", "gpts", ",", "ret", ",", "AB", ",", "a", ",", "b"}], "}"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"GAB", "[", "y_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"StieljesInverseFunction", "[", 
+           RowBox[{"sfA", ",", "y"}], "]"}], "+", 
+          RowBox[{"StieljesInverseFunction", "[", 
+           RowBox[{"sfB", ",", "y"}], "]"}], "-", 
+          RowBox[{"1", "/", "y"}]}], "//", "First"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"GABD", "[", "y_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"StieljesInverseFunctionD", "[", 
+            RowBox[{"sfA", ",", "y"}], "]"}], "+", 
+           RowBox[{"StieljesInverseFunctionD", "[", 
+            RowBox[{"sfB", ",", "y"}], "]"}], "+", 
+           RowBox[{"1", "/", 
+            RowBox[{"y", "^", "2"}]}]}], "//", "Re"}], "//", "First"}]}], ";",
+        "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"GABDD", "[", "y_", "]"}], ":=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"StieljesInverseFunctionD", "[", "2", "]"}], "[", 
+            RowBox[{"sfA", ",", "y"}], "]"}], "+", 
+           RowBox[{
+            RowBox[{"StieljesInverseFunctionD", "[", "2", "]"}], "[", 
+            RowBox[{"sfB", ",", "y"}], "]"}], "-", 
+           RowBox[{"1", "/", 
+            RowBox[{"y", "^", "3"}]}]}], "//", "Re"}], "//", "First"}]}], ";",
+        "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"xia", ",", "xib"}], "}"}], "=", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NewtonMethod", "[", 
+           RowBox[{"GABD", ",", "GABDD", ",", 
+            RowBox[{"-", ".1"}]}], "]"}], ",", 
+          RowBox[{"NewtonMethod", "[", 
+           RowBox[{"GABD", ",", "GABDD", ",", ".1"}], "]"}]}], "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"a", ",", "b"}], "}"}], "=", 
+        RowBox[{
+         RowBox[{"GAB", "/@", 
+          RowBox[{"{", 
+           RowBox[{"xia", ",", "xib"}], "}"}]}], "//", "Re"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(", 
+        RowBox[{"Apts", "=", 
+         RowBox[{"MapFromInterval", "[", 
+          RowBox[{
+           RowBox[{"sfA", "//", "First"}], ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"Points", "[", 
+                RowBox[{
+                 RowBox[{"Circle", "[", 
+                  RowBox[{"0", ",", "r"}], "]"}], ",", "n"}], "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"r", ",", 
+                 RowBox[{"1", "/", 
+                  RowBox[{"(", 
+                   RowBox[{"n", "-", "1"}], ")"}]}], ",", "1.", ",", 
+                 RowBox[{"1", "/", 
+                  RowBox[{"(", 
+                   RowBox[{"n", "-", "1"}], ")"}]}]}], "}"}]}], "]"}], "//", 
+             "Flatten"}], "//", "CircleToInterval"}]}], "]"}]}], ")"}], ";", 
+       RowBox[{"(", 
+        RowBox[{"Bpts", "=", 
+         RowBox[{"MapFromInterval", "[", 
+          RowBox[{
+           RowBox[{"sfB", "//", "First"}], ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"Points", "[", 
+                RowBox[{
+                 RowBox[{"Circle", "[", 
+                  RowBox[{"0", ",", "r"}], "]"}], ",", "n"}], "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"r", ",", 
+                 RowBox[{"1", "/", 
+                  RowBox[{"(", 
+                   RowBox[{"n", "-", "1"}], ")"}]}], ",", "1.", ",", 
+                 RowBox[{"1", "/", 
+                  RowBox[{"(", 
+                   RowBox[{"n", "-", "1"}], ")"}]}]}], "}"}]}], "]"}], "//", 
+             "Flatten"}], "//", "CircleToInterval"}]}], "]"}]}], ")"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(", 
+        RowBox[{"sIptsA", "=", 
+         RowBox[{"Stieljes", "[", 
+          RowBox[{"sfA", ",", "Apts"}], "]"}]}], ")"}], ";", 
+       RowBox[{"(", 
+        RowBox[{"sIptsB", "=", 
+         RowBox[{"Stieljes", "[", 
+          RowBox[{"sfB", ",", "Bpts"}], "]"}]}], ")"}], ";", 
+       RowBox[{"(", 
+        RowBox[{"sIpts", "=", 
+         RowBox[{"Join", "[", 
+          RowBox[{"sIptsA", ",", "sIptsB"}], "]"}]}], ")"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"sgpts", ",", "gpts"}], "}"}], "=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ret", "=", 
+                 RowBox[{"GAB", "[", "#", "]"}]}], ";", "\[IndentingNewLine]", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"Sign", "[", 
+                    RowBox[{"Im", "[", "#", "]"}], "]"}], "\[Equal]", 
+                    RowBox[{"Sign", "[", 
+                    RowBox[{"Im", "[", "ret", "]"}], "]"}]}], "||", 
+                   RowBox[{"!", 
+                    RowBox[{"NumberQ", "[", "ret", "]"}]}], "||", 
+                   RowBox[{
+                    RowBox[{"NZeroQ", "[", 
+                    RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+                    RowBox[{
+                    RowBox[{"Re", "[", "#", "]"}], ">", "xib"}]}], "||", 
+                   RowBox[{
+                    RowBox[{"NZeroQ", "[", 
+                    RowBox[{"Im", "[", "#", "]"}], "]"}], "&&", 
+                    RowBox[{
+                    RowBox[{"Re", "[", "#", "]"}], "<", "xia"}]}]}], ",", 
+                  "Null", ",", 
+                  RowBox[{"{", 
+                   RowBox[{"#", ",", "ret"}], "}"}]}], "]"}]}], ")"}], "&"}], 
+             "/@", "sIpts"}], ")"}], "/.", 
+           RowBox[{"Null", "\[Rule]", 
+            RowBox[{"Sequence", "[", "]"}]}]}], ")"}], "//", "Transpose"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"AB", "=", 
+        RowBox[{"SingFun", "[", 
+         RowBox[{
+          RowBox[{"IFun", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"LeastSquares", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Table", "[", 
+                 RowBox[{
+                  RowBox[{"BoundedCauchyInverseBasis", "[", 
+                   RowBox[{
+                    RowBox[{"Line", "[", 
+                    RowBox[{"{", 
+                    RowBox[{"a", ",", "b"}], "}"}], "]"}], ",", "k", ",", 
+                    "gpts"}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"k", ",", "m"}], "}"}]}], "]"}], "//", 
+                "Transpose"}], ",", "sgpts"}], "]"}], "//", "InverseDCT"}], 
+            ",", 
+            RowBox[{"Line", "[", 
+             RowBox[{"{", 
+              RowBox[{"a", ",", "b"}], "}"}], "]"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], ";", "\n", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "1"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"2", " ", "\[Pi]"}], ")"}]}], 
+         RowBox[{"HilbertInverse", "[", "AB", "]"}]}], "//", "Re"}]}]}], 
+     "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     StyleBox[
+      RowBox[{
+       RowBox[{"First", "::", "first"}], ",", 
+       RowBox[{"Thread", "::", "tdlen"}]}], "MessageName"], "}"}]}], 
+   StyleBox["]", "MessageName"]}]}]], "Input",
+ CellChangeTimes->{{3.525780874651744*^9, 3.525780902696863*^9}, {
+   3.5257809411048822`*^9, 3.525781045509542*^9}, {3.525781115269759*^9, 
+   3.5257811154074507`*^9}, {3.5257812694601507`*^9, 3.525781270597953*^9}, 
+   3.5257813563554153`*^9, {3.526032755896533*^9, 3.526032758963463*^9}, {
+   3.526032899651846*^9, 3.526032909965808*^9}, {3.5260329573327312`*^9, 
+   3.526032957419916*^9}, {3.526033007674501*^9, 3.5260330238042603`*^9}, {
+   3.5260330755717897`*^9, 3.5260330756964283`*^9}, {3.526033555200214*^9, 
+   3.526033555860319*^9}, {3.5260348409907827`*^9, 3.5260348426543627`*^9}, {
+   3.526034883871646*^9, 3.5260348886241913`*^9}, {3.526478513102619*^9, 
+   3.526478524224372*^9}, {3.526478635981141*^9, 3.526478638402936*^9}}],
+
 Cell["\<\
 Define 3 potentials to find the equilibrium measure\
 \>", "Text",
@@ -1995,61 +2216,62 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 141, 3, 26, "Text"],
-Cell[701, 25, 668, 17, 65, "Input"],
-Cell[1372, 44, 411, 10, 86, "Text"],
-Cell[1786, 56, 1084, 36, 58, "Input"],
-Cell[2873, 94, 358, 9, 86, "Text"],
-Cell[3234, 105, 1099, 34, 58, "Input"],
-Cell[4336, 141, 108, 1, 26, "Text"],
+Cell[557, 20, 8824, 219, 493, "Input"],
+Cell[9384, 241, 141, 3, 26, "Text"],
+Cell[9528, 246, 668, 17, 65, "Input"],
+Cell[10199, 265, 411, 10, 86, "Text"],
+Cell[10613, 277, 1084, 36, 58, "Input"],
+Cell[11700, 315, 358, 9, 86, "Text"],
+Cell[12061, 326, 1099, 34, 58, "Input"],
+Cell[13163, 362, 108, 1, 26, "Text"],
 Cell[CellGroupData[{
-Cell[4469, 146, 384, 11, 27, "Input"],
-Cell[4856, 159, 24048, 402, 247, "Output"]
+Cell[13296, 367, 384, 11, 27, "Input"],
+Cell[13683, 380, 24048, 402, 247, "Output"]
 }, Open  ]],
-Cell[28919, 564, 243, 5, 26, "Text"],
-Cell[29165, 571, 217, 5, 27, "Input"],
+Cell[37746, 785, 243, 5, 26, "Text"],
+Cell[37992, 792, 217, 5, 27, "Input"],
 Cell[CellGroupData[{
-Cell[29407, 580, 390, 11, 27, "Input"],
-Cell[29800, 593, 15433, 261, 248, "Output"]
+Cell[38234, 801, 390, 11, 27, "Input"],
+Cell[38627, 814, 15433, 261, 248, "Output"]
 }, Open  ]],
-Cell[45248, 857, 276, 5, 26, "Text"],
+Cell[54075, 1078, 276, 5, 26, "Text"],
 Cell[CellGroupData[{
-Cell[45549, 866, 317, 9, 27, "Input"],
-Cell[45869, 877, 200, 3, 30, "Output"]
+Cell[54376, 1087, 317, 9, 27, "Input"],
+Cell[54696, 1098, 200, 3, 30, "Output"]
 }, Open  ]],
-Cell[46084, 883, 272, 5, 26, "Text"],
+Cell[54911, 1104, 272, 5, 26, "Text"],
 Cell[CellGroupData[{
-Cell[46381, 892, 263, 5, 27, "Input"],
-Cell[46647, 899, 455, 10, 23, "Message"],
-Cell[47105, 911, 453, 10, 23, "Message"],
-Cell[47561, 923, 453, 10, 23, "Message"],
-Cell[48017, 935, 529, 11, 23, "Message"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[48583, 951, 436, 12, 27, "Input"],
-Cell[49022, 965, 30997, 517, 247, "Output"]
-}, Open  ]],
-Cell[80034, 1485, 276, 5, 26, "Text"],
-Cell[CellGroupData[{
-Cell[80335, 1494, 492, 14, 27, "Input"],
-Cell[80830, 1510, 270, 5, 30, "Output"]
-}, Open  ]],
-Cell[81115, 1518, 238, 3, 26, "Text"],
-Cell[CellGroupData[{
-Cell[81378, 1525, 313, 6, 27, "Input"],
-Cell[81694, 1533, 477, 10, 23, "Message"],
-Cell[82174, 1545, 479, 10, 23, "Message"],
-Cell[82656, 1557, 477, 10, 23, "Message"],
-Cell[83136, 1569, 555, 11, 23, "Message"]
+Cell[55208, 1113, 263, 5, 27, "Input"],
+Cell[55474, 1120, 455, 10, 23, "Message"],
+Cell[55932, 1132, 453, 10, 23, "Message"],
+Cell[56388, 1144, 453, 10, 23, "Message"],
+Cell[56844, 1156, 529, 11, 23, "Message"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[83728, 1585, 489, 13, 27, "Input"],
-Cell[84220, 1600, 20420, 344, 248, "Output"]
+Cell[57410, 1172, 436, 12, 27, "Input"],
+Cell[57849, 1186, 30997, 517, 247, "Output"]
 }, Open  ]],
-Cell[104655, 1947, 276, 5, 26, "Text"],
+Cell[88861, 1706, 276, 5, 26, "Text"],
 Cell[CellGroupData[{
-Cell[104956, 1956, 542, 15, 27, "Input"],
-Cell[105501, 1973, 276, 4, 30, "Output"]
+Cell[89162, 1715, 492, 14, 27, "Input"],
+Cell[89657, 1731, 270, 5, 30, "Output"]
+}, Open  ]],
+Cell[89942, 1739, 238, 3, 26, "Text"],
+Cell[CellGroupData[{
+Cell[90205, 1746, 313, 6, 27, "Input"],
+Cell[90521, 1754, 477, 10, 23, "Message"],
+Cell[91001, 1766, 479, 10, 23, "Message"],
+Cell[91483, 1778, 477, 10, 23, "Message"],
+Cell[91963, 1790, 555, 11, 23, "Message"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[92555, 1806, 489, 13, 27, "Input"],
+Cell[93047, 1821, 20420, 344, 248, "Output"]
+}, Open  ]],
+Cell[113482, 2168, 276, 5, 26, "Text"],
+Cell[CellGroupData[{
+Cell[113783, 2177, 542, 15, 27, "Input"],
+Cell[114328, 2194, 276, 4, 30, "Output"]
 }, Open  ]]
 }
 ]

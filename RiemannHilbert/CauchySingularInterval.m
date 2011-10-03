@@ -32,16 +32,17 @@ RTransform;
 Begin["Private`"];
 
 
-CauchyInverseInverseFunction[vf_IFun,r_]:=Module[{M,Mi,y},
+CauchyInverseInverseFunction[vf_IFun,r_]:=Module[{M,Mi,y,prts},
 M=LFun[ShiftList[DCT[vf]/2,1]//MakeFFTIndexRange//InverseFFT,UnitCircle];
-Mi=Select[M-r//ComplexRoots,Abs[#]<=1&]//First;
-MapFromInterval[vf,CircleToInterval[Mi]]
+Mi=Select[M-r//ComplexRoots,Abs[#]<=1&];
+prts=MapFromInterval[vf,CircleToInterval[Mi]];
+Which[Length[prts]==1,First[prts],True,prts]
 ];
-CauchyInverseInverseFunction[s_?SignQ,lfu_?UnitCircleFunQ,z_]:=Module[{rts,prts,mrts},rts=ComplexRoots[CauchyInverse[s,lfu]-z];prts=Select[rts,s (Abs[#1]-1)<=0&];Which[Length[prts]==1,First[prts],True,{}]]
+CauchyInverseInverseFunction[s_?SignQ,lfu_?UnitCircleFunQ,z_]:=Module[{rts,prts,mrts},rts=ComplexRoots[CauchyInverse[s,lfu]-z];prts=Select[rts,s (Abs[#1]-1)<=0&];
+Which[Length[prts]==1,First[prts],True,prts]]
 CauchyInverseInverseFunction[lf_LFun,z_]:=Join[{CauchyInverseInverseFunction[+1,lf,z]},{CauchyInverseInverseFunction[-1,lf,z]}]//Flatten//If[Length[#]==1,First[#],#]&
 CauchyInverseInverseFunction[s_?SignQ,lf_,z_]:=
 MapFromCircle[lf,CauchyInverseInverseFunction[s,lf//ToUnitCircle,z+s Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]]]];
-RTransform[vf_,r_]:=CauchyInverseInverseFunction[vf,r]-1/r
 
 
 
@@ -63,7 +64,7 @@ CauchyInverseFunction[sf_SingFun,z_]:=CauchyInverseInverseFunction[-I (sf//Hilbe
 StieljesInverseFunction[sf_SingFun,z_]:=CauchyInverseFunction[sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)];
 
 
-RTransform[sf_SingFun,z_]:=StieljesInverseFunction[sf,z]-1/z
+RTransform[sf_,z_]:=StieljesInverseFunction[sf,z]-1/z;
 
 
 CauchyInverseInverseFunctionD[sfH_IFun,z_]:=1/BoundedCauchyInverseD[sfH,CauchyInverseInverseFunction[sfH,z]];

@@ -31,6 +31,8 @@ Begin["Private`"];
 SetupSingFun[head_]:=Module[{MapToValues},
 Values[if_head]:=if//First//Values;
 Domain[if_head]:=if//First//Domain;
+LeftEndpoint[if_head]:=if//First//LeftEndpoint;
+RightEndpoint[if_head]:=if//First//RightEndpoint;
 head/:Map[f_,g_head]:=head[f/@Values[g],Domain[g]];
 
 Length[if_head]^:=if//Values//Length;
