@@ -23,13 +23,31 @@ BeginPackage["RiemannHilbert`RandomMatrices`",{"RiemannHilbert`","RiemannHilbert
 
 
 PlotEquilibriumMeasure;
-GFunction;
-LeftOfLine;
-RightOfLine;
-OrthogonalPolynomialGenerator;
+EquilibriumMeasureSupport::usage="EquilibriumMeasureSupport[V] Computes the support of the equilibrium measure (currently only for convex V";
+EquilibriumMeasure::usage="EquilibriumMeasure[V,x] Computes the equilibrium measure at a point x inside the support";
 
 
 Begin["Private`"];
+EquilibriumMeasureSupport[V_,retin_:{-1,1}]:=Module[{ret,retold,F,J},
+F[{a_,b_}]:=Module[{Vf},
+Vf=Fun[V,Line[{a,b}]];
+{DCT[Vf'][[1]],(b-a)/8 DCT[Vf'][[2]]-1}];
+J[{a_,b_}]:=Module[{Vf,x},
+Vf=Fun[V,Line[{a,b}]];
+x=IFun[Points[UnitInterval,Length[Vf]],Vf//Domain];
+({
+ {DCT[(1/2-x/2)Vf''][[1]], DCT[(1/2+x/2)Vf''][[1]]},
+ {1/8 ((b-a)DCT[(1/2-x/2)Vf''][[2]]-DCT[Vf'][[2]]), 1/8 ((b-a)DCT[(1/2+x/2)Vf''][[2]]+DCT[Vf'][[2]])}
+})
+];
+ret=retin;
+retold={0,0};
+While[Norm[ret-retold]>$MachineTolerance,
+retold=ret;
+ret=ret-LeastSquares[J[ret],F[ret]];
+];
+ret//Sort];
+EquilibriumMeasure[V_,retin_:{-1,1},x_]:=-(1/(2\[Pi]))HilbertInverse[IFun[V',Line[EquilibriumMeasureSupport[V,retin]]],x];
 PlotEquilibriumMeasure[V_,opts:OptionsPattern[]]:=Module[{supp,x,\[Psi]},
 supp=EquilibriumMeasureSupport[V];
 \[Psi][x_]=EquilibriumMeasure[V,supp,x];
