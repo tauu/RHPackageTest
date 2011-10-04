@@ -33,6 +33,8 @@ SlitPlanePoints[lf_LFun,n_]:=Select[MapFromCircle[lf,Join[DiskPoints[n],1/DiskPo
 SlitPlanePoints[if_IFun,n_]:=MapFromInterval[if,Table[Points[Circle[0,r],n],{r,1/(n-1),1.,1/(n-1)}]//Flatten//CircleToInterval];
 SlitPlanePoints[sf_SingFun,n_]:=SlitPlanePoints[sf//First,n];
 
+BoundedCauchyInverseMatrix[{a_,b_},m_,gpts_]:=Table[BoundedCauchyInverseBasis[Line[{a,b}],k,gpts],{k,m}]//Transpose;
+
 FreePlus[sfA_,sfB_,rng_:{-80,80},n_:10]/;Head[sfA]==LFun||Head[sfB]==LFun:=Quiet[
 Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},
 GAB[y_]:=StieljesInverseFunction[sfA,y]+StieljesInverseFunction[sfB,y]-1/y;
@@ -67,8 +69,39 @@ Bpts=SlitPlanePoints[sfB,n];
 
 {sgpts,gpts}=(((ret=GAB[#];
 If[Sign[Im[#]]==Sign[Im[ret]]||!NumberQ[ret]||NZeroQ[Im[#]]&&Re[#]>xib||NZeroQ[Im[#]]&&Re[#]<xia,Null,{#,ret}])&/@sIpts)/.Null->Sequence[])//Transpose;
-AB=SingFun[IFun[LeastSquares[Table[BoundedCauchyInverseBasis[Line[{a,b}],k,gpts],{k,m}]//Transpose,sgpts]//InverseDCT,Line[{a,b}]],{0,0}];
+AB=SingFun[IFun[LeastSquares[BoundedCauchyInverseMatrix[{a,b},m,gpts],sgpts]//InverseDCT,Line[{a,b}]],{0,0}];
 -1/(2 \[Pi])HilbertInverse[AB]//Re
+],
+{First::first,Thread::tdlen}];
+
+
+
+TTransform[SingFun[if_IFun,{1/2,1/2}],z_]:=Stieljes[SingFun[IncreaseDimension[if] Fun[#&,if//Domain,Length[if]+1],{1/2,1/2}],z];
+
+TTransformInverseFunction[SingFun[if_IFun,{1/2,1/2}],z_]:=StieljesInverseFunction[SingFun[IncreaseDimension[if] Fun[#&,if//Domain,Length[if]+1],{1/2,1/2}],z];
+TTransformInverseFunctionD[SingFun[if_IFun,{1/2,1/2}],z_]:=StieljesInverseFunctionD[SingFun[IncreaseDimension[if] Fun[#&,if//Domain,Length[if]+1],{1/2,1/2}],z];
+TTransformInverseFunctionD[j_][SingFun[if_IFun,{1/2,1/2}],z_]:=StieljesInverseFunctionD[j][SingFun[IncreaseDimension[if] Fun[#&,if//Domain,Length[if]+1],{1/2,1/2}],z];
+
+FreeTimes[sfA_,sfB_,m_:50,n_:30]:=Quiet[
+Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},
+GAB[y_]:=TTransformInverseFunction[sfA,y]TTransformInverseFunction[sfB,y] y/(1+y);
+GABD[y_]:=TTransformInverseFunctionD[sfA,y]TTransformInverseFunction[sfB,y] y/(1+y)+TTransformInverseFunction[sfA,y]TTransformInverseFunctionD[sfB,y] y/(1+y)+TTransformInverseFunction[sfA,y]TTransformInverseFunction[sfB,y] 1/(1+y)^2//Re;
+GABDD[y_]:=TTransformInverseFunctionD[2][sfA,y]TTransformInverseFunction[sfB,y] y/(1+y)+2TTransformInverseFunctionD[sfA,y]TTransformInverseFunctionD[sfB,y] y/(1+y)+TTransformInverseFunctionD[sfA,y]TTransformInverseFunction[sfB,y] 1/(1+y)^2+TTransformInverseFunction[sfA,y]TTransformInverseFunctionD[2][sfB,y] y/(1+y)+TTransformInverseFunction[sfA,y]TTransformInverseFunctionD[sfB,y] 1/(1+y)^2+TTransformInverseFunctionD[sfA,y]TTransformInverseFunction[sfB,y] 1/(1+y)^2+TTransformInverseFunction[sfA,y]TTransformInverseFunctionD[sfB,y] 1/(1+y)^2+
+TTransformInverseFunction[sfA,y]TTransformInverseFunction[sfB,y](-(2/(1+y)^3))//Re;
+{xia,xib}={NewtonMethod[GABD,GABDD,-.1],NewtonMethod[GABD,GABDD,.1]};
+{a,b}=GAB/@{xia,xib}//Re;
+Apts=SlitPlanePoints[sfA,n];
+Bpts=SlitPlanePoints[sfB,n];
+
+
+(sIptsA=TTransform[sfA,Apts]);(sIptsB=TTransform[sfB,Bpts]);(sIpts=Union[sIptsA,sIptsB]);
+
+
+{sgpts,gpts}=(((ret=GAB[#];
+If[Sign[Im[#]]==Sign[Im[ret]]||!NumberQ[ret]||NZeroQ[Im[#]]&&Re[#]>xib||NZeroQ[Im[#]]&&Re[#]<xia,Null,{#,ret}])&/@sIpts)/.Null->Sequence[])//Transpose;
+AB=SingFun[IFun[LeastSquares[BoundedCauchyInverseMatrix[{a,b},m,gpts],sgpts]//InverseDCT,Line[{a,b}]],{0,0}];
+
+SingFun[(-1/(2 \[Pi])HilbertInverse[AB]//Re)[[1]] //# Fun[1/#&,#//Domain,#//Length]&,{1/2,1/2}]
 ],
 {First::first,Thread::tdlen}];
 
