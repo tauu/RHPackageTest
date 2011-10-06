@@ -200,6 +200,11 @@ MapFromCircle[Line[{-\[Infinity] I,\[Infinity] I},Stretch->L_,Centre->a_],z_]:=a
 MapToCircle[Line[{-\[Infinity] I,\[Infinity] I},Stretch->L_,Centre->a_],_?InfinityQ]:=-1.;
 MapToCircle[Line[{-\[Infinity] I,\[Infinity] I},Stretch->L_,Centre->a_],t_]:=( I+I L (t-a))/( I- I L (t-a));
 
+MapFromCircle[Line[{\[Infinity] I,-\[Infinity] I},Stretch->L_,Centre->a_],_?(#~NEqual~-1.&)]:=\[Infinity];
+MapFromCircle[Line[{\[Infinity] I,-\[Infinity] I},Stretch->L_,Centre->a_],z_]:=a-I (I (-1+1/z))/(L (1+1/z));
+MapToCircle[Line[{\[Infinity] I,-\[Infinity] I},Stretch->L_,Centre->a_],_?InfinityQ]:=-1.;
+MapToCircle[Line[{\[Infinity] I,-\[Infinity] I},Stretch->L_,Centre->a_],t_]:= (I- I L (t-a))/(I+I L (t-a));
+
 
 PeriodicInterval=Line[{-\[Pi],\[Pi]}];
 MapFromCircle[PeriodicInterval,z_]:=CircleToPeriodicInterval[z];

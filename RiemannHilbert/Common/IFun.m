@@ -112,6 +112,9 @@ EvaluateMatrix::usage="Matrix for evaluating at a point";
 
 BoundedIntegrate::usage="BoundedIntegrate[lf] integrates an LFun with its -1 coefficient removed";
 
+AdaptiveTimes;
+AdaptivePlus;
+
 
 
 ToChebyshevUSeries;
@@ -882,6 +885,12 @@ FiniteLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=LegendreTransformMatr
 
 FiniteInverseLegendreTransformMatrix[if_?LeftEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[2;;,All]];
 FiniteInverseLegendreTransformMatrix[if_?RightEndpointInfinityQ]:=Inverse[LegendreTransformMatrix[if]][[;;-2,All]];
+
+
+AdaptiveTimes[f_IFun,g_IFun]:=
+ChopDrop[SetLength[f,Length[f]+Length[g]] SetLength[g,Length[f]+Length[g]] ,$MachineTolerance];
+AdaptivePlus[f_IFun,g_IFun]:=
+ChopDrop[SetLength[f,Max[Length[f],Length[g]]]+ SetLength[g,Max[Length[f],Length[g]]] ,$MachineTolerance];
 
 
 End[];

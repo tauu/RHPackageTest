@@ -1,0 +1,184 @@
+Notebook[{
+Cell["\<\
+\[Copyright] Sheehan Olver, 2010, subject to BSD license.
+
+Other contributors include Georg Wechslberger.
+
+FredholmDet is based on code by Folkmar Bornemann.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell["Setup", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<RiemannHilbert`RandomMatrices`\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<RiemannHilbert`\>\"", ",", "\"\<RiemannHilbert`Common`\>\""}], 
+     "}"}]}], "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Documentation", "Section"],
+
+Cell[BoxData[{
+ RowBox[{"RandomSymmetric", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"RandomOrthogonal", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"HistogramPlot", ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Definitions", "Section"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"RandomSymmetric", "[", 
+      RowBox[{"n_", ",", 
+       RowBox[{"dist_:", 
+        RowBox[{"NormalDistribution", "[", 
+         RowBox[{"0", ",", 
+          RowBox[{"1", "/", 
+           RowBox[{"Sqrt", "[", "2", "]"}]}]}], "]"}]}]}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"RandomVariate", "[", 
+       RowBox[{"dist", ",", 
+        RowBox[{"{", 
+         RowBox[{"n", ",", "n"}], "}"}]}], "]"}], "//", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"#", "+", 
+          RowBox[{"Transpose", "[", "#", "]"}]}], ")"}], "/", 
+        RowBox[{"Sqrt", "[", 
+         RowBox[{"2", " ", "n"}], "]"}]}], "&"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RandomOrthogonal", "[", 
+      RowBox[{"n_", ",", 
+       RowBox[{"dist_:", 
+        RowBox[{"NormalDistribution", "[", 
+         RowBox[{"0", ",", 
+          RowBox[{"1", "/", 
+           RowBox[{"Sqrt", "[", "2", "]"}]}]}], "]"}]}]}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"RandomVariate", "[", 
+        RowBox[{"dist", ",", 
+         RowBox[{"{", 
+          RowBox[{"n", ",", "n"}], "}"}]}], "]"}], "//", "QRDecomposition"}], 
+      "//", "First"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"HistogramPlot", "[", 
+      RowBox[{"M_", ",", "dst_LFun", ",", 
+       RowBox[{"opts", ":", 
+        RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "Evs", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Evs", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"M", "[", "]"}], "//", "Eigenvalues"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"k", ",", "100"}], "}"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Histogram", "[", 
+           RowBox[{
+            RowBox[{"Evs", "//", "Flatten"}], ",", "60", ",", "\"\<PDF\>\""}],
+            "]"}], ",", 
+          RowBox[{"Plot", "[", 
+           RowBox[{
+            RowBox[{"dst", "[", "x", "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", 
+              RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{"DarkRed", ",", "Thick"}], "}"}]}]}], "]"}], ",", 
+          "opts"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"HistogramPlot", "[", 
+      RowBox[{"M_", ",", "dst_", ",", 
+       RowBox[{"opts", ":", 
+        RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "Evs", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Evs", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"M", "[", "]"}], "//", "Eigenvalues"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"k", ",", "100"}], "}"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Histogram", "[", 
+           RowBox[{
+            RowBox[{"Evs", "//", "Flatten"}], ",", "60", ",", "\"\<PDF\>\""}],
+            "]"}], ",", 
+          RowBox[{"Plot", "[", 
+           RowBox[{
+            RowBox[{"dst", "[", "x", "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", 
+              RowBox[{
+               RowBox[{"dst", "//", "Domain"}], "//", "LeftEndpoint"}], ",", 
+              RowBox[{
+               RowBox[{"dst", "//", "Domain"}], "//", "RightEndpoint"}]}], 
+             "}"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{"DarkRed", ",", "Thick"}], "}"}]}]}], "]"}], ",", 
+          "opts"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+    ";"}]}]}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Finish", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{839, 815},
+WindowMargins->{{-3, Automatic}, {-30, Automatic}},
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
+StyleDefinitions->"Default.nb"
+]
+

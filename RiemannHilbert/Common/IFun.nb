@@ -224,9 +224,12 @@ infinity\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]",
   "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"BoundedIntegrate", "::", "usage"}], "=", 
-   "\"\<BoundedIntegrate[lf] integrates an LFun with its -1 coefficient \
-removed\>\""}], ";"}], "\[IndentingNewLine]"}], "Input",
+   RowBox[{
+    RowBox[{"BoundedIntegrate", "::", "usage"}], "=", 
+    "\"\<BoundedIntegrate[lf] integrates an LFun with its -1 coefficient \
+removed\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"AdaptiveTimes", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"AdaptivePlus", ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -1257,7 +1260,8 @@ Cell[BoxData[{
         RowBox[{"{", 
          RowBox[{
           RowBox[{"a_", "?", "InfinityQ"}], ",", "b_"}], "}"}], ",", 
-        RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "x_"}], "]"}], ":=", 
+        RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "x_"}], "]"}], 
+    ":=", 
     RowBox[{"-", 
      RowBox[{"MapFromIntervalD", "[", 
       RowBox[{
@@ -2270,7 +2274,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2575,7 +2579,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2899,7 +2903,7 @@ Cell[BoxData[
            RowBox[{"l", "[", 
             RowBox[{"[", 
              RowBox[{"-", "1"}], "]"}], "]"}]}], "}"}], ",", "d"}], "]"}], 
-       ",", "opts"}], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+       ",", "opts"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"JumpScaleDomainPlot", "[", 
@@ -2955,7 +2959,7 @@ Cell[BoxData[
   RowBox[{"End", "[", "]"}], ";"}]], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3373,7 +3377,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -3632,7 +3636,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4012,8 +4016,8 @@ Cell[BoxData[
      RowBox[{"ReduceDimensionMatrix", "[", 
       RowBox[{
        RowBox[{"f", "//", "Domain"}], ",", 
-       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\n", 
-   "\[IndentingNewLine]", 
+       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\[IndentingNewLine]",
+    "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"ReduceDimensionIntegrateMatrix", "[", 
@@ -4064,7 +4068,7 @@ Cell[BoxData[
  InitializationCell->True],
 
 Cell[BoxData[""], "Input"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4999,7 +5003,7 @@ Cell[BoxData[{
            RowBox[{"I", " ", "t2"}], "]"}]}]}], "}"}], "//", "Flatten"}], "//",
        "Abs"}], "//", "Max"}], "]"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5422,6 +5426,52 @@ Cell[BoxData[{
   ";"}]}], "Input",
  InitializationCell->True]
 }, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Adaptive Routines", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"AdaptiveTimes", "[", 
+    RowBox[{"f_IFun", ",", "g_IFun"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"ChopDrop", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"SetLength", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{
+         RowBox[{"Length", "[", "f", "]"}], "+", 
+         RowBox[{"Length", "[", "g", "]"}]}]}], "]"}], " ", 
+      RowBox[{"SetLength", "[", 
+       RowBox[{"g", ",", 
+        RowBox[{
+         RowBox[{"Length", "[", "f", "]"}], "+", 
+         RowBox[{"Length", "[", "g", "]"}]}]}], "]"}]}], " ", ",", 
+     "$MachineTolerance"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"AdaptivePlus", "[", 
+    RowBox[{"f_IFun", ",", "g_IFun"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"ChopDrop", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"SetLength", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{"Max", "[", 
+         RowBox[{
+          RowBox[{"Length", "[", "f", "]"}], ",", 
+          RowBox[{"Length", "[", "g", "]"}]}], "]"}]}], "]"}], "+", " ", 
+      RowBox[{"SetLength", "[", 
+       RowBox[{"g", ",", 
+        RowBox[{"Max", "[", 
+         RowBox[{
+          RowBox[{"Length", "[", "f", "]"}], ",", 
+          RowBox[{"Length", "[", "g", "]"}]}], "]"}]}], "]"}]}], " ", ",", 
+     "$MachineTolerance"}], "]"}]}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
 
 Cell[CellGroupData[{
 

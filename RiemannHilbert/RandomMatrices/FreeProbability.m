@@ -108,9 +108,9 @@ SingFun[(-1/(2 \[Pi])HilbertInverse[AB]//Re)[[1]] //# Fun[1/#&,#//Domain,#//Leng
 
 FreeCompress[sfA_SingFun,\[Alpha]_,m_:50,n_:30]:=Quiet[
 Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},
-GAB[y_]:=StieljesInverseFunction[sfA,\[Alpha] y]/\[Alpha]+(1-1/(\[Alpha]^2) )/y;
-GABD[y_]:=StieljesInverseFunctionD[sfA,\[Alpha] y]-(1-1/(\[Alpha]^2) )/y^2//Re;
-GABDD[y_]:=\[Alpha] StieljesInverseFunctionD[2][sfA,\[Alpha] y]+2 (1-1/(\[Alpha]^2) )/y^3//Re;
+GAB[y_]:=StieljesInverseFunction[sfA,\[Alpha] y]+(1-1/\[Alpha] )/y;
+GABD[y_]:=\[Alpha] StieljesInverseFunctionD[sfA,\[Alpha] y]-(1-1/\[Alpha] )/y^2//Re;
+GABDD[y_]:=\[Alpha]^2 StieljesInverseFunctionD[2][sfA,\[Alpha] y]+2 (1-1/\[Alpha] )/y^3//Re;
 {xia,xib}={NewtonMethod[GABD,GABDD,-.1],NewtonMethod[GABD,GABDD,.1]};
 {a,b}=GAB/@{xia,xib}//Re;
 Apts=SlitPlanePoints[sfA,n];
@@ -128,7 +128,7 @@ AB=SingFun[IFun[LeastSquares[Table[BoundedCauchyInverseBasis[Line[{a,b}],k,gpts]
 
 FreeCompress[sfA_LFun,\[Alpha]_,rng_:{-80,80},n_:10]:=Quiet[
 Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},
-GAB[y_]:=StieljesInverseFunction[sfA,\[Alpha] y]/\[Alpha]+(1-1/(\[Alpha]^2) )/y;
+GAB[y_]:=StieljesInverseFunction[sfA,\[Alpha] y]+(1-1/\[Alpha] )/y;
 
 Apts=SlitPlanePoints[sfA,n];
 

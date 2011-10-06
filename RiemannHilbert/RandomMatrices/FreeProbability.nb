@@ -817,37 +817,36 @@ Cell[BoxData[{
          RowBox[{
           RowBox[{"GAB", "[", "y_", "]"}], ":=", 
           RowBox[{
-           FractionBox[
-            RowBox[{"StieljesInverseFunction", "[", 
-             RowBox[{"sfA", ",", 
-              RowBox[{"\[Alpha]", " ", "y"}]}], "]"}], "\[Alpha]"], "+", 
+           RowBox[{"StieljesInverseFunction", "[", 
+            RowBox[{"sfA", ",", 
+             RowBox[{"\[Alpha]", " ", "y"}]}], "]"}], "+", 
            FractionBox[
             RowBox[{"(", 
              RowBox[{"1", "-", 
               FractionBox["1", 
-               RowBox[{
-                SuperscriptBox["\[Alpha]", "2"], " "}]]}], ")"}], "y"]}]}], 
-         ";", "\[IndentingNewLine]", 
+               RowBox[{"\[Alpha]", " "}]]}], ")"}], "y"]}]}], ";", 
+         "\[IndentingNewLine]", 
          RowBox[{
           RowBox[{"GABD", "[", "y_", "]"}], ":=", 
           RowBox[{
            RowBox[{
-            RowBox[{"StieljesInverseFunctionD", "[", 
-             RowBox[{"sfA", ",", 
-              RowBox[{"\[Alpha]", " ", "y"}]}], "]"}], "-", 
+            RowBox[{"\[Alpha]", " ", 
+             RowBox[{"StieljesInverseFunctionD", "[", 
+              RowBox[{"sfA", ",", 
+               RowBox[{"\[Alpha]", " ", "y"}]}], "]"}]}], "-", 
             FractionBox[
              RowBox[{"(", 
               RowBox[{"1", "-", 
                FractionBox["1", 
-                RowBox[{
-                 SuperscriptBox["\[Alpha]", "2"], " "}]]}], ")"}], 
+                RowBox[{"\[Alpha]", " "}]]}], ")"}], 
              SuperscriptBox["y", "2"]]}], "//", "Re"}]}], ";", 
          "\[IndentingNewLine]", 
          RowBox[{
           RowBox[{"GABDD", "[", "y_", "]"}], ":=", 
           RowBox[{
            RowBox[{
-            RowBox[{"\[Alpha]", " ", 
+            RowBox[{
+             SuperscriptBox["\[Alpha]", "2"], " ", 
              RowBox[{
               RowBox[{"StieljesInverseFunctionD", "[", "2", "]"}], "[", 
               RowBox[{"sfA", ",", 
@@ -857,8 +856,7 @@ Cell[BoxData[{
               RowBox[{"(", 
                RowBox[{"1", "-", 
                 FractionBox["1", 
-                 RowBox[{
-                  SuperscriptBox["\[Alpha]", "2"], " "}]]}], ")"}], 
+                 RowBox[{"\[Alpha]", " "}]]}], ")"}], 
               SuperscriptBox["y", "3"]]}]}], "//", "Re"}]}], ";", 
          "\[IndentingNewLine]", 
          RowBox[{
@@ -972,7 +970,7 @@ Cell[BoxData[{
          RowBox[{"Thread", "::", "tdlen"}]}], "MessageName"], "}"}]}], 
      StyleBox["]", "MessageName"]}]}], 
    StyleBox[";", "MessageName"]}], 
-  StyleBox["\[IndentingNewLine]", "MessageName"]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"FreeCompress", "[", 
@@ -996,17 +994,15 @@ Cell[BoxData[{
         RowBox[{
          RowBox[{"GAB", "[", "y_", "]"}], ":=", 
          RowBox[{
-          FractionBox[
-           RowBox[{"StieljesInverseFunction", "[", 
-            RowBox[{"sfA", ",", 
-             RowBox[{"\[Alpha]", " ", "y"}]}], "]"}], "\[Alpha]"], "+", 
+          RowBox[{"StieljesInverseFunction", "[", 
+           RowBox[{"sfA", ",", 
+            RowBox[{"\[Alpha]", " ", "y"}]}], "]"}], "+", 
           FractionBox[
            RowBox[{"(", 
             RowBox[{"1", "-", 
              FractionBox["1", 
-              RowBox[{
-               SuperscriptBox["\[Alpha]", "2"], " "}]]}], ")"}], "y"]}]}], 
-        ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{"\[Alpha]", " "}]]}], ")"}], "y"]}]}], ";", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
         RowBox[{"Apts", "=", 
          RowBox[{"SlitPlanePoints", "[", 
           RowBox[{"sfA", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
@@ -1090,7 +1086,7 @@ Cell[BoxData[{
     StyleBox["]", "MessageName"]}]}], 
   StyleBox[";", "MessageName"]}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
