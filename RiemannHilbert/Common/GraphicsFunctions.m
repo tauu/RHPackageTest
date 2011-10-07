@@ -65,6 +65,10 @@ ReImComplexContourPlot;
 CirclePlot;
 LogPlot3D;
 ComplexLogPlot3D;
+
+PseudospectraPlot;
+
+
 Begin["Private`"];
 Options[ComplexPlot]=Options[ParametricPlot];
 ComplexPlot[hlis_,b_List,opts:OptionsPattern[]]:=Module[{h,hlist},
@@ -232,9 +236,9 @@ Graphics[Map[Point[{Re[#],Im[#]}]&,Eigenvalues[A]]
 ]
 
 
-DotPlot[pts_,opts___]:=ListPlot[Map[{#,0}&,pts],Axes->False,opts];
-ComplexDotPlot[pts_,opts___]:=ListPlot[Map[{Re[#],Im[#]}&,pts],PlotStyle->{PointSize[Large]},opts];
-ComplexLinePlot[pts_,opts___]:=ListLinePlot[Map[{Re[#],Im[#]}&,pts],opts];
+DotPlot[pts_,opts:OptionsPattern[ListPlot]]:=ListPlot[Map[{#,0}&,pts],Axes->False,opts];
+ComplexDotPlot[pts_,opts:OptionsPattern[ListPlot]]:=ListPlot[Map[{Re[#],Im[#]}&,pts],PlotStyle->Join[If[OptionValue[PlotStyle]===Automatic,{},{OptionValue[PlotStyle]}//Flatten],{PointSize[Large]}],opts];
+ComplexLinePlot[pts_,opts:OptionsPattern[ListLinePlot]]:=ListLinePlot[Map[{Re[#],Im[#]}&,pts],opts];
 
 
 Options[MoviePlot]={Plotter->Plot,Frames->15};
@@ -286,6 +290,9 @@ RowBox[{"FontSize", "->", "size"}]}], "]"}],
 TraditionalForm],
 TraditionalForm,
 Editable->True]\);
+
+
+PseudospectraPlot[M_,zmin_:(-1.-1.I),zmax_:(1.+1. I),h_:.1]:=Flatten[Table[{x,y,M-(x+I y) IdentityMatrix[M//Length]//SVD//Second//Diagonal//Min},{x,zmin//Re,zmax//Re,h},{y,zmin//Im,zmax//Im,h}],1]//ListContourPlot
 
 
 End[];
