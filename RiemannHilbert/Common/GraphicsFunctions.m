@@ -67,7 +67,7 @@ LogPlot3D;
 ComplexLogPlot3D;
 
 PseudospectraPlot;
-
+SVDPlot;
 
 Begin["Private`"];
 Options[ComplexPlot]=Options[ParametricPlot];
@@ -292,7 +292,8 @@ TraditionalForm,
 Editable->True]\);
 
 
-PseudospectraPlot[M_,zmin_:(-1.-1.I),zmax_:(1.+1. I),h_:.1]:=Flatten[Table[{x,y,M-(x+I y) IdentityMatrix[M//Length]//SVD//Second//Diagonal//Min},{x,zmin//Re,zmax//Re,h},{y,zmin//Im,zmax//Im,h}],1]//ListContourPlot
+PseudospectraPlot[M_,zmin_:(-1.-1.I),zmax_:(1.+1. I),h_:.1]:=Flatten[Table[{x,y,M-(x+I y) IdentityMatrix[M//Length]//SingularValueDecomposition//#[[2]]&//Diagonal//Min},{x,zmin//Re,zmax//Re,h},{y,zmin//Im,zmax//Im,h}],1]//ListContourPlot;
+SVDPlot[m_,opts___]:=ComplexDotPlot[m//SVD//Second//Diagonal,opts];
 
 
 End[];
