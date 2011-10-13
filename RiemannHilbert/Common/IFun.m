@@ -845,7 +845,7 @@ RightContourArg[#1]]<If[LeftEndpoint[#2]//InfinityQ,
 LeftContourArg[#2],
 RightContourArg[#2]]&];
 Endpoints[GG_IFun]:={GG//LeftEndpoint//N//Chop,GG//RightEndpoint//N//Chop}/._?InfinityQ->\[Infinity];
-Endpoints[GG_List]:=Union@@({LeftEndpoint/@GG//N//Chop,RightEndpoint/@GG//N//Chop}/._?InfinityQ->\[Infinity]);
+Endpoints[GG_List]:=Union[Endpoints/@GG//Flatten,SameTest->NEqual];
 FiniteEndpoints[GG_]:=Select[Endpoints[GG],!InfinityQ[#]&];
 
 

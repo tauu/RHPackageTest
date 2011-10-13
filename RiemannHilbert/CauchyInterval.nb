@@ -53,7 +53,7 @@ to zero)\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]",
 the same domain and number of points as flist, then C[glist] = \
 Cauchy[s,glist]\>\""}], ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1224,60 +1224,33 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{
-    RowBox[{"CauchyBasisD", "[", 
-     RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", 
-      RowBox[{"f_", "?", "LeftEndpointInfinityQ"}], ",", "k_", ",", "z_"}], 
-     "]"}], ":=", 
-    RowBox[{
-     RowBox[{"MapToIntervalD", "[", 
-      RowBox[{"f", ",", "z"}], "]"}], " ", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"CauchyBasisD", "[", 
-        RowBox[{"s", ",", "UnitInterval", ",", "k", ",", 
-         RowBox[{"MapToInterval", "[", 
-          RowBox[{"f", ",", "z"}], "]"}]}], "]"}], "+", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"(", 
-          RowBox[{"-", "1"}], ")"}], "^", 
-         RowBox[{"(", "k", ")"}]}], 
-        RowBox[{"CauchyBasisD", "[", 
-         RowBox[{"s", ",", "UnitInterval", ",", "1", ",", 
-          RowBox[{"MapToInterval", "[", 
-           RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], ")"}]}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyBasisD", "[", 
-    RowBox[{
-     RowBox[{"f_", "?", "DomainQ"}], ",", "k_", ",", "z_"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"MapToIntervalD", "[", 
-     RowBox[{"f", ",", "z"}], "]"}], " ", 
-    RowBox[{"CauchyBasisD", "[", 
-     RowBox[{"UnitInterval", ",", "k", ",", 
-      RowBox[{"MapToInterval", "[", 
-       RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
    RowBox[{"CauchyBasisD", "[", 
     RowBox[{
      RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"f_", "?", "DomainQ"}], ",", "k_", ",", "z_"}], "]"}], ":=", 
+     RowBox[{"f_", "?", "LeftEndpointInfinityQ"}], ",", "k_", ",", "z_"}], 
+    "]"}], ":=", 
    RowBox[{
     RowBox[{"MapToIntervalD", "[", 
      RowBox[{"f", ",", "z"}], "]"}], " ", 
-    RowBox[{"CauchyBasisD", "[", 
-     RowBox[{"s", ",", "UnitInterval", ",", "k", ",", 
-      RowBox[{"MapToInterval", "[", 
-       RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], ";"}]}], "Input",
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"CauchyBasisD", "[", 
+       RowBox[{"s", ",", "UnitInterval", ",", "k", ",", 
+        RowBox[{"MapToInterval", "[", 
+         RowBox[{"f", ",", "z"}], "]"}]}], "]"}], "+", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"-", "1"}], ")"}], "^", 
+        RowBox[{"(", "k", ")"}]}], 
+       RowBox[{"CauchyBasisD", "[", 
+        RowBox[{"s", ",", "UnitInterval", ",", "1", ",", 
+         RowBox[{"MapToInterval", "[", 
+          RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], ")"}]}]}], 
+  ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]]
-}, Closed]],
+}, Open  ]]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1985,8 +1958,8 @@ Cell[BoxData[
                     RowBox[{"1", "/", "j"}], ",", 
                     RowBox[{"{", 
                     RowBox[{"j", ",", "1.", ",", 
-                    RowBox[{"k", "-", "1"}], ",", "2"}], "}"}]}], "]"}], 
-                    "]"}], ",", "0"}], "]"}]}], "//", 
+                    RowBox[{"k", "-", "1"}], ",", "2"}], "}"}]}], "]"}], "]"}]
+                    , ",", "0"}], "]"}]}], "//", 
                     RowBox[{"(", 
                     RowBox[{
                     RowBox[{"If", "[", 
@@ -5415,9 +5388,37 @@ Cell[BoxData[{
        RowBox[{"1", ";;", "k"}], ",", 
        RowBox[{"MapToInterval", "[", 
         RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CauchyBasisD", "[", 
+    RowBox[{
+     RowBox[{"f_", "?", "DomainQ"}], ",", "k_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"MapToIntervalD", "[", 
+     RowBox[{"f", ",", "z"}], "]"}], " ", 
+    RowBox[{"CauchyBasisD", "[", 
+     RowBox[{"UnitInterval", ",", "k", ",", 
+      RowBox[{"MapToInterval", "[", 
+       RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CauchyBasisD", "[", 
+     RowBox[{
+      RowBox[{"s_", "?", "SignQ"}], ",", 
+      RowBox[{"f_", "?", "DomainQ"}], ",", "k_", ",", "z_"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"MapToIntervalD", "[", 
+      RowBox[{"f", ",", "z"}], "]"}], " ", 
+     RowBox[{"CauchyBasisD", "[", 
+      RowBox[{"s", ",", "UnitInterval", ",", "k", ",", 
+       RowBox[{"MapToInterval", "[", 
+        RowBox[{"f", ",", "z"}], "]"}]}], "]"}]}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6050,7 +6051,7 @@ Cell[BoxData[{
           "\[IndentingNewLine]", ",", "1"}], "]"}]}], "\[IndentingNewLine]", 
        "]"}], "/@", "f"}], ")"}]}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6092,12 +6093,12 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{839, 815},
-WindowMargins->{{Automatic, -1777}, {4, Automatic}},
+WindowMargins->{{Automatic, -1058}, {20, Automatic}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
-2010)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
 

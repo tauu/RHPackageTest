@@ -2903,7 +2903,7 @@ Cell[BoxData[
            RowBox[{"l", "[", 
             RowBox[{"[", 
              RowBox[{"-", "1"}], "]"}], "]"}]}], "}"}], ",", "d"}], "]"}], 
-       ",", "opts"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+       ",", "opts"}], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"JumpScaleDomainPlot", "[", 
@@ -3377,7 +3377,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -4016,8 +4016,8 @@ Cell[BoxData[
      RowBox[{"ReduceDimensionMatrix", "[", 
       RowBox[{
        RowBox[{"f", "//", "Domain"}], ",", 
-       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\[IndentingNewLine]",
-    "\n", 
+       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{
      RowBox[{"ReduceDimensionIntegrateMatrix", "[", 
@@ -4217,7 +4217,7 @@ Cell[BoxData[{
          "]"}], "&"}]}], "//", "Sort"}], "//", "First"}], "//", "Second"}]}], 
   ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5103,22 +5103,12 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"Endpoints", "[", "GG_List", "]"}], ":=", 
-   RowBox[{"Union", "@@", 
-    RowBox[{"(", 
+   RowBox[{"Union", "[", 
+    RowBox[{
      RowBox[{
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{
-         RowBox[{
-          RowBox[{"LeftEndpoint", "/@", "GG"}], "//", "N"}], "//", "Chop"}], 
-        ",", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"RightEndpoint", "/@", "GG"}], "//", "N"}], "//", 
-         "Chop"}]}], "}"}], "/.", 
-      RowBox[{
-       RowBox[{"_", "?", "InfinityQ"}], "\[Rule]", "\[Infinity]"}]}], 
-     ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+      RowBox[{"Endpoints", "/@", "GG"}], "//", "Flatten"}], ",", 
+     RowBox[{"SameTest", "\[Rule]", "NEqual"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"FiniteEndpoints", "[", "GG_", "]"}], ":=", 
@@ -5130,7 +5120,7 @@ Cell[BoxData[{
        RowBox[{"InfinityQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], 
   ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 

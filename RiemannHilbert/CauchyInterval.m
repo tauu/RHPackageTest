@@ -148,9 +148,6 @@ CauchyBasisD[f_?LeftEndpointInfinityQ,k_,z_]:=MapToIntervalD[f,z](CauchyBasisD[U
 
 CauchyBasisD[s_?SignQ,f_?LeftEndpointInfinityQ,k_,z_]:=MapToIntervalD[f,z] (CauchyBasisD[s,UnitInterval,k,MapToInterval[f,z]]+(-1)^(k)CauchyBasisD[s,UnitInterval,1,MapToInterval[f,z]]);
 
-CauchyBasisD[f_?DomainQ,k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[UnitInterval,k,MapToInterval[f,z]];
-CauchyBasisD[s_?SignQ,f_?DomainQ,k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[s,UnitInterval,k,MapToInterval[f,z]];
-
 
 
 LeftSingularityDataBasis[f_IFun,k_]:=LeftSingularityDataBasis[f//Domain,k];
@@ -549,6 +546,10 @@ CauchyBasisD[s_?SignQ,f_?IntervalDomainQ,1;;k_,z_List]:=MapToIntervalD[f,z] #&/@
 
 CauchyBasisD[s_?SignQ,f_?RightEndpointInfinityQ,1;;k_,z_List]:=MapToIntervalD[f,z]#&/@CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
 CauchyBasisD[s_?SignQ,f_?LeftEndpointInfinityQ,1;;k_,z_List]:=MapToIntervalD[f,z]#&/@CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
+
+
+CauchyBasisD[f_?DomainQ,k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[UnitInterval,k,MapToInterval[f,z]];
+CauchyBasisD[s_?SignQ,f_?DomainQ,k_,z_]:=MapToIntervalD[f,z] CauchyBasisD[s,UnitInterval,k,MapToInterval[f,z]];
 
 
 
