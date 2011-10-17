@@ -580,6 +580,8 @@ Cauchy[s_?SignQ,f_IFun,xv_List]:=Plus@@(Map[Function[x,x #[[2]]],#[[1]]]&/@Threa
 
 
 Cauchy[f_List,x_]:=Plus@@(Cauchy[#,x]&/@f);
+CauchyD[f_List,x_]:=Plus@@(CauchyD[#,x]&/@f);
+CauchyD[k_][f_List,x_]:=Plus@@(CauchyD[k][#,x]&/@f);
 
 
 Cauchy[s_?SignQ,f_List,x_]:=

@@ -28,14 +28,19 @@ FreeCompress;
 
 
 Begin["Private`"];
+
+
+
 DiskPoints[n_]:=Table[Points[Circle[0,r],n],{r,1/(n-1),1.,1/(n-1)}]//Flatten;
+SlitPlanePoints[pf_PFun,n_]:=Domain[pf][[1]]+Join[DiskPoints[n],1/DiskPoints[n]];
+SlitPlanePoints[lf_List,n_]:=(SlitPlanePoints[#,n/Length[lf]//Ceiling]&/@lf)//Flatten//Union;
 SlitPlanePoints[lf_LFun,n_]:=Select[MapFromCircle[lf,Join[DiskPoints[n],1/DiskPoints[n]]],FiniteQ];
 SlitPlanePoints[if_IFun,n_]:=MapFromInterval[if,Table[Points[Circle[0,r],n],{r,1/(n-1),1.,1/(n-1)}]//Flatten//CircleToInterval];
 SlitPlanePoints[sf_SingFun,n_]:=SlitPlanePoints[sf//First,n];
 
 BoundedCauchyInverseMatrix[{a_,b_},m_,gpts_]:=Table[BoundedCauchyInverseBasis[Line[{a,b}],k,gpts],{k,m}]//Transpose;
 
-FreePlus[sfA_,sfB_,rng_:{-80,80},n_:10]/;Head[sfA]==LFun||Head[sfB]==LFun:=Quiet[
+FreePlus[sfA_,sfB_,rng_:{-80,80},n_:10]/;Domain[sfA]==RealLine||Domain[sfA]==RealLine:=Quiet[
 Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},
 GAB[y_]:=StieljesInverseFunction[sfA,y]+StieljesInverseFunction[sfB,y]-1/y;
 Apts=SlitPlanePoints[sfA,n];
@@ -51,7 +56,7 @@ If[Sign[Im[#]]==Sign[Im[ret]]||!NumberQ[ret],Null,{#,ret}])&/@sIpts)/.Null->Sequ
 AB=LFun[ShiftList[ LeastSquares[CauchyInverseBasis[RealLine,Span@@rng,#]&/@gpts,sgpts],rng[[2]]+1],RealLine];
 -1/(2 \[Pi])HilbertInverse[AB]//Re
 ],
-{First::first,Thread::tdlen}]
+{First::first,Thread::tdlen}];
 
 FreePlus[sfA_,sfB_,m_:50,n_:30]:=Quiet[
 Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},

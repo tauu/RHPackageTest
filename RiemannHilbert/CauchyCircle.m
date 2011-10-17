@@ -41,9 +41,17 @@ Stieljes;
 CauchyInverseInverseFunction;
 CauchyInverseFunction;
 StieljesInverseFunction;
+CauchyD;
+CauchyInverseD;
+StieljesD;
+
+BoundedCauchyInverseD;
 
 
 Begin["`Private`"];
+
+
+
 Cauchy[lf_LFun,z_List]:=Cauchy[lf,#]&/@z;
 Cauchy[s_?SignQ,lf_LFun,z_List]:=Cauchy[s,lf,#]&/@z;
 
@@ -67,6 +75,8 @@ Cauchy[lf_LFun,z_?ScalarQ]:=Cauchy[lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf
 Cauchy[s_?SignQ,lf_LFun,z_?ScalarQ]:=Cauchy[s,lf//ToUnitCircle,MapToCircle[lf,z]]-Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]];
 Hilbert[lf_LFun,z_?ScalarQ]:=I (Cauchy[+1,lf,z]+Cauchy[-1,lf,z]);
 Stieljes[f_,z_]:=-2 \[Pi] I Cauchy[f,z];
+StieljesD[f_,z_]:=-2 \[Pi] I CauchyD[f,z];
+StieljesD[k_][f_,z_]:=-2 \[Pi] I CauchyD[k][f,z];
 
 
 CauchyInverse[+1,lf_LFun,z_]:=Cauchy[+1,lf,z];
@@ -205,6 +215,21 @@ MapFromCircle[lf,CauchyInverseInverseFunction[s,lf//ToUnitCircle,z+s Cauchy[lf//
 
 CauchyInverseFunction[sf_LFun,z_]:=CauchyInverseInverseFunction[-I (sf//Hilbert),z];
 StieljesInverseFunction[sf_LFun,z_]:=CauchyInverseFunction[sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)];
+
+
+Begin["`Private`"];
+
+
+
+CauchyD[lf_LFun,z_List]:=CauchyD[lf,#]&/@z;
+CauchyD[s_?SignQ,lf_LFun,z_List]:=CauchyD[s,lf,#]&/@z;
+
+
+CauchyD[lf_LFun,z_]:=Cauchy[lf',z];
+CauchyInverseD[lf_LFun,z_]:=CauchyInverse[lf',z];
+CauchyInverseD[2][lf_LFun,z_]:=CauchyInverse[lf'',z];
+BoundedCauchyInverseD[lf_LFun,z_]:=CauchyInverseD[lf,z];
+BoundedCauchyInverseD[k_][lf_LFun,z_]:=CauchyInverseD[k][lf,z];
 
 
 End[];

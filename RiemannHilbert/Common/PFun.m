@@ -32,6 +32,7 @@ UnitPoint;
 UnitPointFunQ;
 MapToPoint;
 MapFromPoint;
+MapToPointD;
 Begin["Private`"];
 
 PointDomainQ[_Point]:=True;

@@ -11,12 +11,14 @@ Cell[CellGroupData[{
 
 Cell["Setup", "Section"],
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"CauchyD", ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"BeginPackage", "[", 
    RowBox[{"\"\<RiemannHilbert`\>\"", ",", 
     RowBox[{"{", "\"\<RiemannHilbert`Common`\>\"", "}"}]}], "]"}], 
-  ";"}]], "Input",
+  ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -28,137 +30,167 @@ Cell[CellGroupData[{
 
 Cell["At Value", "Subsection"],
 
-Cell[BoxData[{
+Cell[BoxData[
  RowBox[{
-  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
   RowBox[{
-   RowBox[{"Cauchy", "[", 
-    RowBox[{"lf_PFun", ",", "z_List"}], "]"}], ":=", 
    RowBox[{
     RowBox[{
      RowBox[{"Cauchy", "[", 
-      RowBox[{"lf", ",", "#"}], "]"}], "&"}], "/@", "z"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"Cauchy", "[", 
+      RowBox[{"lf_PFun", ",", "z_List"}], "]"}], ":=", 
      RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", "lf_PFun", ",", "z_List"}], "]"}], ":=", 
+      RowBox[{
+       RowBox[{"Cauchy", "[", 
+        RowBox[{"lf", ",", "#"}], "]"}], "&"}], "/@", "z"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
     RowBox[{
+     RowBox[{"Cauchy", "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", "lf_PFun", ",", "z_List"}], "]"}], ":=", 
      RowBox[{
-      RowBox[{"Cauchy", "[", 
-       RowBox[{"s", ",", "lf", ",", "#"}], "]"}], "&"}], "/@", "z"}]}], ";"}],
-   "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyS", "[", 
+      RowBox[{
+       RowBox[{"Cauchy", "[", 
+        RowBox[{"s", ",", "lf", ",", "#"}], "]"}], "&"}], "/@", "z"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
     RowBox[{
-     RowBox[{"+", "1"}], ",", "lf_PFun", ",", 
-     RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"1", "/", "2"}], " ", 
-    RowBox[{"First", "[", 
-     RowBox[{"lf", "//", "Values"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
-
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"CauchyS", "[", 
+     RowBox[{"CauchyS", "[", 
+      RowBox[{
+       RowBox[{"+", "1"}], ",", "lf_PFun", ",", 
+       RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
      RowBox[{
-      RowBox[{"-", "1"}], ",", "lf_PFun", ",", 
-      RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
+      RowBox[{"1", "/", "2"}], " ", 
+      RowBox[{"First", "[", 
+       RowBox[{"lf", "//", "Values"}], "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
     RowBox[{
+     RowBox[{"CauchyS", "[", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "lf_PFun", ",", 
+       RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
      RowBox[{
-      RowBox[{"-", "1"}], "/", "2"}], " ", 
-     RowBox[{"First", "[", 
-      RowBox[{"lf", "//", "Values"}], "]"}]}]}], ";"}], "\[IndentingNewLine]",
-   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
+      RowBox[{
+       RowBox[{"-", "1"}], "/", "2"}], " ", 
+      RowBox[{"First", "[", 
+       RowBox[{"lf", "//", "Values"}], "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"Cauchy", "[", 
-     RowBox[{
-      RowBox[{"pf_PFun", "?", "UnitPointFunQ"}], ",", "z_"}], "]"}], ":=", 
-    RowBox[{"-", 
+    RowBox[{
+     RowBox[{"Cauchy", "[", 
+      RowBox[{
+       RowBox[{"pf_PFun", "?", "UnitPointFunQ"}], ",", "z_"}], "]"}], ":=", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"First", "[", 
+        RowBox[{"pf", "//", "Values"}], "]"}], 
+       RowBox[{"2", " ", "\[Pi]", " ", "I", " ", "z", " "}]]}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Cauchy", "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"lf_PFun", "?", "UnitPointFunQ"}], ",", 
+       RowBox[{"z_", "?", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"DomainMemberQ", "[", 
+           RowBox[{"UnitPoint", ",", "#"}], "]"}], "&"}], ")"}]}]}], "]"}], ":=", 
+     RowBox[{"CauchyS", "[", 
+      RowBox[{"s", ",", "lf", ",", "z"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Cauchy", "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", 
+       RowBox[{"lf_PFun", "?", "UnitPointFunQ"}], ",", 
+       RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
+     RowBox[{"Cauchy", "[", 
+      RowBox[{"lf", ",", "z"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Cauchy", "[", 
+      RowBox[{"lf_PFun", ",", "z_"}], "]"}], ":=", 
+     RowBox[{"Cauchy", "[", 
+      RowBox[{
+       RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
+       RowBox[{"MapToPoint", "[", 
+        RowBox[{"lf", ",", "z"}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Cauchy", "[", 
+      RowBox[{
+       RowBox[{"s_", "?", "SignQ"}], ",", "lf_PFun", ",", 
+       RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
+     RowBox[{"Cauchy", "[", 
+      RowBox[{"s", ",", 
+       RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
+       RowBox[{"MapToPoint", "[", 
+        RowBox[{"lf", ",", "z"}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"CauchyD", "[", 
+      RowBox[{
+       RowBox[{"pf_PFun", "?", "UnitPointFunQ"}], ",", "z_"}], "]"}], ":=", 
      FractionBox[
       RowBox[{"First", "[", 
        RowBox[{"pf", "//", "Values"}], "]"}], 
-      RowBox[{"2", " ", "\[Pi]", " ", "I", " ", "z", " "}]]}]}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Cauchy", "[", 
+      RowBox[{"2", " ", "\[Pi]", " ", "I", " ", 
+       SuperscriptBox["z", "2"], " "}]]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
     RowBox[{
-     RowBox[{"s_", "?", "SignQ"}], ",", 
-     RowBox[{"lf_PFun", "?", "UnitPointFunQ"}], ",", 
-     RowBox[{"z_", "?", 
-      RowBox[{"(", 
+     RowBox[{"CauchyD", "[", 
+      RowBox[{"lf_PFun", ",", "z_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"CauchyD", "[", 
        RowBox[{
-        RowBox[{"DomainMemberQ", "[", 
-         RowBox[{"UnitPoint", ",", "#"}], "]"}], "&"}], ")"}]}]}], "]"}], ":=", 
-   RowBox[{"CauchyS", "[", 
-    RowBox[{"s", ",", "lf", ",", "z"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
+        RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
+        RowBox[{"MapToPoint", "[", 
+         RowBox[{"lf", ",", "z"}], "]"}]}], "]"}], 
+      RowBox[{"MapToPointD", "[", 
+       RowBox[{"lf", ",", "z"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"Cauchy", "[", 
-     RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", 
-      RowBox[{"lf_PFun", "?", "UnitPointFunQ"}], ",", 
-      RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
-    RowBox[{"Cauchy", "[", 
-     RowBox[{"lf", ",", "z"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Cauchy", "[", 
-    RowBox[{"lf_PFun", ",", "z_"}], "]"}], ":=", 
-   RowBox[{"Cauchy", "[", 
     RowBox[{
-     RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
-     RowBox[{"MapToPoint", "[", 
-      RowBox[{"lf", ",", "z"}], "]"}]}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"Cauchy", "[", 
      RowBox[{
-      RowBox[{"s_", "?", "SignQ"}], ",", "lf_PFun", ",", 
-      RowBox[{"z_", "?", "ScalarQ"}]}], "]"}], ":=", 
-    RowBox[{"Cauchy", "[", 
-     RowBox[{"s", ",", 
-      RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
-      RowBox[{"MapToPoint", "[", 
-       RowBox[{"lf", ",", "z"}], "]"}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyD", "[", 
+      RowBox[{"CauchyD", "[", "2", "]"}], "[", 
+      RowBox[{
+       RowBox[{"pf_PFun", "?", "UnitPointFunQ"}], ",", "z_"}], "]"}], ":=", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"2", 
+        RowBox[{"First", "[", 
+         RowBox[{"pf", "//", "Values"}], "]"}]}], 
+       RowBox[{"2", " ", "\[Pi]", " ", "I", " ", 
+        SuperscriptBox["z", "3"], " "}]]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
     RowBox[{
-     RowBox[{"pf_PFun", "?", "UnitPointFunQ"}], ",", "z_"}], "]"}], ":=", 
-   FractionBox[
-    RowBox[{"First", "[", 
-     RowBox[{"pf", "//", "Values"}], "]"}], 
-    RowBox[{"2", " ", "\[Pi]", " ", "I", " ", 
-     SuperscriptBox["z", "2"], " "}]]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CauchyD", "[", 
-    RowBox[{"lf_PFun", ",", "z_"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"CauchyD", "[", 
      RowBox[{
-      RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
-      RowBox[{"MapToPoint", "[", 
-       RowBox[{"lf", ",", "z"}], "]"}]}], "]"}], 
-    RowBox[{"MapToPointD", "[", 
-     RowBox[{"lf", ",", "z"}], "]"}]}]}], 
-  ";"}], "\[IndentingNewLine]"}], "Input",
+      RowBox[{"CauchyD", "[", "2", "]"}], "[", 
+      RowBox[{"lf_PFun", ",", "z_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"CauchyD", "[", "2", "]"}], "[", 
+       RowBox[{
+        RowBox[{"lf", "//", "ToUnitPoint"}], ",", 
+        RowBox[{"MapToPoint", "[", 
+         RowBox[{"lf", ",", "z"}], "]"}]}], "]"}], 
+      SuperscriptBox[
+       RowBox[{"MapToPointD", "[", 
+        RowBox[{"lf", ",", "z"}], "]"}], "2"]}]}], ";"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
@@ -335,7 +367,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{839, 815},
-WindowMargins->{{Automatic, 215}, {Automatic, 0}},
+WindowMargins->{{94, Automatic}, {Automatic, 13}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

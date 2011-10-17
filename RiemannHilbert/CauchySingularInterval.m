@@ -50,6 +50,17 @@ MapFromCircle[lf,CauchyInverseInverseFunction[s,lf//ToUnitCircle,z+s Cauchy[lf//
 CauchyInverseInverseFunction[pf_PFun,z_]:=(pf//Values//First)/z+(pf//Domain//First)
 
 
+CauchyInverseInverseFunctionD[sfH_LFun,z_]:=1/BoundedCauchyInverseD[sfH,CauchyInverseInverseFunction[sfH,z]];
+
+
+CauchyInverseFunctionD[sf_LFun,z_]:=CauchyInverseInverseFunctionD[-I (sf//Hilbert),z];
+StieljesInverseFunctionD[sf_LFun,z_]:=CauchyInverseFunctionD[sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)]/ (-2 \[Pi]\[NonBreakingSpace]I);
+
+CauchyInverseInverseFunctionD[2][sfH_LFun,z_]:=-CauchyInverseInverseFunctionD[sfH,z]^3BoundedCauchyInverseD[2][sfH,CauchyInverseInverseFunction[sfH,z]];
+CauchyInverseFunctionD[2][sf_LFun,z_]:=CauchyInverseInverseFunctionD[2][-I (sf//Hilbert),z];
+StieljesInverseFunctionD[2][sf_LFun,z_]:=CauchyInverseFunctionD[2][sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)]/ (-2 \[Pi]\[NonBreakingSpace]I)^2;
+
+
 Hilbert[SingFun[if_IFun,{1/2,1/2}]]:=SingFun[Fun[-(if//DCT//ToChebyshevUSeries//GrowShiftRight)//InverseDCT,if//Domain],{0,0}];
 HilbertInverse[SingFun[if_IFun,{0,0}]]:=SingFun[-Fun[(if//DCT//ShiftLeft//ToChebyshevTSeries//PadRight[#,Max[Length[#],2]]&)//InverseDCT,if//Domain],{1/2,1/2}];
 
@@ -74,6 +85,22 @@ StieljesInverseFunctionD[sf_SingFun,z_]:=CauchyInverseFunctionD[sf,z/ (-2 \[Pi]\
 CauchyInverseInverseFunctionD[2][sfH_IFun,z_]:=-CauchyInverseInverseFunctionD[sfH,z]^3BoundedCauchyInverseD[2][sfH,CauchyInverseInverseFunction[sfH,z]];
 CauchyInverseFunctionD[2][sf:SingFun[_,{1/2,1/2}],z_]:=CauchyInverseInverseFunctionD[2][-I (sf//Hilbert//First),z];
 StieljesInverseFunctionD[2][sf_SingFun,z_]:=CauchyInverseFunctionD[2][sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)]/ (-2 \[Pi]\[NonBreakingSpace]I)^2;
+
+
+CauchyInverseFunction[pf_PFun,z_]:=(pf//Values//First)/((-2 \[Pi]\[NonBreakingSpace]I) z)+(pf//Domain//First);
+StieljesInverseFunction[sf_SingFun,z_]:=CauchyInverseFunction[sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)];
+
+
+CauchyInverseFunctionD[pf_PFun,z_]:=-(pf//Values//First)/((-2 \[Pi]\[NonBreakingSpace]I) z^2);
+CauchyInverseFunctionD[2][pf_PFun,z_]:=2(pf//Values//First)/((-2 \[Pi]\[NonBreakingSpace]I) z^3);
+
+StieljesInverseFunctionD[sf_PFun,z_]:=CauchyInverseFunctionD[sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)]/ (-2 \[Pi]\[NonBreakingSpace]I);
+StieljesInverseFunctionD[2][sf_PFun,z_]:=CauchyInverseFunctionD[2][sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)]/ (-2 \[Pi]\[NonBreakingSpace]I)^2;
+
+
+StieljesInverseFunction[pf:{__PFun},c_]:=LFun[Function[z,Times@@(z-Domain[#][[1]]&/@pf)(Stieljes[pf,z]-c)],Circle[0,2],2 Length[pf]+1]//ComplexRoots;
+StieljesInverseFunctionD[pf:{__PFun},z_]:=1/StieljesD[pf,StieljesInverseFunction[pf,z]];
+StieljesInverseFunctionD[2][pf:{__PFun},z_]:=-(StieljesD[2][pf,StieljesInverseFunction[pf,z]]/StieljesD[pf,StieljesInverseFunction[pf,z]]^3);
 
 
 End[];

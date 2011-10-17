@@ -19,10 +19,15 @@
 
 
 
+CauchyD;
+
 BeginPackage["RiemannHilbert`",{"RiemannHilbert`Common`"}];
 
 
 Begin["`Private`"];
+
+
+
 Cauchy[lf_PFun,z_List]:=Cauchy[lf,#]&/@z;
 Cauchy[s_?SignQ,lf_PFun,z_List]:=Cauchy[s,lf,#]&/@z;
 
@@ -45,6 +50,9 @@ Cauchy[s_?SignQ,lf_PFun,z_?ScalarQ]:=Cauchy[s,lf//ToUnitPoint,MapToPoint[lf,z]];
 
 CauchyD[pf_PFun?UnitPointFunQ,z_]:=First[pf//Values]/(2 \[Pi] I (z^2) );
 CauchyD[lf_PFun,z_]:=CauchyD[lf//ToUnitPoint,MapToPoint[lf,z]]MapToPointD[lf,z];
+
+CauchyD[2][pf_PFun?UnitPointFunQ,z_]:=-((2First[pf//Values])/(2 \[Pi] I (z^3) ));
+CauchyD[2][lf_PFun,z_]:=CauchyD[2][lf//ToUnitPoint,MapToPoint[lf,z]]MapToPointD[lf,z]^2;
 
 
 

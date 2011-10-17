@@ -42,6 +42,7 @@ Cell[BoxData[{
  RowBox[{"UnitPointFunQ", ";"}], "\[IndentingNewLine]", 
  RowBox[{"MapToPoint", ";"}], "\[IndentingNewLine]", 
  RowBox[{"MapFromPoint", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MapToPointD", ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
@@ -97,6 +98,8 @@ Cell[BoxData[{
 Cell[CellGroupData[{
 
 Cell["Circle", "Subsection"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
@@ -161,7 +164,18 @@ Cell[BoxData[
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"End", "[", "]"}], ";"}]}]}]], "Input",
- InitializationCell->True]
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"End", "::", "noctx"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"No previous context defined. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/End/noctx\\\", ButtonNote -> \
+\\\"End::noctx\\\"]\\)\"\>"}]], "Message", "MSG"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]],
 
