@@ -217,9 +217,6 @@ CauchyInverseFunction[sf_LFun,z_]:=CauchyInverseInverseFunction[-I (sf//Hilbert)
 StieljesInverseFunction[sf_LFun,z_]:=CauchyInverseFunction[sf,z/ (-2 \[Pi]\[NonBreakingSpace]I)];
 
 
-Begin["`Private`"];
-
-
 
 CauchyD[lf_LFun,z_List]:=CauchyD[lf,#]&/@z;
 CauchyD[s_?SignQ,lf_LFun,z_List]:=CauchyD[s,lf,#]&/@z;

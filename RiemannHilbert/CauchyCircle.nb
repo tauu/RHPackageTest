@@ -1360,11 +1360,6 @@ Cell[CellGroupData[{
 Cell["At Value", "Subsection"],
 
 Cell[BoxData[
- RowBox[{
-  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
- InitializationCell->True],
-
-Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
   RowBox[{
    RowBox[{
