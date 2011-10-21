@@ -26,4 +26,6 @@ TestSuite[{
 	"Tests/ParametrixTest.mt"
 	,
 	"Tests/CauchyInverseTest.mt"
+	,
+	"Tests/CauchyDTest.mt"
 }]
