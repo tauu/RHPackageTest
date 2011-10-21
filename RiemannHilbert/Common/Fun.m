@@ -155,6 +155,8 @@ Dimensions[f_head]^:=f//First//Dimensions;
 head/:f_head?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
 head/:f_head?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 MeanZero[f_head]:=f-Mean[f];
+
+NIntegrate[f_head]^:=DomainIntegrate[f];
 ];
 End[];
 

@@ -25,6 +25,7 @@ BeginPackage["RiemannHilbert`RandomMatrices`",{"RiemannHilbert`","RiemannHilbert
 RandomSymmetric;
 RandomOrthogonal;
 HistogramPlot;
+MarchenkoPastur;
 
 Begin["Private`"];
 
@@ -41,6 +42,12 @@ HistogramPlot[M_,dst_,opts:OptionsPattern[]]:=Module[{Evs},
 Evs=Table[M[]//Eigenvalues,{k,100}];
 Show[Histogram[Evs//Flatten,60,"PDF"],Plot[dst[x],{x,dst//Domain//LeftEndpoint,dst//Domain//RightEndpoint},PlotStyle->{DarkRed,Thick}],opts]
 ];
+
+
+MarchenkoPastur[\[Sigma]_,\[Lambda]_]:=Module[{\[Lambda]p,\[Lambda]m},
+\[Lambda]p=\[Sigma]^2 (1 + Sqrt[\[Lambda]])^2;
+\[Lambda]m=\[Sigma]^2 (1- Sqrt[\[Lambda]])^2;SingFun[1/(2 \[Pi]\[NonBreakingSpace]\[Sigma]^2 \[Lambda]) IFun[1/#&,Line[{\[Lambda]m,\[Lambda]p}]]  (\[Lambda]p-\[Lambda]m)/2,{1/2,1/2}]
+]
 
 
 End[];

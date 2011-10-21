@@ -431,8 +431,12 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{"MeanZero", "[", "f_head", "]"}], ":=", 
        RowBox[{"f", "-", 
-        RowBox[{"Mean", "[", "f", "]"}]}]}], ";"}]}], "\[IndentingNewLine]", 
-    "]"}]}], ";"}], "\[IndentingNewLine]", 
+        RowBox[{"Mean", "[", "f", "]"}]}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"NIntegrate", "[", "f_head", "]"}], "^:=", 
+       RowBox[{"DomainIntegrate", "[", "f", "]"}]}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
@@ -1013,7 +1017,7 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"JumpScaleDomainPlot", "[", 
          RowBox[{"#", ",", "opts"}], "]"}], "&"}], "/@", "l"}], ",", "opts"}],
-      "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"JumpScale", "[", 
