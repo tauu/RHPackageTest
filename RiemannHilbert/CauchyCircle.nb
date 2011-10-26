@@ -1280,8 +1280,8 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{
         RowBox[{"Length", "[", "prts", "]"}], "\[Equal]", "1"}], ",", 
-       RowBox[{"First", "[", "prts", "]"}], ",", "True", ",", 
-       RowBox[{"{", "}"}]}], "]"}]}]}], "]"}]}], "\n", 
+       RowBox[{"First", "[", "prts", "]"}], ",", "True", ",", "prts"}], 
+      "]"}]}]}], "]"}]}], "\n", 
  RowBox[{
   RowBox[{"CauchyInverseInverseFunction", "[", 
    RowBox[{"lf_LFun", ",", "z_"}], "]"}], ":=", 

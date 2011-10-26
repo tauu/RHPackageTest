@@ -33,14 +33,15 @@ Begin["Private`"];
 
 RandomSymmetric[n_,dist_:NormalDistribution[0,1/Sqrt[2]]]:=RandomVariate[dist,{n,n}]//(#+Transpose[#])/Sqrt[2 n]&;
 RandomOrthogonal[n_,dist_:NormalDistribution[0,1/Sqrt[2]]]:=RandomVariate[dist,{n,n}]//QRDecomposition//First;
+SetAttributes[HistogramPlot,HoldFirst];
 HistogramPlot[M_,dst_LFun,opts:OptionsPattern[]]:=Module[{Evs},
-Evs=Table[M[]//Eigenvalues,{k,100}];
-Show[Histogram[Evs//Flatten,60,"PDF"],Plot[dst[x],{x,-5,5},PlotStyle->{DarkRed,Thick}],opts]
+Evs=Table[M//Eigenvalues,{k,100}];
+Show[Histogram[Evs//Flatten,60,"PDF"],Plot[dst[x]//Re,{x,-5,5},PlotStyle->{DarkRed,Thick}],opts]
 ];
 
 HistogramPlot[M_,dst_,opts:OptionsPattern[]]:=Module[{Evs},
-Evs=Table[M[]//Eigenvalues,{k,100}];
-Show[Histogram[Evs//Flatten,60,"PDF"],Plot[dst[x],{x,dst//Domain//LeftEndpoint,dst//Domain//RightEndpoint},PlotStyle->{DarkRed,Thick}],opts]
+Evs=Table[M//Eigenvalues,{k,100}];
+Show[Histogram[Evs//Flatten,60,"PDF"],Plot[dst[x]//Re,{x,dst//Domain//LeftEndpoint,dst//Domain//RightEndpoint},PlotStyle->{DarkRed,Thick}],opts]
 ];
 
 

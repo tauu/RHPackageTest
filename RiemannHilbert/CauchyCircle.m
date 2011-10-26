@@ -208,7 +208,7 @@ Function[z,
 ]
 
 
-CauchyInverseInverseFunction[s_?SignQ,lfu_LFun?UnitCircleFunQ,z_]:=Module[{rts,prts,mrts},rts=ComplexRoots[CauchyInverse[s,lfu]-z];prts=Select[rts,(Abs[#1])^s<=1&];Which[Length[prts]==1,First[prts],True,{}]]
+CauchyInverseInverseFunction[s_?SignQ,lfu_LFun?UnitCircleFunQ,z_]:=Module[{rts,prts,mrts},rts=ComplexRoots[CauchyInverse[s,lfu]-z];prts=Select[rts,(Abs[#1])^s<=1&];Which[Length[prts]==1,First[prts],True,prts]]
 CauchyInverseInverseFunction[lf_LFun,z_]:=Join[{CauchyInverseInverseFunction[+1,lf,z]},{CauchyInverseInverseFunction[-1,lf,z]}]//Flatten//If[Length[#]==1,First[#],#]&
 CauchyInverseInverseFunction[s_?SignQ,lf_LFun,z_]:=
 MapFromCircle[lf,CauchyInverseInverseFunction[s,lf//ToUnitCircle,z+s Cauchy[lf//ToUnitCircle,MapToCircle[lf,\[Infinity]]]]];

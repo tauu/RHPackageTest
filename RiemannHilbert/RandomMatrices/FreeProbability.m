@@ -61,12 +61,12 @@ SlitPlanePoints[sf_SingFun,n_]:=SlitPlanePoints[sf//First,n];
 
 BoundedCauchyInverseMatrix[{a_,b_},m_,gpts_]:=Table[BoundedCauchyInverseBasis[Line[{a,b}],k,gpts],{k,m}]//Transpose;
 
-FreePlus[sfA_,sfB_,rng_:{-80,80},n_:10]/;Domain[sfA]==RealLine||Domain[sfA]==RealLine:=Quiet[
+FreePlus[sfA_,sfB_,rng_:{-80,80},n_:10]/;Domain[sfA]==RealLine||Domain[sfB]==RealLine:=Quiet[
 Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},
 GAB[y_]:=StieljesInverseFunction[sfA,y]+StieljesInverseFunction[sfB,y]-1/y;
+
 Apts=SlitPlanePoints[sfA,n];
 (sIpts=Stieljes[sfA,Apts]);
-
 
 FreeInverseStieljes[GAB,{-\[Infinity],\[Infinity]},rng,sIpts]
 ],
@@ -112,7 +112,7 @@ SingFun[Sf[[1]] //# Fun[1/#&,#//Domain,#//Length]&,{1/2,1/2}]
 {First::first,Thread::tdlen}];
 
 
-FreeCompress[sfA_SingFun,\[Alpha]_,m_:50,n_:30]:=Quiet[
+FreeCompress[sfA_SingFun,\[Alpha]_,m_:31,n_:30]:=Quiet[
 Module[{GAB,GABD,GABDD,xia,xib,Apts,Bpts,sIptsA,sIptsB,sIpts,sgpts,gpts,ret,AB,a,b},
 GAB[y_]:=StieljesInverseFunction[sfA,\[Alpha] y]+(1-1/\[Alpha] )/y;
 GABD[y_]:=\[Alpha] StieljesInverseFunctionD[sfA,\[Alpha] y]-(1-1/\[Alpha] )/y^2//Re;

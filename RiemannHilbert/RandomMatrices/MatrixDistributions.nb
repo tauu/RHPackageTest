@@ -84,6 +84,10 @@ Cell[BoxData[
           RowBox[{"n", ",", "n"}], "}"}]}], "]"}], "//", "QRDecomposition"}], 
       "//", "First"}]}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
+    RowBox[{"SetAttributes", "[", 
+     RowBox[{"HistogramPlot", ",", "HoldFirst"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
     RowBox[{
      RowBox[{"HistogramPlot", "[", 
       RowBox[{"M_", ",", "dst_LFun", ",", 
@@ -96,8 +100,7 @@ Cell[BoxData[
         RowBox[{"Evs", "=", 
          RowBox[{"Table", "[", 
           RowBox[{
-           RowBox[{
-            RowBox[{"M", "[", "]"}], "//", "Eigenvalues"}], ",", 
+           RowBox[{"M", "//", "Eigenvalues"}], ",", 
            RowBox[{"{", 
             RowBox[{"k", ",", "100"}], "}"}]}], "]"}]}], ";", 
         "\[IndentingNewLine]", 
@@ -109,7 +112,8 @@ Cell[BoxData[
             "]"}], ",", 
           RowBox[{"Plot", "[", 
            RowBox[{
-            RowBox[{"dst", "[", "x", "]"}], ",", 
+            RowBox[{
+             RowBox[{"dst", "[", "x", "]"}], "//", "Re"}], ",", 
             RowBox[{"{", 
              RowBox[{"x", ",", 
               RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
@@ -131,8 +135,7 @@ Cell[BoxData[
         RowBox[{"Evs", "=", 
          RowBox[{"Table", "[", 
           RowBox[{
-           RowBox[{
-            RowBox[{"M", "[", "]"}], "//", "Eigenvalues"}], ",", 
+           RowBox[{"M", "//", "Eigenvalues"}], ",", 
            RowBox[{"{", 
             RowBox[{"k", ",", "100"}], "}"}]}], "]"}]}], ";", 
         "\[IndentingNewLine]", 
@@ -144,7 +147,8 @@ Cell[BoxData[
             "]"}], ",", 
           RowBox[{"Plot", "[", 
            RowBox[{
-            RowBox[{"dst", "[", "x", "]"}], ",", 
+            RowBox[{
+             RowBox[{"dst", "[", "x", "]"}], "//", "Re"}], ",", 
             RowBox[{"{", 
              RowBox[{"x", ",", 
               RowBox[{
