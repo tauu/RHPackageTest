@@ -51,7 +51,7 @@ BoundedCauchyInverseD;
 Begin["`Private`"];
 
 
-
+CauchyInverse[lf_LFun,z_List]:=CauchyInverse[lf,#]&/@z;
 Cauchy[lf_LFun,z_List]:=Cauchy[lf,#]&/@z;
 Cauchy[s_?SignQ,lf_LFun,z_List]:=Cauchy[s,lf,#]&/@z;
 
