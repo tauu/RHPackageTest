@@ -722,7 +722,15 @@ interval.\>\""}], ";"}], "\[IndentingNewLine]",
   RowBox[{
    RowBox[{"SetAttributes", "[", 
     RowBox[{"ComplexMapFromIntervalD", ",", "Listable"}], "]"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetAttributes", "[", 
+    RowBox[{"IntervalToInnerCircleD", ",", "Listable"}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]"}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -730,321 +738,315 @@ Cell[CellGroupData[{
 
 Cell["General", "Subsection"],
 
-Cell[BoxData[{
- RowBox[{
-  RowBox[{
-   RowBox[{"Begin", "[", "\"\<Private`\>\"", "]"}], ";"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Unprotect", "[", "Line", "]"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Line", "/:", 
-   RowBox[{
-    RowBox[{"Line", "[", 
-     RowBox[{"{", 
-      RowBox[{"a_", ",", "b_"}], "}"}], "]"}], "+", "c_"}], ":=", 
-   RowBox[{"Line", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"a", ",", "b"}], "}"}], "+", "c"}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Line", "/:", 
-   RowBox[{"c_", " ", 
-    RowBox[{"Line", "[", 
-     RowBox[{"{", 
-      RowBox[{"a_", ",", "b_"}], "}"}], "]"}]}], ":=", 
-   RowBox[{"Line", "[", 
-    RowBox[{"c", " ", 
-     RowBox[{"{", 
-      RowBox[{"a", ",", "b"}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Protect", "[", "Line", "]"}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CircleToInterval", "[", "z_", "]"}], ":=", 
-   RowBox[{
-    FractionBox["1", "2"], 
-    RowBox[{"(", 
-     RowBox[{"z", "+", 
-      FractionBox["1", "z"]}], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"SetAttributes", "[", 
-   RowBox[{"IntervalToTopCircle", ",", "Listable"}], "]"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToTopCircle", "[", "x_", "]"}], ":=", 
-   RowBox[{"x", "+", 
-    RowBox[{"I", " ", 
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"1", "-", "x"}], "]"}], 
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"1", "+", "x"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"SetAttributes", "[", 
-   RowBox[{"IntervalToBottomCircle", ",", "Listable"}], "]"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToBottomCircle", "[", "x_", "]"}], ":=", 
-   RowBox[{"x", "-", 
-    RowBox[{"I", " ", 
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"1", "-", "x"}], "]"}], 
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"1", "+", "x"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"SetAttributes", "[", 
-   RowBox[{"IntervalToOuterCircle", ",", "Listable"}], "]"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToOuterCircle", "[", "t_", "]"}], ":=", 
-   RowBox[{"t", "+", 
-    RowBox[{
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"t", "-", "1"}], "]"}], 
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"t", "+", "1"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"SetAttributes", "[", 
-   RowBox[{"IntervalToInnerCircle", ",", "Listable"}], "]"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToInnerCircle", "[", "t_", "]"}], ":=", 
-   RowBox[{"t", "-", 
-    RowBox[{
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"t", "-", "1"}], "]"}], 
-     RowBox[{"Sqrt", "[", 
-      RowBox[{"t", "+", "1"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
   RowBox[{
    RowBox[{
-    RowBox[{"IntervalToInnerCircle", "[", 
-     RowBox[{"t_", "?", "InfinityQ"}], "]"}], ":=", "0"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToInnerCircleD", "[", "x_", "]"}], ":=", 
-   RowBox[{"1", "-", 
-    FractionBox["x", 
+    RowBox[{"Unprotect", "[", "Line", "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Line", "/:", 
      RowBox[{
-      SqrtBox[
-       RowBox[{
-        RowBox[{"-", "1"}], "+", "x"}]], " ", 
-      SqrtBox[
-       RowBox[{"1", "+", "x"}]]}]]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToOuterCircleD", "[", "x_", "]"}], ":=", 
-   RowBox[{"1", "+", 
-    FractionBox["x", 
-     RowBox[{
-      SqrtBox[
-       RowBox[{
-        RowBox[{"-", "1"}], "+", "x"}]], " ", 
-      SqrtBox[
-       RowBox[{"1", "+", "x"}]]}]]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToTopCircleD", "[", "x_", "]"}], ":=", 
-   RowBox[{"1", "-", 
-    FractionBox[
-     RowBox[{"\[ImaginaryI]", " ", "x"}], 
-     SqrtBox[
-      RowBox[{"1", "-", 
-       SuperscriptBox["x", "2"]}]]]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{"a_", ",", "b_"}], "}"}], "]"}], "+", "c_"}], ":=", 
+     RowBox[{"Line", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"a", ",", "b"}], "}"}], "+", "c"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"IntervalToBottomCircleD", "[", "x_", "]"}], ":=", 
-    RowBox[{"1", "-", 
-     FractionBox[
-      RowBox[{"\[ImaginaryI]", " ", "x"}], 
+    RowBox[{"Line", "/:", 
+     RowBox[{"c_", " ", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{"a_", ",", "b_"}], "}"}], "]"}]}], ":=", 
+     RowBox[{"Line", "[", 
+      RowBox[{"c", " ", 
+       RowBox[{"{", 
+        RowBox[{"a", ",", "b"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Protect", "[", "Line", "]"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"CircleToInterval", "[", "z_", "]"}], ":=", 
+     RowBox[{
+      FractionBox["1", "2"], 
+      RowBox[{"(", 
+       RowBox[{"z", "+", 
+        FractionBox["1", "z"]}], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SetAttributes", "[", 
+     RowBox[{"IntervalToTopCircle", ",", "Listable"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToTopCircle", "[", "x_", "]"}], ":=", 
+     RowBox[{"x", "+", 
+      RowBox[{"I", " ", 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"1", "-", "x"}], "]"}], 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"1", "+", "x"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SetAttributes", "[", 
+     RowBox[{"IntervalToBottomCircle", ",", "Listable"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToBottomCircle", "[", "x_", "]"}], ":=", 
+     RowBox[{"x", "-", 
+      RowBox[{"I", " ", 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"1", "-", "x"}], "]"}], 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"1", "+", "x"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SetAttributes", "[", 
+     RowBox[{"IntervalToOuterCircle", ",", "Listable"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToOuterCircle", "[", "t_", "]"}], ":=", 
+     RowBox[{"t", "+", 
+      RowBox[{
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"t", "-", "1"}], "]"}], 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"t", "+", "1"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SetAttributes", "[", 
+     RowBox[{"IntervalToInnerCircle", ",", "Listable"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToInnerCircle", "[", "t_", "]"}], ":=", 
+     RowBox[{"t", "-", 
+      RowBox[{
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"t", "-", "1"}], "]"}], 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"t", "+", "1"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToInnerCircle", "[", 
+      RowBox[{"t_", "?", "InfinityQ"}], "]"}], ":=", "0"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToInnerCircleD", "[", 
+      RowBox[{"_", "?", "InfinityQ"}], "]"}], ":=", "0"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToInnerCircleD", "[", "x_", "]"}], ":=", 
+     RowBox[{"1", "-", 
+      FractionBox["x", 
+       RowBox[{
+        SqrtBox[
+         RowBox[{
+          RowBox[{"-", "1"}], "+", "x"}]], " ", 
+        SqrtBox[
+         RowBox[{"1", "+", "x"}]]}]]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToOuterCircleD", "[", "x_", "]"}], ":=", 
+     RowBox[{"1", "+", 
+      FractionBox["x", 
+       RowBox[{
+        SqrtBox[
+         RowBox[{
+          RowBox[{"-", "1"}], "+", "x"}]], " ", 
+        SqrtBox[
+         RowBox[{"1", "+", "x"}]]}]]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToTopCircleD", "[", "x_", "]"}], ":=", 
+     RowBox[{"1", "-", 
+      FractionBox[
+       RowBox[{"\[ImaginaryI]", " ", "x"}], 
+       SqrtBox[
+        RowBox[{"1", "-", 
+         SuperscriptBox["x", "2"]}]]]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToBottomCircleD", "[", "x_", "]"}], ":=", 
+     RowBox[{"1", "-", 
+      FractionBox[
+       RowBox[{"\[ImaginaryI]", " ", "x"}], 
+       SqrtBox[
+        RowBox[{"1", "-", 
+         SuperscriptBox["x", "2"]}]]]}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalToRealLine", "[", "x_", "]"}], ":=", 
+     FractionBox["x", 
       SqrtBox[
        RowBox[{"1", "-", 
-        SuperscriptBox["x", "2"]}]]]}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalToRealLine", "[", "x_", "]"}], ":=", 
-   FractionBox["x", 
-    SqrtBox[
-     RowBox[{"1", "-", 
-      SuperscriptBox["x", "2"]}]]]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
+        SuperscriptBox["x", "2"]}]]]}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"RealLineToInterval", "[", "u_", "]"}], ":=", 
-    FractionBox["u", 
-     SqrtBox[
-      RowBox[{"1", "+", 
-       SuperscriptBox["u", "2"]}]]]}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"InfinityInDomainQ", "[", "_", "]"}], ":=", "False"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"InfinityInDomainQ", "[", 
-    RowBox[{"Line", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"_", "?", "InfinityQ"}], ",", "_"}], "}"}], ",", "___"}], 
-     "]"}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"InfinityInDomainQ", "[", 
-     RowBox[{"Line", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"_", ",", 
-         RowBox[{"_", "?", "InfinityQ"}]}], "}"}], ",", "___"}], "]"}], "]"}],
-     ":=", "True"}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"RightEndpointInfinityQ", "[", "_", "]"}], ":=", "False"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"RightEndpointInfinityQ", "[", 
-    RowBox[{"Line", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"_", ",", 
-        RowBox[{"_", "?", "InfinityQ"}]}], "}"}], ",", "___"}], "]"}], "]"}], 
-   ":=", "True"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"LeftEndpointInfinityQ", "[", "_", "]"}], ":=", "False"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"LeftEndpointInfinityQ", "[", 
-     RowBox[{"Line", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"_", "?", "InfinityQ"}], ",", "_"}], "}"}], ",", "___"}], 
-      "]"}], "]"}], ":=", "True"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"LeftEndpoint", "[", 
-    RowBox[{"Line", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
-   "a"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"RightEndpoint", "[", 
-     RowBox[{"Line", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
-    "b"}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"ReverseOrientation", "[", 
-     RowBox[{"Line", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"a_", ",", "b_"}], "}"}], ",", "l___"}], "]"}], "]"}], ":=", 
-    RowBox[{"Line", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"b", ",", "a"}], "}"}], ",", "l"}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"LeftContourArg", "[", 
-    RowBox[{"Line", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"(", 
-     RowBox[{"b", "-", "a"}], ")"}], "//", "Arg"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"RightContourArg", "[", 
-     RowBox[{"Line", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
     RowBox[{
-     RowBox[{"(", 
-      RowBox[{"a", "-", "b"}], ")"}], "//", "Arg"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"IntervalDomainQ", "[", "_", "]"}], ":=", "False"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
+     RowBox[{"RealLineToInterval", "[", "u_", "]"}], ":=", 
+     FractionBox["u", 
+      SqrtBox[
+       RowBox[{"1", "+", 
+        SuperscriptBox["u", "2"]}]]]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"IntervalDomainQ", "[", "_Line", "]"}], ":=", "True"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
+    RowBox[{
+     RowBox[{"InfinityInDomainQ", "[", "_", "]"}], ":=", "False"}], ";"}], 
+   "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"DomainQ", "[", 
-     RowBox[{"d_", "?", "IntervalDomainQ"}], "]"}], ":=", "True"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"BoundedDomainQ", "[", "_", "]"}], ":=", "False"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
+    RowBox[{
+     RowBox[{"InfinityInDomainQ", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"_", "?", "InfinityQ"}], ",", "_"}], "}"}], ",", "___"}], 
+       "]"}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"BoundedDomainQ", "[", 
-     RowBox[{"_", "?", 
+    RowBox[{
+     RowBox[{"InfinityInDomainQ", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_", ",", 
+          RowBox[{"_", "?", "InfinityQ"}]}], "}"}], ",", "___"}], "]"}], 
+      "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RightEndpointInfinityQ", "[", "_", "]"}], ":=", "False"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RightEndpointInfinityQ", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_", ",", 
+          RowBox[{"_", "?", "InfinityQ"}]}], "}"}], ",", "___"}], "]"}], 
+      "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"LeftEndpointInfinityQ", "[", "_", "]"}], ":=", "False"}], ";"}],
+    "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"LeftEndpointInfinityQ", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"_", "?", "InfinityQ"}], ",", "_"}], "}"}], ",", "___"}], 
+       "]"}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"LeftEndpoint", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
+     "a"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RightEndpoint", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
+     "b"}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ReverseOrientation", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"a_", ",", "b_"}], "}"}], ",", "l___"}], "]"}], "]"}], ":=", 
+     
+     RowBox[{"Line", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"b", ",", "a"}], "}"}], ",", "l"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"LeftContourArg", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"b", "-", "a"}], ")"}], "//", "Arg"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RightContourArg", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"a_", ",", "b_"}], "}"}], ",", "___"}], "]"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"a", "-", "b"}], ")"}], "//", "Arg"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalDomainQ", "[", "_", "]"}], ":=", "False"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntervalDomainQ", "[", "_Line", "]"}], ":=", "True"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"DomainQ", "[", 
+      RowBox[{"d_", "?", "IntervalDomainQ"}], "]"}], ":=", "True"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BoundedDomainQ", "[", "_", "]"}], ":=", "False"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BoundedDomainQ", "[", 
+      RowBox[{"_", "?", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}], "&&", 
+          RowBox[{"!", 
+           RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
+        ")"}]}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"DomainMemberQ", "[", 
+      RowBox[{
+       RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "x_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"MapToInterval", "[", 
+       RowBox[{"d", ",", "x"}], "]"}], "//", 
       RowBox[{"(", 
        RowBox[{
         RowBox[{
-         RowBox[{"!", 
-          RowBox[{"LeftEndpointInfinityQ", "[", "#", "]"}]}], "&&", 
-         RowBox[{"!", 
-          RowBox[{"RightEndpointInfinityQ", "[", "#", "]"}]}]}], "&"}], 
-       ")"}]}], "]"}], ":=", "True"}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"DomainMemberQ", "[", 
-    RowBox[{
-     RowBox[{"d_", "?", "IntervalDomainQ"}], ",", "x_"}], "]"}], ":=", 
-   RowBox[{
-    RowBox[{"MapToInterval", "[", 
-     RowBox[{"d", ",", "x"}], "]"}], "//", 
-    RowBox[{"(", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"NumberQ", "[", "#", "]"}], "&&", 
-       RowBox[{
-        RowBox[{"Abs", "[", 
-         RowBox[{"Im", "[", "#", "]"}], "]"}], "<", 
-        RowBox[{"10", " ", "$MachineTolerance"}]}], "&&", 
-       RowBox[{
-        RowBox[{"Abs", "[", "#", "]"}], "<=", 
-        RowBox[{"1.", "+", 
-         RowBox[{"10", " ", "$MachineTolerance"}]}]}]}], "&"}], ")"}]}]}], 
-  ";"}]}], "Input",
+         RowBox[{"NumberQ", "[", "#", "]"}], "&&", 
+         RowBox[{
+          RowBox[{"Abs", "[", 
+           RowBox[{"Im", "[", "#", "]"}], "]"}], "<", 
+          RowBox[{"10", " ", "$MachineTolerance"}]}], "&&", 
+         RowBox[{
+          RowBox[{"Abs", "[", "#", "]"}], "<=", 
+          RowBox[{"1.", "+", 
+           RowBox[{"10", " ", "$MachineTolerance"}]}]}]}], "&"}], ")"}]}]}], 
+    ";"}]}]}]], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -2276,7 +2278,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5494,7 +5496,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{814, 809},
-WindowMargins->{{234, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, -1657}, {-37, Automatic}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

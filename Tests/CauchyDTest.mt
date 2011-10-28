@@ -27,3 +27,24 @@ Test[
 	,
 	TestID->"CauchyBasisDInf2"
 ]
+
+f = Fun[Exp[-#] &, Line[{1, \[Infinity]}]];
+
+Test[
+	Chop[CauchyD[f, 0.]
+		-CauchyD[f, 0.00001],10^-4]
+	,
+	0
+	,
+	TestID->"CauchyDInf"
+]
+
+
+Test[
+	Chop[CauchyD[f, {0.,.1}]
+		-CauchyD[f, {0.00001,.1}]//Norm,10^-4]
+	,
+	0
+	,
+	TestID->"CauchyDInfList"
+]

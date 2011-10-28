@@ -228,10 +228,13 @@ SetAttributes[MapFromIntervalD,Listable];
 SetAttributes[ComplexMapToIntervalD,Listable];
 SetAttributes[ComplexMapFromIntervalD,Listable];
 
-
-
+SetAttributes[IntervalToInnerCircleD,Listable];
 
 Begin["Private`"];
+
+
+
+
 
 
 
@@ -253,6 +256,8 @@ SetAttributes[IntervalToInnerCircle,Listable];
 IntervalToInnerCircle[t_]:=t-Sqrt[t-1]Sqrt[t+1];
 IntervalToInnerCircle[t_?InfinityQ]:=0;
 
+
+IntervalToInnerCircleD[_?InfinityQ]:=0;
 IntervalToInnerCircleD[x_]:=1-x/(Sqrt[-1+x] Sqrt[1+x]);
 IntervalToOuterCircleD[x_]:=1+x/(Sqrt[-1+x] Sqrt[1+x]);
 IntervalToTopCircleD[x_]:=1-(I x)/Sqrt[1-x^2];

@@ -121,6 +121,12 @@ SetAttributes[\[Psi]pSD,Listable];
 \[Psi]pSD[n_?Positive,z_]:=n z^(n-1)( ArcTanh[z]-\[Mu]S[n,1/z])+z^n ( ArcTanh'[z]+1/z^2\[Mu]SD[n,1/z]);
 \[Psi]pSD[n_?Negative,z_]:=n z^(n-1)( ArcTanh[z]-\[Mu]S[-n-1,z])+z^n ( ArcTanh'[z]-\[Mu]SD[-n-1,z]);
 
+
+\[Psi]pD[n_?Negative,z_?InfinityQ]:=0;
+\[Psi]pD[n_?(Negative[#]&&EvenQ[#]&),z_?ZeroQ]:=-(1/(n-1))//N;
+\[Psi]pD[n_?(Negative[#]&&OddQ[#]&),z_?ZeroQ]:=0.;
+
+
 \[Psi]pHD[n_?Negative,z_]:=With[{M=Floor[(-n)/2]},1/(1+2 M) ((2 z^(2+2 M+n) Hypergeometric2F1[1,1,3/2+M,z^2/(-1+z^2)])/(1-z^2)^2+((1+2 M+n) z^(2 M+n) Hypergeometric2F1[1,1,3/2+M,z^2/(-1+z^2)])/(1-z^2)+(z^(1+2 M+n) (-((2 z^3)/(-1+z^2)^2)+(2 z)/(-1+z^2)) Hypergeometric2F1[2,2,5/2+M,z^2/(-1+z^2)])/((3/2+M) (1-z^2)))];
 \[Psi]pHD[n_?Positive,z_]:=With[{M=Floor[(n+1)/2]},z^n ((n (-ArcTanh[1/z]+ArcTanh[z]))/z-(z^(-2 M) (1+n+z^2-n z^2+2 M (-1+z^2)) Hypergeometric2F1[1,1,3/2+M,1/(1-z^2)])/((1+2 M) (-1+z^2)^2)+(4 z^(2-2 M) Hypergeometric2F1[2,2,5/2+M,1/(1-z^2)])/((3+8 M+4 M^2) (-1+z^2)^3))];
 SetAttributes[\[Psi]pD,Listable];
@@ -134,7 +140,7 @@ CauchyBasisD[f_IFun,k_,x_]:=CauchyBasisD[f//Domain,k,x];
 CauchyBasisD[s_?SignQ,f_IFun,k_,x_]:=CauchyBasisD[s,f//Domain,k,x];
 
 CauchyBasisD[UnitInterval,k_,x_]:=
--1/(I \[Pi])IntervalToInnerCircle'[x] (\[Psi]pD[k-1,IntervalToInnerCircle[x]] +\[Psi]pD[-k+1,IntervalToInnerCircle[x]]);
+-1/(I \[Pi])IntervalToInnerCircleD[x] (\[Psi]pD[k-1,IntervalToInnerCircle[x]] +\[Psi]pD[-k+1,IntervalToInnerCircle[x]]);
 CauchyBasisD[+1,UnitInterval,k_,x_]:=
 -1/(I \[Pi])IntervalToBottomCircle'[x](\[Psi]pD[k-1,IntervalToBottomCircle[x]]+\[Psi]pD[-k+1,IntervalToBottomCircle[x]]);
 CauchyBasisD[-1,UnitInterval,k_,x_]:=
@@ -513,18 +519,20 @@ Table[cur=cur x+ph[[i-l]],{i,l+1,m}]
 \[Psi]pLD[i_?Negative;;j_?Positive,x_]:=Join[\[Psi]pLD[i;;-1,x],\[Psi]pLD[0;;j,x]];
 
 CauchyBasisD[UnitInterval,i_;;k_,x_]:=
--1/(I \[Pi])IntervalToInnerCircle'[x](\[Psi]pLD[i-1;;k-1,IntervalToInnerCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToInnerCircle[x]]]);
+-1/(I \[Pi])IntervalToInnerCircleD[x](\[Psi]pLD[i-1;;k-1,IntervalToInnerCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToInnerCircle[x]]]);
 CauchyBasisD[+1,UnitInterval,i_;;k_,x_]:=
 -1/(I \[Pi])IntervalToBottomCircle'[x](\[Psi]pLD[i-1;;k-1,IntervalToBottomCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToBottomCircle[x]]]);
 CauchyBasisD[-1,UnitInterval,i_;;k_,x_]:=
 -1/(I \[Pi])IntervalToTopCircle'[x](\[Psi]pLD[i-1;;k-1,IntervalToTopCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToTopCircle[x]]]);
 
 CauchyBasisD[UnitInterval,i_;;k_,x_List]:=
--1/(I \[Pi])IntervalToInnerCircle'[x] #&/@(\[Psi]pLD[i-1;;k-1,IntervalToInnerCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToInnerCircle[x]]]);
+-1/(I \[Pi])IntervalToInnerCircleD[x] #&/@(\[Psi]pLD[i-1;;k-1,IntervalToInnerCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToInnerCircle[x]]]);
 CauchyBasisD[+1,UnitInterval,i_;;k_,x_List]:=
 -1/(I \[Pi])IntervalToBottomCircle'[x]#&/@(\[Psi]pLD[i-1;;k-1,IntervalToBottomCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToBottomCircle[x]]]);
 CauchyBasisD[-1,UnitInterval,i_;;k_,x_List]:=
 -1/(I \[Pi])IntervalToTopCircle'[x]#&/@(\[Psi]pLD[i-1;;k-1,IntervalToTopCircle[x]]+Reverse[\[Psi]pLD[-k+1;;1-i,IntervalToTopCircle[x]]]);
+
+CauchyBasisD[f_?RightEndpointInfinityQ,1;;k_,z_]/;MapFromInterval[f,\[Infinity]]~NEqual~z:=Array[CauchyBasisD[f,#,z]&,k];
 
 CauchyBasisD[f_?RightEndpointInfinityQ,1;;k_,z_]:=MapToIntervalD[f,z]CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
 CauchyBasisD[f_?LeftEndpointInfinityQ,1;;k_,z_]:=MapToIntervalD[f,z]CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
@@ -539,7 +547,8 @@ CauchyBasisD[s_?SignQ,f_?RightEndpointInfinityQ,1;;k_,z_]:=MapToIntervalD[f,z]Ca
 CauchyBasisD[s_?SignQ,f_?LeftEndpointInfinityQ,1;;k_,z_]:=MapToIntervalD[f,z]CauchyBasisD[s,UnitInterval,1;;k,MapToInterval[f,z]];
 
 
-CauchyBasisD[f_?RightEndpointInfinityQ,1;;k_,z_List]:=MapToIntervalD[f,z]#&/@CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
+CauchyBasisD[f_?RightEndpointInfinityQ,1;;k_,z_List]:=
+CauchyBasisD[f,1;;k,#]&/@z//Transpose;
 CauchyBasisD[f_?LeftEndpointInfinityQ,1;;k_,z_List]:=
 MapToIntervalD[f,z]#&/@CauchyBasisD[UnitInterval,1;;k,MapToInterval[f,z]];
 
