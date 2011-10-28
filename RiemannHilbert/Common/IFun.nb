@@ -229,7 +229,10 @@ infinity\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]",
     "\"\<BoundedIntegrate[lf] integrates an LFun with its -1 coefficient \
 removed\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{"AdaptiveTimes", ";"}], "\[IndentingNewLine]", 
- RowBox[{"AdaptivePlus", ";"}], "\[IndentingNewLine]"}], "Input",
+ RowBox[{
+  RowBox[{"AdaptivePlus", ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"ChebyshevMoment", ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -1260,8 +1263,7 @@ Cell[BoxData[{
         RowBox[{"{", 
          RowBox[{
           RowBox[{"a_", "?", "InfinityQ"}], ",", "b_"}], "}"}], ",", 
-        RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "x_"}], "]"}], 
-    ":=", 
+        RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "x_"}], "]"}], ":=", 
     RowBox[{"-", 
      RowBox[{"MapFromIntervalD", "[", 
       RowBox[{
@@ -2903,7 +2905,7 @@ Cell[BoxData[
            RowBox[{"l", "[", 
             RowBox[{"[", 
              RowBox[{"-", "1"}], "]"}], "]"}]}], "}"}], ",", "d"}], "]"}], 
-       ",", "opts"}], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+       ",", "opts"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"JumpScaleDomainPlot", "[", 
@@ -3377,7 +3379,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
              RowBox[{"d", "[", 
               RowBox[{"#", "-", "1"}], "]"}], "&"}], ",", 
             RowBox[{"{", "n", "}"}]}], "]"}]}]}], "]"}]}]}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -3438,7 +3440,7 @@ indefinite integral.\>\""}], ";"}], "\[IndentingNewLine]",
    RowBox[{"Derivative", "[", "if_IFun", "]"}], ":=", 
    RowBox[{"if", "'"}]}], ";"}]}], "Input",
  InitializationCell->True]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3615,6 +3617,22 @@ Cell[BoxData[{
             RowBox[{"if", "//", "Length"}]}], "]"}], "]"}]}], ")"}], "//", 
        "ChebyshevLobattoIntegrate"}], ",", 
       RowBox[{"if", "//", "Domain"}]}], "]"}]}], " ", ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ChebyshevMoment", "[", 
+    RowBox[{"n_", "/;", 
+     RowBox[{"OddQ", "[", "n", "]"}]}], "]"}], ":=", "0"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ChebyshevMoment", "[", 
+     RowBox[{"n_", "/;", 
+      RowBox[{"EvenQ", "[", "n", "]"}]}], "]"}], ":=", 
+    FractionBox["2", 
+     RowBox[{"1", "-", 
+      RowBox[{"n", "^", "2"}]}]]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -3636,7 +3654,7 @@ Cell[BoxData[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4016,8 +4034,8 @@ Cell[BoxData[
      RowBox[{"ReduceDimensionMatrix", "[", 
       RowBox[{
        RowBox[{"f", "//", "Domain"}], ",", 
-       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\n", 
-   "\[IndentingNewLine]", 
+       RowBox[{"f", "//", "Length"}]}], "]"}]}], ";"}], "\[IndentingNewLine]",
+    "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"ReduceDimensionIntegrateMatrix", "[", 
@@ -4580,8 +4598,7 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"Curve", "[", 
       RowBox[{"cr_IFun", ",", 
-       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=", \
-
+       RowBox[{"Stretch", "\[Rule]", "L_"}]}], "]"}], ",", "z_"}], "]"}], ":=", 
    RowBox[{
     RowBox[{"MapFromIntervalD", "[", 
      RowBox[{

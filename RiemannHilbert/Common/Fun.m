@@ -140,6 +140,8 @@ head/:Dot[f_List?(!ArrayFunQ[#]&),g_head?ArrayFunQ]:=ToArrayFun[f.ToArrayOfFuns[
 MapToValues[op_]:=(op[if_head]^:=head[op[Values[if]],if//Domain]);
 MapToValues/@{Abs,Arg,Re,Im,Conjugate,Exp,Tan,ArcSin,Sec,Sin,Cos,Log,ArcTanh};
 
+
+NIntegrate[f_head]^:=DomainIntegrate[f];
 Inverse[if_head]^:=Inverse/@if;
 Transpose[f_head]^:=Transpose/@f;
 Max[f_head]^:=f//Values//Max;
@@ -156,7 +158,9 @@ head/:f_head?MatrixFunQ[[i_,j_]]:=(f//ToMatrixOfFuns)[[i,j]]//ToArrayFun;
 head/:f_head?ListFunQ[[i_]]:=(f//ToArrayOfFuns)[[i]]//ToArrayFun;
 MeanZero[f_head]:=f-Mean[f];
 
-NIntegrate[f_head]^:=DomainIntegrate[f];
+
+
+
 ];
 End[];
 

@@ -144,9 +144,13 @@ CauchyBasisD[f_?RightEndpointInfinityQ,k_,z_]:=MapToIntervalD[f,z](CauchyBasisD[
 
 CauchyBasisD[s_?SignQ,f_?RightEndpointInfinityQ,k_,z_]:=MapToIntervalD[f,z](CauchyBasisD[s,UnitInterval,k,MapToInterval[f,z]]-CauchyBasisD[s,UnitInterval,1,MapToInterval[f,z]]);
 
+CauchyBasisD[f_?RightEndpointInfinityQ,k_Integer,z_]/;z~NEqual~MapFromInterval[f,\[Infinity]]:=.5 ChebyshevMoment[k-1]/(2 \[Pi]\[NonBreakingSpace]I)-.5 ChebyshevMoment[0]/(2 \[Pi]\[NonBreakingSpace]I);
+
 CauchyBasisD[f_?LeftEndpointInfinityQ,k_,z_]:=MapToIntervalD[f,z](CauchyBasisD[UnitInterval,k,MapToInterval[f,z]]+(-1)^(k)CauchyBasisD[UnitInterval,1,MapToInterval[f,z]]);
 
 CauchyBasisD[s_?SignQ,f_?LeftEndpointInfinityQ,k_,z_]:=MapToIntervalD[f,z] (CauchyBasisD[s,UnitInterval,k,MapToInterval[f,z]]+(-1)^(k)CauchyBasisD[s,UnitInterval,1,MapToInterval[f,z]]);
+
+CauchyBasisD[f_?LeftEndpointInfinityQ,k_Integer,z_]/;z~NEqual~MapFromInterval[f,\[Infinity]]:=(-1)^k (.5 ChebyshevMoment[k-1]/(2 \[Pi]\[NonBreakingSpace]I)-.5 ChebyshevMoment[0]/(2 \[Pi]\[NonBreakingSpace]I));
 
 
 

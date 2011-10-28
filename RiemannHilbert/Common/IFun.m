@@ -116,6 +116,8 @@ AdaptiveTimes;
 AdaptivePlus;
 
 
+ChebyshevMoment;
+
 
 ToChebyshevUSeries;
 ToChebyshevTSeries;
@@ -650,6 +652,10 @@ ChebyshevLobattoIntegrate[c_List]:=
 InverseDCT[ChebyshevI[DCT[c]]];
 
 Integrate[if_IFun]^:=IFun[(Values[if] Values[IFun[MapFromIntervalD[if,#]&,UnitInterval,if//Length]])//ChebyshevLobattoIntegrate,if//Domain] ;
+
+
+ChebyshevMoment[n_/;OddQ[n]]:=0;
+ChebyshevMoment[n_/;EvenQ[n]]:=2/(1-n^2);
 
 DomainIntegrate[if_IFun]:=if//Integrate//Last;
 DomainIntegrate[{if__IFun}]:=Plus@@(DomainIntegrate/@{if});
