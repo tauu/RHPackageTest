@@ -48,6 +48,10 @@ Show[Histogram[Evs//Flatten,60,"PDF"],Plot[dst[x]//Re,{x,dst//Domain//LeftEndpoi
 MarchenkoPastur[\[Sigma]_,\[Lambda]_]:=Module[{\[Lambda]p,\[Lambda]m},
 \[Lambda]p=\[Sigma]^2 (1 + Sqrt[\[Lambda]])^2;
 \[Lambda]m=\[Sigma]^2 (1- Sqrt[\[Lambda]])^2;SingFun[1/(2 \[Pi]\[NonBreakingSpace]\[Sigma]^2 \[Lambda]) IFun[1/#&,Line[{\[Lambda]m,\[Lambda]p}]]  (\[Lambda]p-\[Lambda]m)/2,{1/2,1/2}]
+];
+MarchenkoPastur[Line[{a_,b_}]]:=Module[{\[Sigma],\[Lambda]},
+Select[(MarchenkoPastur@@#&/@Select[({\[Sigma],\[Lambda]}/.Solve[{b==\[Sigma]^2 (1 + Sqrt[\[Lambda]])^2,
+a==\[Sigma]^2 (1- Sqrt[\[Lambda]])^2},{\[Sigma],\[Lambda]}]),First[#]>0&&Last[#]>0&]),DomainIntegrate[#]~NEqual~1&]//First
 ]
 
 

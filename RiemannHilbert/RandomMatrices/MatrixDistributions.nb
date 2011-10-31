@@ -168,53 +168,112 @@ Cell[CellGroupData[{
 
 Cell["Distributions", "Section"],
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"MarchenkoPastur", "[", 
+    RowBox[{"\[Sigma]_", ",", "\[Lambda]_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Lambda]p", ",", "\[Lambda]m"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"\[Lambda]p", "=", 
+       RowBox[{
+        SuperscriptBox["\[Sigma]", "2"], 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"1", " ", "+", " ", 
+           RowBox[{"Sqrt", "[", "\[Lambda]", "]"}]}], ")"}], "2"]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"\[Lambda]m", "=", 
+       RowBox[{
+        SuperscriptBox["\[Sigma]", "2"], 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"1", "-", " ", 
+           RowBox[{"Sqrt", "[", "\[Lambda]", "]"}]}], ")"}], "2"]}]}], ";", 
+      RowBox[{"SingFun", "[", 
+       RowBox[{
+        RowBox[{
+         FractionBox["1", 
+          RowBox[{"2", " ", "\[Pi]", "\[NonBreakingSpace]", 
+           SuperscriptBox["\[Sigma]", "2"], " ", "\[Lambda]"}]], 
+         RowBox[{"IFun", "[", 
+          RowBox[{
+           RowBox[{
+            FractionBox["1", "#"], "&"}], ",", 
+           RowBox[{"Line", "[", 
+            RowBox[{"{", 
+             RowBox[{"\[Lambda]m", ",", "\[Lambda]p"}], "}"}], "]"}]}], "]"}],
+          "  ", 
+         FractionBox[
+          RowBox[{"(", 
+           RowBox[{"\[Lambda]p", "-", "\[Lambda]m"}], ")"}], "2"]}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"1", "/", "2"}], ",", 
+          RowBox[{"1", "/", "2"}]}], "}"}]}], "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"MarchenkoPastur", "[", 
-   RowBox[{"\[Sigma]_", ",", "\[Lambda]_"}], "]"}], ":=", 
+   RowBox[{"Line", "[", 
+    RowBox[{"{", 
+     RowBox[{"a_", ",", "b_"}], "}"}], "]"}], "]"}], ":=", 
   RowBox[{"Module", "[", 
    RowBox[{
     RowBox[{"{", 
-     RowBox[{"\[Lambda]p", ",", "\[Lambda]m"}], "}"}], ",", 
+     RowBox[{"\[Sigma]", ",", "\[Lambda]"}], "}"}], ",", 
     "\[IndentingNewLine]", 
     RowBox[{
-     RowBox[{"\[Lambda]p", "=", 
+     RowBox[{"Select", "[", 
       RowBox[{
-       SuperscriptBox["\[Sigma]", "2"], 
-       SuperscriptBox[
-        RowBox[{"(", 
-         RowBox[{"1", " ", "+", " ", 
-          RowBox[{"Sqrt", "[", "\[Lambda]", "]"}]}], ")"}], "2"]}]}], ";", 
-     "\[IndentingNewLine]", 
-     RowBox[{"\[Lambda]m", "=", 
-      RowBox[{
-       SuperscriptBox["\[Sigma]", "2"], 
-       SuperscriptBox[
-        RowBox[{"(", 
-         RowBox[{"1", "-", " ", 
-          RowBox[{"Sqrt", "[", "\[Lambda]", "]"}]}], ")"}], "2"]}]}], ";", 
-     RowBox[{"SingFun", "[", 
-      RowBox[{
-       RowBox[{
-        FractionBox["1", 
-         RowBox[{"2", " ", "\[Pi]", "\[NonBreakingSpace]", 
-          SuperscriptBox["\[Sigma]", "2"], " ", "\[Lambda]"}]], 
-        RowBox[{"IFun", "[", 
-         RowBox[{
-          RowBox[{
-           FractionBox["1", "#"], "&"}], ",", 
-          RowBox[{"Line", "[", 
-           RowBox[{"{", 
-            RowBox[{"\[Lambda]m", ",", "\[Lambda]p"}], "}"}], "]"}]}], "]"}], 
-        "  ", 
-        FractionBox[
-         RowBox[{"(", 
-          RowBox[{"\[Lambda]p", "-", "\[Lambda]m"}], ")"}], "2"]}], ",", 
-       RowBox[{"{", 
+       RowBox[{"(", 
         RowBox[{
-         RowBox[{"1", "/", "2"}], ",", 
-         RowBox[{"1", "/", "2"}]}], "}"}]}], "]"}]}]}], "\[IndentingNewLine]",
-    "]"}]}]], "Input",
+         RowBox[{
+          RowBox[{"MarchenkoPastur", "@@", "#"}], "&"}], "/@", 
+         RowBox[{"Select", "[", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"\[Sigma]", ",", "\[Lambda]"}], "}"}], "/.", 
+             RowBox[{"Solve", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"b", "==", 
+                  RowBox[{
+                   SuperscriptBox["\[Sigma]", "2"], 
+                   SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{"1", " ", "+", " ", 
+                    RowBox[{"Sqrt", "[", "\[Lambda]", "]"}]}], ")"}], 
+                    "2"]}]}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"a", "==", 
+                  RowBox[{
+                   SuperscriptBox["\[Sigma]", "2"], 
+                   SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", " ", 
+                    RowBox[{"Sqrt", "[", "\[Lambda]", "]"}]}], ")"}], 
+                    "2"]}]}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"\[Sigma]", ",", "\[Lambda]"}], "}"}]}], "]"}]}], 
+            ")"}], ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"First", "[", "#", "]"}], ">", "0"}], "&&", 
+             RowBox[{
+              RowBox[{"Last", "[", "#", "]"}], ">", "0"}]}], "&"}]}], "]"}]}],
+         ")"}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DomainIntegrate", "[", "#", "]"}], "~", "NEqual", "~", 
+         "1"}], "&"}]}], "]"}], "//", "First"}]}], "\[IndentingNewLine]", 
+   "]"}]}]}], "Input",
  InitializationCell->True]
 }, Open  ]],
 
@@ -232,7 +291,7 @@ Cell[BoxData[{
 },
 AutoGeneratedPackage->Automatic,
 WindowSize->{839, 815},
-WindowMargins->{{Automatic, 120}, {Automatic, 0}},
+WindowMargins->{{257, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
