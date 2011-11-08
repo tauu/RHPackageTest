@@ -90,41 +90,6 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"HistogramPlot", "[", 
-      RowBox[{"M_", ",", "dst_LFun", ",", 
-       RowBox[{"opts", ":", 
-        RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "Evs", "}"}], ",", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"Evs", "=", 
-         RowBox[{"Table", "[", 
-          RowBox[{
-           RowBox[{"M", "//", "Eigenvalues"}], ",", 
-           RowBox[{"{", 
-            RowBox[{"k", ",", "100"}], "}"}]}], "]"}]}], ";", 
-        "\[IndentingNewLine]", 
-        RowBox[{"Show", "[", 
-         RowBox[{
-          RowBox[{"Histogram", "[", 
-           RowBox[{
-            RowBox[{"Evs", "//", "Flatten"}], ",", "60", ",", "\"\<PDF\>\""}],
-            "]"}], ",", 
-          RowBox[{"Plot", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"dst", "[", "x", "]"}], "//", "Re"}], ",", 
-            RowBox[{"{", 
-             RowBox[{"x", ",", 
-              RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
-            RowBox[{"PlotStyle", "\[Rule]", 
-             RowBox[{"{", 
-              RowBox[{"DarkRed", ",", "Thick"}], "}"}]}]}], "]"}], ",", 
-          "opts"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"HistogramPlot", "[", 
       RowBox[{"M_", ",", "dst_", ",", 
        RowBox[{"opts", ":", 
         RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
@@ -145,21 +110,37 @@ Cell[BoxData[
            RowBox[{
             RowBox[{"Evs", "//", "Flatten"}], ",", "60", ",", "\"\<PDF\>\""}],
             "]"}], ",", 
-          RowBox[{"Plot", "[", 
+          RowBox[{"LinePlot", "[", 
            RowBox[{
-            RowBox[{
-             RowBox[{"dst", "[", "x", "]"}], "//", "Re"}], ",", 
-            RowBox[{"{", 
-             RowBox[{"x", ",", 
-              RowBox[{
-               RowBox[{"dst", "//", "Domain"}], "//", "LeftEndpoint"}], ",", 
-              RowBox[{
-               RowBox[{"dst", "//", "Domain"}], "//", "RightEndpoint"}]}], 
-             "}"}], ",", 
+            RowBox[{"dst", "//", "Re"}], ",", 
             RowBox[{"PlotStyle", "\[Rule]", 
              RowBox[{"{", 
               RowBox[{"DarkRed", ",", "Thick"}], "}"}]}]}], "]"}], ",", 
-          "opts"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+          "opts"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"HistogramPlot", "[", 
+      RowBox[{"M_", ",", 
+       RowBox[{"opts", ":", 
+        RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "Evs", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Evs", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"M", "//", "Eigenvalues"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"k", ",", "100"}], "}"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Histogram", "[", 
+           RowBox[{
+            RowBox[{"Evs", "//", "Flatten"}], ",", "60", ",", "\"\<PDF\>\""}],
+            "]"}], ",", "opts"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
     ";"}]}]}]], "Input",
  InitializationCell->True]
 }, Open  ]],
